@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <!-- Will fail to pack the package because it is missing the target framework from lib -->
+    <NoWarn>NU5128</NoWarn>
+    <NoDefaultExcludes>true</NoDefaultExcludes>
+    
+    <PackageId>Vertical.Slice.Architecture</PackageId>
+    <Version>1.4.0</Version>
+    <PackageType>Template</PackageType>
+    
+    <Title>Vertical Slice Architecture Template</Title>
+    <Authors>Maidics Dávid</Authors>
+    <Description>Vertical Slice Architecture template for ASP.NET.</Description>
+    <PackageTags>vertical-slice architecture vsa template csharp dotnet minimal-api react-client</PackageTags>
+    
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/maidics/VerticalSliceArchitecture.git</RepositoryUrl>
+    
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    
+    <NoBuild>true</NoBuild>
+    <IncludeBuildOutput>false</IncludeBuildOutput>
+    <IncludeContentInPack>true</IncludeContentInPack>
+    <ContentTargetFolders>content</ContentTargetFolders>
+    
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\" />
+    
+    <Content 
+      Include="**\*" 
+      Exclude="**\bin\**;**\obj\**;**\.vs\**;**\.idea\**;**\.git\**;**\node_modules\**;**\dist\**;**\out\**;**\.nuget\**;*.nupkg;**\*.user;**\.github\**;**\nuspec.csproj" 
+    />
+  </ItemGroup>
+</Project>
