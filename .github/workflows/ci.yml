@@ -1,0 +1,34 @@
+# TODO: delete packed nuget if it is not a PR ?
+
+name: CI
+
+on: 
+  push: 
+    branches: ['**'] # runs on all branches, but pack & publish only ran on main branch
+    pull_request: 
+      branches: [ main ]
+
+jobs:
+  build: 
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: ./global.json
+          
+      - name: Pack Template
+        run: dotnet pack nuspec.csproj # creates file into artifacts/package/release
+        
+      - name: Install Template
+        run: dotnet new install ./artifacts/package/release/*.nupkg # TODO: only install current? TODO: must not be installed from artifacts bcos it says the package is unsupported lol
+        
+      - name: Instantiate Template
+        run: dotnet new vsa-sln -n CiInstantiated -o ./ci-instantiated 
+        
+      - name: Build Instantiated
+        run: dotnet build ./ci-instantiated/CiInstantiated.slnx
+        
+      - name: Test Instantiated
+        run: 
