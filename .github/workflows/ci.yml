@@ -19,16 +19,22 @@ jobs:
           global-json-file: ./global.json
           
       - name: Pack Template
-        run: dotnet pack nuspec.csproj # creates file into artifacts/package/release
+        run: dotnet pack nuspec.csproj
         
       - name: Install Template
-        run: dotnet new install ./artifacts/package/release/*.nupkg # TODO: only install current? TODO: must not be installed from artifacts bcos it says the package is unsupported lol
+        run: |
+          count=$(ls ./artifacts/package/release/*.nupkg 2>/dev/null | wc -l)
+          if [ "$count" -ne 1 ]; then
+            echo "::error::More than 1 .nupkg found after packing. Found: $count"
+            exit 1
+          fi
+          dotnet new install ./artifacts/package/release/*.nupkg # TODO: only install current?
         
       - name: Instantiate Template
-        run: dotnet new vsa-sln -n CiInstantiated -o ./ci-instantiated 
+        run: dotnet new vsa-sln -n CiInstantiated -o ./ci-instantiated
         
       - name: Build Instantiated
         run: dotnet build ./ci-instantiated/CiInstantiated.slnx
         
       - name: Test Instantiated
-        run: 
+        run: dotnet test ./ci-instantiated/CiInstantiated.slnx
