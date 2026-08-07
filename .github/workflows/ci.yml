@@ -9,8 +9,12 @@ on:
       branches: [ main ]
 
 jobs:
-  build: 
+  ci: 
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # enable GitHub OIDC token issuance for this job
+      
     steps:
       - uses: actions/checkout@v4
         
@@ -38,3 +42,12 @@ jobs:
         
       - name: Test Instantiated
         run: dotnet test ./ci-instantiated/CiInstantiated.slnx
+        
+      - name: NuGet Login # uses the id-token to login and retrieve the short-lived API key from NuGet 
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: ${{ secrets.NUGET_USER }} # NuGet username as secret
+          
+      - name: Push to NuGet
+        run: dotnet nuget push "./artifacts/package/release/*.nupkg" -k "${{ steps.login.outputs.NUGET_API_KEY }}" -s https://api.nuget.org/v3/index.json
