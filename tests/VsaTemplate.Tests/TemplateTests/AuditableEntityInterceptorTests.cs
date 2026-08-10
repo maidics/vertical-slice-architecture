@@ -12,6 +12,7 @@ public sealed class AuditableEntityInterceptorTests : TemplateTestBase
     /*
      * TODO: update README.md so that it is clear for the consumer that the tests are inside of this because they
      * can share the same SetUpFixture
+     * TODO: add ADR so consumers understand why there's a different db context for template testing: so that template testing does not depend on examples which will in the future be optional
      * TODO: rename all FunctionalTests references to Tests
      * TODO: verify if this project can act as a hybrid test project for both application and web testing
      * TODO: clarify that this project can be used as an "Application" and "Web" layer test project -> "Infrastructure" layer should be tested inside another project
