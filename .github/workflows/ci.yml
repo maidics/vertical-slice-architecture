@@ -20,7 +20,7 @@ jobs: # only runs pack -> test if there changes to something that is not inside 
       - uses: dorny/paths-filter@v4
         id: filter
         with:
-          predicate-quantifier: 'some-with-excludes'
+          predicate-quantifier: 'every'
           filters: |
             relevant:
               - '**'
