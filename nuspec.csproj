@@ -32,7 +32,7 @@
     
     <Content 
       Include="**\*" 
-      Exclude="**\bin\**;**\obj\**;**\.vs\**;**\.idea\**;**\.git\**;**\out\**;**\.nuget\**;*.nupkg;**\*.user;**\.github\**;**\nuspec.csproj" 
+      Exclude="**\bin\**;**\obj\**;**\.vs\**;**\.idea\**;**\.git\**;**\out\**;**\.nuget\**;*.nupkg;**\*.user;**\.github\**;**\nuspec.csproj;**\docs\**" 
     />
   </ItemGroup>
 </Project>
