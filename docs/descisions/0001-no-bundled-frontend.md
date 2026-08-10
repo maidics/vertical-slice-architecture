@@ -8,8 +8,7 @@ Accepted
 
 ## Context
 
-A scaffolded React SPA (`ClientApp/`, orchestrated via the Aspire
-AppHost) was previously included, but the frontend layer is a poor fit
+A scaffolded React SPA was previously included, but the frontend layer is a poor fit
 for a universal backend template:
 
 - The JavaScript ecosystem has many frameworks (React, Vue, Svelte,
