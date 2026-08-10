@@ -24,8 +24,7 @@ public static class Testing
         if (TestSetUpFixture.Database is not null)
             await TestSetUpFixture.Database.ResetAsync();
 
-        _userId = null;
-        _roles = [];
+        LogUserOut();
 
         using var scope = TestSetUpFixture.ScopeFactory.CreateScope();
         var roleManager = scope.ServiceProvider.GetRequiredService<
@@ -36,6 +35,20 @@ public static class Testing
         {
             await roleManager.CreateAsync(new IdentityRole<Guid>(role));
         }
+    }
+
+    public static Guid RunAsUserAsync(Guid userId, string[] roles)
+    {
+        _userId = userId;
+        _roles = roles.ToFrozenSet();
+
+        return userId;
+    }
+
+    public static void LogUserOut()
+    {
+        _userId = null;
+        _roles = [];
     }
 
     public static async Task<Guid> RunAsUserAsync(string email, string password, string[] roles)
@@ -65,6 +78,9 @@ public static class Testing
                     $"Failed to add user to roles: {email}. Roles: {string.Join(", ", roles)}."
                 );
         }
+
+        _userId = user.Id;
+        _roles = roles.ToFrozenSet();
 
         return user.Id;
     }
