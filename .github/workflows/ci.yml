@@ -49,11 +49,11 @@ jobs: # only runs pack -> test if there changes to something that is not inside 
             echo "::error::Expected exactly 1 .nupkg, found $count"
             exit 1
           fi
-          dotnet new install ./artifacts/package/release/*.nupkg --AddTemplateTests
+          dotnet new install ./artifacts/package/release/*.nupkg
 
       - name: Instantiate Template
         if: steps.filter.outputs.relevant == 'true'
-        run: dotnet new vsa-sln -n Scratch -o ./scratch
+        run: dotnet new vsa-sln -n Scratch -o ./scratch --AddTemplateTests
 
       - name: Build Instantiated
         if: steps.filter.outputs.relevant == 'true'
