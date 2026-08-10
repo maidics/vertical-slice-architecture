@@ -49,7 +49,7 @@ jobs: # only runs pack -> test if there changes to something that is not inside 
             echo "::error::Expected exactly 1 .nupkg, found $count"
             exit 1
           fi
-          dotnet new install ./artifacts/package/release/*.nupkg
+          dotnet new install ./artifacts/package/release/*.nupkg --AddTemplateTests
 
       - name: Instantiate Template
         if: steps.filter.outputs.relevant == 'true'
