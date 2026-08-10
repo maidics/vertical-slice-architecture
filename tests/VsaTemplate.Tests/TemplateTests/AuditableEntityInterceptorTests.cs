@@ -18,6 +18,7 @@ public sealed class AuditableEntityInterceptorTests : TemplateTestBase
      * TODO: clarify that this project can be used as an "Application" and "Web" layer test project -> "Infrastructure" layer should be tested inside another project
      * TODO: make in memory db only available for AddTemplateTests
      * TODO: ensure no TemplateTest reference, file or folder gets generated when opting out of it
+     *
      */
 
     [Test]
