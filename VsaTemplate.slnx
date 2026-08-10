@@ -19,6 +19,9 @@
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/VsaTemplate.FunctionalTests/VsaTemplate.FunctionalTests.csproj" />
+    <Project Path="tests/VsaTemplate.TemplateTests/VsaTemplate.TemplateTests.csproj">
+      <Platform Project="x64" />
+    </Project>
     <Project Path="tests/VsaTemplate.TestAppHost/VsaTemplate.TestAppHost.csproj">
       <Platform Project="x64" />
     </Project>
