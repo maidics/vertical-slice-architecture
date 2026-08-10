@@ -2,7 +2,6 @@
   <PropertyGroup>
     <RootNamespace>VsaTemplate</RootNamespace>
     <AssemblyName>VsaTemplate</AssemblyName>
-    <SpaRoot>ClientApp\</SpaRoot>
     <OpenApiDocumentsDirectory>./wwwroot/openapi/</OpenApiDocumentsDirectory>
     <OpenApiGenerateDocumentsOptions>--file-name v1</OpenApiGenerateDocumentsOptions>
   </PropertyGroup>
@@ -22,9 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\" />
-    <Folder Include="ClientApp\src\common\components\ui\" />
-    <Folder Include="ClientApp\src\features\" />
     <Folder Include="wwwroot\openapi\" />
   </ItemGroup>
 
@@ -32,23 +28,4 @@
     <ProjectReference Include="..\VsaTemplate.ServiceDefaults\VsaTemplate.ServiceDefaults.csproj" />
     <ProjectReference Include="..\VsaTemplate.Shared\VsaTemplate.Shared.csproj" />
   </ItemGroup>
-
-  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
-    <!-- Credit: https://github.com/jasontaylordev/CleanArchitecture As part of publishing, ensure the JS resources are freshly built in production mode -->
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
-    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" />
-
-    <!-- Include the newly-built files in the publish output -->
-    <ItemGroup>
-      <DistFiles Include="$(SpaRoot)build\**" />
-      <ResolvedFileToPublish
-        Include="@(DistFiles->'%(FullPath)')"
-        Exclude="@(ResolvedFileToPublish)"
-      >
-        <RelativePath>wwwroot\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-      </ResolvedFileToPublish>
-    </ItemGroup>
-  </Target>
 </Project>

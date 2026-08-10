@@ -11,7 +11,7 @@
     <Title>Vertical Slice Architecture Template</Title>
     <Authors>Maidics Dávid</Authors>
     <Description>Vertical Slice Architecture template for ASP.NET.</Description>
-    <PackageTags>vertical-slice architecture vsa template csharp dotnet minimal-api react-client</PackageTags>
+    <PackageTags>vertical-slice architecture vsa template csharp dotnet minimal-api</PackageTags>
     
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/maidics/VerticalSliceArchitecture.git</RepositoryUrl>
@@ -32,7 +32,7 @@
     
     <Content 
       Include="**\*" 
-      Exclude="**\bin\**;**\obj\**;**\.vs\**;**\.idea\**;**\.git\**;**\node_modules\**;**\dist\**;**\out\**;**\.nuget\**;*.nupkg;**\*.user;**\.github\**;**\nuspec.csproj" 
+      Exclude="**\bin\**;**\obj\**;**\.vs\**;**\.idea\**;**\.git\**;**\out\**;**\.nuget\**;*.nupkg;**\*.user;**\.github\**;**\nuspec.csproj" 
     />
   </ItemGroup>
 </Project>

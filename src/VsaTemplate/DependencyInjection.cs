@@ -24,21 +24,6 @@ public static class DependencyInjection
             // Web
             builder.Services.AddExceptionHandler<ProblemDetailsExceptionHandler>();
 
-            builder.Services.AddCors(options =>
-            {
-                options.AddDefaultPolicy(policy =>
-                {
-                    var allowedOrigins =
-                        builder.Configuration["CorsOrigins"] ?? "http://localhost:3000";
-
-                    policy
-                        .WithOrigins(allowedOrigins)
-                        .AllowAnyMethod()
-                        .AllowAnyHeader()
-                        .AllowCredentials();
-                });
-            });
-
             builder.Services.Configure<ApiBehaviorOptions>(options =>
                 options.SuppressModelStateInvalidFilter = true
             );
