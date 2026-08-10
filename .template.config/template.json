@@ -10,5 +10,26 @@
     "type": "project"
   },
   "sourceName": "VsaTemplate",
-  "preferNameDirectory": true
+  "preferNameDirectory": true,
+  "symbols": {
+    "AddTemplateTests": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "displayName": "Add template test project",
+      "description": "Includes the template test project in the generated output."
+    }
+  },
+  "sources": [
+    {
+      "modifiers": [
+        {
+          "condition": "(!AddTemplateTests)",
+          "exclude": [
+            "**/VsaTemplate.TemplateTests/**"
+          ]
+        }
+      ]
+    }
+  ]
 }
