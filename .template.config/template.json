@@ -26,7 +26,8 @@
         {
           "condition": "(!AddTemplateTests)",
           "exclude": [
-            "**/VsaTemplate.TemplateTests/**"
+            "**/TemplateTests/**",
+            "**/TemplateTestBase.cs"
           ]
         }
       ]
