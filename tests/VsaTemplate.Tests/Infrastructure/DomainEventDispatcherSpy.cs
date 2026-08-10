@@ -2,7 +2,7 @@ using System.Collections.ObjectModel;
 using VsaTemplate.Common.Interfaces.Features;
 using VsaTemplate.Infrastructure;
 
-namespace VsaTemplate.FunctionalTests.Infrastructure;
+namespace VsaTemplate.Tests.Infrastructure;
 
 public sealed class DomainEventDispatcherSpy : IDomainEventDispatcher
 {

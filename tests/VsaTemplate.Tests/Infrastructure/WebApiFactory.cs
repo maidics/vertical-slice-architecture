@@ -6,7 +6,7 @@ using Moq;
 using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Infrastructure;
 
-namespace VsaTemplate.FunctionalTests.Infrastructure;
+namespace VsaTemplate.Tests.Infrastructure;
 
 public sealed class WebApiFactory(string connectionString) : WebApplicationFactory<Program>
 {

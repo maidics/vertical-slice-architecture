@@ -1,4 +1,4 @@
-namespace VsaTemplate.FunctionalTests.Infrastructure.Common;
+namespace VsaTemplate.Tests.Infrastructure.Common;
 
 public interface IEndpointGroupTests
 {

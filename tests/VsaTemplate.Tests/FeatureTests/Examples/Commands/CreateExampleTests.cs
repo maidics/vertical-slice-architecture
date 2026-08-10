@@ -2,10 +2,10 @@ using Shouldly;
 using VsaTemplate.Common.Models;
 using VsaTemplate.Features.Examples;
 using VsaTemplate.Features.Examples.Commands;
-using VsaTemplate.FunctionalTests.Infrastructure;
-using VsaTemplate.FunctionalTests.Infrastructure.Common;
+using VsaTemplate.Tests.Infrastructure;
+using VsaTemplate.Tests.Infrastructure.Common;
 
-namespace VsaTemplate.FunctionalTests.FeatureTests.Examples.Commands;
+namespace VsaTemplate.Tests.FeatureTests.Examples.Commands;
 
 public sealed class CreateExampleTests : ApplicationTestBase
 {

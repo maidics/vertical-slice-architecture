@@ -1,4 +1,4 @@
-﻿namespace VsaTemplate.FunctionalTests.TemplateTests;
+﻿namespace VsaTemplate.Tests.TemplateTests;
 
 public sealed class AuditableInterceptorTests
 {

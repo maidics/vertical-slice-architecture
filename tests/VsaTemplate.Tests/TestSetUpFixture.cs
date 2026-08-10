@@ -2,10 +2,10 @@ using Aspire.Hosting;
 using Aspire.Hosting.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Projects;
-using VsaTemplate.FunctionalTests.Infrastructure;
 using VsaTemplate.Shared;
+using VsaTemplate.Tests.Infrastructure;
 
-namespace VsaTemplate.FunctionalTests;
+namespace VsaTemplate.Tests;
 
 [SetUpFixture]
 public class TestSetUpFixture

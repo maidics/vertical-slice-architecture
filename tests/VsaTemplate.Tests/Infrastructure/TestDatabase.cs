@@ -2,7 +2,7 @@ using System.Data.Common;
 using Microsoft.Data.Sqlite;
 using Respawn;
 
-namespace VsaTemplate.FunctionalTests.Infrastructure;
+namespace VsaTemplate.Tests.Infrastructure;
 
 // credit: https://github.com/jasontaylordev/CleanArchitecture
 public sealed class TestDatabase : IAsyncDisposable

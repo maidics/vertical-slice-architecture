@@ -2,10 +2,10 @@ using Shouldly;
 using VsaTemplate.Features.Examples;
 using VsaTemplate.Features.Examples.Commands;
 using VsaTemplate.Features.Examples.Events;
-using VsaTemplate.FunctionalTests.Infrastructure;
-using VsaTemplate.FunctionalTests.Infrastructure.Common;
+using VsaTemplate.Tests.Infrastructure;
+using VsaTemplate.Tests.Infrastructure.Common;
 
-namespace VsaTemplate.FunctionalTests.FeatureTests.Examples.Events;
+namespace VsaTemplate.Tests.FeatureTests.Examples.Events;
 
 public sealed class ExampleContentAppendedEventTests : ApplicationTestBase
 {

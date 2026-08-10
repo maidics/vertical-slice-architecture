@@ -8,7 +8,7 @@ using VsaTemplate.Features.Users;
 using VsaTemplate.Infrastructure;
 using VsaTemplate.Infrastructure.Database;
 
-namespace VsaTemplate.FunctionalTests.Infrastructure;
+namespace VsaTemplate.Tests.Infrastructure;
 
 public static class Testing
 {
