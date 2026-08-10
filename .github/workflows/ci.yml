@@ -53,15 +53,15 @@ jobs: # only runs pack -> test if there changes to something that is not inside 
 
       - name: Instantiate Template
         if: steps.filter.outputs.relevant == 'true'
-        run: dotnet new vsa-sln -n CiInstantiated -o ./ci-instantiated
+        run: dotnet new vsa-sln -n Scratch -o ./scratch
 
       - name: Build Instantiated
         if: steps.filter.outputs.relevant == 'true'
-        run: dotnet build ./ci-instantiated/CiInstantiated.slnx
+        run: dotnet build ./scratch/Scratch.slnx
 
       - name: Test Instantiated
         if: steps.filter.outputs.relevant == 'true'
-        run: dotnet test ./ci-instantiated/CiInstantiated.slnx
+        run: dotnet test ./scratch/Scratch.slnx
 
       - name: NuGet Login # retrieves the short-lived API key from NuGet
         if: github.event_name == 'push' && github.ref == 'refs/heads/master' && steps.filter.outputs.relevant == 'true' # only publish if it is merging into master
