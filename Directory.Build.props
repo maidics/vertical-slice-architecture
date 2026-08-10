@@ -9,6 +9,7 @@
     <Nullable>enable</Nullable>
 
     <!-- SQLitePCLRaw.lib.e_sqlite3 vulnerability issue: NU1903 - waiting for EF Core to update dependency -->
-<!--    <NoWarn>$(NoWarn);NU1903</NoWarn>-->
+    <!-- also Microsoft.OpenApi vulnerability issue -->
+    <NoWarn>$(NoWarn);NU1903</NoWarn>
   </PropertyGroup>
 </Project>
