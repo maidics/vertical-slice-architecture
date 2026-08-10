@@ -15,7 +15,7 @@ dotnet new vsa-sln -n [SolutionName]
 ```
 
 ## Key Features
-- **Target Framework**: .NET SDK 10.0.202.
+- **Target Framework**: .NET SDK 10.0.301.
 - **No MediatR dependency**: Uses lightweight reflection at application startup to automatically discover and register IRequestHandler & IDomainEventHandler
 - **Native Pipeline Filters**: Because MediatR was removed, MediatR PipelineBehaviors have been replaced with native IEndpointFilter implementations.
 - **Persistence**: Configured with SQLite db out of the box ([**recent vulnerability issues with SQLitePCLRaw.lib.e_sqlite3**](https://github.com/advisories/GHSA-2m69-gcr7-jv3q) are suppressed in `Directory.Build.Props`).

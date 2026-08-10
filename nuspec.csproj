@@ -5,7 +5,7 @@
     <NoDefaultExcludes>true</NoDefaultExcludes>
     
     <PackageId>Vertical.Slice.Architecture</PackageId>
-    <Version>1.4.0</Version>
+    <Version>1.4.1</Version>
     <PackageType>Template</PackageType>
     
     <Title>Vertical Slice Architecture Template</Title>
