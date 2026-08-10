@@ -19,12 +19,11 @@ dotnet new vsa-sln -n [SolutionName]
 - **No MediatR dependency**: Uses lightweight reflection at application startup to automatically discover and register IRequestHandler & IDomainEventHandler
 - **Native Pipeline Filters**: Because MediatR was removed, MediatR PipelineBehaviors have been replaced with native IEndpointFilter implementations.
 - **Persistence**: Configured with SQLite db out of the box ([**recent vulnerability issues with SQLitePCLRaw.lib.e_sqlite3**](https://github.com/advisories/GHSA-2m69-gcr7-jv3q) are suppressed in `Directory.Build.Props`).
-- **App Host & SPA (WIP)**: Uses .NET App Host to orchestrate the backend and a React SPA. Note: The React client integration is currently a work in progress.
+- **App Host**: Uses .NET App Host to orchestrate the backend and the SQLite db.
 
 ### Technologies
 - [ASP.NET Core 10](https://learn.microsoft.com/en-us/aspnet/core/overview?view=aspnetcore-10.0)
 - [Aspire](https://aspire.dev/)
-- [React 19](https://react.dev/)
 - [EF Core 10](https://learn.microsoft.com/en-us/ef/core/)
 - [FluentValidation](https://docs.fluentvalidation.net/en/latest/)
 - [Scalar](https://scalar.com/)
@@ -45,7 +44,6 @@ dotnet new vsa-sln -n [SolutionName]
 Code is grouped by feature rather than technical layer. Everything required to execute a specific feature lives in a single folder inside the Features directory.
 
 ```
-ClientApp/ # React app
 Common/
 └──Pipeline/  # Native endpoint filters replacing MediatR behaviors
     ├── ExceptionHandler.cs

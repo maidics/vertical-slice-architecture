@@ -25,10 +25,6 @@ else
     app.UseHsts();
 }
 
-app.UseCors(static builder => builder.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin());
-
-app.UseFileServer();
-
 app.UseExceptionHandler(options => { });
 
 app.UseAuthentication();
@@ -45,7 +41,6 @@ app.MapGroup("/api/identity").MapIdentityApi<ApplicationUser>().WithTags("Users"
 
 app.MapOpenApi();
 app.MapScalarApiReference();
-app.MapFallbackToFile("index.html");
 
 app.Run();
 

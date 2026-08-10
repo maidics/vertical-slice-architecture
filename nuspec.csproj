@@ -5,13 +5,13 @@
     <NoDefaultExcludes>true</NoDefaultExcludes>
     
     <PackageId>Vertical.Slice.Architecture</PackageId>
-    <Version>1.4.1</Version>
+    <Version>2.0.0</Version>
     <PackageType>Template</PackageType>
     
     <Title>Vertical Slice Architecture Template</Title>
     <Authors>Maidics Dávid</Authors>
     <Description>Vertical Slice Architecture template for ASP.NET.</Description>
-    <PackageTags>vertical-slice architecture vsa template csharp dotnet minimal-api react-client</PackageTags>
+    <PackageTags>vertical-slice architecture vsa template csharp dotnet minimal-api</PackageTags>
     
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/maidics/VerticalSliceArchitecture.git</RepositoryUrl>
@@ -32,7 +32,7 @@
     
     <Content 
       Include="**\*" 
-      Exclude="**\bin\**;**\obj\**;**\.vs\**;**\.idea\**;**\.git\**;**\node_modules\**;**\dist\**;**\out\**;**\.nuget\**;*.nupkg;**\*.user;**\.github\**;**\nuspec.csproj" 
+      Exclude="**\bin\**;**\obj\**;**\.vs\**;**\.idea\**;**\.git\**;**\.nuget\**;*.nupkg;**\*.user;**\.github\**;**\nuspec.csproj;**\docs\**;**\*.db;**\*.db-shm;**\*.db-wal;**\*.db-journal;**\scratch\**" 
     />
   </ItemGroup>
 </Project>
