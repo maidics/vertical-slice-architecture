@@ -18,7 +18,6 @@ public sealed class AuditableEntityInterceptorTests : TemplateTestBase
      * TODO: clarify that this project can be used as an "Application" and "Web" layer test project -> "Infrastructure" layer should be tested inside another project
      * TODO: make in memory db only available for AddTemplateTests
      * TODO: ensure no TemplateTest reference, file or folder gets generated when opting out of it
-     *
      */
 
     [Test]
@@ -32,9 +31,7 @@ public sealed class AuditableEntityInterceptorTests : TemplateTestBase
 
     [TestCase(true)]
     [TestCase(false)]
-    public void UpdateAuditablePropertiesShouldUpdateCreatedPropertiesWhenEntityIsCreated(
-        bool logUserIn
-    )
+    public void ShouldUpdateCreatedPropertiesWhenEntityIsCreated(bool logUserIn)
     {
         using var context = GetContext();
 
@@ -53,9 +50,7 @@ public sealed class AuditableEntityInterceptorTests : TemplateTestBase
 
     [TestCase(true)]
     [TestCase(false)]
-    public void UpdateAuditablePropertiesShouldUpdateModifiedPropertiesWhenEntityIsModified(
-        bool logUserIn
-    )
+    public void ShouldUpdateModifiedPropertiesWhenEntityIsModified(bool logUserIn)
     {
         using var context = GetContext();
 
@@ -68,6 +63,30 @@ public sealed class AuditableEntityInterceptorTests : TemplateTestBase
         Guid? userId = logUserIn ? Testing.RunAsUserAsync(Guid.NewGuid(), []) : null;
 
         entity.Prop = Guid.NewGuid().ToString();
+        context.ChangeTracker.DetectChanges();
+        context.SaveChanges();
+
+        var updated = context.TemplateTestEntities.FirstOrDefault(x => x.Id == entity.Id);
+        updated.ShouldNotBeNull();
+        updated.LastModifiedBy.ShouldBe(userId);
+        updated.LastModifiedOn.ShouldNotBe(createdOn);
+    }
+
+    [TestCase(true)]
+    [TestCase(false)]
+    public void ShouldUpdateModifiedPropertiesWhenOwnedEntityIsModified(bool logUserIn)
+    {
+        using var context = GetContext();
+
+        var entity = new TemplateTestEntity();
+        context.Add(entity);
+        context.SaveChanges();
+
+        var createdOn = context.TemplateTestEntities.First(x => x.Id == entity.Id).CreatedOn;
+
+        Guid? userId = logUserIn ? Testing.RunAsUserAsync(Guid.NewGuid(), []) : null;
+
+        entity.OwnedEntity.Prop = Guid.NewGuid().ToString();
         context.ChangeTracker.DetectChanges();
         context.SaveChanges();
 

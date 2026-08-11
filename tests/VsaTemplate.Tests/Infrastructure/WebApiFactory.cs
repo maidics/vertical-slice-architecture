@@ -44,6 +44,8 @@ public sealed class WebApiFactory(string connectionString) : WebApplicationFacto
                 .AddScoped<IDomainEventDispatcher>(serviceProvider =>
                     serviceProvider.GetRequiredService<DomainEventDispatcherSpy>()
                 );
+
+#if (AddTemplateTests)
             services.AddDbContext<TemplateTestDbContext>(
                 (sp, options) =>
                 {
@@ -52,6 +54,7 @@ public sealed class WebApiFactory(string connectionString) : WebApplicationFacto
                         .AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
                 }
             );
+#endif
         });
     }
 }
