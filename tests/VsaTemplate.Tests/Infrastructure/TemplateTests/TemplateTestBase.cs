@@ -1,12 +1,11 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using VsaTemplate.Tests.Infrastructure.TemplateTests;
 
-namespace VsaTemplate.Tests.Infrastructure.Common;
+namespace VsaTemplate.Tests.Infrastructure.TemplateTests;
 
 public abstract class TemplateTestBase
 {
     protected IServiceScope _scope = null!;
-    protected TemplateTestEndpointRouteBuilder _routeBuilder = null!;
+    protected TemplateTesting _templateTesting = null!;
 
     [SetUp]
     public async Task SetUp()
@@ -14,7 +13,7 @@ public abstract class TemplateTestBase
         await Testing.ResetState();
 
         _scope = TestSetUpFixture.ScopeFactory.CreateScope();
-        _routeBuilder = new TemplateTestEndpointRouteBuilder();
+        _templateTesting = new TemplateTesting();
     }
 
     [TearDown]

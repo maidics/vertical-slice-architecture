@@ -13,11 +13,11 @@ public sealed class EndpointRouteBuilderExtensionTests : TemplateTestBase
     [Test]
     public void MapMethodsShouldThrowWhenDelegateIsAnonymous()
     {
-        Should.Throw<ArgumentException>(() => _routeBuilder.MapGet(() => { }));
-        Should.Throw<ArgumentException>(() => _routeBuilder.MapPost(() => { }));
-        Should.Throw<ArgumentException>(() => _routeBuilder.MapPut(() => { }, "test"));
-        Should.Throw<ArgumentException>(() => _routeBuilder.MapPatch(() => { }, "test"));
-        Should.Throw<ArgumentException>(() => _routeBuilder.MapDelete(() => { }, "test"));
+        Should.Throw<ArgumentException>(() => _templateTesting.MapGet(() => { }));
+        Should.Throw<ArgumentException>(() => _templateTesting.MapPost(() => { }));
+        Should.Throw<ArgumentException>(() => _templateTesting.MapPut(() => { }, "test"));
+        Should.Throw<ArgumentException>(() => _templateTesting.MapPatch(() => { }, "test"));
+        Should.Throw<ArgumentException>(() => _templateTesting.MapDelete(() => { }, "test"));
     }
 
     [TestCase("MapGet")]
@@ -33,9 +33,9 @@ public sealed class EndpointRouteBuilderExtensionTests : TemplateTestBase
         );
         ArgumentNullException.ThrowIfNull(mapMethod);
 
-        mapMethod.Invoke(null, [_routeBuilder, (Delegate)EndpointMethod, "test"]);
+        mapMethod.Invoke(null, [_templateTesting, (Delegate)EndpointMethod, "test"]);
 
-        var endpoints = _routeBuilder.GetEndpoints();
+        var endpoints = _templateTesting.GetEndpoints();
         endpoints.Count.ShouldBe(1);
         var endpoint = endpoints.First();
         endpoint.DisplayName.ShouldNotBeNull();
@@ -57,9 +57,9 @@ public sealed class EndpointRouteBuilderExtensionTests : TemplateTestBase
     [Test]
     public void MapEndpointsShouldMapAllEndpointsFromAssembly()
     {
-        _routeBuilder.MapEndpoints(typeof(TemplateTestEndpointRouteBuilder).Assembly);
+        _templateTesting.MapEndpoints(typeof(TemplateTesting).Assembly);
 
-        var endpoints = _routeBuilder.GetEndpoints();
+        var endpoints = _templateTesting.GetEndpoints();
         endpoints.Count.ShouldBe(5);
 
         var names = endpoints
@@ -87,9 +87,9 @@ public sealed class EndpointRouteBuilderExtensionTests : TemplateTestBase
     [Test]
     public void MapLogoutEndpointShouldMapLogout()
     {
-        _routeBuilder.MapLogoutEndpoint();
+        _templateTesting.MapLogoutEndpoint();
 
-        var endpoints = _routeBuilder.GetEndpoints();
+        var endpoints = _templateTesting.GetEndpoints();
         endpoints.Count.ShouldBe(1);
 
         var endpoint = endpoints.First();

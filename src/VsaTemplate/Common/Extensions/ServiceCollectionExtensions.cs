@@ -7,10 +7,9 @@ public static class ServiceCollectionExtensions
 {
     extension(IServiceCollection services)
     {
-        public IServiceCollection AddRequestHandlers()
+        public IServiceCollection AddRequestHandlers(Assembly assembly)
         {
-            var implementationTypes = Assembly
-                .GetExecutingAssembly()
+            var implementationTypes = assembly
                 .GetTypes()
                 .Where(t =>
                     t is { IsClass: true, IsAbstract: false }
@@ -25,10 +24,9 @@ public static class ServiceCollectionExtensions
             return services;
         }
 
-        public IServiceCollection AddDomainEventHandlers()
+        public IServiceCollection AddDomainEventHandlers(Assembly assembly)
         {
-            var handlers = Assembly
-                .GetExecutingAssembly()
+            var handlers = assembly
                 .GetTypes()
                 .Where(t => t is { IsClass: true, IsAbstract: false })
                 .SelectMany(

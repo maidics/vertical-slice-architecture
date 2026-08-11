@@ -5,22 +5,22 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace VsaTemplate.Tests.Infrastructure.TemplateTests;
 
-public sealed class TemplateTestEndpointRouteBuilder : IEndpointRouteBuilder
+// this is reset per test - used via TemplateTestBase
+public sealed class TemplateTesting : IEndpointRouteBuilder
 {
-    public TemplateTestEndpointRouteBuilder()
+    public TemplateTesting()
     {
         Services = new ServiceCollection();
         //Services.AddRouting(); - is this required to call?
-
-        ServiceProvider = Services.BuildServiceProvider();
         DataSources = new List<EndpointDataSource>();
     }
 
     public IApplicationBuilder CreateApplicationBuilder() =>
         new ApplicationBuilder(ServiceProvider);
 
-    private IServiceCollection Services { get; }
-    public IServiceProvider ServiceProvider { get; }
+    public IServiceCollection Services { get; }
+    public IServiceProvider ServiceProvider => Services.BuildServiceProvider();
+
     public ICollection<EndpointDataSource> DataSources { get; }
 
     public List<Endpoint> GetEndpoints() => DataSources.SelectMany(x => x.Endpoints).ToList();

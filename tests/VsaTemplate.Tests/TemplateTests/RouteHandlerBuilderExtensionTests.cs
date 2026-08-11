@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Shouldly;
 using VsaTemplate.Common.Extensions;
 using VsaTemplate.Tests.Infrastructure.Common;
+using VsaTemplate.Tests.Infrastructure.TemplateTests;
 
 namespace VsaTemplate.Tests.TemplateTests;
 
@@ -15,9 +16,9 @@ public sealed class RouteHandlerBuilderExtensionTests : TemplateTestBase
         params string[] roles
     )
     {
-        _routeBuilder.MapGet("/test", () => { }).RequireAuthorizationWithRole(roles);
+        _templateTesting.MapGet("/test", () => { }).RequireAuthorizationWithRole(roles);
 
-        var endpoints = _routeBuilder.GetEndpoints();
+        var endpoints = _templateTesting.GetEndpoints();
         endpoints.Count.ShouldBe(1);
 
         var endpoint = endpoints.First();
