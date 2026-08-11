@@ -8,7 +8,7 @@ using VsaTemplate.Tests.Infrastructure.TemplateTests;
 
 namespace VsaTemplate.Tests.TemplateTests;
 
-public sealed class EndpointRouteBuilderExtensionsTests : TemplateTestBase
+public sealed class EndpointRouteBuilderExtensionTests : TemplateTestBase
 {
     [Test]
     public void MapMethodsShouldThrowWhenDelegateIsAnonymous()
