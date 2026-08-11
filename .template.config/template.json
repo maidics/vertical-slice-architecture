@@ -27,8 +27,7 @@
           "condition": "(!AddTemplateTests)",
           "exclude": [
             "**/TemplateTests/**",
-            "**/TemplateTestBase.cs",
-            "**/TemplateTestValueObject.cs"
+            "**/TemplateTestBase.cs"
           ]
         }
       ]

@@ -34,7 +34,8 @@ app.MapGroup("/api")
     .AddEndpointFilter<LoggingFilter>()
     .AddEndpointFilter<ValidationFilter>()
     .AddEndpointFilter<PerformanceFilter>()
-    .MapEndpoints();
+    .MapEndpoints(typeof(Program).Assembly)
+    .MapLogoutEndpoint();
 
 //app.MapDefaultEndpoints(); // ServiceDefaults observability
 app.MapGroup("/api/identity").MapIdentityApi<ApplicationUser>().WithTags("Users");

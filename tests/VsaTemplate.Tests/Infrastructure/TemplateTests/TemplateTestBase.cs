@@ -6,6 +6,7 @@ namespace VsaTemplate.Tests.Infrastructure.Common;
 public abstract class TemplateTestBase
 {
     protected IServiceScope _scope = null!;
+    protected TemplateTestEndpointRouteBuilder _routeBuilder = null!;
 
     [SetUp]
     public async Task SetUp()
@@ -13,6 +14,7 @@ public abstract class TemplateTestBase
         await Testing.ResetState();
 
         _scope = TestSetUpFixture.ScopeFactory.CreateScope();
+        _routeBuilder = new TemplateTestEndpointRouteBuilder();
     }
 
     [TearDown]

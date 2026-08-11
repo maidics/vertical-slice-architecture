@@ -20,10 +20,10 @@ public static class EndpointRouteBuilderExtensions
 
     extension(IEndpointRouteBuilder builder)
     {
-        public IEndpointRouteBuilder MapEndpoints()
+        // this consumes the assembly so it is testable
+        public IEndpointRouteBuilder MapEndpoints(Assembly assembly)
         {
-            var endpointGroupTypes = Assembly
-                .GetExecutingAssembly()
+            var endpointGroupTypes = assembly
                 .GetExportedTypes()
                 .Where(t =>
                     t is { IsAbstract: false, IsInterface: false }
@@ -42,10 +42,10 @@ public static class EndpointRouteBuilderExtensions
                 type.GetMethod(nameof(IEndpointGroup.Map))!.Invoke(null, [group]);
             }
 
-            return builder.MapLogoutEndpoint();
+            return builder;
         }
 
-        private IEndpointRouteBuilder MapLogoutEndpoint()
+        public IEndpointRouteBuilder MapLogoutEndpoint()
         {
             builder.MapPost("/identity/logout", Logout).WithTags("Users").RequireAuthorization();
 
