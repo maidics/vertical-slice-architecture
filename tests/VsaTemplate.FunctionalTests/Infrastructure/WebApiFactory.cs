@@ -6,7 +6,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Moq;
 using VsaTemplate.Common.Interfaces;
+#if (AddTemplateTests)
 using VsaTemplate.FunctionalTests.Infrastructure.TemplateTests;
+#endif
 using VsaTemplate.Infrastructure;
 
 namespace VsaTemplate.FunctionalTests.Infrastructure;
