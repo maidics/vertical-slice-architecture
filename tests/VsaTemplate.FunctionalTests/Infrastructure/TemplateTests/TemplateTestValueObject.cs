@@ -1,6 +1,6 @@
 ﻿using VsaTemplate.Common.BaseClasses;
 
-namespace VsaTemplate.FunctionalTests.Infrastructure.Common;
+namespace VsaTemplate.FunctionalTests.Infrastructure.TemplateTests;
 
 public sealed class TemplateTestValueObject : ValueObject
 {
