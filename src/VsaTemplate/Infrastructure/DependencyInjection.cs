@@ -54,6 +54,7 @@ public static class DependencyInjection
 
             builder.Services.ConfigureHttpJsonOptions(options =>
             {
+                // violating these will throw BadHttpRequestException
                 options.SerializerOptions.RespectRequiredConstructorParameters = true; // rejects payloads that pass no values for a required constructor parameter
                 options.SerializerOptions.RespectNullableAnnotations = true; // rejects null on non-nullable properties
                 options.SerializerOptions.UnmappedMemberHandling =
