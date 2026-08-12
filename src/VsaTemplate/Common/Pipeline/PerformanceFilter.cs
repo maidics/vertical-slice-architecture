@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using VsaTemplate.Common.Interfaces;
+using VsaTemplate.Common.Interfaces.Features;
 
 namespace VsaTemplate.Common.Pipeline;
 
@@ -29,12 +30,15 @@ public sealed class PerformanceFilter : IEndpointFilter
 
         if (elapsedMilliseconds > 500)
         {
+            var request = context.Arguments.OfType<IRequest>().FirstOrDefault();
+
             _logger.LogWarning(
-                "Long running request: {HttpMethod} {Path} , {@UserId}, ({ElapsedMilliseconds}ms)",
+                "Long running request: {HttpMethod} {Path}, {@UserId}, {@Request}, ({@ElapsedMilliseconds}ms)",
                 context.HttpContext.Request.Method,
                 context.HttpContext.Request.Path.Value,
-                elapsedMilliseconds,
-                _user.Id
+                _user.Id,
+                request,
+                elapsedMilliseconds
             );
         }
 
