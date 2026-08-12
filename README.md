@@ -1,6 +1,6 @@
 # ASP.NET Core Vertical Slice Architecture Template
 
-This template provides a lightweight starting point for ASP.NET solutions. While inspired by [Jason Taylor's Clean Architecture](https://github.com/jasontaylordev/CleanArchitecture/tree/main), this project focuses strictly on Vertical Slice Architecture.
+This template provides a lightweight starting point for ASP.NET solutions with minimal dependencies. While inspired by [Jason Taylor's Clean Architecture](https://github.com/jasontaylordev/CleanArchitecture/tree/main), this project focuses strictly on Vertical Slice Architecture.
 
 ## Install the template
 
