@@ -53,23 +53,23 @@ public sealed class ValidationFilter : IEndpointFilter
 
         var failures = validationResults.Where(r => !r.IsValid).SelectMany(r => r.Errors).ToList();
 
-        if (failures.Count != 0)
+        if (failures.Count == 0)
         {
-            var errorsDictionary = failures
-                .GroupBy(x => x.PropertyName)
-                .ToDictionary(g => g.Key, g => g.Select(x => x.ErrorMessage).ToArray());
-
-            _logger.LogWarning(
-                "Request validation failed: {HttpMethod} {Path}, {@UserId}, {@ValidationErrors}",
-                context.HttpContext.Request.Method,
-                context.HttpContext.Request.Path.Value,
-                _user.Id,
-                errorsDictionary
-            );
-
-            return TypedResults.ValidationProblem(errorsDictionary);
+            return await next(context);
         }
 
-        return await next(context);
+        var errorsDictionary = failures
+            .GroupBy(x => x.PropertyName)
+            .ToDictionary(g => g.Key, g => g.Select(x => x.ErrorMessage).ToArray());
+
+        _logger.LogWarning(
+            "Request validation failed: {HttpMethod} {Path}, {@UserId}, {@ValidationErrors}",
+            context.HttpContext.Request.Method,
+            context.HttpContext.Request.Path.Value,
+            _user.Id,
+            errorsDictionary
+        );
+
+        return TypedResults.ValidationProblem(errorsDictionary);
     }
 }
