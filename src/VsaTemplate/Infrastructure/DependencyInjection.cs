@@ -1,6 +1,6 @@
+using System.Text.Json.Serialization;
 using FluentValidation;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Features.Users;
@@ -50,11 +50,15 @@ public static class DependencyInjection
 
             builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 
-            builder.Services.Configure<ApiBehaviorOptions>(options =>
-                options.SuppressModelStateInvalidFilter = true // framework will not check model state: use FluentValidation instead (check VsaTemplate.Common.Pipeline.ValidationFilter.cs)
-            );
-
             builder.Services.AddOpenApi();
+
+            builder.Services.ConfigureHttpJsonOptions(options =>
+            {
+                options.SerializerOptions.RespectRequiredConstructorParameters = true; // rejects payloads that pass no values for a required constructor parameter
+                options.SerializerOptions.RespectNullableAnnotations = true; // rejects null on non-nullable properties
+                options.SerializerOptions.UnmappedMemberHandling =
+                    JsonUnmappedMemberHandling.Disallow; // rejects payloads with extra fields
+            });
         }
     }
 }
