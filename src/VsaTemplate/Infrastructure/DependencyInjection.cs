@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using VsaTemplate.Common.Interfaces;
@@ -10,7 +12,7 @@ namespace VsaTemplate.Infrastructure;
 
 public static class DependencyInjection
 {
-    extension(IHostApplicationBuilder builder)
+    extension(WebApplicationBuilder builder)
     {
         public void AddInfrastructureServices()
         {
@@ -45,6 +47,19 @@ public static class DependencyInjection
             builder.Services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
             builder.Services.AddScoped<IUser, CurrentUser>();
             builder.Services.AddSingleton(TimeProvider.System);
+
+            builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+
+            builder.Services.AddOpenApi();
+
+            builder.Services.ConfigureHttpJsonOptions(options =>
+            {
+                // violating these will throw BadHttpRequestException
+                options.SerializerOptions.RespectRequiredConstructorParameters = true; // rejects payloads that pass no values for a required constructor parameter
+                options.SerializerOptions.RespectNullableAnnotations = true; // rejects null on non-nullable properties
+                options.SerializerOptions.UnmappedMemberHandling =
+                    JsonUnmappedMemberHandling.Disallow; // rejects payloads with extra fields
+            });
         }
     }
 }

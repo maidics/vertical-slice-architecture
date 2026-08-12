@@ -3,12 +3,12 @@ using VsaTemplate;
 using VsaTemplate.Common.Extensions;
 using VsaTemplate.Common.Pipeline;
 using VsaTemplate.Features.Users;
+using VsaTemplate.Infrastructure;
 using VsaTemplate.Infrastructure.Database;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.AddServiceDefaults();
-builder.AddApplicationServices();
+builder.AddServiceDefaults().AddCommonServices().AddInfrastructureServices();
 
 var app = builder.Build();
 
@@ -34,7 +34,8 @@ app.MapGroup("/api")
     .AddEndpointFilter<LoggingFilter>()
     .AddEndpointFilter<ValidationFilter>()
     .AddEndpointFilter<PerformanceFilter>()
-    .MapEndpoints();
+    .MapEndpoints(typeof(Program).Assembly)
+    .MapLogoutEndpoint();
 
 //app.MapDefaultEndpoints(); // ServiceDefaults observability
 app.MapGroup("/api/identity").MapIdentityApi<ApplicationUser>().WithTags("Users");

@@ -8,19 +8,14 @@
     <File Path="README.md" />
   </Folder>
   <Folder Name="/src/">
-    <Project Path="src/VsaTemplate.AppHost/VsaTemplate.AppHost.csproj">
-      <Platform Project="x64" />
-    </Project>
-    <Project Path="src/VsaTemplate.ServiceDefaults/VsaTemplate.ServiceDefaults.csproj">
-      <Platform Project="x64" />
-    </Project>
+    <Project Path="src/VsaTemplate.AppHost/VsaTemplate.AppHost.csproj" />
+    <Project Path="src/VsaTemplate.ServiceDefaults/VsaTemplate.ServiceDefaults.csproj" />
     <Project Path="src/VsaTemplate.Shared/VsaTemplate.Shared.csproj" />
     <Project Path="src/VsaTemplate/VsaTemplate.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/VsaTemplate.FunctionalTests/VsaTemplate.FunctionalTests.csproj" />
-    <Project Path="tests/VsaTemplate.TestAppHost/VsaTemplate.TestAppHost.csproj">
-      <Platform Project="x64" />
-    </Project>
+    <!--#endif-->
+    <Project Path="tests/VsaTemplate.TestAppHost/VsaTemplate.TestAppHost.csproj" />
   </Folder>
 </Solution>

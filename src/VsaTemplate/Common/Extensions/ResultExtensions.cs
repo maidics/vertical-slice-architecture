@@ -37,35 +37,41 @@ public static class ResultExtensions
         }
     }
 
-    private static int GetStatusCode(this ResultType resultTypes)
+    private static (int status, string title) GetStatusCodeAndTitle(this ResultType type)
     {
-        return resultTypes switch
+        return type switch
         {
-            ResultType.NotFound => StatusCodes.Status404NotFound,
-            ResultType.Conflict => StatusCodes.Status409Conflict,
-            ResultType.ExternalServiceError => StatusCodes.Status503ServiceUnavailable,
-            ResultType.BusinessError => StatusCodes.Status400BadRequest,
-            ResultType.InternalError => StatusCodes.Status500InternalServerError,
-            ResultType.PaymentRequired => StatusCodes.Status402PaymentRequired,
-            ResultType.Unauthorized => StatusCodes.Status401Unauthorized,
-            ResultType.Forbidden => StatusCodes.Status403Forbidden,
-            _ => StatusCodes.Status500InternalServerError,
+            ResultType.Canceled => (StatusCodes.Status499ClientClosedRequest, "Request Canceled"),
+            ResultType.Timeout => (StatusCodes.Status504GatewayTimeout, "Gateway Timeout"),
+            ResultType.NotFound => (StatusCodes.Status404NotFound, "Not Found"),
+            ResultType.Conflict => (StatusCodes.Status409Conflict, "Conflict"),
+            ResultType.ExternalServiceError => (
+                StatusCodes.Status503ServiceUnavailable,
+                "Service Unavailable"
+            ),
+            ResultType.RuleViolation => (StatusCodes.Status400BadRequest, "Bad Request"),
+            ResultType.InternalError => (
+                StatusCodes.Status500InternalServerError,
+                "Internal Server Error"
+            ),
+            ResultType.PaymentRequired => (
+                StatusCodes.Status402PaymentRequired,
+                "Payment Required"
+            ),
+            ResultType.Unauthorized => (StatusCodes.Status401Unauthorized, "Unauthorized"),
+            ResultType.Forbidden => (StatusCodes.Status403Forbidden, "Forbidden"),
+            _ => throw new InvalidOperationException($"No status code implemented for: {type}"),
         };
     }
 
     private static ProblemDetails CreateProblemDetails(Result result)
     {
-        var problemDetails = new ProblemDetails
-        {
-            Status = result.Type.GetStatusCode(),
-            Title = result.Type.ToString(),
-        };
+        var tuple = result.Type.GetStatusCodeAndTitle();
 
-        if (result.Errors.Length != 0)
-        {
-            //RFC 7807 standard
-            problemDetails.Extensions["errors"] = result.Errors;
-        }
+        var problemDetails = new ProblemDetails { Status = tuple.status, Title = tuple.title };
+
+        //RFC 7807 standard
+        problemDetails.Extensions["errors"] = result.Errors;
 
         return problemDetails;
     }

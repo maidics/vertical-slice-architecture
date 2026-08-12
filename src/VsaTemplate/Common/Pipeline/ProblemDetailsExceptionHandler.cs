@@ -22,11 +22,7 @@ public sealed class ProblemDetailsExceptionHandler : IExceptionHandler
         // See: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/error-handling
         // See: https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.diagnostics.iexceptionhandler.tryhandleasync
 
-        // Framework exceptions: BadHttpRequestException, OperationCanceledException
-        // Returning false falls back to default middleware behavior (throws exception)
-        if (exception is OperationCanceledException)
-            return false;
-
+        // BadHttpRequestException thrown by framework
         var requestMethod = httpContext.Request.Method;
         var requestPath = httpContext.Request.Path;
 

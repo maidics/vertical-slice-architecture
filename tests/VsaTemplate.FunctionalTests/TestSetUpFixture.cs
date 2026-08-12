@@ -8,10 +8,10 @@ using VsaTemplate.Shared;
 namespace VsaTemplate.FunctionalTests;
 
 [SetUpFixture]
-public sealed class TestSetUpFixture
+public class TestSetUpFixture
 {
-    internal static IServiceScopeFactory ScopeFactory { get; private set; } = null!;
-    internal static TestDatabase? Database { get; private set; }
+    public static IServiceScopeFactory ScopeFactory { get; private set; } = null!;
+    public static TestDatabase? Database { get; private set; }
 
     private static WebApiFactory? _factory;
     private static DistributedApplication? _app;

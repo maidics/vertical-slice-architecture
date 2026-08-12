@@ -1,14 +1,23 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <RootNamespace>VsaTemplate.FunctionalTests</RootNamespace>
     <PackageId>VsaTemplate.FunctionalTests</PackageId>
   </PropertyGroup>
+
+  <!--#if (false)-->
+  <!-- This is required so the repo can run the tests - DI registration would not happen for TemplateTestsDbContext -->
+  <PropertyGroup>
+    <DefineConstants>$(DefineConstants);AddTemplateTests</DefineConstants>
+  </PropertyGroup>
+  <!--#endif-->
 
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.Testing" />
     <PackageReference Include="coverlet.collector" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
     <PackageReference Include="Microsoft.AspNetCore.TestHost" />
+    <!--#if(AddTemplateTests)-->
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" />
+    <!--#endif-->
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
     <PackageReference Include="Microsoft.Extensions.Hosting" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
