@@ -23,6 +23,16 @@ public sealed class AppendExampleContentTests : ApplicationTestBase
     }
 
     [Test]
+    public async Task ShouldNotReturnValidationErrors()
+    {
+        var command = new AppendExampleContentCommand(Guid.Empty, "test");
+        var validator = GetService<AppendExampleContentCommandValidator>();
+
+        var result = await validator.TestValidateAsync(command);
+        result.ShouldNotHaveAnyValidationErrors();
+    }
+
+    [Test]
     public async Task ShouldReturnNotFoundIfExampleDoesNotExists()
     {
         var command = new AppendExampleContentCommand(Guid.Empty, "test");

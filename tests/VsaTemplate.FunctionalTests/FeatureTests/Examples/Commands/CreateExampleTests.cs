@@ -1,3 +1,4 @@
+using FluentValidation.TestHelper;
 using Shouldly;
 using VsaTemplate.Common.Models;
 using VsaTemplate.Features.Examples;
@@ -9,6 +10,26 @@ namespace VsaTemplate.FunctionalTests.FeatureTests.Examples.Commands;
 
 public sealed class CreateExampleTests : ApplicationTestBase
 {
+    [Test]
+    public async Task ShouldReturnValidationErrors()
+    {
+        var command = new CreateExampleCommand(string.Empty);
+        var validator = GetService<CreateExampleCommandValidator>();
+
+        var result = await validator.TestValidateAsync(command);
+        result.ShouldHaveValidationErrorFor(x => x.Content);
+    }
+
+    [Test]
+    public async Task ShouldNotReturnValidationErrors()
+    {
+        var command = new CreateExampleCommand("test");
+        var validator = GetService<CreateExampleCommandValidator>();
+
+        var result = await validator.TestValidateAsync(command);
+        result.ShouldNotHaveAnyValidationErrors();
+    }
+
     [Test]
     public async Task ShouldReturnConflictIfExampleWithContentExists()
     {
