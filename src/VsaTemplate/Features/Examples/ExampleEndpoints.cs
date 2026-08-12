@@ -25,6 +25,8 @@ public sealed class ExampleEndpoints : IEndpointGroup
         builder.MapGet(GetExampleById);
 
         builder.MapPut(AppendExampleContent, "append-content");
+
+        builder.MapPost(Test, "test");
     }
 
     private static async Task<Results<Ok<Guid>, ProblemHttpResult>> CreateExample(
@@ -91,4 +93,11 @@ public sealed class ExampleEndpoints : IEndpointGroup
 
         return result.ToTypedResult();
     }
+
+    private static Ok<string> Test(TestObject obj)
+    {
+        return TypedResults.Ok(obj.Prop + "-testing");
+    }
+
+    private sealed record TestObject(string? Prop);
 }
