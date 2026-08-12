@@ -14,6 +14,14 @@ public sealed class ValueObjectTests
     }
 
     [Test]
+    public void EqualsShouldReturnFalseIfComparedToNull()
+    {
+        var obj = new TemplateTestValueObject(2);
+
+        obj.Equals(null).ShouldBeFalse();
+    }
+
+    [Test]
     public void EqualsShouldReturnTrueWhenValueObjectsAreEqual()
     {
         var obj = new TemplateTestValueObject(1);
@@ -50,6 +58,15 @@ public sealed class ValueObjectTests
 #pragma warning disable CS1718 // Comparison made to same variable
         (obj == obj).ShouldBeTrue();
 #pragma warning restore CS1718
+    }
+
+    [Test]
+    public void EqualOperatorShouldReturnFalseIfComparisonContainsNull()
+    {
+        var obj = new TemplateTestValueObject(1);
+
+        (obj == null!).ShouldBeFalse();
+        (null! == obj).ShouldBeFalse();
     }
 
     [Test]
