@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Diagnostics;
 using Shouldly;
 using VsaTemplate.FunctionalTests.Infrastructure;
-using VsaTemplate.FunctionalTests.Infrastructure.Common;
 using VsaTemplate.FunctionalTests.Infrastructure.TemplateTests;
 using VsaTemplate.Infrastructure.Database.Interceptors;
 
