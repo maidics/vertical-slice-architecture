@@ -1,5 +1,5 @@
 ﻿using Shouldly;
-using VsaTemplate.FunctionalTests.Infrastructure.Common;
+using VsaTemplate.FunctionalTests.Infrastructure.TemplateTests;
 
 namespace VsaTemplate.FunctionalTests.TemplateTests;
 
