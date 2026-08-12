@@ -53,7 +53,7 @@ jobs: # only runs pack -> test if there changes to something that is not inside 
 
       - name: Instantiate Template
         if: steps.filter.outputs.relevant == 'true'
-        run: dotnet new vsa-sln -n Scratch -o ./scratch --AddTemplateTests
+        run: dotnet new vsa-sln -n Scratch -o ./scratch -tt
 
       - name: Build Instantiated
         if: steps.filter.outputs.relevant == 'true'
