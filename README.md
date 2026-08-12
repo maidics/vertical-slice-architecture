@@ -14,14 +14,49 @@ dotnet new install Vertical.Slice.Architecture
 dotnet new vsa-sln -n [SolutionName]
 ```
 
-## Key Features
-- **Target Framework**: .NET SDK 10.0.301.
-- **No MediatR dependency**: Uses lightweight reflection at application startup to automatically discover and register IRequestHandler & IDomainEventHandler
-- **Native Pipeline Filters**: Because MediatR was removed, MediatR PipelineBehaviors have been replaced with native IEndpointFilter implementations.
-- **Persistence**: Configured with SQLite db out of the box ([**recent vulnerability issues with SQLitePCLRaw.lib.e_sqlite3**](https://github.com/advisories/GHSA-2m69-gcr7-jv3q) are suppressed in `Directory.Build.Props`).
-- **App Host**: Uses .NET App Host to orchestrate the backend and the SQLite db.
+| Option                | Values | Default | Description                             |
+|-----------------------| --- | --- |-----------------------------------------|
+| --template-tests, -tt | true, false | false | Includes template related tests |
 
-### Technologies
+## Featues
+- **Target Framework**: [.NET SDK 10.0.301](https://dotnet.microsoft.com/en-us/download/dotnet/10.0)
+- **No [MediatR](https://github.com/LuckyPennySoftware/MediatR) dependency**: Uses lightweight reflection at application startup to automatically discover and register [`IRequestHandler`](./src/VsaTemplate/Common/Interfaces/Features/IRequestHandler.cs) & [`IDomainEventHandler`](./src/VsaTemplate/Common/Interfaces/Features/IDomainEventHandler.cs) implementations
+- **Native Pipeline Filters**: Because MediatR was removed, `PipelineBehavior` has been replaced with native IEndpointFilter implementations
+- **Persistence**: Configured with SQLite db out of the box ([**recent vulnerability issues with SQLitePCLRaw.lib.e_sqlite3**](https://github.com/advisories/GHSA-2m69-gcr7-jv3q) are suppressed in [`Directory.Build.Props`](Directory.Build.props)).
+- **App Host**: Uses [Aspire](https://aspire.dev/) to orchestrate the backend and the SQLite db
+
+### `IEndpointFilter` implementations
+1. [`LoggingFilter`](./src/VsaTemplate/Common/Pipeline/LoggingFilter.cs)
+   - Logs incoming requests in the following format:
+   - `Request: {HttpMethod} {Path}, {@UserId}, {@Request}, {@ResponseStatusCode}`
+   - This is a simple developer implementation rather something that should be used in production  
+2. [`ValidationFilter`](./src/VsaTemplate/Common/Pipeline/ValidationFilter.cs)
+    - The filter looks for a parameter that implements `IRequest`. If found, it resolves and executes the corresponding `IValidator` implementations
+    - **Important:** For automatic validation to occur, your endpoint method must explicitly include an `IRequest` parameter. Otherwise, validation is skipped and must be handled manually within the endpoint
+    - For HTTP GET/ DELETE: use `[AsParameters]` on the IRequest object
+3. [`PerformanceFilter`](./src/VsaTemplate/Common/Pipeline/PerformanceFilter.cs)
+    - Logs requests that run for more than *500ms*
+
+### [`IRequest`](./src/VsaTemplate/Common/Interfaces/Features/IRequest.cs)
+- Marker interface for [`ValidationFilter`](./src/VsaTemplate/Common/Pipeline/ValidationFilter.cs)
+- It exists so that incoming HTTP payloads can be validated automatically
+- **Important:** For automatic validation to occur, your endpoint method must explicitly include an `IRequest` parameter. Otherwise, validation is skipped and must be handled manually within the endpoint
+
+### [`IRequestHandler`](./src/VsaTemplate/Common/Interfaces/Features/IRequestHandler.cs)
+- Marker interface for dependency injection registration
+- It defines no methods for return and parameter type flexibility and simplicity (e.g: consuming a type such as `Guid` - which requires no manual validation - should not require creating a new IRequest type)
+
+### [`IDomainEvent`](./src/VsaTemplate/Common/Interfaces/Features/IDomainEvent.cs)
+- Marker interface for domain events (equivalent to MediatR's `INotification`)
+- Created events should be passed to [`BaseEntity`](./src/VsaTemplate/Common/BaseClasses/BaseEntity.cs)'s `AddDomainEvent` method which will be used to publish the events via the [`DispatchDomainEventInterceptor`](./src/VsaTemplate/Infrastructure/Database/Interceptors/DispatchDomainEventInterceptor.cs)
+
+### [`IDomainEventHandler`](./src/VsaTemplate/Common/Interfaces/Features/IDomainEventHandler.cs)
+- Defines the Handle method that handles the passed `IDomainEvent`
+
+### [`IEndpointGroup`](./src/VsaTemplate/Common/Interfaces/Features/IEndpointGroup.cs)
+- Interface to automatically register Minimal API endpoints with reflection (see: [`EndpointRouteBuilderExtensions`](./src/VsaTemplate/Common/Extensions/EndpointRouteBuilderExtensions.cs))
+
+## Technologies
 - [ASP.NET Core 10](https://learn.microsoft.com/en-us/aspnet/core/overview?view=aspnetcore-10.0)
 - [Aspire](https://aspire.dev/)
 - [EF Core 10](https://learn.microsoft.com/en-us/ef/core/)
@@ -29,28 +64,10 @@ dotnet new vsa-sln -n [SolutionName]
 - [Scalar](https://scalar.com/)
 - [NUnit](https://nunit.org/), [Shouldly](https://docs.shouldly.org/), [Moq](https://github.com/devlooped/moq) & [Respawn](https://github.com/jbogard/Respawn)
 
-## IEndpointFilter implementations
-1. `LoggingFilter:`
-   - logs incoming requests in the following format:
-   - `"Request: {HttpMethod} {Path}, {@UserId}, {@Request}, {@ResponseStatusCode}"`
-2. `ValidationFilter:` 
-   - this filter automatically intercepts Minimal API requests, looking for a parameter that implements `IRequest`. If found, it resolves and executes the corresponding `IValidator` implementations.
-   - **Important:** For automatic validation to occur, your endpoint method must explicitly include an `IRequest` parameter. Otherwise, validation is skipped and must be handled manually within the endpoint.
-   - For HTTP GET/ DELETE: use `[AsParameters]` on the IRequest object
-3. `PerformanceFilter:` 
-   - logs requests that run for more than *500ms*.
-
 ## Structure
 Code is grouped by feature rather than technical layer. Everything required to execute a specific feature lives in a single folder inside the Features directory.
 
-```
-Common/
-└──Pipeline/  # Native endpoint filters replacing MediatR behaviors
-    ├── ExceptionHandler.cs
-    ├── LoggingFilter.cs
-    ├── PerformanceFilter.cs
-    └── ValidationFilter.cs
-    
+```    
 Features/
 └── Examples/
     ├── Commands/  # Commands, handlers and validators
@@ -60,21 +77,18 @@ Features/
     ├── ExampleConfiguration.cs  # EF Core Entity Configuration
     ├── ExampleDto.cs            # DTO
     └── ExampleEndpoints.cs      # Minimal API Endpoints
-
-Infrastructure/ # Services with external dependencies
-    Database/
 ```
 
-# Testing
+## Testing
 
 This solution uses **NUnit** as its primary testing framework. Testing is currently focused on the `FunctionalTests` project, which validates application logic by integrating with a database orchestrated by **Aspire** and hosted in memory using `WebApplicationFactory`.
 
-## Application Logic Validation
+### Application Logic Validation
 
 To test application `IRequest` and `IDomainEvent` implementations and their handlers you can use the `ApplicationTestBase` class which ensures that:
-- The database is reset to a clean state before every test.
-- A fresh Dependency Injection `IServiceScope` is created.
-- The domain event spy is cleared.
+- The database is reset to a clean state before every test
+- New dependency injection `IServiceScope` is created
+- The domain event spy is cleared
 
-## EF Core Entity Configuration Validation
+### EF Core Entity Configuration Validation
 - To test EF Core entity configuration without needing a database connection, inherit from `EntityConfigurationTestBase<TConfiguration, TEntity>`. The class provides helper methods to gain access to the required objects for validation.
