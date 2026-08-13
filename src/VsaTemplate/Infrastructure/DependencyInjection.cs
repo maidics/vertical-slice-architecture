@@ -3,6 +3,7 @@ using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using VsaTemplate.Common.Interfaces;
+using VsaTemplate.Common.Services;
 using VsaTemplate.Features.Users;
 using VsaTemplate.Infrastructure.Database;
 using VsaTemplate.Infrastructure.Database.Interceptors;

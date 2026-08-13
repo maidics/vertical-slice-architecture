@@ -1,6 +1,6 @@
 using VsaTemplate.Common.Interfaces.Features;
 
-namespace VsaTemplate.Infrastructure;
+namespace VsaTemplate.Common.Services;
 
 public interface IDomainEventDispatcher
 {
