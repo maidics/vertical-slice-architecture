@@ -4,13 +4,15 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Logging;
 using Moq;
 using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Common.Services;
+using VsaTemplate.Infrastructure;
 #if (AddTemplateTests)
 using VsaTemplate.FunctionalTests.Infrastructure.TemplateTests;
 #endif
-using VsaTemplate.Infrastructure;
+
 
 namespace VsaTemplate.FunctionalTests.Infrastructure;
 
@@ -40,7 +42,10 @@ public sealed class WebApiFactory(string connectionString) : WebApplicationFacto
                 .RemoveAll<IDomainEventDispatcher>()
                 .AddScoped(serviceProvider =>
                 {
-                    var dispatcher = new DomainEventDispatcher(serviceProvider);
+                    var dispatcher = new DomainEventDispatcher(
+                        serviceProvider,
+                        serviceProvider.GetRequiredService<ILogger<DomainEventDispatcher>>()
+                    );
 
                     return new DomainEventDispatcherSpy(dispatcher);
                 })
