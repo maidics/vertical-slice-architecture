@@ -7,9 +7,5 @@
     <ArtifactsPath>$(MSBuildThisFileDirectory)artifacts</ArtifactsPath>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-
-    <!-- SQLitePCLRaw.lib.e_sqlite3 vulnerability issue: NU1903 - waiting for EF Core to update dependency -->
-    <!-- also Microsoft.OpenApi vulnerability issue -->
-    <NoWarn>$(NoWarn);NU1903</NoWarn>
   </PropertyGroup>
 </Project>
