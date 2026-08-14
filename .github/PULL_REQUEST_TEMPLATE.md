@@ -2,7 +2,7 @@
 
 <!-- What changed and why -->
 
-## Template integrity
+## Checklist
 
 - [ ] `.template.config/template.json` is valid and reflects any new/renamed/removed parameters
 - [ ] README updated if required to change
