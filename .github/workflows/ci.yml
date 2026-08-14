@@ -1,23 +1,25 @@
 name: CI
 
-on: 
-  push: 
+on:
+  push:
     branches: ['**'] # runs on all branches, but pack & publish only ran on master branch
-  pull_request: 
-      branches: [ master ]
+    tags: ['v*']
+  pull_request:
+    branches: [ master ]
 
 jobs: # only runs pack -> test if there changes to something that is not inside .github/
-  ci: # only runs publish if there are changes to something that is not inside .github/ AND it is a push to master branch
-    runs-on: ubuntu-latest 
+  ci: # only runs publish if a new tag is pushed
+    runs-on: ubuntu-latest
     permissions:
       contents: read
       pull-requests: read
       id-token: write # enable GitHub OIDC token issuance for this job
-      
+    
     steps:
       - uses: actions/checkout@v4
 
       - uses: dorny/paths-filter@v4
+        if: github.ref_type != 'tag'
         id: filter
         with:
           base: ${{ github.ref }}
@@ -27,22 +29,26 @@ jobs: # only runs pack -> test if there changes to something that is not inside 
               - '**'
               - '!.github/**'
               - '!docs/**'
-            
+
       - name: Announce skip
         if: steps.filter.outputs.relevant == 'false'
         run: echo "::notice::Skipping CI/publish — only .github files changed"
 
+      - name: Run CI?
+        id: gate
+        run: echo "run=${{ github.ref_type == 'tag' || steps.filter.outputs.relevant == 'true' }}" >> "$GITHUB_OUTPUT"
+
       - uses: actions/setup-dotnet@v4
-        if: steps.filter.outputs.relevant == 'true'
+        if: steps.gate.outputs.run == 'true'
         with:
           global-json-file: ./global.json
 
       - name: Pack Template
-        if: steps.filter.outputs.relevant == 'true'
+        if: steps.gate.outputs.run == 'true'
         run: dotnet pack nuspec.csproj
 
       - name: Install Template
-        if: steps.filter.outputs.relevant == 'true'
+        if: steps.gate.outputs.run == 'true'
         run: |
           count=$(ls ./artifacts/package/release/*.nupkg 2>/dev/null | wc -l)
           if [ "$count" -ne 1 ]; then
@@ -52,24 +58,24 @@ jobs: # only runs pack -> test if there changes to something that is not inside 
           dotnet new install ./artifacts/package/release/*.nupkg
 
       - name: Instantiate Template
-        if: steps.filter.outputs.relevant == 'true'
+        if: steps.gate.outputs.run == 'true'
         run: dotnet new vsa-sln -n Scratch -o ./scratch -tt -e
 
       - name: Build Instantiated
-        if: steps.filter.outputs.relevant == 'true'
+        if: steps.gate.outputs.run == 'true'
         run: dotnet build ./scratch/Scratch.slnx
 
       - name: Test Instantiated
-        if: steps.filter.outputs.relevant == 'true'
+        if: steps.gate.outputs.run == 'true'
         run: dotnet test ./scratch/Scratch.slnx
 
       - name: NuGet Login # retrieves the short-lived API key from NuGet
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master' && steps.filter.outputs.relevant == 'true' # only publish if it is merging into master
+        if: github.ref_type == 'tag'
         uses: NuGet/login@v1
         id: login
         with:
           user: ${{ secrets.NUGET_USER }}
 
       - name: Push to NuGet
-        if: github.event_name == 'push' && github.ref == 'refs/heads/master' && steps.filter.outputs.relevant == 'true' # only publish if it is merging into master
+        if: github.ref_type == 'tag'
         run: dotnet nuget push "./artifacts/package/release/*.nupkg" -k "${{ steps.login.outputs.NUGET_API_KEY }}" -s https://api.nuget.org/v3/index.json
