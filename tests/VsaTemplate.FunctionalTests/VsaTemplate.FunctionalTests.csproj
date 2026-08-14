@@ -1,6 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <PackageId>VsaTemplate.FunctionalTests</PackageId>
+    <AssemblyName>VsaTemplate.FunctionalTests</AssemblyName>
+    <RootNamespace>VsaTemplate.FunctionalTests</RootNamespace>
   </PropertyGroup>
 
   <!--#if (false)-->
