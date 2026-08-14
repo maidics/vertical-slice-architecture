@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <!--#if (false)-->
-  <!-- This is required so the repo can run the tests - DI registration would not happen for TemplateTestsDbContext -->
   <PropertyGroup>
     <DefineConstants>$(DefineConstants);AddTemplateTests</DefineConstants>
   </PropertyGroup>

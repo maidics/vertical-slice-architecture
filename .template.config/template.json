@@ -18,6 +18,13 @@
       "defaultValue": "false",
       "displayName": "Add template test project",
       "description": "Includes the template test project in the generated output."
+    },
+    "AddExamples": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "displayName": "Add example feature and tests",
+      "description": "Example implementations and tests: an Example entity, CRUD IRequest/IRequestHandler handlers, and IDomainEvent/IDomainEventHandler handlers, plus Minimal API endpoints and tests showing the template in use."
     }
   },
   "sources": [
@@ -28,6 +35,12 @@
           "exclude": [
             "**/TemplateTests/**",
             "**/TemplateTestBase.cs"
+          ]
+        },
+        {
+          "condition": "(!AddExamples)",
+          "exclude": [
+            "**/Examples/**"
           ]
         }
       ]

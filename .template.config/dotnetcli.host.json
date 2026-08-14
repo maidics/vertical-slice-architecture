@@ -4,6 +4,10 @@
     "AddTemplateTests": {
       "longName": "template-tests",
       "shortName": "tt"
+    },
+    "AddExamples": {
+      "longName": "examples",
+      "shortName": "e"
     }
   }
 }
