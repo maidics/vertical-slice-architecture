@@ -27,8 +27,6 @@
     <PackageReference Include="NUnit3TestAdapter" />
     <PackageReference Include="Respawn" />
     <PackageReference Include="Shouldly" />
-
-    <PackageReference Include="MessagePack" />
   </ItemGroup>
 
   <ItemGroup>
