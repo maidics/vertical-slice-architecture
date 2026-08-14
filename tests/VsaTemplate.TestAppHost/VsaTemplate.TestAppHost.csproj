@@ -1,4 +1,4 @@
-<Project Sdk="Aspire.AppHost.Sdk/13.4.3">
+<Project Sdk="Aspire.AppHost.Sdk/13.4.6">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <RootNamespace>VsaTemplate.TestAppHost</RootNamespace>
@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Aspire.Hosting.SQLite" />
-    <PackageReference Include="MessagePack" />
   </ItemGroup>
 
   <ItemGroup>
