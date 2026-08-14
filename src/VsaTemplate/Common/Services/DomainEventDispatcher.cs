@@ -13,7 +13,10 @@ public sealed class DomainEventDispatcher : IDomainEventDispatcher
     private readonly IServiceProvider _serviceProvider;
     private readonly ILogger<DomainEventDispatcher> _logger;
 
-    public DomainEventDispatcher(IServiceProvider serviceProvider, ILogger<DomainEventDispatcher> logger)
+    public DomainEventDispatcher(
+        IServiceProvider serviceProvider,
+        ILogger<DomainEventDispatcher> logger
+    )
     {
         _serviceProvider = serviceProvider;
         _logger = logger;
@@ -27,7 +30,13 @@ public sealed class DomainEventDispatcher : IDomainEventDispatcher
         var handlers = _serviceProvider.GetServices(handlerType).ToList();
 
         if (handlers.Count == 0)
-            _logger.LogWarning("No IDomainEventHandler registered for {EventName} domain event.", eventType.Name);
+        {
+            _logger.LogWarning(
+                "No IDomainEventHandler registered for {EventName} domain event.",
+                eventType.Name
+            );
+            return;
+        }
 
         var handleMethod = handlerType.GetMethod(nameof(IDomainEventHandler<>.Handle));
 
