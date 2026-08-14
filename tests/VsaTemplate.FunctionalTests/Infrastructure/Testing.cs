@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using VsaTemplate.Common.Interfaces.Features;
+using VsaTemplate.Common.Services;
 using VsaTemplate.Features.Users;
 using VsaTemplate.Infrastructure;
 using VsaTemplate.Infrastructure.Database;

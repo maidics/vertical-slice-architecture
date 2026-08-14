@@ -2,8 +2,5 @@
   <PropertyGroup>
     <RootNamespace>VsaTemplate.Shared</RootNamespace>
     <AssemblyName>VsaTemplate.Shared</AssemblyName>
-    <TargetFramework>net10.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
   </PropertyGroup>
 </Project>

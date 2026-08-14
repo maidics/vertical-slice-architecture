@@ -20,7 +20,6 @@ public record Result
 
     public static Result<T> Success<T>(T value)
     {
-        // method will check values
         return Result<T>.Success(value);
     }
 
@@ -53,7 +52,6 @@ public record Result
 
     public static ResultFailure Timeout(params string[] errors) => new(ResultType.Timeout, errors);
 
-    // IMPLICIT CONVERSION: ResultFailure => Result
     public static implicit operator Result(ResultFailure failure)
     {
         return new Result(false, failure.Errors, failure.Type);

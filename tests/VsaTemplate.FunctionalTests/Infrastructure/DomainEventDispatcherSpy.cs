@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using VsaTemplate.Common.Interfaces.Features;
+using VsaTemplate.Common.Services;
 using VsaTemplate.Infrastructure;
 
 namespace VsaTemplate.FunctionalTests.Infrastructure;

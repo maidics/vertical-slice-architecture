@@ -3,7 +3,6 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>VsaTemplate.AppHost</RootNamespace>
     <AssemblyName>VsaTemplate.AppHost</AssemblyName>
-    <TargetFramework>net10.0</TargetFramework>
     <UserSecretsId>17498916-7299-464c-83d4-abc0d4d154ff</UserSecretsId>
   </PropertyGroup>
 
