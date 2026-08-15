@@ -16,9 +16,9 @@ public abstract class BaseEntity
     [NotMapped]
     public ReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 
-    public void AddDomainEvent(IDomainEvent @event)
+    public void AddDomainEvent(IDomainEvent domainEvent)
     {
-        _domainEvents.Add(@event);
+        _domainEvents.Add(domainEvent);
     }
 
     public void ClearDomainEvents()

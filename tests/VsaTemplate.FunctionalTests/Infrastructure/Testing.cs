@@ -117,11 +117,11 @@ public static class Testing
         return await context.Set<TEntity>().CountAsync();
     }
 
-    public static async Task DispatchDomainEventAsync(IDomainEvent @event)
+    public static async Task DispatchDomainEventAsync(IDomainEvent domainEvent)
     {
         using var scope = TestSetUpFixture.ScopeFactory.CreateScope();
         var dispatcher = scope.ServiceProvider.GetRequiredService<IDomainEventDispatcher>();
 
-        await dispatcher.DispatchAsync(@event, CancellationToken.None);
+        await dispatcher.DispatchAsync(domainEvent, CancellationToken.None);
     }
 }

@@ -45,9 +45,9 @@ public sealed class DispatchDomainEventInterceptor : SaveChangesInterceptor
 
         var dispatcher = context.GetService<IDomainEventDispatcher>();
 
-        foreach (var @event in events)
+        foreach (var domainEvent in events)
         {
-            await dispatcher.DispatchAsync(@event, CancellationToken.None);
+            await dispatcher.DispatchAsync(domainEvent, CancellationToken.None);
         }
     }
 }

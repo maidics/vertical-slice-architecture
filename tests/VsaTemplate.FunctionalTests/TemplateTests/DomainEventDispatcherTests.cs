@@ -32,10 +32,10 @@ public sealed class DomainEventDispatcherTests : TemplateTestBase
         var dispatcher = new DomainEventDispatcher(_templateTesting.ServiceProvider, logger);
         var spy = new TemplateTestDomainEventDispatcherSpy(dispatcher);
 
-        var @event = new Ping();
-        @event.Action = () => spy.IncrementDispatched(@event);
+        var domainEvent = new Ping();
+        domainEvent.Action = () => spy.IncrementDispatched(domainEvent);
 
-        await spy.DispatchAsync(@event, CancellationToken.None);
+        await spy.DispatchAsync(domainEvent, CancellationToken.None);
         spy.HandledCount.ShouldBe(1);
         spy.DispatchedCount.ShouldBe(1);
         spy.HasDispatchedEventType<Ping>();
@@ -55,9 +55,9 @@ public sealed class DomainEventDispatcherTests : TemplateTestBase
         var dispatcher = new DomainEventDispatcher(_templateTesting.ServiceProvider, logger);
         var spy = new TemplateTestDomainEventDispatcherSpy(dispatcher);
 
-        var @event = new Pong();
-        @event.Action = () => spy.IncrementDispatched(@event);
-        await spy.DispatchAsync(@event, CancellationToken.None);
+        var domainEvent = new Pong();
+        domainEvent.Action = () => spy.IncrementDispatched(domainEvent);
+        await spy.DispatchAsync(domainEvent, CancellationToken.None);
         spy.HandledCount.ShouldBe(2);
         spy.DispatchedCount.ShouldBe(1);
         spy.HasDispatchedEventType<Pong>();

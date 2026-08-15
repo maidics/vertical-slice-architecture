@@ -14,18 +14,18 @@ public sealed record Pong : IDomainEvent
 
 public sealed class PongEventHandler : IDomainEventHandler<Pong>
 {
-    public Task Handle(Pong @event, CancellationToken cancellationToken)
+    public Task Handle(Pong domainEvent, CancellationToken cancellationToken)
     {
-        @event.Action();
+        domainEvent.Action();
         return Task.CompletedTask;
     }
 }
 
 public sealed class OtherPongEventHandler : IDomainEventHandler<Pong>
 {
-    public Task Handle(Pong @event, CancellationToken cancellationToken)
+    public Task Handle(Pong domainEvent, CancellationToken cancellationToken)
     {
-        @event.Action();
+        domainEvent.Action();
         return Task.CompletedTask;
     }
 }
