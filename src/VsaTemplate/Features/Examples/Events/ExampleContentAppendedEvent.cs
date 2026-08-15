@@ -16,17 +16,17 @@ public sealed class ExampleContentAppendedEventHandler
     }
 
     public async Task Handle(
-        ExampleContentAppendedEvent @event,
+        ExampleContentAppendedEvent domainEvent,
         CancellationToken cancellationToken
     )
     {
         var example = await _context.Examples.FirstOrDefaultAsync(
-            x => x.Id == @event.ExampleId,
+            x => x.Id == domainEvent.ExampleId,
             cancellationToken
         );
 
         if (example is null)
-            throw new InvalidOperationException($"Example not found: {@event.ExampleId}");
+            throw new InvalidOperationException($"Example not found: {domainEvent.ExampleId}");
 
         example.HasAppendedContent = true;
 

@@ -24,16 +24,16 @@ public sealed class TemplateTestDomainEventDispatcherSpy : IDomainEventDispatche
 
     public int HandledCount => _handled.Values.Sum();
 
-    public async Task DispatchAsync<TEvent>(TEvent @event, CancellationToken cancellationToken)
+    public async Task DispatchAsync<TEvent>(TEvent domainEvent, CancellationToken cancellationToken)
         where TEvent : IDomainEvent
     {
-        _handled.TryAdd(@event, 0);
+        _handled.TryAdd(domainEvent, 0);
 
-        await _dispatcher.DispatchAsync(@event, cancellationToken);
+        await _dispatcher.DispatchAsync(domainEvent, cancellationToken);
     }
 
-    public void IncrementDispatched(IDomainEvent @event)
+    public void IncrementDispatched(IDomainEvent domainEvent)
     {
-        _handled[@event]++;
+        _handled[domainEvent]++;
     }
 }

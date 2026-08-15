@@ -26,11 +26,11 @@ public sealed class DomainEventDispatcherSpy : IDomainEventDispatcher
         return _dispatchedEvents.OfType<TEvent>().Any();
     }
 
-    public async Task DispatchAsync<TEvent>(TEvent @event, CancellationToken cancellationToken)
+    public async Task DispatchAsync<TEvent>(TEvent domainEvent, CancellationToken cancellationToken)
         where TEvent : IDomainEvent
     {
-        _dispatchedEvents.Add(@event);
+        _dispatchedEvents.Add(domainEvent);
 
-        await _dispatcher.DispatchAsync(@event, cancellationToken);
+        await _dispatcher.DispatchAsync(domainEvent, cancellationToken);
     }
 }

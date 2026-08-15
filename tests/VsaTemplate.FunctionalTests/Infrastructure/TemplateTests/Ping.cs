@@ -14,9 +14,9 @@ public sealed record Ping : IDomainEvent
 
 public sealed class PingEventHandler : IDomainEventHandler<Ping>
 {
-    public Task Handle(Ping @event, CancellationToken cancellationToken)
+    public Task Handle(Ping domainEvent, CancellationToken cancellationToken)
     {
-        @event.Action();
+        domainEvent.Action();
         return Task.CompletedTask;
     }
 }
