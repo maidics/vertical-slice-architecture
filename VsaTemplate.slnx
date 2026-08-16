@@ -15,7 +15,7 @@
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/VsaTemplate.FunctionalTests/VsaTemplate.FunctionalTests.csproj" />
-    <!--#endif-->
+    <Project Path="tests/VsaTemplate.TemplateTests/VsaTemplate.TemplateTests.csproj" />
     <Project Path="tests/VsaTemplate.TestAppHost/VsaTemplate.TestAppHost.csproj" />
   </Folder>
 </Solution>
