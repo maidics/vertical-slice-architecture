@@ -33,8 +33,7 @@
         {
           "condition": "(!AddTemplateTests)",
           "exclude": [
-            "**/TemplateTests/**",
-            "**/TemplateTestBase.cs"
+            "**/VsaTemplate.TemplateTests/**"
           ]
         },
         {

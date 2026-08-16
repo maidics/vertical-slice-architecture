@@ -16,8 +16,8 @@
   <Folder Name="/tests/">
     <Project Path="tests/VsaTemplate.FunctionalTests/VsaTemplate.FunctionalTests.csproj" />
     <Project Path="tests/VsaTemplate.TestAppHost/VsaTemplate.TestAppHost.csproj" />
-    <!-- #if (AddTemplateTests)-->
+    <!--#if (AddTemplateTests)-->
     <Project Path="tests/VsaTemplate.TemplateTests/VsaTemplate.TemplateTests.csproj" />
-    <!-- #endif-->
+    <!--#endif-->
   </Folder>
 </Solution>
