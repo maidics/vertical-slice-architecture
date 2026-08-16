@@ -19,8 +19,7 @@ public class TestSetUpFixture
     [OneTimeSetUp]
     public async Task OneTimeSetup()
     {
-        var cts = new CancellationTokenSource(TimeSpan.FromSeconds(60));
-        var cancellationToken = cts.Token;
+        var cts = new CancellationTokenSource(TimeSpan.FromSeconds(15));
 
         var builder =
             await DistributedApplicationTestingBuilder.CreateAsync<VsaTemplate_TestAppHost>(
@@ -29,21 +28,19 @@ public class TestSetUpFixture
                 {
                     options.DisableDashboard = true;
                 },
-                cancellationToken
+                cts.Token
             );
 
         builder.Configuration["ASPIRE_ALLOW_UNSECURED_TRANSPORT"] = "true";
 
-        _app = await builder.BuildAsync(cancellationToken).WaitAsync(cancellationToken);
+        _app = await builder.BuildAsync(cts.Token).WaitAsync(cts.Token);
 
-        await _app.StartAsync(cancellationToken).WaitAsync(cancellationToken);
+        await _app.StartAsync(cts.Token).WaitAsync(cts.Token);
 
-        await _app.ResourceNotifications.WaitForResourceHealthyAsync(
-            Services.Database,
-            cancellationToken
-        );
+        await _app.ResourceNotifications.WaitForResourceHealthyAsync(Services.Database, cts.Token);
 
-        var connectionString = (await _app.GetConnectionStringAsync(Services.Database))!;
+        var connectionString = await _app.GetConnectionStringAsync(Services.Database, cts.Token);
+        ArgumentNullException.ThrowIfNull(connectionString);
 
         _factory = new WebApiFactory(connectionString);
         ScopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
