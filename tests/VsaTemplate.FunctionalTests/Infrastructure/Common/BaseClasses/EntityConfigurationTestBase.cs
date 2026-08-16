@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
-namespace VsaTemplate.FunctionalTests.Infrastructure.Common;
+namespace VsaTemplate.FunctionalTests.Infrastructure.Common.BaseClasses;
 
 public abstract class EntityConfigurationTestBase<TConfiguration, TEntity>
     where TConfiguration : class, IEntityTypeConfiguration<TEntity>, new()

@@ -1,18 +1,20 @@
-﻿using Shouldly;
-using VsaTemplate.FunctionalTests.Infrastructure.Common;
-using VsaTemplate.FunctionalTests.Infrastructure.TemplateTests;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Shouldly;
 using VsaTemplate.Infrastructure.Database.Interceptors;
+using VsaTemplate.TemplateTests.Infrastructure;
+using VsaTemplate.TemplateTests.Infrastructure.Common;
+using VsaTemplate.TemplateTests.Infrastructure.Common.BaseClasses;
 
-namespace VsaTemplate.FunctionalTests.TemplateTests;
+namespace VsaTemplate.TemplateTests.Tests;
 
-public sealed class EntityEntryExtensionTests : TemplateTestBase
+public sealed class EntityEntryExtensionTests : TestBase
 {
     [Test]
     public void ShouldReturnTrueIfOwnerEntityIsAdded()
     {
-        using var context = GetContext();
+        using var context = _serviceProvider.GetRequiredService<TestDbContext>();
 
-        var entity = new TemplateTestEntity();
+        var entity = new TestEntity();
         context.Add(entity);
 
         context.Entry(entity).HasChangedOwnedEntities().ShouldBeTrue();
@@ -21,9 +23,9 @@ public sealed class EntityEntryExtensionTests : TemplateTestBase
     [Test]
     public void ShouldReturnFalseIfOwnerEntityExistsButNonOwnedPropertyIsChanged()
     {
-        using var context = GetContext();
+        using var context = _serviceProvider.GetRequiredService<TestDbContext>();
 
-        var entity = new TemplateTestEntity();
+        var entity = new TestEntity();
         context.Add(entity);
         context.SaveChanges();
 
@@ -36,9 +38,9 @@ public sealed class EntityEntryExtensionTests : TemplateTestBase
     [Test]
     public void ShouldReturnTrueIfOwnerEntityExistsButOwnedEntityPropertyIsChanged()
     {
-        using var context = GetContext();
+        using var context = _serviceProvider.GetRequiredService<TestDbContext>();
 
-        var entity = new TemplateTestEntity();
+        var entity = new TestEntity();
         context.Add(entity);
         context.SaveChanges();
 
@@ -51,9 +53,9 @@ public sealed class EntityEntryExtensionTests : TemplateTestBase
     [Test]
     public void ShouldReturnTrueIfOwnerEntityExistsButOwnedEntityIsReplaced()
     {
-        using var context = GetContext();
+        using var context = _serviceProvider.GetRequiredService<TestDbContext>();
 
-        var entity = new TemplateTestEntity();
+        var entity = new TestEntity();
         context.Add(entity);
         context.SaveChanges();
 
@@ -66,13 +68,13 @@ public sealed class EntityEntryExtensionTests : TemplateTestBase
     [Test]
     public void ShouldReturnFalseIfOwnerEntityIsRemoved()
     {
-        using var context = GetContext();
+        using var context = _serviceProvider.GetRequiredService<TestDbContext>();
 
-        var entity = new TemplateTestEntity();
+        var entity = new TestEntity();
         context.Add(entity);
         context.SaveChanges();
 
-        context.TemplateTestEntities.Remove(entity);
+        context.TestEntities.Remove(entity);
         context.ChangeTracker.DetectChanges();
 
         context.Entry(entity).HasChangedOwnedEntities().ShouldBeFalse();

@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace VsaTemplate.TemplateTests.Infrastructure.Common;
+namespace VsaTemplate.TemplateTests.Infrastructure.Common.BaseClasses;
 
 public abstract class TestBase
 {

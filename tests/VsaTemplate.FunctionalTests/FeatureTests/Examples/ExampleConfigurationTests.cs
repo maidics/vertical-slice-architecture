@@ -1,6 +1,7 @@
 using Shouldly;
 using VsaTemplate.Features.Examples;
 using VsaTemplate.FunctionalTests.Infrastructure.Common;
+using VsaTemplate.FunctionalTests.Infrastructure.Common.BaseClasses;
 
 namespace VsaTemplate.FunctionalTests.FeatureTests.Examples;
 

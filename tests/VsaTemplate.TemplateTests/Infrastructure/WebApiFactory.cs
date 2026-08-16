@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
@@ -55,8 +56,10 @@ public sealed class WebApiFactory(string connectionString)
             services
                 .RemoveAll<IRequestHandler>()
                 .RemoveAll<IDomainEventHandler<IDomainEvent>>()
+                .RemoveAll<IValidator<IRequest>>()
                 .AddRequestHandlers(typeof(WebApiFactory).Assembly)
-                .AddDomainEventHandlers(typeof(WebApiFactory).Assembly);
+                .AddDomainEventHandlers(typeof(WebApiFactory).Assembly)
+                .AddValidatorsFromAssembly(typeof(WebApiFactory).Assembly);
 
             services.AddScoped<EndpointRouteBuilderSpy>();
         });

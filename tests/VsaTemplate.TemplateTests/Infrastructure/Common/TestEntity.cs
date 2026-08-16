@@ -1,9 +1,8 @@
 ﻿using VsaTemplate.Common.BaseClasses;
 
-namespace VsaTemplate.FunctionalTests.Infrastructure.TemplateTests;
+namespace VsaTemplate.TemplateTests.Infrastructure.Common;
 
-// Test entity for template testing
-public sealed class TemplateTestEntity : BaseAuditableEntity
+public sealed class TestEntity : BaseAuditableEntity
 {
     public string Prop { get; set; } = Guid.NewGuid().ToString();
 

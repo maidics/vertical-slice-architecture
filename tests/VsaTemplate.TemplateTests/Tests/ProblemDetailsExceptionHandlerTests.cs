@@ -4,16 +4,16 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Shouldly;
 using VsaTemplate.Common.Pipeline;
-using VsaTemplate.FunctionalTests.Infrastructure.TemplateTests;
+using VsaTemplate.TemplateTests.Infrastructure;
 
-namespace VsaTemplate.FunctionalTests.TemplateTests;
+namespace VsaTemplate.TemplateTests.Tests;
 
 public sealed class ProblemDetailsExceptionHandlerTests
 {
     [Test]
     public async Task TryHandleAsyncShouldWriteProblemDetailsAndReturnTrueOnBadHttpRequestException()
     {
-        var logger = new TemplateTestLogger<ProblemDetailsExceptionHandler>();
+        var logger = new LoggerSpy<ProblemDetailsExceptionHandler>();
         var handler = new ProblemDetailsExceptionHandler(logger);
 
         var body = new MemoryStream();
@@ -57,7 +57,7 @@ public sealed class ProblemDetailsExceptionHandlerTests
         Type exceptionType
     )
     {
-        var logger = new TemplateTestLogger<ProblemDetailsExceptionHandler>();
+        var logger = new LoggerSpy<ProblemDetailsExceptionHandler>();
         var handler = new ProblemDetailsExceptionHandler(logger);
 
         var body = new MemoryStream();

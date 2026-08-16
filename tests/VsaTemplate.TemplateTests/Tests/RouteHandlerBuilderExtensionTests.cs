@@ -1,13 +1,14 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
 using VsaTemplate.Common.Extensions;
-using VsaTemplate.FunctionalTests.Infrastructure.Common;
-using VsaTemplate.FunctionalTests.Infrastructure.TemplateTests;
+using VsaTemplate.TemplateTests.Infrastructure;
+using VsaTemplate.TemplateTests.Infrastructure.Common.BaseClasses;
 
-namespace VsaTemplate.FunctionalTests.TemplateTests;
+namespace VsaTemplate.TemplateTests.Tests;
 
-public sealed class RouteHandlerBuilderExtensionTests : TemplateTestBase
+public sealed class RouteHandlerBuilderExtensionTests : TestBase
 {
     [TestCase]
     [TestCase("user")]
@@ -16,9 +17,11 @@ public sealed class RouteHandlerBuilderExtensionTests : TemplateTestBase
         params string[] roles
     )
     {
-        _templateTesting.MapGet("/test", () => { }).RequireAuthorizationWithRole(roles);
+        var spy = _serviceProvider.GetRequiredService<EndpointRouteBuilderSpy>();
 
-        var endpoints = _templateTesting.GetEndpoints();
+        spy.MapGet("/test", () => { }).RequireAuthorizationWithRole(roles);
+
+        var endpoints = spy.GetEndpoints();
         endpoints.Count.ShouldBe(1);
 
         var endpoint = endpoints.First();

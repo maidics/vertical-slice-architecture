@@ -1,12 +1,16 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Shouldly;
+using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Common.Pipeline;
-using VsaTemplate.FunctionalTests.Infrastructure.TemplateTests;
+using VsaTemplate.TemplateTests.Infrastructure;
+using VsaTemplate.TemplateTests.Infrastructure.Common;
+using VsaTemplate.TemplateTests.Infrastructure.Common.BaseClasses;
 
-namespace VsaTemplate.FunctionalTests.TemplateTests;
+namespace VsaTemplate.TemplateTests.Tests;
 
-public sealed class LoggingFilterTests : TemplateTestBase
+public sealed class LoggingFilterTests : TestBase
 {
     [Test]
     public async Task LoggingFilterShouldLogRequestAndReturnNext()
@@ -15,14 +19,14 @@ public sealed class LoggingFilterTests : TemplateTestBase
         {
             Request = { Method = "POST", Path = new PathString("/test") },
         };
-        var request = new TemplateTestRequest("logging-test");
+        var request = new TestRequest("logging-test");
         var context = EndpointFilterInvocationContext.Create(httpContext, request);
 
         var expectedResult = TypedResults.Ok();
         EndpointFilterDelegate next = _ => ValueTask.FromResult<object?>(expectedResult);
 
-        var logger = new TemplateTestLogger<LoggingFilter>();
-        var user = new TemplateTestUser(Guid.NewGuid(), []);
+        var logger = new LoggerSpy<LoggingFilter>();
+        var user = _serviceProvider.GetRequiredService<IUser>();
         var filter = new LoggingFilter(logger, user);
 
         var result = await filter.InvokeAsync(context, next);

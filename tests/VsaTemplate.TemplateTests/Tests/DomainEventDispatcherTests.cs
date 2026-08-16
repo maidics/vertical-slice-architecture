@@ -4,6 +4,7 @@ using Shouldly;
 using VsaTemplate.Common.Services;
 using VsaTemplate.TemplateTests.Infrastructure;
 using VsaTemplate.TemplateTests.Infrastructure.Common;
+using VsaTemplate.TemplateTests.Infrastructure.Common.BaseClasses;
 
 namespace VsaTemplate.TemplateTests.Tests;
 

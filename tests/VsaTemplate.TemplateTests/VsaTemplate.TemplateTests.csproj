@@ -26,4 +26,12 @@
     <ProjectReference Include="..\..\src\VsaTemplate\VsaTemplate.csproj" />
     <ProjectReference Include="..\VsaTemplate.TestAppHost\VsaTemplate.TestAppHost.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Common\Helpers\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Common\" />
+  </ItemGroup>
 </Project>

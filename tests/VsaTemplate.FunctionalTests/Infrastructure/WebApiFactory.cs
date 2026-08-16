@@ -1,16 +1,11 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Moq;
 using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Common.Services;
-#if (AddTemplateTests)
-using VsaTemplate.FunctionalTests.Infrastructure.TemplateTests;
-#endif
 
 namespace VsaTemplate.FunctionalTests.Infrastructure;
 
@@ -51,17 +46,6 @@ public sealed class WebApiFactory(string connectionString)
                 .AddScoped<IDomainEventDispatcher>(serviceProvider =>
                     serviceProvider.GetRequiredService<DomainEventDispatcherSpy>()
                 );
-
-#if (AddTemplateTests)
-            services.AddDbContext<TemplateTestDbContext>(
-                (sp, options) =>
-                {
-                    options
-                        .UseInMemoryDatabase("TemplateTestDb")
-                        .AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
-                }
-            );
-#endif
         });
     }
 }

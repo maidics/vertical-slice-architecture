@@ -1,12 +1,16 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Shouldly;
+using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Common.Pipeline;
-using VsaTemplate.FunctionalTests.Infrastructure.TemplateTests;
+using VsaTemplate.TemplateTests.Infrastructure;
+using VsaTemplate.TemplateTests.Infrastructure.Common;
+using VsaTemplate.TemplateTests.Infrastructure.Common.BaseClasses;
 
-namespace VsaTemplate.FunctionalTests.TemplateTests;
+namespace VsaTemplate.TemplateTests.Tests;
 
-public sealed class PerformanceFilterTests
+public sealed class PerformanceFilterTests : TestBase
 {
     [Test]
     public async Task PerformanceFilterShouldNotLogIfRequestIsResolvedFasterThan500Ms()
@@ -15,14 +19,14 @@ public sealed class PerformanceFilterTests
         {
             Request = { Method = "POST", Path = new PathString("/test") },
         };
-        var request = new TemplateTestRequest(string.Empty);
+        var request = new TestRequest(string.Empty);
         var context = EndpointFilterInvocationContext.Create(httpContext, request);
 
         var expectedResult = TypedResults.Ok();
         EndpointFilterDelegate next = _ => ValueTask.FromResult<object?>(expectedResult);
 
-        var logger = new TemplateTestLogger<PerformanceFilter>();
-        var user = new TemplateTestUser(Guid.NewGuid(), []);
+        var logger = new LoggerSpy<PerformanceFilter>();
+        var user = _serviceProvider.GetRequiredService<IUser>();
         var filter = new PerformanceFilter(logger, user);
 
         var result = await filter.InvokeAsync(context, next);
@@ -39,7 +43,7 @@ public sealed class PerformanceFilterTests
         {
             Request = { Method = "POST", Path = new PathString("/test") },
         };
-        var request = new TemplateTestRequest("performance-test");
+        var request = new TestRequest("performance-test");
         var context = EndpointFilterInvocationContext.Create(httpContext, request);
 
         var expectedResult = TypedResults.Ok();
@@ -50,8 +54,8 @@ public sealed class PerformanceFilterTests
             return expectedResult;
         }
 
-        var logger = new TemplateTestLogger<PerformanceFilter>();
-        var user = new TemplateTestUser(Guid.NewGuid(), []);
+        var logger = new LoggerSpy<PerformanceFilter>();
+        var user = _serviceProvider.GetRequiredService<IUser>();
         var filter = new PerformanceFilter(logger, user);
 
         var result = await filter.InvokeAsync(context, Next);

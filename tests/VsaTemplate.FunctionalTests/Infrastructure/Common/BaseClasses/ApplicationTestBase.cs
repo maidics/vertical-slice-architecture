@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace VsaTemplate.FunctionalTests.Infrastructure.Common;
+namespace VsaTemplate.FunctionalTests.Infrastructure.Common.BaseClasses;
 
 public abstract class ApplicationTestBase
 {

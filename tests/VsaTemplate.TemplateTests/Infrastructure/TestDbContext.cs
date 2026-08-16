@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using VsaTemplate.TemplateTests.Infrastructure.Common;
 
 namespace VsaTemplate.TemplateTests.Infrastructure;
 

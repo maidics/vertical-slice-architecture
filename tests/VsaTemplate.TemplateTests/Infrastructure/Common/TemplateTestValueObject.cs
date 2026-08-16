@@ -1,12 +1,12 @@
 ﻿using VsaTemplate.Common.BaseClasses;
 
-namespace VsaTemplate.FunctionalTests.Infrastructure.TemplateTests;
+namespace VsaTemplate.TemplateTests.Infrastructure.Common;
 
-public sealed class TemplateTestValueObject : ValueObject
+public sealed class TestValueObject : ValueObject
 {
     public int Number { get; }
 
-    public TemplateTestValueObject(int number)
+    public TestValueObject(int number)
     {
         Number = number;
     }

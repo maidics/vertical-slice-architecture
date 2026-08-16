@@ -2,11 +2,11 @@
 using VsaTemplate.Common.Extensions;
 using VsaTemplate.Common.Interfaces.Features;
 
-namespace VsaTemplate.FunctionalTests.Infrastructure.TemplateTests;
+namespace VsaTemplate.TemplateTests.Infrastructure.Common;
 
-public sealed class TemplateTestEndpoints : IEndpointGroup
+public sealed class TestEndpoints : IEndpointGroup
 {
-    public static string Prefix { get; } = nameof(TemplateTestEndpoints);
+    public static string Prefix { get; } = nameof(TestEndpoints);
     public static string[] Tags { get; } = ["test"];
 
     public static void Map(IEndpointRouteBuilder builder)

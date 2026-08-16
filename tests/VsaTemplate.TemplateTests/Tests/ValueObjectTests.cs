@@ -1,14 +1,14 @@
 ﻿using Shouldly;
-using VsaTemplate.FunctionalTests.Infrastructure.TemplateTests;
+using VsaTemplate.TemplateTests.Infrastructure.Common;
 
-namespace VsaTemplate.FunctionalTests.TemplateTests;
+namespace VsaTemplate.TemplateTests.Tests;
 
 public sealed class ValueObjectTests
 {
     [Test]
     public void EqualsShouldReturnTrueWhenValueObjectIsComparedToItself()
     {
-        var obj = new TemplateTestValueObject(2);
+        var obj = new TestValueObject(2);
 
         obj.Equals(obj).ShouldBeTrue();
     }
@@ -16,7 +16,7 @@ public sealed class ValueObjectTests
     [Test]
     public void EqualsShouldReturnFalseIfComparedToNull()
     {
-        var obj = new TemplateTestValueObject(2);
+        var obj = new TestValueObject(2);
 
         obj.Equals(null).ShouldBeFalse();
     }
@@ -24,8 +24,8 @@ public sealed class ValueObjectTests
     [Test]
     public void EqualsShouldReturnTrueWhenValueObjectsAreEqual()
     {
-        var obj = new TemplateTestValueObject(1);
-        var objOther = new TemplateTestValueObject(1);
+        var obj = new TestValueObject(1);
+        var objOther = new TestValueObject(1);
 
         obj.Equals(objOther).ShouldBeTrue();
     }
@@ -33,8 +33,8 @@ public sealed class ValueObjectTests
     [Test]
     public void EqualsShouldReturnFalseWhenValueObjectsAreNotEqual()
     {
-        var obj = new TemplateTestValueObject(1);
-        var objOther = new TemplateTestValueObject(2);
+        var obj = new TestValueObject(1);
+        var objOther = new TestValueObject(2);
 
         obj.Equals(objOther).ShouldBeFalse();
     }
@@ -46,14 +46,14 @@ public sealed class ValueObjectTests
         hash.Add(1);
         var code = hash.ToHashCode();
 
-        var obj = new TemplateTestValueObject(1);
+        var obj = new TestValueObject(1);
         obj.GetHashCode().ShouldBe(code);
     }
 
     [Test]
     public void EqualOperatorShouldReturnTrueWhenValueObjectIsComparedToItself()
     {
-        var obj = new TemplateTestValueObject(2);
+        var obj = new TestValueObject(2);
 
 #pragma warning disable CS1718 // Comparison made to same variable
         (obj == obj).ShouldBeTrue();
@@ -63,7 +63,7 @@ public sealed class ValueObjectTests
     [Test]
     public void EqualOperatorShouldReturnFalseIfComparisonContainsNull()
     {
-        var obj = new TemplateTestValueObject(1);
+        var obj = new TestValueObject(1);
 
         (obj == null!).ShouldBeFalse();
         (null! == obj).ShouldBeFalse();
@@ -72,8 +72,8 @@ public sealed class ValueObjectTests
     [Test]
     public void EqualOperatorShouldReturnTrueWhenValueObjectsAreEqual()
     {
-        var obj = new TemplateTestValueObject(1);
-        var objOther = new TemplateTestValueObject(1);
+        var obj = new TestValueObject(1);
+        var objOther = new TestValueObject(1);
 
         (obj == objOther).ShouldBeTrue();
     }
@@ -81,8 +81,8 @@ public sealed class ValueObjectTests
     [Test]
     public void EqualOperatorShouldReturnFalseWhenValueObjectsAreNotEqual()
     {
-        var obj = new TemplateTestValueObject(1);
-        var objOther = new TemplateTestValueObject(2);
+        var obj = new TestValueObject(1);
+        var objOther = new TestValueObject(2);
 
         (obj == objOther).ShouldBeFalse();
     }
@@ -90,7 +90,7 @@ public sealed class ValueObjectTests
     [Test]
     public void NotEqualOperatorShouldReturnFalseWhenValueObjectIsComparedToItself()
     {
-        var obj = new TemplateTestValueObject(1);
+        var obj = new TestValueObject(1);
 
 #pragma warning disable CS1718 // Comparison made to same variable
         (obj != obj).ShouldBeFalse();
@@ -100,8 +100,8 @@ public sealed class ValueObjectTests
     [Test]
     public void NotEqualOperatorShouldReturnFalseWhenValueObjectsAreEqual()
     {
-        var obj = new TemplateTestValueObject(1);
-        var objOther = new TemplateTestValueObject(1);
+        var obj = new TestValueObject(1);
+        var objOther = new TestValueObject(1);
 
         (obj != objOther).ShouldBeFalse();
     }
@@ -109,8 +109,8 @@ public sealed class ValueObjectTests
     [Test]
     public void NotEqualOperatorShouldReturnTrueWhenValueObjectsAreNotEqual()
     {
-        var obj = new TemplateTestValueObject(1);
-        var objOther = new TemplateTestValueObject(2);
+        var obj = new TestValueObject(1);
+        var objOther = new TestValueObject(2);
 
         (obj != objOther).ShouldBeTrue();
     }
