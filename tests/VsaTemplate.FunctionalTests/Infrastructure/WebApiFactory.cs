@@ -8,15 +8,14 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Common.Services;
-using VsaTemplate.Infrastructure;
 #if (AddTemplateTests)
 using VsaTemplate.FunctionalTests.Infrastructure.TemplateTests;
 #endif
 
-
 namespace VsaTemplate.FunctionalTests.Infrastructure;
 
-public sealed class WebApiFactory(string connectionString) : WebApplicationFactory<Program>
+public sealed class WebApiFactory(string connectionString)
+    : WebApplicationFactory<VsaTemplate.Program>
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
