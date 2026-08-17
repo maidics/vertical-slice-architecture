@@ -1,5 +1,4 @@
 using Scalar.AspNetCore;
-using VsaTemplate;
 using VsaTemplate.Common.Extensions;
 using VsaTemplate.Common.Pipeline;
 using VsaTemplate.Features.Users;
@@ -12,7 +11,7 @@ builder.AddServiceDefaults().AddCommonServices().AddInfrastructureServices();
 
 var app = builder.Build();
 
-if (!app.Environment.IsProduction())
+if (app.Environment.IsDevelopment())
 {
     using var scope = app.Services.CreateScope();
 
