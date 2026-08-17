@@ -29,19 +29,20 @@ public sealed class DispatchDomainEventInterceptor : SaveChangesInterceptor
         return await base.SavingChangesAsync(eventData, result, cancellationToken);
     }
 
-    public async Task DispatchDomainEventsAsync(DbContext? context)
+    public static async Task DispatchDomainEventsAsync(DbContext? context)
     {
         if (context is null)
             return;
 
         var entities = context
             .ChangeTracker.Entries<BaseEntity>()
-            .Where(x => x.Entity.DomainEvents.Any())
-            .Select(x => x.Entity);
+            .Where(x => x.Entity.DomainEvents.Count != 0)
+            .Select(x => x.Entity)
+            .ToList();
 
         var events = entities.SelectMany(x => x.DomainEvents).ToList();
 
-        entities.ToList().ForEach(x => x.ClearDomainEvents());
+        entities.ForEach(x => x.ClearDomainEvents());
 
         var dispatcher = context.GetService<IDomainEventDispatcher>();
 
