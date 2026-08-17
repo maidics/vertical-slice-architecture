@@ -37,10 +37,12 @@ public sealed class UpdateExampleCommandHandler : IRequestHandler
         if (example is null)
             return Result.NotFound(["Example not found."]);
 
-        var existingWithContent = await _context.Examples.FirstOrDefaultAsync(
-            x => x.Content == command.Content,
-            cancellationToken
-        );
+        if (example.Content == command.Content)
+            return Result.Success();
+
+        var existingWithContent = await _context
+            .Examples.AsNoTracking()
+            .FirstOrDefaultAsync(x => x.Content == command.Content, cancellationToken);
 
         if (existingWithContent is not null)
             return Result.Conflict([$"Example with '{command.Content}' content already exists."]);
