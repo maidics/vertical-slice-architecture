@@ -39,8 +39,11 @@ app.MapGroup("/api")
 //app.MapDefaultEndpoints(); // ServiceDefaults observability
 app.MapGroup("/api/identity").MapIdentityApi<ApplicationUser>().WithTags("Users");
 
-app.MapOpenApi();
-app.MapScalarApiReference();
+if (app.Environment.IsDevelopment())
+{
+    app.MapOpenApi();
+    app.MapScalarApiReference();
+}
 
 app.Run();
 
