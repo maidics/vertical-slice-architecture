@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace VsaTemplate.Common.Models;
 
 public record Result
@@ -104,6 +106,21 @@ public sealed record Result<T> : Result
             value: default!,
             type: Type
         );
+    }
+
+    // This is required so the getter on Value does not throw if Succeeded is false
+    protected override bool PrintMembers(StringBuilder builder)
+    {
+        builder.Append("Succeeded = ").Append(Succeeded).Append(", Type = ").Append(Type);
+
+        builder.Append(", Value = ");
+
+        if (Succeeded)
+            builder.Append(Value);
+
+        builder.Append(", Errors = ").Append(string.Join(", ", Errors));
+
+        return true;
     }
 }
 
