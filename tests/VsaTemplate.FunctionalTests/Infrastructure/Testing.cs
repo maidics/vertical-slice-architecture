@@ -70,7 +70,7 @@ public static class Testing
         if (!creationResult.Succeeded)
             throw new InvalidOperationException($"Failed to create user: {email}");
 
-        if (roles.Length > 1)
+        if (roles.Length > 0)
         {
             var roleResult = await userManager.AddToRolesAsync(user, roles);
 
