@@ -5,11 +5,16 @@ namespace VsaTemplate.Common.Pipeline;
 
 public sealed class ProblemDetailsExceptionHandler : IExceptionHandler
 {
+    private readonly IProblemDetailsService _problemDetailsService;
     private readonly ILogger<ProblemDetailsExceptionHandler> _logger;
 
-    public ProblemDetailsExceptionHandler(ILogger<ProblemDetailsExceptionHandler> logger)
+    public ProblemDetailsExceptionHandler(
+        ILogger<ProblemDetailsExceptionHandler> logger,
+        IProblemDetailsService problemDetailsService
+    )
     {
         _logger = logger;
+        _problemDetailsService = problemDetailsService;
     }
 
     public async ValueTask<bool> TryHandleAsync(
@@ -18,11 +23,22 @@ public sealed class ProblemDetailsExceptionHandler : IExceptionHandler
         CancellationToken cancellationToken
     )
     {
+        if (httpContext.Response.HasStarted)
+            return false;
+
+        if (
+            exception is OperationCanceledException
+            && httpContext.RequestAborted.IsCancellationRequested
+        )
+        {
+            httpContext.Response.StatusCode = StatusCodes.Status499ClientClosedRequest;
+            return true;
+        }
+
         // Customize this for your own needs
         // See: https://learn.microsoft.com/en-us/aspnet/core/fundamentals/error-handling
         // See: https://learn.microsoft.com/en-us/dotnet/api/microsoft.aspnetcore.diagnostics.iexceptionhandler.tryhandleasync
 
-        // BadHttpRequestException thrown by framework
         var requestMethod = httpContext.Request.Method;
         var requestPath = httpContext.Request.Path;
 
@@ -36,8 +52,17 @@ public sealed class ProblemDetailsExceptionHandler : IExceptionHandler
             _ => HandleDefault(exception, requestMethod, requestPath),
         };
 
-        httpContext.Response.StatusCode = problemDetails.Status!.Value;
-        await httpContext.Response.WriteAsJsonAsync(problemDetails, cancellationToken);
+        httpContext.Response.StatusCode =
+            problemDetails.Status ?? StatusCodes.Status500InternalServerError;
+
+        await _problemDetailsService.TryWriteAsync(
+            new ProblemDetailsContext
+            {
+                HttpContext = httpContext,
+                Exception = exception,
+                ProblemDetails = problemDetails,
+            }
+        );
 
         return true;
     }
@@ -56,12 +81,10 @@ public sealed class ProblemDetailsExceptionHandler : IExceptionHandler
             requestPath
         );
 
+        // no explicit status or other details, IProblemDetailsService will handle this
         return new ProblemDetails
         {
             Status = badHttpRequestException.StatusCode,
-            Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.1",
-            Title = "Bad Request",
-            Detail = "The request contains invalid or malformed parameters.",
             Instance = requestPath,
         };
     }

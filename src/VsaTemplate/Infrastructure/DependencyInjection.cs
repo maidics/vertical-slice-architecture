@@ -61,6 +61,8 @@ public static class DependencyInjection
                 options.SerializerOptions.UnmappedMemberHandling =
                     JsonUnmappedMemberHandling.Disallow; // rejects payloads with extra fields
             });
+
+            builder.Services.AddProblemDetails();
         }
     }
 }

@@ -1,20 +1,27 @@
 ﻿using System.Text.Json;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Shouldly;
 using VsaTemplate.Common.Pipeline;
 using VsaTemplate.TemplateTests.Infrastructure;
+using VsaTemplate.TemplateTests.Infrastructure.Common.BaseClasses;
 
 namespace VsaTemplate.TemplateTests.Tests;
 
-public sealed class ProblemDetailsExceptionHandlerTests
+public sealed class ProblemDetailsExceptionHandlerTests : TestBase
 {
-    [Test]
-    public async Task TryHandleAsyncShouldWriteProblemDetailsAndReturnTrueOnBadHttpRequestException()
+    [TestCase(StatusCodes.Status400BadRequest, "Bad Request")]
+    [TestCase(StatusCodes.Status413PayloadTooLarge, "Content Too Large")]
+    public async Task TryHandleAsyncShouldWriteProblemDetailsAndReturnTrueOnBadHttpRequestException(
+        int statusCode,
+        string expectedTitle
+    )
     {
+        var problemDetailsService = _serviceProvider.GetRequiredService<IProblemDetailsService>();
         var logger = new LoggerSpy<ProblemDetailsExceptionHandler>();
-        var handler = new ProblemDetailsExceptionHandler(logger);
+        var handler = new ProblemDetailsExceptionHandler(logger, problemDetailsService);
 
         var body = new MemoryStream();
         var requestPath = "/test";
@@ -23,13 +30,13 @@ public sealed class ProblemDetailsExceptionHandlerTests
             Response = { Body = body },
             Request = { Path = requestPath },
         };
-        var exception = new BadHttpRequestException("Test.");
+        var exception = new BadHttpRequestException("Test.", statusCode);
 
         var result = await handler.TryHandleAsync(httpContext, exception, CancellationToken.None);
         result.ShouldBeTrue();
 
         var response = httpContext.Response;
-        response.StatusCode.ShouldBe(StatusCodes.Status400BadRequest);
+        response.StatusCode.ShouldBe(statusCode);
 
         body.Seek(0, SeekOrigin.Begin);
 
@@ -39,10 +46,8 @@ public sealed class ProblemDetailsExceptionHandlerTests
         );
 
         problem.ShouldNotBeNull();
-        problem.Title.ShouldBe("Bad Request");
-        problem.Detail.ShouldBe("The request contains invalid or malformed parameters.");
-        problem.Type = "https://datatracker.ietf.org/doc/html/rfc7231#section-6.5.1";
-        problem.Status.ShouldBe(StatusCodes.Status400BadRequest);
+        problem.Title.ShouldBe(expectedTitle);
+        problem.Status.ShouldBe(statusCode);
         problem.Instance.ShouldBe(requestPath);
 
         logger.Entries.Count.ShouldBe(1);
@@ -57,8 +62,9 @@ public sealed class ProblemDetailsExceptionHandlerTests
         Type exceptionType
     )
     {
+        var problemDetailsService = _serviceProvider.GetRequiredService<IProblemDetailsService>();
         var logger = new LoggerSpy<ProblemDetailsExceptionHandler>();
-        var handler = new ProblemDetailsExceptionHandler(logger);
+        var handler = new ProblemDetailsExceptionHandler(logger, problemDetailsService);
 
         var body = new MemoryStream();
         var requestPath = "/test";
@@ -97,5 +103,36 @@ public sealed class ProblemDetailsExceptionHandlerTests
         logger
             .Entries[0]
             .Message.ShouldContain("Unhandled exception caught while processing request at");
+    }
+
+    [Test]
+    public async Task TryHandleAsyncShouldReturnTrueWithoutBodyWhenClientAborted()
+    {
+        var problemDetailsService = _serviceProvider.GetRequiredService<IProblemDetailsService>();
+        var logger = new LoggerSpy<ProblemDetailsExceptionHandler>();
+        var handler = new ProblemDetailsExceptionHandler(logger, problemDetailsService);
+
+        var body = new MemoryStream();
+        var requestPath = "/test";
+        var httpContext = new DefaultHttpContext
+        {
+            Response = { Body = body },
+            Request = { Path = requestPath },
+        };
+
+        using var cts = new CancellationTokenSource();
+        await cts.CancelAsync();
+        httpContext.RequestAborted = cts.Token;
+
+        var result = await handler.TryHandleAsync(
+            httpContext,
+            new OperationCanceledException(),
+            CancellationToken.None
+        );
+
+        result.ShouldBeTrue();
+        httpContext.Response.StatusCode.ShouldBe(StatusCodes.Status499ClientClosedRequest);
+        body.Length.ShouldBe(0);
+        logger.Entries.Count.ShouldBe(0);
     }
 }
