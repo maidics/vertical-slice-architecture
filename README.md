@@ -23,7 +23,7 @@ dotnet new vsa-sln -n [SolutionName]
 - **Target Framework**: [.NET SDK 10.0.400](https://dotnet.microsoft.com/en-us/download/dotnet/10.0)
 - **No [MediatR](https://github.com/LuckyPennySoftware/MediatR) dependency**: Uses lightweight reflection at application startup to automatically discover and register [`IRequestHandler`](./src/VsaTemplate/Common/Interfaces/Features/IRequestHandler.cs) & [`IDomainEventHandler`](./src/VsaTemplate/Common/Interfaces/Features/IDomainEventHandler.cs) implementations
 - **Native Pipeline Filters**: Because MediatR was removed, `PipelineBehavior` has been replaced with native IEndpointFilter implementations
-- **Persistence**: Configured with SQLite db out of the box ([**recent vulnerability issues with SQLitePCLRaw.lib.e_sqlite3**](https://github.com/advisories/GHSA-2m69-gcr7-jv3q) are suppressed in [`Directory.Build.Props`](Directory.Build.props)).
+- **Persistence**: Configured with SQLite db out of the box
 - **App Host**: Uses [Aspire](https://aspire.dev/) to orchestrate the backend and the SQLite db
 
 ### `IEndpointFilter` implementations
