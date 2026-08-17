@@ -14,10 +14,10 @@ dotnet new install Vertical.Slice.Architecture
 dotnet new vsa-sln -n [SolutionName]
 ```
 
-| Options               | Values      | Default | Description                                       |
-|-----------------------|-------------|---------|---------------------------------------------------|
-| --examples, -e        | true, false | false   | Includes example implementations and tests|
-| --template-tests, -tt | true, false | false   | Includes template related tests                   |
+| Options               | Values      | Default | Description                               |
+|-----------------------|-------------|---------|-------------------------------------------|
+| --examples, -e        | true, false | false   | Includes example implementations and tests |
+| --template-tests, -tt | true, false | false   | Includes TemplateTest project             |
 
 ## Featues
 - **Target Framework**: [.NET SDK 10.0.400](https://dotnet.microsoft.com/en-us/download/dotnet/10.0)
