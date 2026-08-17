@@ -24,7 +24,7 @@ public sealed class ExampleContentAppendedEventTests : ApplicationTestBase
 
         var spy = GetService<DomainEventDispatcherSpy>();
         spy.DispatchedEvents.Count.ShouldBe(1);
-        spy.HasDispatchedEventType<ExampleContentAppendedEvent>();
+        spy.HasDispatchedEventType<ExampleContentAppendedEvent>().ShouldBeTrue();
     }
 
     [Test]
