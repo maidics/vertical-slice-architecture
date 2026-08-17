@@ -78,4 +78,19 @@ public sealed class UpdateExampleTests : ApplicationTestBase
         var updated = await Testing.FirstOrDefaultAsync<Example>(x => x.Id == example.Id);
         updated!.Content.ShouldBe(command.Content);
     }
+
+    [Test]
+    public async Task ShouldReturnSuccessIfNewContentIsTheSameAsCurrent()
+    {
+        var example = new Example() { Content = "test" };
+
+        await Testing.AddAsync(example);
+
+        var command = new UpdateExampleCommand(example.Id, example.Content);
+
+        var handler = GetService<UpdateExampleCommandHandler>();
+
+        var result = await handler.Handle(command, CancellationToken.None);
+        result.ShouldBeSuccessful();
+    }
 }
