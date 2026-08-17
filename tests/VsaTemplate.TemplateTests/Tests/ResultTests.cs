@@ -120,4 +120,14 @@ public sealed class ResultTests
         failure.Type.ShouldBe(ResultType.NotFound);
         failure.Errors.ShouldBe(["test"]);
     }
+
+    [Test]
+    public void FailedGenericResultShouldNotThrowOnToString()
+    {
+        var failure = Result.NotFound();
+
+        Result<int> result = failure;
+
+        Should.NotThrow(result.ToString);
+    }
 }
