@@ -4,7 +4,8 @@ using VsaTemplate.Common.Models;
 using VsaTemplate.Features.Examples;
 using VsaTemplate.Features.Examples.Commands;
 using VsaTemplate.FunctionalTests.Infrastructure;
-using VsaTemplate.FunctionalTests.Infrastructure.Common;
+using VsaTemplate.FunctionalTests.Infrastructure.Common.BaseClasses;
+using VsaTemplate.FunctionalTests.Infrastructure.Common.Extensions;
 
 namespace VsaTemplate.FunctionalTests.FeatureTests.Examples.Commands;
 

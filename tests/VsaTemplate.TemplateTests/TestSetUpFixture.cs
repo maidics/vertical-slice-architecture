@@ -1,14 +1,14 @@
-using Aspire.Hosting;
+﻿using Aspire.Hosting;
 using Aspire.Hosting.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Projects;
-using VsaTemplate.FunctionalTests.Infrastructure;
 using VsaTemplate.Shared;
+using VsaTemplate.TemplateTests.Infrastructure;
 
-namespace VsaTemplate.FunctionalTests;
+namespace VsaTemplate.TemplateTests;
 
 [SetUpFixture]
-public class TestSetUpFixture
+public sealed class TestSetUpFixture
 {
     public static IServiceScopeFactory ScopeFactory { get; private set; } = null!;
     public static TestDatabase? Database { get; private set; }
@@ -17,7 +17,7 @@ public class TestSetUpFixture
     private static DistributedApplication? _app;
 
     [OneTimeSetUp]
-    public async Task OneTimeSetup()
+    public async Task OneTimeSetUp()
     {
         var cts = new CancellationTokenSource(TimeSpan.FromSeconds(15));
 
@@ -52,16 +52,10 @@ public class TestSetUpFixture
     {
         if (Database is not null)
             await Database.DisposeAsync();
+
         if (_app is not null)
             await _app.DisposeAsync();
         if (_factory is not null)
             await _factory.DisposeAsync();
-    }
-
-    public static HttpClient CreateHttpClient()
-    {
-        ArgumentNullException.ThrowIfNull(_factory);
-
-        return _factory.CreateClient();
     }
 }

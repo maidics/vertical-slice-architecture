@@ -1,22 +1,16 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using Moq;
 using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Common.Services;
-using VsaTemplate.Infrastructure;
-#if (AddTemplateTests)
-using VsaTemplate.FunctionalTests.Infrastructure.TemplateTests;
-#endif
-
 
 namespace VsaTemplate.FunctionalTests.Infrastructure;
 
-public sealed class WebApiFactory(string connectionString) : WebApplicationFactory<Program>
+public sealed class WebApiFactory(string connectionString)
+    : WebApplicationFactory<VsaTemplate.Program>
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
@@ -52,17 +46,6 @@ public sealed class WebApiFactory(string connectionString) : WebApplicationFacto
                 .AddScoped<IDomainEventDispatcher>(serviceProvider =>
                     serviceProvider.GetRequiredService<DomainEventDispatcherSpy>()
                 );
-
-#if (AddTemplateTests)
-            services.AddDbContext<TemplateTestDbContext>(
-                (sp, options) =>
-                {
-                    options
-                        .UseInMemoryDatabase("TemplateTestDb")
-                        .AddInterceptors(sp.GetServices<ISaveChangesInterceptor>());
-                }
-            );
-#endif
         });
     }
 }

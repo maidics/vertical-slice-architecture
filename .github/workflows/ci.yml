@@ -4,8 +4,6 @@ on:
   push:
     branches: ['**'] # runs on all branches, but pack & publish only ran on master branch
     tags: ['v*']
-  pull_request:
-    branches: [ master ]
 
 jobs: # only runs pack -> test if there changes to something that is not inside .github/
   ci: # only runs publish if a new tag is pushed
