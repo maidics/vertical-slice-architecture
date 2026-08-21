@@ -15,7 +15,7 @@ public static class ResultExtensions
                 return TypedResults.Ok(result.Value);
             }
 
-            return result.MapResultFailure();
+            return TypedResults.Problem(CreateProblemDetails(result.Type, result.Errors));
         }
     }
 
@@ -28,12 +28,7 @@ public static class ResultExtensions
                 return TypedResults.NoContent();
             }
 
-            return result.MapResultFailure();
-        }
-
-        private ProblemHttpResult MapResultFailure()
-        {
-            return TypedResults.Problem(CreateProblemDetails(result));
+            return TypedResults.Problem(CreateProblemDetails(result.Type, result.Errors));
         }
     }
 
@@ -64,14 +59,14 @@ public static class ResultExtensions
         };
     }
 
-    private static ProblemDetails CreateProblemDetails(Result result)
+    private static ProblemDetails CreateProblemDetails(ResultType type, string[] errors)
     {
-        var tuple = result.Type.GetStatusCodeAndTitle();
+        var tuple = type.GetStatusCodeAndTitle();
 
         var problemDetails = new ProblemDetails { Status = tuple.status, Title = tuple.title };
 
         //RFC 7807 standard
-        problemDetails.Extensions["errors"] = result.Errors;
+        problemDetails.Extensions["errors"] = errors;
 
         return problemDetails;
     }

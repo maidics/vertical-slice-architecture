@@ -1,23 +1,20 @@
-using System.Text;
-
 namespace VsaTemplate.Common.Models;
 
-public record Result
+public readonly struct Result
 {
-    protected Result(bool succeeded, IEnumerable<string> errors, ResultType type)
+    private Result(string[] errors, ResultType type)
     {
-        Succeeded = succeeded;
-        Errors = errors.ToArray();
+        Errors = errors;
         Type = type;
     }
 
-    public bool Succeeded { get; }
-    public IReadOnlyList<string> Errors { get; }
+    public bool Succeeded => Type == ResultType.Success;
+    public string[] Errors { get; }
     public ResultType Type { get; }
 
     public static Result Success()
     {
-        return new Result(true, [], ResultType.Success);
+        return new Result([], ResultType.Success);
     }
 
     public static Result<T> Success<T>(T value)
@@ -56,17 +53,22 @@ public record Result
 
     public static implicit operator Result(ResultFailure failure)
     {
-        return new Result(false, failure.Errors, failure.Type);
+        return new Result(failure.Errors, failure.Type);
     }
 }
 
-public sealed record Result<T> : Result
+public readonly struct Result<T>
 {
-    private Result(bool succeeded, string[] errors, ResultType type, T value)
-        : base(succeeded, errors, type)
+    private Result(string[] errors, ResultType type, T value)
     {
+        Errors = errors;
+        Type = type;
         Value = value;
     }
+
+    public ResultType Type { get; }
+    public string[] Errors { get; }
+    public bool Succeeded => Type == ResultType.Success;
 
     public T Value
     {
@@ -83,12 +85,12 @@ public sealed record Result<T> : Result
 
     public static implicit operator Result<T>(ResultFailure failure)
     {
-        return new Result<T>(false, failure.Errors, failure.Type, default!);
+        return new Result<T>(failure.Errors, failure.Type, default!);
     }
 
     public static Result<T> Success(T value)
     {
-        return new Result<T>(true, [], ResultType.Success, value);
+        return new Result<T>([], ResultType.Success, value);
     }
 
     public Result<TOther> ToFailure<TOther>()
@@ -100,31 +102,11 @@ public sealed record Result<T> : Result
             );
         }
 
-        return new Result<TOther>(
-            succeeded: false,
-            errors: Errors.ToArray(),
-            value: default!,
-            type: Type
-        );
-    }
-
-    // This is required so the getter on Value does not throw if Succeeded is false
-    protected override bool PrintMembers(StringBuilder builder)
-    {
-        builder.Append("Succeeded = ").Append(Succeeded).Append(", Type = ").Append(Type);
-
-        builder.Append(", Value = ");
-
-        if (Succeeded)
-            builder.Append(Value);
-
-        builder.Append(", Errors = ").Append(string.Join(", ", Errors));
-
-        return true;
+        return new Result<TOther>(errors: Errors, value: default!, type: Type);
     }
 }
 
-public class ResultFailure
+public readonly struct ResultFailure
 {
     public ResultType Type { get; }
     public string[] Errors { get; }
@@ -135,7 +117,7 @@ public class ResultFailure
             throw new InvalidOperationException($"'{type}' is not a failure type.");
 
         Type = type;
-        Errors = errors.ToArray();
+        Errors = errors;
     }
 }
 
