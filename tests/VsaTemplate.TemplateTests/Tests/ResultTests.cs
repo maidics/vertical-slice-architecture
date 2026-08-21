@@ -91,7 +91,7 @@ public sealed class ResultTests
     {
         var result = Result.Success("test");
 
-        Should.Throw<InvalidOperationException>(result.ToFailure<int>);
+        Should.Throw<InvalidOperationException>(() => result.ToFailure<int>());
     }
 
     [Test]
