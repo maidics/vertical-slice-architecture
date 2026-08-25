@@ -1,4 +1,5 @@
 ﻿using Shouldly;
+using VsaTemplate.Common.Constants;
 using VsaTemplate.Features.Users;
 
 namespace VsaTemplate.UnitTests.Common.Constants;
