@@ -1,8 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace VsaTemplate.FunctionalTests.Infrastructure.Common.BaseClasses;
+namespace VsaTemplate.FunctionalTests.Infrastructure.Common;
 
-public abstract class ApplicationTestBase
+public abstract class TestBase
 {
     private IServiceScope Scope = null!;
 

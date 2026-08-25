@@ -1,15 +1,15 @@
 using Shouldly;
 using VsaTemplate.Features.Examples;
 
-namespace VsaTemplate.FunctionalTests.FeatureTests.Examples;
+namespace VsaTemplate.UnitTests.Tests.Features.Examples;
 
 public sealed class ExampleFeatureTests
 {
     [Test]
     public void ShouldAppendContent()
     {
-        string content = "content";
-        string extra = "-extra-content";
+        const string content = "content";
+        const string extra = "-extra-content";
 
         var example = new Example { Content = content };
 

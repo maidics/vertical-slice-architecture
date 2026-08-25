@@ -3,12 +3,11 @@ using VsaTemplate.Common.Models;
 using VsaTemplate.Features.Examples;
 using VsaTemplate.Features.Examples.Queries;
 using VsaTemplate.FunctionalTests.Infrastructure;
-using VsaTemplate.FunctionalTests.Infrastructure.Common.BaseClasses;
-using VsaTemplate.FunctionalTests.Infrastructure.Common.Extensions;
+using VsaTemplate.FunctionalTests.Infrastructure.Common;
 
-namespace VsaTemplate.FunctionalTests.FeatureTests.Examples.Queries;
+namespace VsaTemplate.FunctionalTests.Tests.Examples.Queries;
 
-public sealed class GetExampleByIdTests : ApplicationTestBase
+public sealed class GetExampleByIdTests : TestBase
 {
     [Test]
     public async Task ShouldReturnNotFoundIfExampleDoesNotExists()

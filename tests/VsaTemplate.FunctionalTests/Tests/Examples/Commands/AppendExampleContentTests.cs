@@ -1,38 +1,14 @@
-using FluentValidation.TestHelper;
 using Shouldly;
 using VsaTemplate.Common.Models;
 using VsaTemplate.Features.Examples;
 using VsaTemplate.Features.Examples.Commands;
 using VsaTemplate.FunctionalTests.Infrastructure;
-using VsaTemplate.FunctionalTests.Infrastructure.Common.BaseClasses;
-using VsaTemplate.FunctionalTests.Infrastructure.Common.Extensions;
+using VsaTemplate.FunctionalTests.Infrastructure.Common;
 
-namespace VsaTemplate.FunctionalTests.FeatureTests.Examples.Commands;
+namespace VsaTemplate.FunctionalTests.Tests.Examples.Commands;
 
-public sealed class AppendExampleContentTests : ApplicationTestBase
+public sealed class AppendExampleContentTests : TestBase
 {
-    [Test]
-    public async Task ShouldReturnValidationErrors()
-    {
-        var command = new AppendExampleContentCommand(Guid.Empty, "");
-        var validator = GetService<AppendExampleContentCommandValidator>();
-
-        var result = await validator.TestValidateAsync(command);
-        result
-            .ShouldHaveValidationErrorFor(x => x.AdditionalContent)
-            .WithErrorMessage("Additional content is required.");
-    }
-
-    [Test]
-    public async Task ShouldNotReturnValidationErrors()
-    {
-        var command = new AppendExampleContentCommand(Guid.Empty, "test");
-        var validator = GetService<AppendExampleContentCommandValidator>();
-
-        var result = await validator.TestValidateAsync(command);
-        result.ShouldNotHaveAnyValidationErrors();
-    }
-
     [Test]
     public async Task ShouldReturnNotFoundIfExampleDoesNotExists()
     {
