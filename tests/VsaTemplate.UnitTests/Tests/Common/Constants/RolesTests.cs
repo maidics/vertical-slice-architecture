@@ -1,7 +1,7 @@
 ﻿using Shouldly;
 using VsaTemplate.Features.Users;
 
-namespace VsaTemplate.FunctionalTests.FeatureTests.Users;
+namespace VsaTemplate.UnitTests.Common.Constants;
 
 public sealed class RolesTests
 {

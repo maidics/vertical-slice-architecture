@@ -1,9 +1,8 @@
 using Shouldly;
 using VsaTemplate.Features.Examples;
-using VsaTemplate.FunctionalTests.Infrastructure.Common;
-using VsaTemplate.FunctionalTests.Infrastructure.Common.BaseClasses;
+using VsaTemplate.UnitTests.Infrastructure;
 
-namespace VsaTemplate.FunctionalTests.FeatureTests.Examples;
+namespace VsaTemplate.UnitTests.Tests.Features.Examples;
 
 public sealed class ExampleConfigurationTests
     : EntityConfigurationTestBase<ExampleConfiguration, Example>
