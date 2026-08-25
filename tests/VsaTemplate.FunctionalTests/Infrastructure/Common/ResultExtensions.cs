@@ -1,7 +1,7 @@
 using Shouldly;
 using VsaTemplate.Common.Models;
 
-namespace VsaTemplate.FunctionalTests.Infrastructure.Common.Extensions;
+namespace VsaTemplate.FunctionalTests.Infrastructure.Common;
 
 public static class ResultExtensions
 {

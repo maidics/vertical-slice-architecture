@@ -4,12 +4,11 @@ using VsaTemplate.Common.Models;
 using VsaTemplate.Features.Examples;
 using VsaTemplate.Features.Examples.Commands;
 using VsaTemplate.FunctionalTests.Infrastructure;
-using VsaTemplate.FunctionalTests.Infrastructure.Common.BaseClasses;
-using VsaTemplate.FunctionalTests.Infrastructure.Common.Extensions;
+using VsaTemplate.FunctionalTests.Infrastructure.Common;
 
 namespace VsaTemplate.FunctionalTests.FeatureTests.Examples.Commands;
 
-public sealed class CreateExampleTests : ApplicationTestBase
+public sealed class CreateExampleTests : TestBase
 {
     [Test]
     public async Task ShouldReturnValidationErrors()

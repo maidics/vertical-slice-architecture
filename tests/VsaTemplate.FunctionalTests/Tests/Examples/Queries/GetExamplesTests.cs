@@ -2,11 +2,11 @@ using Shouldly;
 using VsaTemplate.Features.Examples;
 using VsaTemplate.Features.Examples.Queries;
 using VsaTemplate.FunctionalTests.Infrastructure;
-using VsaTemplate.FunctionalTests.Infrastructure.Common.BaseClasses;
+using VsaTemplate.FunctionalTests.Infrastructure.Common;
 
 namespace VsaTemplate.FunctionalTests.FeatureTests.Examples.Queries;
 
-public sealed class GetExamplesTests : ApplicationTestBase
+public sealed class GetExamplesTests : TestBase
 {
     [TestCase(0)]
     [TestCase(10)]

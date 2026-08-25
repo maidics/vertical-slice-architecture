@@ -3,12 +3,11 @@ using VsaTemplate.Features.Examples;
 using VsaTemplate.Features.Examples.Commands;
 using VsaTemplate.Features.Examples.Events;
 using VsaTemplate.FunctionalTests.Infrastructure;
-using VsaTemplate.FunctionalTests.Infrastructure.Common.BaseClasses;
-using VsaTemplate.FunctionalTests.Infrastructure.Common.Extensions;
+using VsaTemplate.FunctionalTests.Infrastructure.Common;
 
 namespace VsaTemplate.FunctionalTests.FeatureTests.Examples.Events;
 
-public sealed class ExampleContentAppendedEventTests : ApplicationTestBase
+public sealed class ExampleContentAppendedEventTests : TestBase
 {
     [Test]
     public async Task AppendExampleContentShouldDispatchEvent()
