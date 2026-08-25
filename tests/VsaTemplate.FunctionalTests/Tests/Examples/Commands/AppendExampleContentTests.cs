@@ -6,7 +6,7 @@ using VsaTemplate.Features.Examples.Commands;
 using VsaTemplate.FunctionalTests.Infrastructure;
 using VsaTemplate.FunctionalTests.Infrastructure.Common;
 
-namespace VsaTemplate.FunctionalTests.FeatureTests.Examples.Commands;
+namespace VsaTemplate.FunctionalTests.Tests.Examples.Commands;
 
 public sealed class AppendExampleContentTests : TestBase
 {

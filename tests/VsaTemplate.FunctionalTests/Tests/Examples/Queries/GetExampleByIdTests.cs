@@ -5,7 +5,7 @@ using VsaTemplate.Features.Examples.Queries;
 using VsaTemplate.FunctionalTests.Infrastructure;
 using VsaTemplate.FunctionalTests.Infrastructure.Common;
 
-namespace VsaTemplate.FunctionalTests.FeatureTests.Examples.Queries;
+namespace VsaTemplate.FunctionalTests.Tests.Examples.Queries;
 
 public sealed class GetExampleByIdTests : TestBase
 {

@@ -5,7 +5,7 @@ using VsaTemplate.Features.Examples.Events;
 using VsaTemplate.FunctionalTests.Infrastructure;
 using VsaTemplate.FunctionalTests.Infrastructure.Common;
 
-namespace VsaTemplate.FunctionalTests.FeatureTests.Examples.Events;
+namespace VsaTemplate.FunctionalTests.Tests.Examples.Events;
 
 public sealed class ExampleContentAppendedEventTests : TestBase
 {
