@@ -108,7 +108,7 @@ Tests the infrastructure shipped with the template such as the:
 
 ### Unit Tests
 
-This project captures tests that **do not require special infrastructure** such as the `WebApplicationFactory`, database, dependency injection or others. This means that entities, [`IEndpointGroup`](./src/VsaTemplate/Common/Interfaces/Features/IEndpointGroup.cs) and `IEntityTypeConfiguration` implementations should be tested in here.
+This project captures tests that **do not require special infrastructure** such as the `WebApplicationFactory`, database, dependency injection or others. This means that entities, [`IEndpointGroup`](./src/VsaTemplate/Common/Interfaces/Features/IEndpointGroup.cs) `IEntityTypeConfiguration` implementations and validators should be tested here.
 
 ### Functional Tests
 
