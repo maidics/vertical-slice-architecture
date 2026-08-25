@@ -1,6 +1,6 @@
 using System.Collections.Frozen;
 
-namespace VsaTemplate.Features.Users;
+namespace VsaTemplate.Common.Constants;
 
 public abstract class Roles
 {
