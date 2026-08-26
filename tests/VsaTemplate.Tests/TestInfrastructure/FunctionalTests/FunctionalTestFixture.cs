@@ -16,7 +16,7 @@ public sealed class FunctionalTestFixture : IAsyncInitializer, IAsyncDisposable
 
     private IServiceScopeFactory _scopeFactory = null!;
 
-    private TestDatabase? _database; // TODO: reset db after each test
+    private TestDatabase? _database;
     public IServiceScope ServiceScope { get; private set; } = null!;
 
     public async Task InitializeAsync()
