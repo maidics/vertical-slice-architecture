@@ -8,4 +8,8 @@
     <PackageReference Include="Shouldly" />
     <PackageReference Include="TUnit" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\VsaTemplate\VsaTemplate.csproj" />
+  </ItemGroup>
 </Project>

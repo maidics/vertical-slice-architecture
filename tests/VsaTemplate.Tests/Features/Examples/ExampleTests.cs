@@ -1,7 +1,6 @@
-using Shouldly;
 using VsaTemplate.Features.Examples;
 
-namespace VsaTemplate.UnitTests.Tests.Features.Examples;
+namespace VsaTemplate.Tests.Features.Examples;
 
 public sealed class ExampleFeatureTests
 {

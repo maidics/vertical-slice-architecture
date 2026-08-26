@@ -1,17 +1,18 @@
 ﻿using FluentValidation.TestHelper;
 using VsaTemplate.Features.Examples.Commands;
 
-namespace VsaTemplate.UnitTests.Tests.Features.Examples.Commands;
+namespace VsaTemplate.Tests.Features.Examples.Commands;
 
 public sealed class AppendExampleContentCommandValidatorTests
 {
+    private readonly AppendExampleContentCommandValidator _validator = new();
+
     [Test]
     public async Task ShouldReturnValidationErrors()
     {
         var command = new AppendExampleContentCommand(Guid.Empty, "");
-        var validator = new AppendExampleContentCommandValidator();
 
-        var result = await validator.TestValidateAsync(command);
+        var result = await _validator.TestValidateAsync(command);
         result
             .ShouldHaveValidationErrorFor(x => x.AdditionalContent)
             .WithErrorMessage("Additional content is required.");
@@ -21,9 +22,8 @@ public sealed class AppendExampleContentCommandValidatorTests
     public async Task ShouldNotReturnValidationErrors()
     {
         var command = new AppendExampleContentCommand(Guid.Empty, "test");
-        var validator = new AppendExampleContentCommandValidator();
 
-        var result = await validator.TestValidateAsync(command);
+        var result = await _validator.TestValidateAsync(command);
         result.ShouldNotHaveAnyValidationErrors();
     }
 }

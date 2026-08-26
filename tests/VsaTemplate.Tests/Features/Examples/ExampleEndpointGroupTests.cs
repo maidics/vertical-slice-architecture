@@ -1,8 +1,7 @@
-using Shouldly;
 using VsaTemplate.Features.Examples;
-using VsaTemplate.UnitTests.Infrastructure;
+using VsaTemplate.Tests.TestInfrastructure;
 
-namespace VsaTemplate.UnitTests.Tests.Features.Examples;
+namespace VsaTemplate.Tests.Features.Examples;
 
 public sealed class ExampleEndpointGroupTests : IEndpointGroupTests
 {

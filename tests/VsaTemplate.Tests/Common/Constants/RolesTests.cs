@@ -1,7 +1,6 @@
-﻿using Shouldly;
-using VsaTemplate.Common.Constants;
+﻿using VsaTemplate.Common.Constants;
 
-namespace VsaTemplate.UnitTests.Tests.Common.Constants;
+namespace VsaTemplate.Tests.Common.Constants;
 
 public sealed class RolesTests
 {
