@@ -14,7 +14,7 @@ public sealed class AuditableEntityInterceptorTests : TestBase
     [Test]
     public void InterceptorShouldBeRegisteredToDbContext()
     {
-        using var context = _serviceProvider.GetRequiredService<ApplicationDbContext>();
+        using var context = GetRequiredService<ApplicationDbContext>();
 
         var coreOptions = context
             .GetService<IDbContextOptions>()
@@ -28,14 +28,16 @@ public sealed class AuditableEntityInterceptorTests : TestBase
         auditable.Count().ShouldBe(1);
     }
 
-    [TestCase(true)]
-    [TestCase(false)]
+    [Test]
+    [Arguments(true)]
+    [Arguments(false)]
     public void ShouldUpdateCreatedAndModifiedPropertiesWhenEntityIsCreated(bool logUserIn)
     {
-        using var context = _serviceProvider.GetRequiredService<TestDbContext>();
+        using var context = GetRequiredService<TestDbContext>();
 
-        Guid? userId = logUserIn ? Testing.LogUserIn(Guid.NewGuid(), []) : null;
-        var time = _serviceProvider.GetRequiredService<TimeProvider>();
+        Guid? userId = LogUserIn(logUserIn);
+
+        var time = GetRequiredService<TimeProvider>();
 
         var entity = new TestEntity();
         context.Add(entity);
@@ -52,13 +54,14 @@ public sealed class AuditableEntityInterceptorTests : TestBase
         created.LastModifiedOn.Date.ShouldBe(nowDate);
     }
 
-    [TestCase(true)]
-    [TestCase(false)]
+    [Test]
+    [Arguments(true)]
+    [Arguments(false)]
     public void ShouldUpdateModifiedPropertiesWhenEntityIsModified(bool logUserIn)
     {
-        using var context = _serviceProvider.GetRequiredService<TestDbContext>();
+        using var context = GetRequiredService<TestDbContext>();
 
-        Guid? userId = logUserIn ? Testing.LogUserIn(Guid.NewGuid(), []) : null;
+        Guid? userId = LogUserIn(logUserIn);
 
         var entity = new TestEntity();
         context.Add(entity);
@@ -78,13 +81,14 @@ public sealed class AuditableEntityInterceptorTests : TestBase
         updated.LastModifiedOn.ShouldNotBe(createdOn);
     }
 
-    [TestCase(true)]
-    [TestCase(false)]
+    [Test]
+    [Arguments(true)]
+    [Arguments(false)]
     public void ShouldUpdateModifiedPropertiesWhenOwnedEntityIsModified(bool logUserIn)
     {
-        using var context = _serviceProvider.GetRequiredService<TestDbContext>();
+        using var context = GetRequiredService<TestDbContext>();
 
-        Guid? userId = logUserIn ? Testing.LogUserIn(Guid.NewGuid(), []) : null;
+        Guid? userId = LogUserIn(logUserIn);
 
         var entity = new TestEntity();
         context.Add(entity);
@@ -102,5 +106,18 @@ public sealed class AuditableEntityInterceptorTests : TestBase
         updated.ShouldNotBeNull();
         updated.LastModifiedBy.ShouldBe(userId);
         updated.LastModifiedOn.ShouldNotBe(createdOn);
+    }
+
+    private Guid? LogUserIn(bool logUserIn)
+    {
+        Guid? userId = null;
+
+        if (!logUserIn)
+        {
+            return userId;
+        }
+
+        var user = GetRequiredService<TestUser>();
+        return user.LogIn(Guid.NewGuid(), null);
     }
 }

@@ -14,7 +14,7 @@ public sealed class DispatchDomainEventInterceptorTests : TestBase
     [Test]
     public void InterceptorShouldBeRegisteredToDbContext()
     {
-        using var context = _serviceProvider.GetRequiredService<ApplicationDbContext>();
+        using var context = GetRequiredService<ApplicationDbContext>();
 
         var coreOptions = context
             .GetService<IDbContextOptions>()
@@ -31,9 +31,9 @@ public sealed class DispatchDomainEventInterceptorTests : TestBase
     [Test]
     public void ShouldDispatchDomainEventWhenEntityIsCreated()
     {
-        using var context = _serviceProvider.GetRequiredService<TestDbContext>();
+        using var context = GetRequiredService<TestDbContext>();
 
-        var spy = _serviceProvider.GetRequiredService<DomainEventDispatcherSpy>();
+        var spy = GetRequiredService<DomainEventDispatcherSpy>();
 
         var entity = new TestEntity();
         var domainEvent = new TestDomainEvent();
@@ -50,9 +50,9 @@ public sealed class DispatchDomainEventInterceptorTests : TestBase
     [Test]
     public void ShouldDispatchDomainEventWhenEntityIsUpdated()
     {
-        using var context = _serviceProvider.GetRequiredService<TestDbContext>();
+        using var context = GetRequiredService<TestDbContext>();
 
-        var spy = _serviceProvider.GetRequiredService<DomainEventDispatcherSpy>();
+        var spy = GetRequiredService<DomainEventDispatcherSpy>();
 
         var entity = new TestEntity();
         context.Add(entity);

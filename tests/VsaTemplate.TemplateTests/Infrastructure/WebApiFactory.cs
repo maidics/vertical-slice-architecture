@@ -26,15 +26,8 @@ public sealed class WebApiFactory(string connectionString)
         {
             services
                 .RemoveAll<IUser>()
-                .AddTransient<IUser>(_ =>
-                {
-                    var mock = new Mock<IUser>();
-
-                    mock.SetupGet(x => x.Id).Returns(Testing.GetUserId);
-                    mock.SetupGet(x => x.Roles).Returns(Testing.GetRoles);
-
-                    return mock.Object;
-                });
+                .AddScoped<TestUser>()
+                .AddScoped<IUser>(sp => sp.GetRequiredService<TestUser>());
 
             services.AddDbContext<TestDbContext>(
                 (sp, options) =>

@@ -11,8 +11,6 @@ public abstract class FunctionalTestBase
     public async Task ResetAsync() => await Fixture.ResetAsync();
 
     protected TService GetRequiredService<TService>()
-        where TService : notnull
-    {
-        return Fixture.ServiceScope.ServiceProvider.GetRequiredService<TService>();
-    }
+        where TService : notnull =>
+        Fixture.ServiceScope.ServiceProvider.GetRequiredService<TService>();
 }

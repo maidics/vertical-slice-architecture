@@ -27,7 +27,8 @@ public sealed class ResultTests
         ((Result<string>)result).ShouldBeFailed(ResultType.NotFound, "test");
     }
 
-    [TestCaseSource(nameof(FailureMethodsShouldCreateCorrectResultSource))]
+    [Test]
+    [MethodDataSource(nameof(FailureMethodsShouldCreateCorrectResultSource))]
     public void FailureMethodsShouldCreateCorrectResult(
         (Func<string[], ResultFailure> factoryMethod, ResultType expectedType) tuple
     )
@@ -36,7 +37,7 @@ public sealed class ResultTests
         ((Result)failure).ShouldBeFailed(tuple.expectedType, "test");
     }
 
-    private static IEnumerable<(
+    public static IEnumerable<(
         Func<string[], ResultFailure> factoryMethod,
         ResultType expectedType
     )> FailureMethodsShouldCreateCorrectResultSource()

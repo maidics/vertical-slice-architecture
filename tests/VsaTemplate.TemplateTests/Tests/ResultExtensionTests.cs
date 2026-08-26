@@ -32,7 +32,8 @@ public sealed class ResultExtensionTests
         ok.StatusCode.ShouldBe(StatusCodes.Status200OK);
     }
 
-    [TestCaseSource(nameof(ToTypedResultShouldReturnCorrectProblemDetailsForFailedResultSource))]
+    [Test]
+    [MethodDataSource(nameof(ToTypedResultShouldReturnCorrectProblemDetailsForFailedResultSource))]
     public void ToTypedResultShouldReturnCorrectProblemDetailsForFailedResult(
         (
             Func<string[], ResultFailure> factoryMethod,

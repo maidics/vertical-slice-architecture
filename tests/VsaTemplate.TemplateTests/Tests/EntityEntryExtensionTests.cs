@@ -12,7 +12,7 @@ public sealed class EntityEntryExtensionTests : TestBase
     [Test]
     public void ShouldReturnTrueIfOwnerEntityIsAdded()
     {
-        using var context = _serviceProvider.GetRequiredService<TestDbContext>();
+        using var context = GetRequiredService<TestDbContext>();
 
         var entity = new TestEntity();
         context.Add(entity);
@@ -23,7 +23,7 @@ public sealed class EntityEntryExtensionTests : TestBase
     [Test]
     public void ShouldReturnFalseIfOwnerEntityExistsButNonOwnedPropertyIsChanged()
     {
-        using var context = _serviceProvider.GetRequiredService<TestDbContext>();
+        using var context = GetRequiredService<TestDbContext>();
 
         var entity = new TestEntity();
         context.Add(entity);
@@ -38,7 +38,7 @@ public sealed class EntityEntryExtensionTests : TestBase
     [Test]
     public void ShouldReturnTrueIfOwnerEntityExistsButOwnedEntityPropertyIsChanged()
     {
-        using var context = _serviceProvider.GetRequiredService<TestDbContext>();
+        using var context = GetRequiredService<TestDbContext>();
 
         var entity = new TestEntity();
         context.Add(entity);
@@ -53,7 +53,7 @@ public sealed class EntityEntryExtensionTests : TestBase
     [Test]
     public void ShouldReturnTrueIfOwnerEntityExistsButOwnedEntityIsReplaced()
     {
-        using var context = _serviceProvider.GetRequiredService<TestDbContext>();
+        using var context = GetRequiredService<TestDbContext>();
 
         var entity = new TestEntity();
         context.Add(entity);
@@ -68,7 +68,7 @@ public sealed class EntityEntryExtensionTests : TestBase
     [Test]
     public void ShouldReturnFalseIfOwnerEntityIsRemoved()
     {
-        using var context = _serviceProvider.GetRequiredService<TestDbContext>();
+        using var context = GetRequiredService<TestDbContext>();
 
         var entity = new TestEntity();
         context.Add(entity);

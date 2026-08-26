@@ -1,23 +1,26 @@
 ﻿using Aspire.Hosting;
 using Aspire.Hosting.Testing;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Projects;
+using TUnit.Core.Interfaces;
+using VsaTemplate.Common.Constants;
 using VsaTemplate.Shared;
 using VsaTemplate.TemplateTests.Infrastructure;
 
 namespace VsaTemplate.TemplateTests;
 
-[SetUpFixture]
-public sealed class TestSetUpFixture
+public sealed class Fixture : IAsyncInitializer, IAsyncDisposable
 {
-    public static IServiceScopeFactory ScopeFactory { get; private set; } = null!;
-    public static TestDatabase? Database { get; private set; }
+    private DistributedApplication? _app;
+    private WebApiFactory? _factory;
 
-    private static WebApiFactory? _factory;
-    private static DistributedApplication? _app;
+    private IServiceScopeFactory _scopeFactory = null!;
+    private TestDatabase? _database;
 
-    [OneTimeSetUp]
-    public async Task OneTimeSetUp()
+    public IServiceScope ServiceScope { get; private set; } = null!;
+
+    public async Task InitializeAsync()
     {
         var cts = new CancellationTokenSource(TimeSpan.FromSeconds(15));
 
@@ -43,19 +46,38 @@ public sealed class TestSetUpFixture
         ArgumentNullException.ThrowIfNull(connectionString);
 
         _factory = new WebApiFactory(connectionString);
-        ScopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
-        Database = await TestDatabase.CreateAsync(connectionString);
+        _scopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
+        _database = await TestDatabase.CreateAsync(connectionString);
     }
 
-    [OneTimeTearDown]
-    public async Task OneTimeTearDown()
+    public async ValueTask DisposeAsync()
     {
-        if (Database is not null)
-            await Database.DisposeAsync();
+        if (_database is not null)
+            await _database.DisposeAsync();
 
         if (_app is not null)
             await _app.DisposeAsync();
         if (_factory is not null)
             await _factory.DisposeAsync();
+
+        ServiceScope.Dispose();
+    }
+
+    public async Task ResetAsync()
+    {
+        if (_database is not null)
+            await _database.ResetAsync();
+
+        ServiceScope?.Dispose();
+        ServiceScope = _scopeFactory.CreateScope();
+
+        var roleManager = ServiceScope.ServiceProvider.GetRequiredService<
+            RoleManager<IdentityRole<Guid>>
+        >();
+
+        foreach (var role in Roles.All)
+        {
+            await roleManager.CreateAsync(new IdentityRole<Guid>(role));
+        }
     }
 }

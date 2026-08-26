@@ -26,7 +26,7 @@ public sealed class LoggingFilterTests : TestBase
         EndpointFilterDelegate next = _ => ValueTask.FromResult<object?>(expectedResult);
 
         var logger = new LoggerSpy<LoggingFilter>();
-        var user = _serviceProvider.GetRequiredService<IUser>();
+        var user = GetRequiredService<IUser>();
         var filter = new LoggingFilter(logger, user);
 
         var result = await filter.InvokeAsync(context, next);

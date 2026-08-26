@@ -26,7 +26,7 @@ public sealed class PerformanceFilterTests : TestBase
         EndpointFilterDelegate next = _ => ValueTask.FromResult<object?>(expectedResult);
 
         var logger = new LoggerSpy<PerformanceFilter>();
-        var user = _serviceProvider.GetRequiredService<IUser>();
+        var user = GetRequiredService<IUser>();
         var filter = new PerformanceFilter(logger, user);
 
         var result = await filter.InvokeAsync(context, next);
@@ -55,7 +55,7 @@ public sealed class PerformanceFilterTests : TestBase
         }
 
         var logger = new LoggerSpy<PerformanceFilter>();
-        var user = _serviceProvider.GetRequiredService<IUser>();
+        var user = GetRequiredService<IUser>();
         var filter = new PerformanceFilter(logger, user);
 
         var result = await filter.InvokeAsync(context, Next);

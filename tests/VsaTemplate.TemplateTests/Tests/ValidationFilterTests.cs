@@ -12,14 +12,15 @@ namespace VsaTemplate.TemplateTests.Tests;
 
 public sealed class ValidationFilterTests : TestBase
 {
-    [TestCase("valid", true)]
-    [TestCase("invalid", false)]
+    [Test]
+    [Arguments("valid", true)]
+    [Arguments("invalid", false)]
     public async Task ValidationFilterShouldReturnCorrectResult(string prop, bool shouldPass)
     {
         var httpContext = new DefaultHttpContext
         {
             Request = { Method = "POST", Path = new PathString("/test") },
-            RequestServices = _serviceProvider,
+            RequestServices = Fixture.ServiceScope.ServiceProvider,
         };
         var request = new TestRequest(prop);
         var context = EndpointFilterInvocationContext.Create(httpContext, request);
@@ -28,7 +29,7 @@ public sealed class ValidationFilterTests : TestBase
         EndpointFilterDelegate next = _ => ValueTask.FromResult<object?>(expectedResult);
 
         var logger = new LoggerSpy<ValidationFilter>();
-        var user = _serviceProvider.GetRequiredService<IUser>();
+        var user = GetRequiredService<IUser>();
         var filter = new ValidationFilter(logger, user);
 
         var result = await filter.InvokeAsync(context, next);
