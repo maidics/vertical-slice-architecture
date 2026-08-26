@@ -1,5 +1,6 @@
 using VsaTemplate.Features.Examples;
 using VsaTemplate.Tests.TestInfrastructure;
+using VsaTemplate.Tests.TestInfrastructure.Interfaces;
 
 namespace VsaTemplate.Tests.Features.Examples;
 

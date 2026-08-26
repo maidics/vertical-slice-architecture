@@ -1,3 +1,5 @@
+using VsaTemplate.Tests.Data;
+
 namespace VsaTemplate.Tests;
 
 public class DependencyInjectionTests

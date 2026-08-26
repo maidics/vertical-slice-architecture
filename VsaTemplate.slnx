@@ -14,7 +14,6 @@
     <Project Path="src/VsaTemplate/VsaTemplate.csproj" />
   </Folder>
   <Folder Name="/tests/">
-    <Project Path="tests/VsaTemplate.FunctionalTests/VsaTemplate.FunctionalTests.csproj" />
     <Project Path="tests/VsaTemplate.TestAppHost/VsaTemplate.TestAppHost.csproj" />
     <!--#if (AddTemplateTests)-->
     <Project Path="tests/VsaTemplate.TemplateTests/VsaTemplate.TemplateTests.csproj" />

@@ -2,7 +2,13 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using VsaTemplate.Common.Extensions;
 using VsaTemplate.Common.Interfaces.Features;
 using VsaTemplate.Features.Examples.Commands;
+using VsaTemplate.Features.Examples.Commands.AppendContent;
+using VsaTemplate.Features.Examples.Commands.Create;
+using VsaTemplate.Features.Examples.Commands.Delete;
+using VsaTemplate.Features.Examples.Commands.Update;
 using VsaTemplate.Features.Examples.Queries;
+using VsaTemplate.Features.Examples.Queries.GetExampleById;
+using VsaTemplate.Features.Examples.Queries.GetExamples;
 
 namespace VsaTemplate.Features.Examples;
 

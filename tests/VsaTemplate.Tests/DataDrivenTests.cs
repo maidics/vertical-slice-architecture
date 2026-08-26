@@ -1,3 +1,5 @@
+using VsaTemplate.Tests.Data;
+
 namespace VsaTemplate.Tests;
 
 public class DataDrivenTests
@@ -39,9 +41,7 @@ public class DataDrivenTests
 
     [Test]
     [MatrixDataSource]
-    public async Task Multiply_AllCombinations(
-        [Matrix(1, 2, 3)] int a,
-        [Matrix(0, 1, -1)] int b)
+    public async Task Multiply_AllCombinations([Matrix(1, 2, 3)] int a, [Matrix(0, 1, -1)] int b)
     {
         var calculator = new Calculator();
 

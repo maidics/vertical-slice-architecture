@@ -1,6 +1,6 @@
 using TUnit.Core.Interfaces;
 
-namespace VsaTemplate.Tests;
+namespace VsaTemplate.Tests.Data;
 
 public class InMemoryDb : IAsyncInitializer, IAsyncDisposable
 {
