@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>VsaTemplate.Tests</RootNamespace>
+    <AssemblyName>VsaTemplate.Tests</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.Testing" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
+    <PackageReference Include="Moq" />
+    <PackageReference Include="Respawn" />
+    <PackageReference Include="Shouldly" />
+    <PackageReference Include="TUnit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\VsaTemplate\VsaTemplate.csproj" />
+    <ProjectReference Include="..\VsaTemplate.TestAppHost\VsaTemplate.TestAppHost.csproj" />
+  </ItemGroup>
+</Project>

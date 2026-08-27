@@ -30,7 +30,7 @@ public sealed class DomainEventDispatcherTests : TestBase
     public async Task DispatchAsyncShouldDispatchEventIfHasHandlersRegisteredToDomainEvent()
     {
         var logger = new LoggerSpy<DomainEventDispatcher>();
-        var dispatcher = new DomainEventDispatcher(_serviceProvider, logger);
+        var dispatcher = new DomainEventDispatcher(Fixture.ServiceScope.ServiceProvider, logger);
         var spy = new DomainEventDispatcherSpy(dispatcher);
 
         var domainEvent = new TestDomainEvent();

@@ -4,22 +4,13 @@ namespace VsaTemplate.TemplateTests.Infrastructure.Common.BaseClasses;
 
 public abstract class TestBase
 {
-    protected IServiceScope _scope = null!;
-    protected IServiceProvider _serviceProvider = null!;
+    [ClassDataSource<Fixture>(Shared = SharedType.PerTestSession)]
+    public required Fixture Fixture { get; init; }
 
-    [SetUp]
-    public async Task SetUp()
-    {
-        await Testing.ResetState();
+    [Before(Test)]
+    public async Task ResetAsync() => await Fixture.ResetAsync();
 
-        _scope = TestSetUpFixture.ScopeFactory.CreateScope();
-        _serviceProvider = _scope.ServiceProvider;
-    }
-
-    [TearDown]
-    public void TearDown()
-    {
-        _scope.Dispose();
-        _serviceProvider = null!;
-    }
+    public TService GetRequiredService<TService>()
+        where TService : notnull =>
+        Fixture.ServiceScope.ServiceProvider.GetRequiredService<TService>();
 }

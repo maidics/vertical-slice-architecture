@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http.Metadata;
 using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
 using VsaTemplate.Common.Extensions;
 using VsaTemplate.TemplateTests.Infrastructure;
@@ -14,7 +13,7 @@ public sealed class EndpointRouteBuilderExtensionTests : TestBase
     [Test]
     public void MapMethodsShouldThrowIsDelegateIsAnonymous()
     {
-        var spy = _serviceProvider.GetRequiredService<EndpointRouteBuilderSpy>();
+        var spy = GetRequiredService<EndpointRouteBuilderSpy>();
 
         Should.Throw<ArgumentException>(() => spy.MapGet(() => { }));
         Should.Throw<ArgumentException>(() => spy.MapPost(() => { }));
@@ -28,7 +27,7 @@ public sealed class EndpointRouteBuilderExtensionTests : TestBase
     [Test]
     public void MapMethodsShouldNotThrowIfDelegateIsNotAnonymous()
     {
-        var spy = _serviceProvider.GetRequiredService<EndpointRouteBuilderSpy>();
+        var spy = GetRequiredService<EndpointRouteBuilderSpy>();
 
         Should.NotThrow(() => spy.MapGet(TestEndpointMethod));
         Should.NotThrow(() => spy.MapPost(TestEndpointMethod));
@@ -40,7 +39,7 @@ public sealed class EndpointRouteBuilderExtensionTests : TestBase
     [Test]
     public void MapEndpointsShouldMapAllEndpointsFromAssembly()
     {
-        var spy = _serviceProvider.GetRequiredService<EndpointRouteBuilderSpy>();
+        var spy = GetRequiredService<EndpointRouteBuilderSpy>();
         spy.MapEndpoints(typeof(EndpointRouteBuilderExtensionTests).Assembly);
 
         var endpoints = spy.GetEndpoints();
@@ -71,7 +70,7 @@ public sealed class EndpointRouteBuilderExtensionTests : TestBase
     [Test]
     public void MapLogoutEndpointShouldMapLogout()
     {
-        var spy = _serviceProvider.GetRequiredService<EndpointRouteBuilderSpy>();
+        var spy = GetRequiredService<EndpointRouteBuilderSpy>();
 
         spy.MapLogoutEndpoint();
 

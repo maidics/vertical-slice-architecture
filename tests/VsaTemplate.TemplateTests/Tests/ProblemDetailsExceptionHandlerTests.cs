@@ -1,7 +1,6 @@
 ﻿using System.Text.Json;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Shouldly;
 using VsaTemplate.Common.Pipeline;
@@ -12,14 +11,15 @@ namespace VsaTemplate.TemplateTests.Tests;
 
 public sealed class ProblemDetailsExceptionHandlerTests : TestBase
 {
-    [TestCase(StatusCodes.Status400BadRequest, "Bad Request")]
-    [TestCase(StatusCodes.Status413PayloadTooLarge, "Content Too Large")]
+    [Test]
+    [Arguments(StatusCodes.Status400BadRequest, "Bad Request")]
+    [Arguments(StatusCodes.Status413PayloadTooLarge, "Content Too Large")]
     public async Task TryHandleAsyncShouldWriteProblemDetailsAndReturnTrueOnBadHttpRequestException(
         int statusCode,
         string expectedTitle
     )
     {
-        var problemDetailsService = _serviceProvider.GetRequiredService<IProblemDetailsService>();
+        var problemDetailsService = GetRequiredService<IProblemDetailsService>();
         var logger = new LoggerSpy<ProblemDetailsExceptionHandler>();
         var handler = new ProblemDetailsExceptionHandler(logger, problemDetailsService);
 
@@ -55,14 +55,15 @@ public sealed class ProblemDetailsExceptionHandlerTests : TestBase
         logger.Entries[0].Message.ShouldContain("Bad HTTP Request at");
     }
 
-    [TestCase(typeof(InvalidOperationException))]
-    [TestCase(typeof(ArgumentNullException))]
-    [TestCase(typeof(OperationCanceledException))]
+    [Test]
+    [Arguments(typeof(InvalidOperationException))]
+    [Arguments(typeof(ArgumentNullException))]
+    [Arguments(typeof(OperationCanceledException))]
     public async Task TryHandleAsyncShouldWriteProblemDetailsAndReturnTrueOnOtherExceptions(
         Type exceptionType
     )
     {
-        var problemDetailsService = _serviceProvider.GetRequiredService<IProblemDetailsService>();
+        var problemDetailsService = GetRequiredService<IProblemDetailsService>();
         var logger = new LoggerSpy<ProblemDetailsExceptionHandler>();
         var handler = new ProblemDetailsExceptionHandler(logger, problemDetailsService);
 
@@ -108,7 +109,7 @@ public sealed class ProblemDetailsExceptionHandlerTests : TestBase
     [Test]
     public async Task TryHandleAsyncShouldReturnTrueWithoutBodyWhenClientAborted()
     {
-        var problemDetailsService = _serviceProvider.GetRequiredService<IProblemDetailsService>();
+        var problemDetailsService = GetRequiredService<IProblemDetailsService>();
         var logger = new LoggerSpy<ProblemDetailsExceptionHandler>();
         var handler = new ProblemDetailsExceptionHandler(logger, problemDetailsService);
 

@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
 using VsaTemplate.Common.Extensions;
 using VsaTemplate.TemplateTests.Infrastructure;
@@ -10,14 +9,15 @@ namespace VsaTemplate.TemplateTests.Tests;
 
 public sealed class RouteHandlerBuilderExtensionTests : TestBase
 {
-    [TestCase]
-    [TestCase("user")]
-    [TestCase("user", "admin")]
+    [Test]
+    [Arguments]
+    [Arguments("user")]
+    [Arguments("user", "admin")]
     public void RequireAuthorizationWithRoleShouldApplyAuthorizationAttributeWithGivenRoles(
         params string[] roles
     )
     {
-        var spy = _serviceProvider.GetRequiredService<EndpointRouteBuilderSpy>();
+        var spy = GetRequiredService<EndpointRouteBuilderSpy>();
 
         spy.MapGet("/test", () => { }).RequireAuthorizationWithRole(roles);
 
