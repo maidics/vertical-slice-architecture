@@ -1,4 +1,5 @@
 using VsaTemplate.Features.Examples;
+using VsaTemplate.Tests.TestInfrastructure;
 using VsaTemplate.Tests.TestInfrastructure.Fixtures;
 
 namespace VsaTemplate.Tests.Features.Examples;
