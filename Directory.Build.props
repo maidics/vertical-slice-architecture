@@ -8,8 +8,4 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
-  <PropertyGroup>
-    <TestingPlatformCommandLineArguments>$(TestingPlatformCommandLineArguments) --results-directory "$(ArtifactsPath)/test-results"</TestingPlatformCommandLineArguments>
-  </PropertyGroup>
 </Project>
