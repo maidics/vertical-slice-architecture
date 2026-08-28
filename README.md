@@ -43,14 +43,21 @@ Tests project structure reflects the main project's structure with the testing i
 Common/  # Cross-cutting concerns; any slice may use these
 Features/
 └── Examples/
-    ├── Commands/                # Commands, handlers and validators
-    ├── Events/                  # Domain events
-    ├── Queries/                 # Queries, handlers and validators
-    ├── Example.cs               # Entity
-    ├── ExampleConfiguration.cs  # EF Core Entity Configuration
-    ├── ExampleDto.cs            # DTO
-    └── ExampleEndpoints.cs      # Minimal API Endpoints
-Infrastructure/  # External dependencies
+    └── AppendContent/
+        ├── AppendExampleContentCommand.cs          # IRequest object
+        ├── AppendExampleContentCommandHandler.cs   # IRequestHandler
+        ├── AppendExampleContentCommandValidator.cs # FluentValidation validator
+        ├── AppendExampleContentEndpoint.cs         # IEndpoint
+        └── ExampleContentAppendedEvent.cs          # IDomainEvent & IDomainEventHandler
+    ├── Create/
+    ├── Delete/
+    ├── GetAll/
+    ├── GetById/
+    ├── Update/
+    ├── Example.cs              # Entity
+    ├── ExampleConfiguration.cs # EF Core configuration
+    └── ExampleDto.cs           # DTO
+Infrastructure/ # External dependencies
 ```
 
 ---
@@ -90,8 +97,9 @@ Infrastructure/  # External dependencies
 ### [`IDomainEventHandler`](./src/Scratch/Common/Interfaces/Features/IDomainEventHandler.cs)
 - Defines the Handle method that handles the passed [`IDomainEvent`](./src/Scratch/Common/Interfaces/Features/IDomainEvent.cs)
 
-### [`IEndpointGroup`](./src/Scratch/Common/Interfaces/Features/IEndpointGroup.cs)
-- Interface to automatically register Minimal API endpoints with reflection (see: [`EndpointRouteBuilderExtensions`](./src/Scratch/Common/Extensions/EndpointRouteBuilderExtensions.cs))
+### [`IEndpoint`](./src/VsaTemplate/Common/Interfaces/Features/IEndpoint.cs) & [`IEndpoint<TResource>`](./src/VsaTemplate/Common/Interfaces/Features/IEndpoint.cs)
+- Interface to register an endpoint automatically (see: [`EndpointRouteBuilderExtensions`](./src/Scratch/Common/Extensions/EndpointRouteBuilderExtensions.cs))
+- [`IEndpoint<TResource>`](./src/VsaTemplate/Common/Interfaces/Features/IEndpoint.cs) defaults `Prefix` to the given TResource's name
 
 ---
 
