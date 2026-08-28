@@ -2,7 +2,7 @@
 using VsaTemplate.Common.Models;
 using VsaTemplate.Infrastructure.Database;
 
-namespace VsaTemplate.Features.Examples.Commands.AppendContent;
+namespace VsaTemplate.Features.Examples.AppendContent;
 
 public sealed class AppendExampleContentCommandHandler : IRequestHandler
 {

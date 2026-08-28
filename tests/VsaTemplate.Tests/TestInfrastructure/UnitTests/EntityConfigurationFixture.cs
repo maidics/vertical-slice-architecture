@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Metadata.Conventions;
 
-namespace VsaTemplate.Tests.TestInfrastructure.Fixtures;
+namespace VsaTemplate.Tests.TestInfrastructure.UnitTests;
 
 public sealed class EntityConfigurationFixture<TConfiguration, TEntity>
     where TConfiguration : class, IEntityTypeConfiguration<TEntity>, new()

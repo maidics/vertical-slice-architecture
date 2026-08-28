@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace VsaTemplate.Features.Examples.Commands.Update;
+namespace VsaTemplate.Features.Examples.Update;
 
 public sealed class UpdateExampleCommandValidator : AbstractValidator<UpdateExampleCommand>
 {

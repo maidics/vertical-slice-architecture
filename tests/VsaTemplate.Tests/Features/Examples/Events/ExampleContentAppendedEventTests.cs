@@ -1,8 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using VsaTemplate.Common.Services;
 using VsaTemplate.Features.Examples;
-using VsaTemplate.Features.Examples.Commands.AppendContent;
-using VsaTemplate.Features.Examples.Events;
+using VsaTemplate.Features.Examples.AppendContent;
 using VsaTemplate.Infrastructure.Database;
 using VsaTemplate.Tests.TestInfrastructure;
 using VsaTemplate.Tests.TestInfrastructure.FunctionalTests;

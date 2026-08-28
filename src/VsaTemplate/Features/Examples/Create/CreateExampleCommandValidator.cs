@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace VsaTemplate.Features.Examples.Commands.Create;
+namespace VsaTemplate.Features.Examples.Create;
 
 public sealed class CreateExampleCommandValidator : AbstractValidator<CreateExampleCommand>
 {

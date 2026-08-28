@@ -2,7 +2,7 @@
 using VsaTemplate.Common.Models;
 using VsaTemplate.Infrastructure.Database;
 
-namespace VsaTemplate.Features.Examples.Commands.Update;
+namespace VsaTemplate.Features.Examples.Update;
 
 public sealed class UpdateExampleCommandHandler : IRequestHandler
 {

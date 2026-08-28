@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using VsaTemplate.Common.Models;
 using VsaTemplate.Features.Examples;
-using VsaTemplate.Features.Examples.Commands.Delete;
+using VsaTemplate.Features.Examples.Delete;
 using VsaTemplate.Infrastructure.Database;
 using VsaTemplate.Tests.TestInfrastructure;
 using VsaTemplate.Tests.TestInfrastructure.FunctionalTests;

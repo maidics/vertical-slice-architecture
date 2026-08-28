@@ -2,7 +2,7 @@
 using VsaTemplate.Common.Models;
 using VsaTemplate.Infrastructure.Database;
 
-namespace VsaTemplate.Features.Examples.Queries.GetExampleById;
+namespace VsaTemplate.Features.Examples.GetById;
 
 public sealed class GetExampleByIdQueryHandler : IRequestHandler
 {
@@ -14,18 +14,18 @@ public sealed class GetExampleByIdQueryHandler : IRequestHandler
     }
 
     public async Task<Result<ExampleDto>> Handle(
-        GetExampleByIdQuery query,
+        Guid exampleId,
         CancellationToken cancellationToken
     )
     {
         var example = await _context
             .Examples.AsNoTracking()
-            .Where(x => x.Id == query.Id)
+            .Where(x => x.Id == exampleId)
             .Select(x => new ExampleDto(x.Id, x.Content, x.HasAppendedContent))
             .FirstOrDefaultAsync(cancellationToken);
 
         if (example is null)
-            return Result.NotFound(["Example not found."]);
+            return Result.NotFound("Example not found.");
 
         return Result.Success(example);
     }

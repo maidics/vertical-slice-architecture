@@ -2,7 +2,7 @@
 using VsaTemplate.Common.Models;
 using VsaTemplate.Infrastructure.Database;
 
-namespace VsaTemplate.Features.Examples.Commands.Create;
+namespace VsaTemplate.Features.Examples.Create;
 
 public sealed class CreateExampleCommandHandler : IRequestHandler
 {

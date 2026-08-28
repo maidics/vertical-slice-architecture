@@ -1,5 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
+using System.Runtime.InteropServices.JavaScript;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using VsaTemplate.Common.Interfaces.Features;
@@ -20,26 +21,23 @@ public static class EndpointRouteBuilderExtensions
 
     extension(IEndpointRouteBuilder builder)
     {
-        // this consumes the assembly so it is testable
         public IEndpointRouteBuilder MapEndpoints(Assembly assembly)
         {
             var endpointGroupTypes = assembly
                 .GetExportedTypes()
                 .Where(t =>
                     t is { IsAbstract: false, IsInterface: false }
-                    && t.IsAssignableTo(typeof(IEndpointGroup))
+                    && t.IsAssignableTo(typeof(IEndpoint))
                 );
+
+            var map = typeof(EndpointRouteBuilderExtensions).GetMethod(
+                nameof(MapEndpoint),
+                BindingFlags.NonPublic | BindingFlags.Static
+            )!;
 
             foreach (var type in endpointGroupTypes)
             {
-                var groupName =
-                    type.GetProperty(nameof(IEndpointGroup.Prefix))!.GetValue(null) as string;
-
-                var tags =
-                    type.GetProperty(nameof(IEndpointGroup.Tags))!.GetValue(null) as string[];
-
-                var group = builder.MapGroup($"/{groupName}").WithTags(tags!);
-                type.GetMethod(nameof(IEndpointGroup.Map))!.Invoke(null, [group]);
+                map.MakeGenericMethod(type).Invoke(null, [builder]);
             }
 
             return builder;
@@ -58,7 +56,7 @@ public static class EndpointRouteBuilderExtensions
             }
         }
 
-        // these set method names (useful for client type generation)
+        // The following methods set the method to the given route (useful for client type generation)
 
         public RouteHandlerBuilder MapGet(
             Delegate handler,
@@ -106,5 +104,15 @@ public static class EndpointRouteBuilderExtensions
 
             return builder.MapDelete(pattern, handler).WithName(handler.Method.Name);
         }
+    }
+
+    private static void MapEndpoint<TEndpoint>(IEndpointRouteBuilder builder)
+        where TEndpoint : IEndpoint
+    {
+        var group = builder
+            .MapGroup($"/{TEndpoint.Prefix}")
+            .WithTags([TEndpoint.Prefix, .. TEndpoint.Tags]);
+
+        TEndpoint.Map(group);
     }
 }

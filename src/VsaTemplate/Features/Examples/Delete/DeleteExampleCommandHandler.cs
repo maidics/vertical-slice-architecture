@@ -2,7 +2,7 @@
 using VsaTemplate.Common.Models;
 using VsaTemplate.Infrastructure.Database;
 
-namespace VsaTemplate.Features.Examples.Commands.Delete;
+namespace VsaTemplate.Features.Examples.Delete;
 
 public sealed class DeleteExampleCommandHandler : IRequestHandler
 {

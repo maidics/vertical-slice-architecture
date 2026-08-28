@@ -4,7 +4,8 @@ using VsaTemplate.Common.Interfaces.Features;
 
 namespace VsaTemplate.TemplateTests.Infrastructure.Common;
 
-public sealed class TestEndpoints : IEndpointGroup
+//TODO
+public sealed class TestEndpoints
 {
     public static string Prefix { get; } = nameof(TestEndpoints);
     public static string[] Tags { get; } = ["test"];

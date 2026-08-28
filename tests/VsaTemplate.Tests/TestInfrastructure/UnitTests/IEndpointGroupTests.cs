@@ -1,4 +1,4 @@
-namespace VsaTemplate.Tests.TestInfrastructure.Interfaces;
+namespace VsaTemplate.Tests.TestInfrastructure.UnitTests;
 
 public interface IEndpointGroupTests
 {

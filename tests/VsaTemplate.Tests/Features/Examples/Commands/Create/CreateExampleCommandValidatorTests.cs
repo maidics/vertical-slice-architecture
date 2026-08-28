@@ -1,5 +1,5 @@
 ﻿using FluentValidation.TestHelper;
-using VsaTemplate.Features.Examples.Commands.Create;
+using VsaTemplate.Features.Examples.Create;
 
 namespace VsaTemplate.Tests.Features.Examples.Commands.Create;
 

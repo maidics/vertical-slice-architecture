@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace VsaTemplate.Features.Examples.Commands.AppendContent;
+namespace VsaTemplate.Features.Examples.AppendContent;
 
 public sealed class AppendExampleContentCommandValidator
     : AbstractValidator<AppendExampleContentCommand>

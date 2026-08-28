@@ -1,7 +1,7 @@
 using VsaTemplate.Common.Interfaces.Features;
 using VsaTemplate.Infrastructure.Database;
 
-namespace VsaTemplate.Features.Examples.Queries.GetExamples;
+namespace VsaTemplate.Features.Examples.GetAll;
 
 public sealed class GetExamplesQueryHandler : IRequestHandler
 {
