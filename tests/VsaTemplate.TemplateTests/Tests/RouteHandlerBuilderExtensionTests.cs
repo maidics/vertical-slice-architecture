@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
 using VsaTemplate.Common.Extensions;
 using VsaTemplate.TemplateTests.Infrastructure;

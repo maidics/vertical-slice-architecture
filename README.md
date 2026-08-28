@@ -29,14 +29,18 @@ dotnet new vsa-sln -n [SolutionName]
 - [EF Core 10](https://learn.microsoft.com/en-us/ef/core/)
 - [FluentValidation](https://docs.fluentvalidation.net/en/latest/)
 - [Scalar](https://scalar.com/)
-- [NUnit](https://nunit.org/), [Shouldly](https://docs.shouldly.org/), [Moq](https://github.com/devlooped/moq) & [Respawn](https://github.com/jbogard/Respawn)
+- [TUnit](https://tunit.dev/), [Shouldly](https://docs.shouldly.org/), & [Respawn](https://github.com/jbogard/Respawn)
 
 ---
 
 ## Structure
+
 Code is grouped by feature rather than technical layer. Everything required to execute a specific feature lives in a single folder inside the Features directory.
 
+Tests project structure reflects the main project's structure with the testing infrastructure additionally.
+
 ```
+Common/  # Cross-cutting concerns; any slice may use these
 Features/
 └── Examples/
     ├── Commands/                # Commands, handlers and validators
@@ -46,6 +50,7 @@ Features/
     ├── ExampleConfiguration.cs  # EF Core Entity Configuration
     ├── ExampleDto.cs            # DTO
     └── ExampleEndpoints.cs      # Minimal API Endpoints
+Infrastructure/  # External dependencies
 ```
 
 ---
@@ -92,7 +97,26 @@ Features/
 
 ## Testing
 
-This solution uses **[NUnit](https://nunit.org/)** as its testing framework.
+This solution uses **[TUnit](https://tunit.dev/)** as its testing framework for performance reasons. 
+
+### Tests
+
+Unit, functional, integration and web testing merged into one project to reduce project count in the solution. This also allows to reflect the [main ASP.NET project's](./src/VsaTemplate) structure for convenience.
+
+**[`Common`](./tests/VsaTemplate.Tests/Common) folder**
+- Unit tests for base, constants classes, extensions and more in the [main ASP.NET project's `Common` folder](./src/VsaTemplate/Common).
+
+**[`Features`](./tests/VsaTemplate.Tests/Features) folder**
+- Holds tests for everything inside the [main ASP.NET project's `Features` folder](./src/VsaTemplate/Features):
+  - Entities
+  - EF Core entity configurations. Instantiate the unit test helper for assertions: [`EntityConfigurationFixture`](./tests/VsaTemplate.Tests/TestInfrastructure/UnitTests)
+  - `AbstractValidator` classes
+  - **[`IRequest`](./src/Scratch/Common/Interfaces/Features/IRequest.cs)** and **[`IDomainEvent`](./src/Scratch/Common/Interfaces/Features/IDomainEvent.cs) implementations and their handlers**. You can use the [`FunctionalTestBase`](./tests/VsaTemplate.Tests/TestInfrastructure/FunctionalTests/FunctionalTestBase.cs) class:
+    - Instantiates [`FunctionalTestFixture`](./tests/VsaTemplate.Tests/TestInfrastructure/FunctionalTests/FunctionalTestFixture.cs) (injected via `ClassDataSource<T>`)
+    - Resets the `Fixture` (resets db, creates a new `IServiceScope`)
+  - etc.
+
+**Integration and web testing are work in progress.**
 
 ### Template Tests
 
@@ -105,16 +129,3 @@ Tests the infrastructure shipped with the template such as the:
 - and more...
 
 ***This project can be explicitly included when instantiating the template (see [options](#create-a-new-solution))***.
-
-### Unit Tests
-
-This project captures tests that **do not require special infrastructure** such as the `WebApplicationFactory`, database, dependency injection or others. This means that entities, [`IEndpointGroup`](./src/VsaTemplate/Common/Interfaces/Features/IEndpointGroup.cs) `IEntityTypeConfiguration` implementations and validators should be tested here.
-
-### Functional Tests
-
-The project concludes testing for **[`IRequest`](./src/Scratch/Common/Interfaces/Features/IRequest.cs)** and **[`IDomainEvent`](./src/Scratch/Common/Interfaces/Features/IDomainEvent.cs) implementations and their handlers**. You can use the [`TestBase`](./tests/Scratch.FunctionalTests/Infrastructure/Common/TestBase.cs) class which ensures that:
-- The database is reset to a clean state before every test
-- New dependency injection `IServiceScope` is created
-- The domain event spy is cleared
-
-The required database and `WebApplication` is orchestrated via Aspire (see: [TestAppHost](./tests/VsaTemplate.TestAppHost)).
