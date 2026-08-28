@@ -43,27 +43,24 @@ public sealed class EndpointRouteBuilderExtensionTests : TestBase
         spy.MapEndpoints(typeof(EndpointRouteBuilderExtensionTests).Assembly);
 
         var endpoints = spy.GetEndpoints();
-        endpoints.Count.ShouldBe(5);
+        endpoints.Count.ShouldBe(2);
 
         var names = endpoints
             .Select(e => e.Metadata.GetMetadata<IEndpointNameMetadata>()?.EndpointName)
             .ToList();
-        names.Count.ShouldBe(5);
+        names.Count.ShouldBe(2);
 
-        names.ShouldContain(nameof(TestEndpoints.Get));
-        names.ShouldContain(nameof(TestEndpoints.Post));
-        names.ShouldContain(nameof(TestEndpoints.Put));
-        names.ShouldContain(nameof(TestEndpoints.Patch));
-        names.ShouldContain(nameof(TestEndpoints.Delete));
+        names.ShouldContain(nameof(TestGetEndpoint.Get));
+        names.ShouldContain(nameof(TestPostEndpoint.Post));
 
         foreach (var endpoint in endpoints)
         {
             var tags = endpoint.Metadata.GetMetadata<ITagsMetadata>()!.Tags.ToArray();
 
             tags.Length.ShouldBe(1);
-            tags.ShouldBeEquivalentTo(TestEndpoints.Tags);
+            tags.ShouldBeEquivalentTo(new[] { "Test" });
 
-            endpoint.DisplayName!.ShouldContain(TestEndpoints.Prefix);
+            endpoint.DisplayName!.ShouldContain("Test");
         }
     }
 

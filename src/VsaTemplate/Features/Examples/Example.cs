@@ -1,5 +1,5 @@
 using VsaTemplate.Common.BaseClasses;
-using VsaTemplate.Features.Examples.Events;
+using VsaTemplate.Features.Examples.AppendContent;
 
 namespace VsaTemplate.Features.Examples;
 

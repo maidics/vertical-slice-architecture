@@ -1,5 +1,5 @@
 using VsaTemplate.Features.Examples;
-using VsaTemplate.Tests.TestInfrastructure.Fixtures;
+using VsaTemplate.Tests.TestInfrastructure.UnitTests;
 
 namespace VsaTemplate.Tests.Features.Examples;
 
