@@ -18,6 +18,8 @@
     <!--#if (AddTemplateTests)-->
     <Project Path="tests/VsaTemplate.TemplateTests/VsaTemplate.TemplateTests.csproj" />
     <!--#endif-->
-    <Project Path="tests/VsaTemplate.Tests/VsaTemplate.Tests.csproj" />
+    <Project Path="tests/VsaTemplate.Tests/VsaTemplate.Tests.csproj">
+      <Platform Project="x64" />
+    </Project>
   </Folder>
 </Solution>
