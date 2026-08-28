@@ -7,12 +7,12 @@ using TUnit.Core.Interfaces;
 using VsaTemplate.Common.Constants;
 using VsaTemplate.Shared;
 
-namespace VsaTemplate.Tests.TestInfrastructure.FunctionalTests;
+namespace VsaTemplate.Tests.TestInfrastructure.WebTests;
 
-public sealed class FunctionalTestFixture : IAsyncInitializer, IAsyncDisposable
+public sealed class WebTestFixture : IAsyncInitializer, IAsyncDisposable
 {
     private DistributedApplication? _app;
-    private FunctionalTestWebApplicationFactory? _factory;
+    private WebTestWebApplicationFactory? _factory;
 
     private IServiceScopeFactory _scopeFactory = null!;
 
@@ -44,7 +44,7 @@ public sealed class FunctionalTestFixture : IAsyncInitializer, IAsyncDisposable
         var connectionString = await _app.GetConnectionStringAsync(Services.Database, cts.Token);
         ArgumentNullException.ThrowIfNull(connectionString);
 
-        _factory = new FunctionalTestWebApplicationFactory(connectionString);
+        _factory = new WebTestWebApplicationFactory(connectionString);
         _scopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
         _database = await TestDatabase.CreateAsync(connectionString);
     }
@@ -77,5 +77,12 @@ public sealed class FunctionalTestFixture : IAsyncInitializer, IAsyncDisposable
         {
             await roleManager.CreateAsync(new IdentityRole<Guid>(role));
         }
+    }
+
+    public HttpClient CreateHttpClient()
+    {
+        ArgumentNullException.ThrowIfNull(_app);
+
+        return _app.CreateHttpClient(Services.WebApi, "http");
     }
 }

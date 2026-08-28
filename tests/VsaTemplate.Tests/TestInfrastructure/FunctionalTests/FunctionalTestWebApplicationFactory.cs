@@ -8,7 +8,7 @@ using VsaTemplate.Common.Services;
 
 namespace VsaTemplate.Tests.TestInfrastructure.FunctionalTests;
 
-public class FunctionalWebApplicationFactory(string connectionString)
+public class FunctionalTestWebApplicationFactory(string connectionString)
     : WebApplicationFactory<VsaTemplate.Program>
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
