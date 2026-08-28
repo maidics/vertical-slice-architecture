@@ -1,7 +1,7 @@
 ﻿using FluentValidation.TestHelper;
 using VsaTemplate.Features.Examples.Update;
 
-namespace VsaTemplate.Tests.Features.Examples.Commands.Update;
+namespace VsaTemplate.Tests.Features.Examples.Update;
 
 public sealed class UpdateExampleCommandValidatorTests
 {

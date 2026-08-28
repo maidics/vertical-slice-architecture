@@ -6,7 +6,7 @@ using VsaTemplate.Infrastructure.Database;
 using VsaTemplate.Tests.TestInfrastructure;
 using VsaTemplate.Tests.TestInfrastructure.FunctionalTests;
 
-namespace VsaTemplate.Tests.Features.Examples.Commands.Delete;
+namespace VsaTemplate.Tests.Features.Examples.Delete;
 
 public sealed class DeleteExampleCommandHandlerTests : FunctionalTestBase
 {

@@ -6,7 +6,7 @@ using VsaTemplate.Infrastructure.Database;
 using VsaTemplate.Tests.TestInfrastructure;
 using VsaTemplate.Tests.TestInfrastructure.FunctionalTests;
 
-namespace VsaTemplate.Tests.Features.Examples.Commands.Update;
+namespace VsaTemplate.Tests.Features.Examples.Update;
 
 public sealed class UpdateExampleCommandHandlerTests : FunctionalTestBase
 {

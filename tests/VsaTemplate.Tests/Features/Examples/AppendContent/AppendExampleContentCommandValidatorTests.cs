@@ -1,7 +1,7 @@
 ﻿using FluentValidation.TestHelper;
 using VsaTemplate.Features.Examples.AppendContent;
 
-namespace VsaTemplate.Tests.Features.Examples.Commands.AppendContent;
+namespace VsaTemplate.Tests.Features.Examples.AppendContent;
 
 public sealed class AppendExampleContentCommandValidatorTests
 {

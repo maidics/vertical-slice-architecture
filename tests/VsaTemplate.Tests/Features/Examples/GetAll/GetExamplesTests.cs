@@ -3,7 +3,7 @@ using VsaTemplate.Features.Examples.GetAll;
 using VsaTemplate.Infrastructure.Database;
 using VsaTemplate.Tests.TestInfrastructure.FunctionalTests;
 
-namespace VsaTemplate.Tests.Features.Examples.Queries;
+namespace VsaTemplate.Tests.Features.Examples.GetAll;
 
 public sealed class GetExamplesTests : FunctionalTestBase
 {
