@@ -1,4 +1,5 @@
-﻿using Aspire.Hosting;
+using Aspire.Hosting;
+using Aspire.Hosting.ApplicationModel;
 using Aspire.Hosting.Testing;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,6 +41,23 @@ public sealed class WebTestFixture : IAsyncInitializer, IAsyncDisposable
 
         await _app.ResourceNotifications.WaitForResourceHealthyAsync(Services.Database, cts.Token);
 
+        // Wait for the real "webapi" resource to actually be running before touching the
+        // database ourselves - it runs DatabaseInitialiser (create schema + seed) on startup,
+        // and racing that from here (e.g. via the factory below or the Respawner connection)
+        // corrupts the shared SQLite file instead of just failing fast. The resource reaching
+        // the "Running" state is not a strong enough signal on its own: Aspire reports it as
+        // soon as the process starts, well before Kestrel has bound (and therefore before
+        // DatabaseInitialiser has finished), so we additionally probe over HTTP - any response
+        // (even an error one) proves Kestrel is listening, which only happens after
+        // DatabaseInitialiser has completed in Program.cs.
+        await _app.ResourceNotifications.WaitForResourceAsync(
+            Services.WebApi,
+            KnownResourceStates.Running,
+            cts.Token
+        );
+
+        await WaitForWebApiReadyAsync(cts.Token);
+
         var connectionString = await _app.GetConnectionStringAsync(Services.Database, cts.Token);
         ArgumentNullException.ThrowIfNull(connectionString);
 
@@ -57,7 +75,30 @@ public sealed class WebTestFixture : IAsyncInitializer, IAsyncDisposable
         if (_factory is not null)
             await _factory.DisposeAsync();
 
-        ServiceScope.Dispose();
+        ServiceScope?.Dispose();
+    }
+
+    private async Task WaitForWebApiReadyAsync(CancellationToken cancellationToken)
+    {
+        ArgumentNullException.ThrowIfNull(_app);
+
+        using var client = _app.CreateHttpClient(Services.WebApi, "http");
+        client.Timeout = TimeSpan.FromSeconds(5);
+
+        while (true)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            try
+            {
+                using var response = await client.GetAsync("/", cancellationToken);
+                return;
+            }
+            catch (Exception) when (!cancellationToken.IsCancellationRequested)
+            {
+                await Task.Delay(TimeSpan.FromMilliseconds(200), cancellationToken);
+            }
+        }
     }
 
     public async Task ResetAsync()
@@ -82,6 +123,12 @@ public sealed class WebTestFixture : IAsyncInitializer, IAsyncDisposable
     {
         ArgumentNullException.ThrowIfNull(_app);
 
-        return _app.CreateHttpClient(Services.WebApi, "http");
+        var client = _app.CreateHttpClient(Services.WebApi, "http");
+
+        // Safety net: if the webapi resource ever dies or wedges again, fail the test in a few
+        // seconds instead of waiting out HttpClient's 100-second default.
+        client.Timeout = TimeSpan.FromSeconds(15);
+
+        return client;
     }
 }

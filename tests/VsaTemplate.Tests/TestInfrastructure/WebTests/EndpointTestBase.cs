@@ -1,4 +1,5 @@
-﻿using VsaTemplate.Common.Interfaces.Features;
+﻿using Microsoft.Extensions.DependencyInjection;
+using VsaTemplate.Common.Interfaces.Features;
 
 namespace VsaTemplate.Tests.TestInfrastructure.WebTests;
 
@@ -24,5 +25,11 @@ public abstract class EndpointTestBase<TEndpoint> : IEndpointTests
         Client?.Dispose();
 
         Client = Fixture.CreateHttpClient();
+    }
+
+    public TService GetRequiredService<TService>()
+        where TService : notnull
+    {
+        return Fixture.ServiceScope.ServiceProvider.GetRequiredService<TService>();
     }
 }

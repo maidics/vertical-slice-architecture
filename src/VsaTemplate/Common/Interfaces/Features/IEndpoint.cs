@@ -10,5 +10,5 @@ public interface IEndpoint
 
 public interface IEndpoint<TResource> : IEndpoint
 {
-    static string IEndpoint.Prefix => typeof(TResource).Name;
+    static string IEndpoint.Prefix => typeof(TResource).Name.ToLower();
 }

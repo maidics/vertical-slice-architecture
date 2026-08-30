@@ -1,4 +1,6 @@
-﻿using VsaTemplate.Features.Examples;
+﻿using System.Net;
+using System.Net.Http.Json;
+using VsaTemplate.Features.Examples;
 using VsaTemplate.Features.Examples.AppendContent;
 using VsaTemplate.Tests.TestInfrastructure.WebTests;
 
@@ -17,5 +19,15 @@ public sealed class AppendExampleContentEndpointTests
     public override void ShouldHaveCorrectTags()
     {
         Tags.ShouldBeEquivalentTo(Array.Empty<string>());
+    }
+
+    [Test]
+    public async Task ShouldReturnNotFoundIfExampleNotFound()
+    {
+        var command = new AppendExampleContentCommand(Guid.NewGuid(), "test");
+
+        var result = await Client.PatchAsJsonAsync("api/example/append-content", command);
+
+        result.StatusCode.ShouldBe(HttpStatusCode.NotFound);
     }
 }

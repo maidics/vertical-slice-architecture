@@ -11,7 +11,10 @@ builder.AddServiceDefaults().AddCommonServices().AddInfrastructureServices();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Testing"))
+if (
+    (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Testing"))
+    && !app.Configuration.GetValue<bool>("SkipDatabaseInitialisation")
+)
 {
     using var scope = app.Services.CreateScope();
 
