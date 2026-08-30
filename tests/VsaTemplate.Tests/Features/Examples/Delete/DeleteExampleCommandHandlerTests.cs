@@ -13,10 +13,9 @@ public sealed class DeleteExampleCommandHandlerTests : FunctionalTestBase
     [Test]
     public async Task ShouldReturnNotFoundIfExampleDoesNotExists()
     {
-        var command = new DeleteExampleCommand(Guid.Empty);
         var handler = GetRequiredService<DeleteExampleCommandHandler>();
 
-        var result = await handler.Handle(command, CancellationToken.None);
+        var result = await handler.Handle(Guid.Empty, CancellationToken.None);
         result.ShouldBeFailed(ResultType.NotFound, "Example not found.");
     }
 
@@ -29,10 +28,9 @@ public sealed class DeleteExampleCommandHandlerTests : FunctionalTestBase
         await context.Examples.AddAsync(example);
         await context.SaveChangesAsync();
 
-        var command = new DeleteExampleCommand(example.Id);
         var handler = GetRequiredService<DeleteExampleCommandHandler>();
 
-        var result = await handler.Handle(command, CancellationToken.None);
+        var result = await handler.Handle(example.Id, CancellationToken.None);
         result.ShouldBeSuccessful();
 
         var deleted = await context.Examples.FirstOrDefaultAsync(x => x.Id == example.Id);
