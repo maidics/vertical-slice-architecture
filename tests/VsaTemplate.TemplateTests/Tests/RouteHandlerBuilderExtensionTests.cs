@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Shouldly;
+using VsaTemplate.Common.Constants;
 using VsaTemplate.Common.Extensions;
 using VsaTemplate.TemplateTests.Infrastructure;
 using VsaTemplate.TemplateTests.Infrastructure.Common.BaseClasses;
@@ -10,16 +11,35 @@ namespace VsaTemplate.TemplateTests.Tests;
 public sealed class RouteHandlerBuilderExtensionTests : TestBase
 {
     [Test]
-    [Arguments]
-    [Arguments("user")]
-    [Arguments("user", "admin")]
-    public void RequireAuthorizationWithRoleShouldApplyAuthorizationAttributeWithGivenRoles(
+    [Arguments("")]
+    [Arguments("Admin")]
+    [Arguments("aadminn")]
+    [Arguments("Administrator", "Userr")]
+    [Arguments("Administrator", "Userr", "user")]
+    public void RequireAuthorizationWithRolesShouldShouldThrowIfAnyRoleIsInvalid(
         params string[] roles
     )
     {
         var spy = GetRequiredService<EndpointRouteBuilderSpy>();
 
-        spy.MapGet("/test", () => { }).RequireAuthorizationWithRole(roles);
+        var ex = Should.Throw<ArgumentException>(() =>
+            spy.MapGet("/test", () => { }).RequireAuthorizationWithRoles(roles)
+        );
+
+        ex.Message.ShouldContain(string.Join(", ", roles.Where(r => !Roles.IsValid(r))));
+    }
+
+    [Test]
+    [Arguments]
+    [Arguments("User")]
+    [Arguments("User", "Administrator")]
+    public void RequireAuthorizationWithRolesShouldApplyAuthorizationAttributeWithGivenValidRoles(
+        params string[] roles
+    )
+    {
+        var spy = GetRequiredService<EndpointRouteBuilderSpy>();
+
+        spy.MapGet("/test", () => { }).RequireAuthorizationWithRoles(roles);
 
         var endpoints = spy.GetEndpoints();
         endpoints.Count.ShouldBe(1);
