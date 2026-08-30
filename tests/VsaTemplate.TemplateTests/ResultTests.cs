@@ -2,7 +2,7 @@
 using VsaTemplate.Common.Models;
 using VsaTemplate.TemplateTests.Infrastructure.Common.Extensions;
 
-namespace VsaTemplate.TemplateTests.Tests;
+namespace VsaTemplate.TemplateTests;
 
 public sealed class ResultTests
 {

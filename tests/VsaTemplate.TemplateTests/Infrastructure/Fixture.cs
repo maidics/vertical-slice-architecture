@@ -6,9 +6,8 @@ using Projects;
 using TUnit.Core.Interfaces;
 using VsaTemplate.Common.Constants;
 using VsaTemplate.Shared;
-using VsaTemplate.TemplateTests.Infrastructure;
 
-namespace VsaTemplate.TemplateTests;
+namespace VsaTemplate.TemplateTests.Infrastructure;
 
 public sealed class Fixture : IAsyncInitializer, IAsyncDisposable
 {

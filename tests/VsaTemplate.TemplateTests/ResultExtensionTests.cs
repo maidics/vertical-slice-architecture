@@ -4,7 +4,7 @@ using Shouldly;
 using VsaTemplate.Common.Extensions;
 using VsaTemplate.Common.Models;
 
-namespace VsaTemplate.TemplateTests.Tests;
+namespace VsaTemplate.TemplateTests;
 
 public sealed class ResultExtensionTests
 {

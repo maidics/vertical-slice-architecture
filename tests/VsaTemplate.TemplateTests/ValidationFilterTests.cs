@@ -7,33 +7,43 @@ using VsaTemplate.TemplateTests.Infrastructure;
 using VsaTemplate.TemplateTests.Infrastructure.Common;
 using VsaTemplate.TemplateTests.Infrastructure.Common.BaseClasses;
 
-namespace VsaTemplate.TemplateTests.Tests;
+namespace VsaTemplate.TemplateTests;
 
-public sealed class LoggingFilterTests : TestBase
+public sealed class ValidationFilterTests : TestBase
 {
     [Test]
-    public async Task LoggingFilterShouldLogRequestAndReturnNext()
+    [Arguments("valid", true)]
+    [Arguments("invalid", false)]
+    public async Task ValidationFilterShouldReturnCorrectResult(string prop, bool shouldPass)
     {
         var httpContext = new DefaultHttpContext
         {
             Request = { Method = "POST", Path = new PathString("/test") },
+            RequestServices = Fixture.ServiceScope.ServiceProvider,
         };
-        var request = new TestRequest("logging-test");
+        var request = new TestRequest(prop);
         var context = EndpointFilterInvocationContext.Create(httpContext, request);
 
         var expectedResult = TypedResults.Ok();
         EndpointFilterDelegate next = _ => ValueTask.FromResult<object?>(expectedResult);
 
-        var logger = new LoggerSpy<LoggingFilter>();
+        var logger = new LoggerSpy<ValidationFilter>();
         var user = GetRequiredService<IUser>();
-        var filter = new LoggingFilter(logger, user);
+        var filter = new ValidationFilter(logger, user);
 
         var result = await filter.InvokeAsync(context, next);
 
-        result.ShouldBe(expectedResult);
+        if (shouldPass)
+        {
+            result.ShouldBe(expectedResult);
+            logger.Entries.Count.ShouldBe(0);
+            return;
+        }
+
+        result.ShouldNotBe(expectedResult);
 
         logger.Entries.Count.ShouldBe(1);
-        logger.Entries[0].Level.ShouldBe(LogLevel.Information);
-        logger.Entries[0].Message.ShouldContain("logging-test");
+        logger.Entries[0].Level.ShouldBe(LogLevel.Warning);
+        logger.Entries[0].Message.ShouldContain("Request validation failed");
     }
 }

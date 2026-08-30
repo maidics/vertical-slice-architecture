@@ -4,7 +4,7 @@ using VsaTemplate.Common.Extensions;
 using VsaTemplate.Common.Interfaces.Features;
 using VsaTemplate.TemplateTests.Infrastructure.Common;
 
-namespace VsaTemplate.TemplateTests.Tests;
+namespace VsaTemplate.TemplateTests;
 
 public sealed class ServiceCollectionExtensionTests
 {
