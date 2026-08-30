@@ -7,7 +7,7 @@ using VsaTemplate.Common.Pipeline;
 using VsaTemplate.TemplateTests.Infrastructure;
 using VsaTemplate.TemplateTests.Infrastructure.Common.BaseClasses;
 
-namespace VsaTemplate.TemplateTests.Tests;
+namespace VsaTemplate.TemplateTests;
 
 public sealed class ProblemDetailsExceptionHandlerTests : TestBase
 {
@@ -53,6 +53,43 @@ public sealed class ProblemDetailsExceptionHandlerTests : TestBase
         logger.Entries.Count.ShouldBe(1);
         logger.Entries[0].Level.ShouldBe(LogLevel.Warning);
         logger.Entries[0].Message.ShouldContain("Bad HTTP Request at");
+    }
+
+    [Test]
+    public async Task TryHandleAsyncShouldWriteProblemDetailsAndReturnTrueOnUnauthorizedAccessException()
+    {
+        var problemDetailsService = GetRequiredService<IProblemDetailsService>();
+        var logger = new LoggerSpy<ProblemDetailsExceptionHandler>();
+        var handler = new ProblemDetailsExceptionHandler(logger, problemDetailsService);
+
+        var body = new MemoryStream();
+        var requestPath = "/test";
+        var httpContext = new DefaultHttpContext
+        {
+            Response = { Body = body },
+            Request = { Path = requestPath },
+        };
+        var exception = new UnauthorizedAccessException();
+
+        var result = await handler.TryHandleAsync(httpContext, exception, CancellationToken.None);
+        result.ShouldBeTrue();
+
+        var response = httpContext.Response;
+        response.StatusCode.ShouldBe(StatusCodes.Status401Unauthorized);
+
+        body.Seek(0, SeekOrigin.Begin);
+
+        var problem = await JsonSerializer.DeserializeAsync<ProblemDetails>(
+            body,
+            new JsonSerializerOptions(JsonSerializerDefaults.Web)
+        );
+
+        problem.ShouldNotBeNull();
+        problem.Instance.ShouldBe(requestPath);
+
+        logger.Entries.Count.ShouldBe(1);
+        logger.Entries[0].Level.ShouldBe(LogLevel.Error);
+        logger.Entries[0].Message.ShouldContain("Unauthorized HTTP Request at");
     }
 
     [Test]

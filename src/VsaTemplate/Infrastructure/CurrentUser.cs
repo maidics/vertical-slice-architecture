@@ -35,8 +35,8 @@ public sealed class CurrentUser : IUser
 
         if (!Guid.TryParse(nameIdentifier, out var id))
         {
-            throw new InvalidOperationException(
-                $"Tried to parse user id to {nameof(Guid)}: '{nameIdentifier}'"
+            throw new UnauthorizedAccessException(
+                $"Could not parse user id to {nameof(Guid)}: '{nameIdentifier}'"
             );
         }
 

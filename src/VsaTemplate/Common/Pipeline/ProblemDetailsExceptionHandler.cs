@@ -49,6 +49,11 @@ public sealed class ProblemDetailsExceptionHandler : IExceptionHandler
                 requestMethod,
                 requestPath
             ),
+            UnauthorizedAccessException ex => HandleUnauthorizedAccessException(
+                ex,
+                requestMethod,
+                requestPath
+            ),
             _ => HandleDefault(exception, requestMethod, requestPath),
         };
 
@@ -68,23 +73,39 @@ public sealed class ProblemDetailsExceptionHandler : IExceptionHandler
     }
 
     private ProblemDetails HandleBadHttpRequestException(
-        BadHttpRequestException badHttpRequestException,
+        BadHttpRequestException exception,
         string requestMethod,
         string requestPath
     )
     {
         // calling LogWarning because it's a client mistake and not a server error
         _logger.LogWarning(
-            badHttpRequestException,
+            exception,
             "Bad HTTP Request at [{HttpMethod}] {Path}",
             requestMethod,
             requestPath
         );
 
         // no explicit status or other details, IProblemDetailsService will handle this
+        return new ProblemDetails { Status = exception.StatusCode, Instance = requestPath };
+    }
+
+    private ProblemDetails HandleUnauthorizedAccessException(
+        UnauthorizedAccessException exception,
+        string requestMethod,
+        string requestPath
+    )
+    {
+        _logger.LogError(
+            exception,
+            "Unauthorized HTTP Request at [{HttpMethod}] {Path}]",
+            requestMethod,
+            requestPath
+        );
+
         return new ProblemDetails
         {
-            Status = badHttpRequestException.StatusCode,
+            Status = StatusCodes.Status401Unauthorized,
             Instance = requestPath,
         };
     }
