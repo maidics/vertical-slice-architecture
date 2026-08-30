@@ -23,15 +23,14 @@ public sealed class WebTestFixture : IAsyncInitializer, IAsyncDisposable
     {
         var cts = new CancellationTokenSource(TimeSpan.FromSeconds(15));
 
-        var builder =
-            await DistributedApplicationTestingBuilder.CreateAsync<VsaTemplate_TestAppHost>(
-                args: [],
-                configureBuilder: (options, _) =>
-                {
-                    options.DisableDashboard = true;
-                },
-                cts.Token
-            );
+        var builder = await DistributedApplicationTestingBuilder.CreateAsync<VsaTemplate_AppHost>(
+            args: [],
+            configureBuilder: (options, _) =>
+            {
+                options.DisableDashboard = true;
+            },
+            cts.Token
+        );
 
         builder.Configuration["ASPIRE_ALLOW_UNSECURED_TRANSPORT"] = "true";
 

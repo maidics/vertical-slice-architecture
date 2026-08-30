@@ -1,4 +1,4 @@
-using VsaTemplate.Common.Interfaces.Features;
+﻿using VsaTemplate.Common.Interfaces.Features;
 
 namespace VsaTemplate.Tests.TestInfrastructure.WebTests;
 
@@ -21,6 +21,7 @@ public abstract class EndpointTestBase<TEndpoint> : IEndpointTests
     public async Task ResetAsync()
     {
         await Fixture.ResetAsync();
+        Client?.Dispose();
 
         Client = Fixture.CreateHttpClient();
     }
