@@ -8,7 +8,7 @@ public sealed class AppendExampleContentEndpoint : IEndpoint<Example>
 {
     public static void Map(IEndpointRouteBuilder builder)
     {
-        builder.MapPut(AppendExampleContent, "append-content");
+        builder.MapPatch(AppendExampleContent, "append-content");
     }
 
     private static async Task<Results<NoContent, ProblemHttpResult>> AppendExampleContent(
