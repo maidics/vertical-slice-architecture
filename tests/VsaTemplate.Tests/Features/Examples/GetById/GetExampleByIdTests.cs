@@ -16,7 +16,7 @@ public sealed class GetExampleByIdTests : FunctionalTestBase
 
         var result = await handler.Handle(Guid.Empty, CancellationToken.None);
 
-        result.ShouldBeFailed(ResultType.NotFound, ["Example not found."]);
+        result.ShouldBeFailed(ResultType.NotFound, $"{nameof(Example)} not found.");
     }
 
     [Test]

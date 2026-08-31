@@ -26,7 +26,7 @@ public sealed class CreateExampleCommandHandlerTests : FunctionalTestBase
         var result = await handler.Handle(command, CancellationToken.None);
         result.ShouldBeFailed(
             ResultType.Conflict,
-            $"Example already exists with content: {command.Content}"
+            $"{nameof(Example)} already exists with content: {command.Content}"
         );
     }
 

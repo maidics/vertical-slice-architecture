@@ -24,7 +24,7 @@ public sealed class UpdateExampleCommandHandler : IRequestHandler
         );
 
         if (example is null)
-            return Result.NotFound(["Example not found."]);
+            return Result.NotFound($"{nameof(Example)} not found.");
 
         if (example.Content == command.Content)
             return Result.Success();
@@ -34,7 +34,9 @@ public sealed class UpdateExampleCommandHandler : IRequestHandler
             .FirstOrDefaultAsync(x => x.Content == command.Content, cancellationToken);
 
         if (existingWithContent is not null)
-            return Result.Conflict([$"Example with '{command.Content}' content already exists."]);
+            return Result.Conflict([
+                $"{nameof(Example)} with '{command.Content}' content already exists.",
+            ]);
 
         example.Content = command.Content;
 

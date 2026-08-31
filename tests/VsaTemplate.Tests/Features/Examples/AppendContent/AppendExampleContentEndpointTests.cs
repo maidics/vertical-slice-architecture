@@ -62,7 +62,9 @@ public sealed class AppendExampleContentEndpointTests
         var errors = await response.GetResultErrorsAsync();
         errors.ShouldNotBeNull();
         errors.Length.ShouldBe(1);
-        errors.ShouldContain($"Example with '{example1.Content}' content already exists.");
+        errors.ShouldContain(
+            $"{nameof(Example)} with '{example1.Content}' content already exists."
+        );
     }
 
     [Test]
@@ -79,11 +81,8 @@ public sealed class AppendExampleContentEndpointTests
 
         var command = new AppendExampleContentCommand(example.Id, "-content");
 
-        var response = await client.PostAsJsonAsync(Endpoint, command);
-        response.StatusCode.ShouldBe(HttpStatusCode.OK);
-
-        var errors = await response.GetResultErrorsAsync();
-        errors.ShouldBeNull();
+        var response = await client.PatchAsJsonAsync(Endpoint, command);
+        response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
 
         var id = await response.Content.ReadFromJsonAsync<Guid>();
         id.ShouldBe(example.Id);

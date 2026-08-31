@@ -16,7 +16,7 @@ public sealed class DeleteExampleCommandHandlerTests : FunctionalTestBase
         var handler = GetRequiredService<DeleteExampleCommandHandler>();
 
         var result = await handler.Handle(Guid.Empty, CancellationToken.None);
-        result.ShouldBeFailed(ResultType.NotFound, "Example not found.");
+        result.ShouldBeFailed(ResultType.NotFound, $"{nameof(Example)} not found.");
     }
 
     [Test]

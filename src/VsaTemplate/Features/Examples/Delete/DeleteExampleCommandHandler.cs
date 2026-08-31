@@ -21,7 +21,7 @@ public sealed class DeleteExampleCommandHandler : IRequestHandler
         );
 
         if (example is null)
-            return Result.NotFound(["Example not found."]);
+            return Result.NotFound($"{nameof(Example)} not found.");
 
         _context.Examples.Remove(example);
         await _context.SaveChangesAsync(cancellationToken);

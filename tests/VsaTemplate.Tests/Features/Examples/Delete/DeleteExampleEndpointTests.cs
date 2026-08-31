@@ -50,6 +50,6 @@ public sealed class DeleteExampleEndpointTests : EndpointTestBase<DeleteExampleE
 
         var response = await client.DeleteAsync(Endpoint + $"/{example.Id}");
 
-        response.StatusCode.ShouldBe(HttpStatusCode.OK);
+        response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
     }
 }
