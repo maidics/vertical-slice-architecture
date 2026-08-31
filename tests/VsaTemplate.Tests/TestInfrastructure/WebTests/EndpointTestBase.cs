@@ -3,6 +3,8 @@ using VsaTemplate.Infrastructure.Database;
 
 namespace VsaTemplate.Tests.TestInfrastructure.WebTests;
 
+// should not be parallelized since the tests use a shared db instance
+[NotInParallel("EndpointTests")]
 public abstract class EndpointTestBase<TEndpoint> : IEndpointTests
     where TEndpoint : IEndpoint
 {
