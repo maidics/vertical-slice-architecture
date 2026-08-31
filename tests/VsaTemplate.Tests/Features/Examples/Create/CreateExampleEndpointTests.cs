@@ -14,7 +14,7 @@ public sealed class CreateExampleEndpointTests : EndpointTestBase<CreateExampleE
     [Test]
     public override void ShouldHaveCorrectPrefix()
     {
-        Prefix.ShouldBe(nameof(Example).ToLower());
+        Prefix.ShouldBe("examples");
     }
 
     [Test]

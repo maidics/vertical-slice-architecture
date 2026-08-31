@@ -13,7 +13,7 @@ public sealed class DeleteExampleEndpointTests : EndpointTestBase<DeleteExampleE
     [Test]
     public override void ShouldHaveCorrectPrefix()
     {
-        Prefix.ShouldBe(nameof(Example).ToLower());
+        Prefix.ShouldBe("examples");
     }
 
     [Test]
