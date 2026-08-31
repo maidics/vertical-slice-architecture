@@ -16,9 +16,7 @@ public sealed class RouteHandlerBuilderExtensionTests : TestBase
     [Arguments("aadminn")]
     [Arguments("Administrator", "Userr")]
     [Arguments("Administrator", "Userr", "user")]
-    public void RequireAuthorizationWithRolesShouldShouldThrowIfAnyRoleIsInvalid(
-        params string[] roles
-    )
+    public void RequireAuthorizationWithRolesShouldThrowIfAnyRoleIsInvalid(params string[] roles)
     {
         var spy = GetRequiredService<EndpointRouteBuilderSpy>();
 
