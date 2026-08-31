@@ -12,9 +12,13 @@ public static class HttpResponseMessageExtensions
         {
             var problemDetails = await response.Content.ReadFromJsonAsync<ProblemDetails>();
 
-            var element = (JsonElement?)problemDetails?.Extensions["errors"];
+            if (
+                problemDetails is null
+                || problemDetails.Extensions.TryGetValue("errors", out var errors)
+            )
+                return null;
 
-            return element?.Deserialize<string[]>();
+            return ((JsonElement?)errors)?.Deserialize<string[]>();
         }
 
         public async Task<ValidationProblemDetails?> GetValidationProblemDetailsAsync()
