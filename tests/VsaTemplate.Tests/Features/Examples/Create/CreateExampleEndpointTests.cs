@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
+using Microsoft.EntityFrameworkCore;
 using VsaTemplate.Features.Examples;
 using VsaTemplate.Features.Examples.Create;
 using VsaTemplate.Tests.TestInfrastructure;
@@ -65,5 +66,24 @@ public sealed class CreateExampleEndpointTests : EndpointTestBase<CreateExampleE
         errors.ShouldNotBeNull();
         errors.Length.ShouldBe(1);
         errors.ShouldContain($"{nameof(Example)} already exists with content: {command.Content}");
+    }
+
+    [Test]
+    public async Task ShouldReturnOkWithId()
+    {
+        var command = new CreateExampleCommand("test");
+
+        using var client = CreateHttpClient();
+
+        var response = await client.PostAsJsonAsync(Endpoint, command);
+        response.StatusCode.ShouldBe(HttpStatusCode.OK);
+
+        var id = await response.Content.ReadFromJsonAsync<Guid>();
+        id.ShouldNotBe(Guid.Empty);
+
+        await using var context = CreateDbContext();
+
+        var created = await context.Examples.FirstOrDefaultAsync(e => e.Id == id);
+        created.ShouldNotBeNull();
     }
 }
