@@ -11,6 +11,16 @@ namespace VsaTemplate.TemplateTests;
 public sealed class RouteHandlerBuilderExtensionTests : TestBase
 {
     [Test]
+    public void RequireAuthorizationWithRolesShouldThrowIfRolesIsEmpty()
+    {
+        var spy = GetRequiredService<EndpointRouteBuilderSpy>();
+
+        Should.Throw<ArgumentOutOfRangeException>(() =>
+            spy.MapGet("/test", () => { }).RequireAuthorizationWithRoles([])
+        );
+    }
+
+    [Test]
     [Arguments("")]
     [Arguments("Admin")]
     [Arguments("aadminn")]
@@ -28,7 +38,6 @@ public sealed class RouteHandlerBuilderExtensionTests : TestBase
     }
 
     [Test]
-    [Arguments]
     [Arguments("User")]
     [Arguments("User", "Administrator")]
     public void RequireAuthorizationWithRolesShouldApplyAuthorizationAttributeWithGivenValidRoles(
