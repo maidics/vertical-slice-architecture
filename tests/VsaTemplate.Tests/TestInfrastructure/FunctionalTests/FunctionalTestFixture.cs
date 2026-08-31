@@ -47,6 +47,15 @@ public sealed class FunctionalTestFixture : IAsyncInitializer, IAsyncDisposable
         _factory = new FunctionalTestWebApplicationFactory(connectionString);
         _scopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
         _database = await TestDatabase.CreateAsync(connectionString);
+
+        using var roleManager = _scopeFactory
+            .CreateScope()
+            .ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
+
+        foreach (var role in Roles.All)
+        {
+            await roleManager.CreateAsync(new IdentityRole<Guid>(role));
+        }
     }
 
     public async ValueTask DisposeAsync()
@@ -68,14 +77,5 @@ public sealed class FunctionalTestFixture : IAsyncInitializer, IAsyncDisposable
 
         ServiceScope?.Dispose();
         ServiceScope = _scopeFactory.CreateScope();
-
-        var roleManager = ServiceScope.ServiceProvider.GetRequiredService<
-            RoleManager<IdentityRole<Guid>>
-        >();
-
-        foreach (var role in Roles.All)
-        {
-            await roleManager.CreateAsync(new IdentityRole<Guid>(role));
-        }
     }
 }
