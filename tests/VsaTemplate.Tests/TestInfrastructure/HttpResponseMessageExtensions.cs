@@ -14,7 +14,7 @@ public static class HttpResponseMessageExtensions
 
             if (
                 problemDetails is null
-                || problemDetails.Extensions.TryGetValue("errors", out var errors)
+                || !problemDetails.Extensions.TryGetValue("errors", out var errors)
             )
                 return null;
 
