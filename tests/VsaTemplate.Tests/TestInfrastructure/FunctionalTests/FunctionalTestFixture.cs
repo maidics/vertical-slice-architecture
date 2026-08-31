@@ -1,10 +1,8 @@
 ﻿using Aspire.Hosting;
 using Aspire.Hosting.Testing;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Projects;
 using TUnit.Core.Interfaces;
-using VsaTemplate.Common.Constants;
 using VsaTemplate.Shared;
 
 namespace VsaTemplate.Tests.TestInfrastructure.FunctionalTests;
@@ -26,9 +24,10 @@ public sealed class FunctionalTestFixture : IAsyncInitializer, IAsyncDisposable
         var builder =
             await DistributedApplicationTestingBuilder.CreateAsync<VsaTemplate_TestAppHost>(
                 args: [],
-                configureBuilder: (options, _) =>
+                configureBuilder: (options, settings) =>
                 {
                     options.DisableDashboard = true;
+                    settings.EnvironmentName = TestingEnvironments.Functional;
                 },
                 cts.Token
             );
@@ -47,16 +46,6 @@ public sealed class FunctionalTestFixture : IAsyncInitializer, IAsyncDisposable
         _factory = new FunctionalTestWebApplicationFactory(connectionString);
         _scopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
         _database = await TestDatabase.CreateAsync(connectionString);
-
-        using var scope = _scopeFactory.CreateScope();
-        var roleManager = scope.ServiceProvider.GetRequiredService<
-            RoleManager<IdentityRole<Guid>>
-        >();
-
-        foreach (var role in Roles.All)
-        {
-            await roleManager.CreateAsync(new IdentityRole<Guid>(role));
-        }
     }
 
     public async ValueTask DisposeAsync()

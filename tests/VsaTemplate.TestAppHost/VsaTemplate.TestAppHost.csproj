@@ -14,5 +14,6 @@
       Include="..\..\src\VsaTemplate.Shared\VsaTemplate.Shared.csproj"
       IsAspireProjectResource="false"
     />
+    <ProjectReference Include="..\..\src\VsaTemplate\VsaTemplate.csproj" />
   </ItemGroup>
 </Project>

@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Common.Services;
+using VsaTemplate.Shared;
 
 namespace VsaTemplate.Tests.TestInfrastructure.FunctionalTests;
 
@@ -13,7 +14,7 @@ public class FunctionalTestWebApplicationFactory(string connectionString)
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        builder.UseEnvironment("Testing");
+        builder.UseEnvironment(TestingEnvironments.Functional);
 
         builder.UseSetting("ConnectionStrings:VsaTemplateDb", connectionString);
 
