@@ -48,6 +48,6 @@ public sealed class RouteHandlerBuilderExtensionTests : TestBase
         var authMetadata = endpoint.Metadata.GetOrderedMetadata<IAuthorizeData>();
         authMetadata.ShouldNotBeEmpty();
         authMetadata.Count.ShouldBe(1);
-        authMetadata.First().Roles.ShouldBe(string.Join(",", roles));
+        authMetadata.First().Roles.ShouldBe(roles.Length == 0 ? null : string.Join(",", roles));
     }
 }
