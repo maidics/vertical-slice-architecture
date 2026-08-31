@@ -120,11 +120,13 @@ Unit, functional, integration and web testing merged into one project to reduce 
   - EF Core entity configurations. Instantiate the unit test helper for assertions: [`EntityConfigurationFixture`](./tests/VsaTemplate.Tests/TestInfrastructure/UnitTests)
   - `AbstractValidator` classes
   - **[`IRequest`](./src/Scratch/Common/Interfaces/Features/IRequest.cs)** and **[`IDomainEvent`](./src/Scratch/Common/Interfaces/Features/IDomainEvent.cs) implementations and their handlers**. You can use the [`FunctionalTestBase`](./tests/VsaTemplate.Tests/TestInfrastructure/FunctionalTests/FunctionalTestBase.cs) class:
+    - Marked with `NotInParallel` attribute due to shared db instance
     - Instantiates [`FunctionalTestFixture`](./tests/VsaTemplate.Tests/TestInfrastructure/FunctionalTests/FunctionalTestFixture.cs) (injected via `ClassDataSource<T>`)
     - Resets the `Fixture` (resets db, creates a new `IServiceScope`)
-  - etc.
-
-**Integration and web testing are work in progress.**
+  - IEndpoint implementations. Use the [`EndpointTestBase`](./tests/VsaTemplate.Tests/TestInfrastructure/WebTests/EndpointTestBase.cs):
+    - Marked with `NotInParallel` attribute due to shared db instance
+    - Assert `Prefix` and `Tags` attributes
+    - E2E test the endpoint itself
 
 ### Template Tests
 
