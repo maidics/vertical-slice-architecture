@@ -15,7 +15,7 @@ public sealed class AppendExampleContentEndpointTests
     [Test]
     public override void ShouldHaveCorrectPrefix()
     {
-        Prefix.ShouldBe(nameof(Example).ToLower());
+        Prefix.ShouldBe("examples");
     }
 
     [Test]
@@ -83,8 +83,5 @@ public sealed class AppendExampleContentEndpointTests
 
         var response = await client.PatchAsJsonAsync(Endpoint, command);
         response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
-
-        var id = await response.Content.ReadFromJsonAsync<Guid>();
-        id.ShouldBe(example.Id);
     }
 }
