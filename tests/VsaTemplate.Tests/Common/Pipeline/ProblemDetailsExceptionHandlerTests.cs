@@ -2,14 +2,13 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Shouldly;
 using VsaTemplate.Common.Pipeline;
-using VsaTemplate.TemplateTests.Infrastructure;
-using VsaTemplate.TemplateTests.Infrastructure.Common.BaseClasses;
+using VsaTemplate.Tests.TestInfrastructure;
+using VsaTemplate.Tests.TestInfrastructure.FunctionalTests;
 
-namespace VsaTemplate.TemplateTests;
+namespace VsaTemplate.Tests.Common.Pipeline;
 
-public sealed class ProblemDetailsExceptionHandlerTests : TestBase
+public sealed class ProblemDetailsExceptionHandlerTests : FunctionalTestBase
 {
     [Test]
     [Arguments(StatusCodes.Status400BadRequest, "Bad Request")]
@@ -24,7 +23,7 @@ public sealed class ProblemDetailsExceptionHandlerTests : TestBase
         var handler = new ProblemDetailsExceptionHandler(logger, problemDetailsService);
 
         var body = new MemoryStream();
-        var requestPath = "/test";
+        const string requestPath = "/test";
         var httpContext = new DefaultHttpContext
         {
             Response = { Body = body },
@@ -63,7 +62,7 @@ public sealed class ProblemDetailsExceptionHandlerTests : TestBase
         var handler = new ProblemDetailsExceptionHandler(logger, problemDetailsService);
 
         var body = new MemoryStream();
-        var requestPath = "/test";
+        const string requestPath = "/test";
         var httpContext = new DefaultHttpContext
         {
             Response = { Body = body },
@@ -105,7 +104,7 @@ public sealed class ProblemDetailsExceptionHandlerTests : TestBase
         var handler = new ProblemDetailsExceptionHandler(logger, problemDetailsService);
 
         var body = new MemoryStream();
-        var requestPath = "/test";
+        const string requestPath = "/test";
         var httpContext = new DefaultHttpContext
         {
             Response = { Body = body },
@@ -151,7 +150,7 @@ public sealed class ProblemDetailsExceptionHandlerTests : TestBase
         var handler = new ProblemDetailsExceptionHandler(logger, problemDetailsService);
 
         var body = new MemoryStream();
-        var requestPath = "/test";
+        const string requestPath = "/test";
         var httpContext = new DefaultHttpContext
         {
             Response = { Body = body },
