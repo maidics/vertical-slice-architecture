@@ -2,6 +2,7 @@
 using System.Net.Http.Json;
 using VsaTemplate.Features.Examples;
 using VsaTemplate.Features.Examples.AppendContent;
+using VsaTemplate.Tests.TestInfrastructure;
 using VsaTemplate.Tests.TestInfrastructure.WebTests;
 
 namespace VsaTemplate.Tests.Features.Examples.AppendContent;
@@ -9,6 +10,8 @@ namespace VsaTemplate.Tests.Features.Examples.AppendContent;
 public sealed class AppendExampleContentEndpointTests
     : EndpointTestBase<AppendExampleContentEndpoint>
 {
+    protected override string Endpoint => "api/example/append-content";
+
     [Test]
     public override void ShouldHaveCorrectPrefix()
     {
@@ -26,8 +29,63 @@ public sealed class AppendExampleContentEndpointTests
     {
         var command = new AppendExampleContentCommand(Guid.Empty, "test");
 
-        var result = await Client.PatchAsJsonAsync("api/example/append-content", command);
+        using var client = CreateHttpClient();
 
-        result.StatusCode.ShouldBe(HttpStatusCode.NotFound);
+        var response = await client.PatchAsJsonAsync(Endpoint, command);
+        response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
+
+        var errors = await response.GetResultErrorsAsync();
+        errors.ShouldNotBeNull();
+        errors.Length.ShouldBe(1);
+        errors.ShouldContain($"{nameof(Example)} not found.");
+    }
+
+    [Test]
+    public async Task ShouldReturnConflictIfExampleExistsWithContent()
+    {
+        var example1 = new Example { Content = "test-content" };
+        var example2 = new Example { Content = "test" };
+
+        await using var context = CreateDbContext();
+
+        await context.Examples.AddAsync(example2);
+        await context.Examples.AddAsync(example1);
+        await context.SaveChangesAsync();
+
+        using var client = CreateHttpClient();
+
+        var command = new AppendExampleContentCommand(example2.Id, "-content");
+
+        var response = await client.PatchAsJsonAsync(Endpoint, command);
+        response.StatusCode.ShouldBe(HttpStatusCode.Conflict);
+
+        var errors = await response.GetResultErrorsAsync();
+        errors.ShouldNotBeNull();
+        errors.Length.ShouldBe(1);
+        errors.ShouldContain($"Example with '{example1.Content}' content already exists.");
+    }
+
+    [Test]
+    public async Task ShouldReturnOkAndIdIfContentHasBeenAppended()
+    {
+        var example = new Example { Content = "test" };
+
+        await using var context = CreateDbContext();
+
+        await context.Examples.AddAsync(example);
+        await context.SaveChangesAsync();
+
+        using var client = CreateHttpClient();
+
+        var command = new AppendExampleContentCommand(example.Id, "-content");
+
+        var response = await client.PostAsJsonAsync(Endpoint, command);
+        response.StatusCode.ShouldBe(HttpStatusCode.OK);
+
+        var errors = await response.GetResultErrorsAsync();
+        errors.ShouldBeNull();
+
+        var id = await response.Content.ReadFromJsonAsync<Guid>();
+        id.ShouldBe(example.Id);
     }
 }

@@ -24,7 +24,9 @@ public sealed class CreateExampleCommandHandler : IRequestHandler
         );
 
         if (existing is not null)
-            return Result.Conflict([$"Example already exists with content: {command.Content}"]);
+            return Result.Conflict(
+                $"{nameof(Example)} already exists with content: {command.Content}"
+            );
 
         var example = new Example { Content = command.Content };
 

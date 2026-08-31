@@ -25,7 +25,7 @@ public sealed class GetExampleByIdQueryHandler : IRequestHandler
             .FirstOrDefaultAsync(cancellationToken);
 
         if (example is null)
-            return Result.NotFound("Example not found.");
+            return Result.NotFound($"{nameof(Example)} not found.");
 
         return Result.Success(example);
     }
