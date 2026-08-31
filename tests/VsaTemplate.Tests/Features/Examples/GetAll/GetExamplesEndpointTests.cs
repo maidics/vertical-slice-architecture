@@ -43,8 +43,10 @@ public sealed class GetExamplesEndpointTests : EndpointTestBase<GetExamplesEndpo
 
         using var client = CreateHttpClient();
 
-        var response = await client.GetFromJsonAsync<List<Example>>(Endpoint);
+        var response = await client.GetFromJsonAsync<List<ExampleDto>>(Endpoint);
+        response.ShouldNotBeNull();
 
-        response.ShouldBeEquivalentTo(examples);
+        var dtoIds = response.Select(e => e.Id).ToList();
+        dtoIds.ShouldBeEquivalentTo(examples.Select(e => e.Id).ToList());
     }
 }

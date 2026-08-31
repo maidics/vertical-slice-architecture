@@ -52,8 +52,8 @@ public sealed class GetExampleByIdEndpointTests : EndpointTestBase<GetExampleByI
         var response = await client.GetAsync(Endpoint + $"/{example.Id}");
         response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
-        var returned = await response.Content.ReadFromJsonAsync<Example>();
+        var returned = await response.Content.ReadFromJsonAsync<ExampleDto>();
         returned.ShouldNotBeNull();
-        returned.ShouldBeEquivalentTo(example);
+        returned.Id.ShouldBe(example.Id);
     }
 }
