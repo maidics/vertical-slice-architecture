@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Aspire.Hosting.SQLite" />
+    <PackageReference Include="CommunityToolkit.Aspire.Hosting.SqLite" />
   </ItemGroup>
 
   <ItemGroup>
