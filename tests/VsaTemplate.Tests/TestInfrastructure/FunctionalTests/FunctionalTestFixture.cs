@@ -48,9 +48,10 @@ public sealed class FunctionalTestFixture : IAsyncInitializer, IAsyncDisposable
         _scopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
         _database = await TestDatabase.CreateAsync(connectionString);
 
-        using var roleManager = _scopeFactory
-            .CreateScope()
-            .ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
+        using var scope = _scopeFactory.CreateScope();
+        var roleManager = scope.ServiceProvider.GetRequiredService<
+            RoleManager<IdentityRole<Guid>>
+        >();
 
         foreach (var role in Roles.All)
         {
