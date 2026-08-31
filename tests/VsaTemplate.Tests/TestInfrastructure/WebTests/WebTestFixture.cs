@@ -1,13 +1,9 @@
 ﻿using Aspire.Hosting;
-using Aspire.Hosting.ApplicationModel;
 using Aspire.Hosting.Testing;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using Microsoft.Extensions.DependencyInjection;
 using Projects;
 using TUnit.Core.Interfaces;
-using VsaTemplate.Common.Constants;
 using VsaTemplate.Infrastructure.Database;
 using VsaTemplate.Shared;
 
