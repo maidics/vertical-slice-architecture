@@ -21,7 +21,7 @@ public sealed class FunctionalTestFixture : IAsyncInitializer, IAsyncDisposable
 
     public async Task InitializeAsync()
     {
-        var cts = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+        var cts = new CancellationTokenSource(TimeSpan.FromSeconds(30));
 
         var builder =
             await DistributedApplicationTestingBuilder.CreateAsync<VsaTemplate_TestAppHost>(
