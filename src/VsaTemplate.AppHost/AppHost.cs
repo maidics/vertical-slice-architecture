@@ -19,6 +19,6 @@ builder
             url.Url = "/scalar";
         }
     )
-    .WithHttpHealthCheck("/health");
+    .WithHttpHealthCheck("/health", endpointName: "http");
 
 builder.Build().Run();
