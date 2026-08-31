@@ -37,6 +37,8 @@ public sealed class WebTestFixture : IAsyncInitializer, IAsyncDisposable
         _app = await builder.BuildAsync(cts.Token).WaitAsync(cts.Token);
 
         await _app.StartAsync(cts.Token).WaitAsync(cts.Token);
+
+        // awaits /health endpoint which is only set if Environment is Development
         await _app.ResourceNotifications.WaitForResourceHealthyAsync(Services.WebApi, cts.Token);
 
         var connectionString = await _app.GetConnectionStringAsync(Services.Database, cts.Token);
