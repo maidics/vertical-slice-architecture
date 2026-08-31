@@ -9,7 +9,7 @@ public sealed class GetExamplesEndpointTests : EndpointTestBase<GetExamplesEndpo
     [Test]
     public override void ShouldHaveCorrectPrefix()
     {
-        Prefix.ShouldBe(nameof(Example));
+        Prefix.ShouldBe(nameof(Example).ToLower());
     }
 
     [Test]

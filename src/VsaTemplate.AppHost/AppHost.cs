@@ -18,6 +18,7 @@ builder
             url.DisplayText = "Scalar API";
             url.Url = "/scalar";
         }
-    );
+    )
+    .WithHttpHealthCheck("/health");
 
 builder.Build().Run();

@@ -12,7 +12,7 @@ public sealed class AppendExampleContentEndpointTests
     [Test]
     public override void ShouldHaveCorrectPrefix()
     {
-        Prefix.ShouldBe(nameof(Example));
+        Prefix.ShouldBe(nameof(Example).ToLower());
     }
 
     [Test]
@@ -22,9 +22,9 @@ public sealed class AppendExampleContentEndpointTests
     }
 
     [Test]
-    public async Task ShouldReturnNotFoundIfExampleNotFound()
+    public async Task ShouldReturnNotFoundIfExampleDoesNotExist()
     {
-        var command = new AppendExampleContentCommand(Guid.NewGuid(), "test");
+        var command = new AppendExampleContentCommand(Guid.Empty, "test");
 
         var result = await Client.PatchAsJsonAsync("api/example/append-content", command);
 

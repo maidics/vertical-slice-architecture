@@ -21,7 +21,10 @@ public sealed class TestDatabase : IAsyncDisposable
         var connection = new SqliteConnection(connectionString);
 
         await connection.OpenAsync();
-        var respawner = await Respawner.CreateAsync(connection);
+        var respawner = await Respawner.CreateAsync(
+            connection,
+            new RespawnerOptions { TablesToIgnore = ["AspNetRoles"] }
+        );
         await connection.CloseAsync();
         return new TestDatabase(connection, respawner);
     }

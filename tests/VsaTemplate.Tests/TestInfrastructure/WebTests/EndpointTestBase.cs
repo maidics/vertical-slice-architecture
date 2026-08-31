@@ -1,9 +1,9 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using VsaTemplate.Common.Interfaces.Features;
+﻿using VsaTemplate.Common.Interfaces.Features;
+using VsaTemplate.Infrastructure.Database;
 
 namespace VsaTemplate.Tests.TestInfrastructure.WebTests;
 
-//TODO: add E2E testing members - which confirms the method and its existence
+//TODO: move E2E members to another base class for performance - move this to unit testing & rename for clarity
 public abstract class EndpointTestBase<TEndpoint> : IEndpointTests
     where TEndpoint : IEndpoint
 {
@@ -11,6 +11,7 @@ public abstract class EndpointTestBase<TEndpoint> : IEndpointTests
     public required WebTestFixture Fixture { get; init; }
 
     public HttpClient Client = null!;
+    public ApplicationDbContext DbContext = null!;
 
     protected static string Prefix => TEndpoint.Prefix;
     protected static string[] Tags => TEndpoint.Tags;
@@ -24,12 +25,10 @@ public abstract class EndpointTestBase<TEndpoint> : IEndpointTests
         await Fixture.ResetAsync();
         Client?.Dispose();
 
-        Client = Fixture.CreateHttpClient();
-    }
+        if (DbContext is not null)
+            await DbContext.DisposeAsync();
 
-    public TService GetRequiredService<TService>()
-        where TService : notnull
-    {
-        return Fixture.ServiceScope.ServiceProvider.GetRequiredService<TService>();
+        Client = Fixture.CreateHttpClient();
+        DbContext = Fixture.CreateDbContext();
     }
 }
