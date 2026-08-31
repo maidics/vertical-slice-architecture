@@ -37,7 +37,7 @@ public sealed class DeleteExampleEndpointTests : EndpointTestBase<DeleteExampleE
     }
 
     [Test]
-    public async Task ShouldReturnOkIfExampleHasBeenDeleted()
+    public async Task ShouldReturnNoContentIfExampleHasBeenDeleted()
     {
         var example = new Example { Content = "test" };
 

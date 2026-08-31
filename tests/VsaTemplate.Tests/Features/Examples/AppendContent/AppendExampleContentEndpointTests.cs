@@ -68,7 +68,7 @@ public sealed class AppendExampleContentEndpointTests
     }
 
     [Test]
-    public async Task ShouldReturnOkAndIdIfContentHasBeenAppended()
+    public async Task ShouldReturnNoContentAndIdIfContentHasBeenAppended()
     {
         var example = new Example { Content = "test" };
 
