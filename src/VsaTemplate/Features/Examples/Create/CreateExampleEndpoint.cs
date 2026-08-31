@@ -4,8 +4,10 @@ using VsaTemplate.Common.Interfaces.Features;
 
 namespace VsaTemplate.Features.Examples.Create;
 
-public sealed class CreateExampleEndpoint : IEndpoint<Example>
+public sealed class CreateExampleEndpoint : IEndpoint
 {
+    public static string Prefix => "examples";
+
     public static void Map(IEndpointRouteBuilder builder)
     {
         builder.MapPost(CreateExample);

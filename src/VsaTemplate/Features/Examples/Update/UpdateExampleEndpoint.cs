@@ -4,8 +4,10 @@ using VsaTemplate.Common.Interfaces.Features;
 
 namespace VsaTemplate.Features.Examples.Update;
 
-public sealed class UpdateExampleEndpoint : IEndpoint<Example>
+public sealed class UpdateExampleEndpoint : IEndpoint
 {
+    public static string Prefix => "examples";
+
     public static void Map(IEndpointRouteBuilder builder)
     {
         builder.MapPut(UpdateExample, "");

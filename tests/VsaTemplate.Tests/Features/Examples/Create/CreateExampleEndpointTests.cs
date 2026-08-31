@@ -9,7 +9,7 @@ namespace VsaTemplate.Tests.Features.Examples.Create;
 
 public sealed class CreateExampleEndpointTests : EndpointTestBase<CreateExampleEndpoint>
 {
-    protected override string Endpoint => "api/example";
+    protected override string Endpoint => "api/examples";
 
     [Test]
     public override void ShouldHaveCorrectPrefix()

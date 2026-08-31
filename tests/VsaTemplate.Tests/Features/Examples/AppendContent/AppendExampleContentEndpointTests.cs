@@ -10,7 +10,7 @@ namespace VsaTemplate.Tests.Features.Examples.AppendContent;
 public sealed class AppendExampleContentEndpointTests
     : EndpointTestBase<AppendExampleContentEndpoint>
 {
-    protected override string Endpoint => "api/example/append-content";
+    protected override string Endpoint => "api/examples/append-content";
 
     [Test]
     public override void ShouldHaveCorrectPrefix()

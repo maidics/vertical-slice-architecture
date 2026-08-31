@@ -9,7 +9,7 @@ namespace VsaTemplate.Tests.Features.Examples.GetById;
 
 public sealed class GetExampleByIdEndpointTests : EndpointTestBase<GetExampleByIdEndpoint>
 {
-    protected override string Endpoint => "api/example";
+    protected override string Endpoint => "api/examples";
 
     [Test]
     public override void ShouldHaveCorrectPrefix()

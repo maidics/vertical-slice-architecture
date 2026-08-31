@@ -4,8 +4,10 @@ using VsaTemplate.Common.Interfaces.Features;
 
 namespace VsaTemplate.Features.Examples.GetById;
 
-public sealed class GetExampleByIdEndpoint : IEndpoint<Example>
+public sealed class GetExampleByIdEndpoint : IEndpoint
 {
+    public static string Prefix => "examples";
+
     public static void Map(IEndpointRouteBuilder builder)
     {
         builder.MapGet(GetExampleById, "{exampleId:guid}");

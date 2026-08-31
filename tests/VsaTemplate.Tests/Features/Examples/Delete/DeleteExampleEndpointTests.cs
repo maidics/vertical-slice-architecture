@@ -8,7 +8,7 @@ namespace VsaTemplate.Tests.Features.Examples.Delete;
 
 public sealed class DeleteExampleEndpointTests : EndpointTestBase<DeleteExampleEndpoint>
 {
-    protected override string Endpoint => "api/example";
+    protected override string Endpoint => "api/examples";
 
     [Test]
     public override void ShouldHaveCorrectPrefix()

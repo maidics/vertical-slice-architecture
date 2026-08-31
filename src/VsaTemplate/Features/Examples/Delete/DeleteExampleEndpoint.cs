@@ -4,8 +4,10 @@ using VsaTemplate.Common.Interfaces.Features;
 
 namespace VsaTemplate.Features.Examples.Delete;
 
-public sealed class DeleteExampleEndpoint : IEndpoint<Example>
+public sealed class DeleteExampleEndpoint : IEndpoint
 {
+    public static string Prefix => "examples";
+
     public static void Map(IEndpointRouteBuilder builder)
     {
         builder.MapDelete(DeleteExample, "{exampleId:guid}");

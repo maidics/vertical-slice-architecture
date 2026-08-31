@@ -7,7 +7,7 @@ namespace VsaTemplate.Tests.Features.Examples.GetAll;
 
 public sealed class GetExamplesEndpointTests : EndpointTestBase<GetExamplesEndpoint>
 {
-    protected override string Endpoint => "api/example";
+    protected override string Endpoint => "api/examples";
 
     [Test]
     public override void ShouldHaveCorrectPrefix()

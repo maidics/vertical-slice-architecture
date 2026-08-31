@@ -4,8 +4,10 @@ using VsaTemplate.Common.Interfaces.Features;
 
 namespace VsaTemplate.Features.Examples.AppendContent;
 
-public sealed class AppendExampleContentEndpoint : IEndpoint<Example>
+public sealed class AppendExampleContentEndpoint : IEndpoint
 {
+    public static string Prefix => "examples";
+
     public static void Map(IEndpointRouteBuilder builder)
     {
         builder.MapPatch(AppendExampleContent, "append-content");

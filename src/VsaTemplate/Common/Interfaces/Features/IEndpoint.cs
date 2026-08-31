@@ -7,8 +7,3 @@ public interface IEndpoint
 
     static abstract void Map(IEndpointRouteBuilder builder);
 }
-
-public interface IEndpoint<TResource> : IEndpoint
-{
-    static string IEndpoint.Prefix => typeof(TResource).Name.ToLower();
-}
