@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using VsaTemplate.Common.Exceptions;
 using VsaTemplate.Common.Pipeline;
 using VsaTemplate.Tests.TestInfrastructure;
 using VsaTemplate.Tests.TestInfrastructure.FunctionalTests;
@@ -55,7 +56,7 @@ public sealed class ProblemDetailsExceptionHandlerTests : FunctionalTestBase
     }
 
     [Test]
-    public async Task TryHandleAsyncShouldWriteProblemDetailsAndReturnTrueOnUnauthorizedAccessException()
+    public async Task TryHandleAsyncShouldWriteProblemDetailsAndReturnTrueOnInvalidNameIdentifierException()
     {
         var problemDetailsService = GetRequiredService<IProblemDetailsService>();
         var logger = new LoggerSpy<ProblemDetailsExceptionHandler>();
@@ -68,7 +69,7 @@ public sealed class ProblemDetailsExceptionHandlerTests : FunctionalTestBase
             Response = { Body = body },
             Request = { Path = requestPath },
         };
-        var exception = new UnauthorizedAccessException();
+        var exception = new InvalidNameIdentifierException("test");
 
         var result = await handler.TryHandleAsync(httpContext, exception, CancellationToken.None);
         result.ShouldBeTrue();
@@ -88,7 +89,9 @@ public sealed class ProblemDetailsExceptionHandlerTests : FunctionalTestBase
 
         logger.Entries.Count.ShouldBe(1);
         logger.Entries[0].Level.ShouldBe(LogLevel.Error);
-        logger.Entries[0].Message.ShouldContain("Unauthorized HTTP Request at");
+        logger
+            .Entries[0]
+            .Message.ShouldContain("HTTP Request contains invalid name identifier claim at");
     }
 
     [Test]

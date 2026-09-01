@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using VsaTemplate.Common.Exceptions;
 
 namespace VsaTemplate.Common.Pipeline;
 
@@ -49,7 +50,7 @@ public sealed class ProblemDetailsExceptionHandler : IExceptionHandler
                 requestMethod,
                 requestPath
             ),
-            UnauthorizedAccessException ex => HandleUnauthorizedAccessException(
+            InvalidNameIdentifierException ex => HandleInvalidNameIdentifierException(
                 ex,
                 requestMethod,
                 requestPath
@@ -90,15 +91,15 @@ public sealed class ProblemDetailsExceptionHandler : IExceptionHandler
         return new ProblemDetails { Status = exception.StatusCode, Instance = requestPath };
     }
 
-    private ProblemDetails HandleUnauthorizedAccessException(
-        UnauthorizedAccessException exception,
+    private ProblemDetails HandleInvalidNameIdentifierException(
+        InvalidNameIdentifierException exception,
         string requestMethod,
         string requestPath
     )
     {
         _logger.LogError(
             exception,
-            "Unauthorized HTTP Request at [{HttpMethod}] {Path}]",
+            "HTTP Request contains invalid name identifier claim at [{HttpMethod}] {Path}]",
             requestMethod,
             requestPath
         );
