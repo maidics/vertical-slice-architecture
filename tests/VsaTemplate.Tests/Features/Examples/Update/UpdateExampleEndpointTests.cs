@@ -42,4 +42,61 @@ public sealed class UpdateExampleEndpointTests : EndpointTestBase<UpdateExampleE
         errors.Length.ShouldBe(1);
         errors.ShouldContain($"'{nameof(Example.Content)}' must not be empty.");
     }
+
+    [Test]
+    public async Task ShouldReturnNotFoundWhenExampleDoesNotExist()
+    {
+        var command = new UpdateExampleCommand(Guid.Empty, "test");
+
+        using var client = CreateHttpClient();
+
+        var response = await client.PutAsJsonAsync(Endpoint, command);
+        response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
+
+        var errors = await response.GetResultErrorsAsync();
+        errors.ShouldNotBeNull();
+        errors.Length.ShouldBe(1);
+        errors.ShouldContain($"{nameof(Example)} not found.");
+    }
+
+    [Test]
+    public async Task ShouldReturnConflictWhenExampleAlreadyExistsWithNewContent()
+    {
+        var example1 = new Example { Content = "test" };
+        var example2 = new Example { Content = "" };
+
+        await using var context = CreateDbContext();
+        await context.AddAsync(example1);
+        await context.AddAsync(example2);
+        await context.SaveChangesAsync();
+
+        var command = new UpdateExampleCommand(example2.Id, example1.Content);
+
+        using var client = CreateHttpClient();
+
+        var response = await client.PutAsJsonAsync(Endpoint, command);
+        response.StatusCode.ShouldBe(HttpStatusCode.Conflict);
+
+        var errors = await response.GetResultErrorsAsync();
+        errors.ShouldNotBeNull();
+        errors.Length.ShouldBe(1);
+        errors.ShouldContain($"{nameof(Example)} with '{command.Content}' content already exists.");
+    }
+
+    [Test]
+    public async Task ShouldReturnNoContentWhenExampleContentHasBeenUpdated()
+    {
+        var example = new Example { Content = "test" };
+
+        await using var context = CreateDbContext();
+        await context.AddAsync(example);
+        await context.SaveChangesAsync();
+
+        var command = new UpdateExampleCommand(example.Id, "new-content");
+
+        using var client = CreateHttpClient();
+
+        var response = await client.PutAsJsonAsync(Endpoint, command);
+        response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
+    }
 }
