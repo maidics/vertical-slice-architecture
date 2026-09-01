@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Shouldly;
 using VsaTemplate.Common.Constants;
+using VsaTemplate.Common.Exceptions;
 using VsaTemplate.Infrastructure;
 
 namespace VsaTemplate.TemplateTests;
@@ -16,7 +17,7 @@ public sealed class CurrentUserTests
     {
         var accessor = CreateAccessor(new Claim(ClaimTypes.NameIdentifier, nameIdentifier));
 
-        var ex = Should.Throw<UnauthorizedAccessException>(() => new CurrentUser(accessor));
+        var ex = Should.Throw<InvalidNameIdentifierException>(() => new CurrentUser(accessor));
         ex.Message.ShouldContain(nameIdentifier);
     }
 
