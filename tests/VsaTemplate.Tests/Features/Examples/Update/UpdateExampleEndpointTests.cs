@@ -100,6 +100,8 @@ public sealed class UpdateExampleEndpointTests : EndpointTestBase<UpdateExampleE
         var response = await client.PutAsJsonAsync(Endpoint, command);
         response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
 
+        context.ChangeTracker.Clear();
+
         var updated = await context.Examples.FirstOrDefaultAsync(e => e.Id == example.Id);
         updated.ShouldNotBeNull();
         updated.Content.ShouldBe(command.Content);
