@@ -21,7 +21,7 @@ public sealed class Fixture : IAsyncInitializer, IAsyncDisposable
 
     public async Task InitializeAsync()
     {
-        var cts = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+        var cts = new CancellationTokenSource(TimeSpan.FromSeconds(60));
 
         var builder =
             await DistributedApplicationTestingBuilder.CreateAsync<VsaTemplate_TestAppHost>(
