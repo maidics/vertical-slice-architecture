@@ -111,6 +111,24 @@ This solution uses **[TUnit](https://tunit.dev/)** as its testing framework for 
 
 Unit, functional, integration and web testing merged into one project to reduce project count in the solution. This also allows to reflect the [main ASP.NET project's](./src/VsaTemplate) structure for convenience.
 
+---
+
+**[Testing infrastructure](./tests/VsaTemplate.Tests/TestInfrastructure)**: This template includes infrastructure for functional and web testing.
+
+Functional test infrastructure:
+- [`FunctionalTestFixture`](./tests/VsaTemplate.Tests/TestInfrastructure/FunctionalTests/FunctionalTestFixture.cs) initializes asynchronously:
+  - Database, setup via the [`TestAppHost`](./tests/VsaTemplate.TestAppHost)
+  - [`FunctionalTestWebApplicationFactory`](./tests/VsaTemplate.Tests/TestInfrastructure/FunctionalTests/FunctionalTestWebApplicationFactory.cs) for custom DI services
+
+Web test infrastructure:
+- [`WebTestFixture`](./tests/VsaTemplate.Tests/TestInfrastructure/WebTests/WebTestFixture.cs) initializes asynchronously:
+  - Database and web API resources via the [`TestAppHost`](./tests/VsaTemplate.TestAppHost)
+  - Provides helper methods for creating `HttpClient` and [`ApplicationDbContext`](./src/VsaTemplate/Infrastructure/Database/ApplicationDbContext.cs) instances
+
+---
+
+Tests are organized into a structure that reflects the [main ASP.NET project](./src/VsaTemplate).
+
 **[`Common`](./tests/VsaTemplate.Tests/Common) folder**
 - Unit tests for base, constants classes, extensions and more in the [main ASP.NET project's `Common` folder](./src/VsaTemplate/Common).
 
