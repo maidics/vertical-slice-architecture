@@ -18,7 +18,7 @@ public sealed class AppendExampleContentHandlerTests : FunctionalTestBase
         var handler = GetRequiredService<AppendExampleContentCommandHandler>();
 
         var result = await handler.Handle(command, CancellationToken.None);
-        result.ShouldBeFailed(ResultType.NotFound, "Example not found.");
+        result.ShouldBeFailed(ResultType.NotFound, $"{nameof(Example)} not found.");
     }
 
     [Test]
@@ -37,7 +37,7 @@ public sealed class AppendExampleContentHandlerTests : FunctionalTestBase
         var result = await handler.Handle(command, CancellationToken.None);
         result.ShouldBeFailed(
             ResultType.Conflict,
-            $"Example with '{example1.Content}' content already exists."
+            $"{nameof(Example)} with '{example1.Content}' content already exists."
         );
     }
 

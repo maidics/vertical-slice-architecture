@@ -13,18 +13,15 @@ public sealed class DeleteExampleCommandHandler : IRequestHandler
         _context = context;
     }
 
-    public async Task<Result> Handle(
-        DeleteExampleCommand command,
-        CancellationToken cancellationToken
-    )
+    public async Task<Result> Handle(Guid exampleId, CancellationToken cancellationToken)
     {
         var example = await _context.Examples.FirstOrDefaultAsync(
-            x => x.Id == command.Id,
+            x => x.Id == exampleId,
             cancellationToken
         );
 
         if (example is null)
-            return Result.NotFound(["Example not found."]);
+            return Result.NotFound($"{nameof(Example)} not found.");
 
         _context.Examples.Remove(example);
         await _context.SaveChangesAsync(cancellationToken);

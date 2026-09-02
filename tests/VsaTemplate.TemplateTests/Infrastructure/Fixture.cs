@@ -6,9 +6,8 @@ using Projects;
 using TUnit.Core.Interfaces;
 using VsaTemplate.Common.Constants;
 using VsaTemplate.Shared;
-using VsaTemplate.TemplateTests.Infrastructure;
 
-namespace VsaTemplate.TemplateTests;
+namespace VsaTemplate.TemplateTests.Infrastructure;
 
 public sealed class Fixture : IAsyncInitializer, IAsyncDisposable
 {
@@ -22,7 +21,7 @@ public sealed class Fixture : IAsyncInitializer, IAsyncDisposable
 
     public async Task InitializeAsync()
     {
-        var cts = new CancellationTokenSource(TimeSpan.FromSeconds(15));
+        var cts = new CancellationTokenSource(TimeSpan.FromSeconds(60));
 
         var builder =
             await DistributedApplicationTestingBuilder.CreateAsync<VsaTemplate_TestAppHost>(
@@ -60,7 +59,7 @@ public sealed class Fixture : IAsyncInitializer, IAsyncDisposable
         if (_factory is not null)
             await _factory.DisposeAsync();
 
-        ServiceScope.Dispose();
+        ServiceScope?.Dispose();
     }
 
     public async Task ResetAsync()

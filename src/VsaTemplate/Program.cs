@@ -11,7 +11,7 @@ builder.AddServiceDefaults().AddCommonServices().AddInfrastructureServices();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Testing"))
+if (app.Environment.IsDevelopment())
 {
     using var scope = app.Services.CreateScope();
 
@@ -36,7 +36,7 @@ app.MapGroup("/api")
     .MapEndpoints(typeof(Program).Assembly)
     .MapLogoutEndpoint();
 
-//app.MapDefaultEndpoints(); // ServiceDefaults observability
+app.MapDefaultEndpoints(); // ServiceDefaults observability
 app.MapGroup("/api/identity").MapIdentityApi<ApplicationUser>().WithTags("Users");
 
 if (app.Environment.IsDevelopment())

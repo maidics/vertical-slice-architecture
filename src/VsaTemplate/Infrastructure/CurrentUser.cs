@@ -1,5 +1,6 @@
 using System.Collections.Frozen;
 using System.Security.Claims;
+using VsaTemplate.Common.Exceptions;
 using VsaTemplate.Common.Interfaces;
 
 namespace VsaTemplate.Infrastructure;
@@ -35,9 +36,7 @@ public sealed class CurrentUser : IUser
 
         if (!Guid.TryParse(nameIdentifier, out var id))
         {
-            throw new InvalidOperationException(
-                $"Tried to parse user id to {nameof(Guid)}: '{nameIdentifier}'"
-            );
+            throw new InvalidNameIdentifierException(nameIdentifier);
         }
 
         return id;

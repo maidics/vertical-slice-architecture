@@ -26,7 +26,9 @@ public sealed class ExampleContentAppendedEventHandler
         );
 
         if (example is null)
-            throw new InvalidOperationException($"Example not found: {domainEvent.ExampleId}");
+            throw new InvalidOperationException(
+                $"{nameof(Example)} not found: {domainEvent.ExampleId}"
+            );
 
         example.HasAppendedContent = true;
 

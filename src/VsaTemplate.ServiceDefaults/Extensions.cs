@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using OpenTelemetry;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Trace;
+using VsaTemplate.Shared;
 
 namespace Microsoft.Extensions.Hosting;
 
@@ -119,7 +120,11 @@ public static class Extensions
     {
         // Adding health checks endpoints to applications in non-development environments has security implications.
         // See https://aka.ms/aspire/healthchecks for details before enabling these endpoints in non-development environments.
-        if (app.Environment.IsDevelopment())
+        // MODIFICATION: Extended with WebTesting environment - this is required for E2E testing
+        if (
+            app.Environment.IsDevelopment()
+            || app.Environment.IsEnvironment(TestingEnvironments.Web)
+        )
         {
             // All health checks must pass for app to be considered ready to accept traffic after starting
             app.MapHealthChecks(HealthEndpointPath);

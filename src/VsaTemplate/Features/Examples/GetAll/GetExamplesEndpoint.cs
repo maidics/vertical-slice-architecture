@@ -4,8 +4,10 @@ using VsaTemplate.Common.Interfaces.Features;
 
 namespace VsaTemplate.Features.Examples.GetAll;
 
-public sealed class GetExamplesEndpoint : IEndpoint<Example>
+public sealed class GetExamplesEndpoint : IEndpoint
 {
+    public static string Prefix => "examples";
+
     public static void Map(IEndpointRouteBuilder builder)
     {
         builder.MapGet(GetExamples);

@@ -7,6 +7,6 @@ public sealed class AppendExampleContentCommandValidator
 {
     public AppendExampleContentCommandValidator()
     {
-        RuleFor(x => x.AdditionalContent).NotEmpty().WithMessage("Additional content is required.");
+        RuleFor(x => x.AdditionalContent).NotEmpty();
     }
 }

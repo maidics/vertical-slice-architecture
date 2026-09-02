@@ -1,6 +1,8 @@
 using System.Data.Common;
 using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 using Respawn;
+using VsaTemplate.Infrastructure.Database;
 
 namespace VsaTemplate.Tests.TestInfrastructure;
 
@@ -18,10 +20,20 @@ public sealed class TestDatabase : IAsyncDisposable
 
     public static async Task<TestDatabase> CreateAsync(string connectionString)
     {
+        var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+            .UseSqlite(connectionString)
+            .Options;
+
+        await using (var context = new ApplicationDbContext(options))
+            await context.Database.EnsureCreatedAsync();
+
         var connection = new SqliteConnection(connectionString);
 
         await connection.OpenAsync();
-        var respawner = await Respawner.CreateAsync(connection);
+        var respawner = await Respawner.CreateAsync(
+            connection,
+            new RespawnerOptions { TablesToIgnore = ["AspNetRoles"] }
+        );
         await connection.CloseAsync();
         return new TestDatabase(connection, respawner);
     }

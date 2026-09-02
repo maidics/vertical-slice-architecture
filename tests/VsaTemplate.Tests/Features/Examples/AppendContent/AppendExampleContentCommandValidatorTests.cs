@@ -15,7 +15,7 @@ public sealed class AppendExampleContentCommandValidatorTests
         var result = await _validator.TestValidateAsync(command);
         result
             .ShouldHaveValidationErrorFor(x => x.AdditionalContent)
-            .WithErrorMessage("Additional content is required.");
+            .WithErrorMessage("'Additional Content' must not be empty.");
     }
 
     [Test]

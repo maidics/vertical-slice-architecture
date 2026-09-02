@@ -1,21 +1,19 @@
 ﻿using Aspire.Hosting;
 using Aspire.Hosting.Testing;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using Projects;
 using TUnit.Core.Interfaces;
+using VsaTemplate.Infrastructure.Database;
 using VsaTemplate.Shared;
 
-namespace VsaTemplate.Tests.TestInfrastructure.FunctionalTests;
+namespace VsaTemplate.Tests.TestInfrastructure.WebTests;
 
-public sealed class FunctionalTestFixture : IAsyncInitializer, IAsyncDisposable
+public sealed class WebTestFixture : IAsyncInitializer, IAsyncDisposable
 {
     private DistributedApplication? _app;
-    private FunctionalTestWebApplicationFactory? _factory;
-
-    private IServiceScopeFactory _scopeFactory = null!;
-
+    private string _connectionString = null!;
     private TestDatabase? _database;
-    public IServiceScope ServiceScope { get; private set; } = null!;
 
     public async Task InitializeAsync()
     {
@@ -27,7 +25,7 @@ public sealed class FunctionalTestFixture : IAsyncInitializer, IAsyncDisposable
                 configureBuilder: (options, settings) =>
                 {
                     options.DisableDashboard = true;
-                    settings.EnvironmentName = TestingEnvironments.Functional;
+                    settings.EnvironmentName = TestingEnvironments.Web;
                 },
                 cts.Token
             );
@@ -38,13 +36,13 @@ public sealed class FunctionalTestFixture : IAsyncInitializer, IAsyncDisposable
 
         await _app.StartAsync(cts.Token).WaitAsync(cts.Token);
 
-        await _app.ResourceNotifications.WaitForResourceHealthyAsync(Services.Database, cts.Token);
+        // awaits /health endpoint which is only mapped if Environment is Development or Testing
+        await _app.ResourceNotifications.WaitForResourceHealthyAsync(Services.WebApi, cts.Token);
 
         var connectionString = await _app.GetConnectionStringAsync(Services.Database, cts.Token);
         ArgumentNullException.ThrowIfNull(connectionString);
 
-        _factory = new FunctionalTestWebApplicationFactory(connectionString);
-        _scopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
+        _connectionString = connectionString;
         _database = await TestDatabase.CreateAsync(connectionString);
     }
 
@@ -54,18 +52,31 @@ public sealed class FunctionalTestFixture : IAsyncInitializer, IAsyncDisposable
             await _database.DisposeAsync();
         if (_app is not null)
             await _app.DisposeAsync();
-        if (_factory is not null)
-            await _factory.DisposeAsync();
-
-        ServiceScope?.Dispose();
     }
 
     public async Task ResetAsync()
     {
         if (_database is not null)
             await _database.ResetAsync();
+    }
 
-        ServiceScope?.Dispose();
-        ServiceScope = _scopeFactory.CreateScope();
+    public HttpClient CreateHttpClient()
+    {
+        ArgumentNullException.ThrowIfNull(_app);
+
+        var client = _app.CreateHttpClient(Services.WebApi, "http");
+        client.Timeout = TimeSpan.FromSeconds(15);
+
+        return client;
+    }
+
+    public ApplicationDbContext CreateDbContext()
+    {
+        var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+            .UseSqlite(_connectionString)
+            .ConfigureWarnings(w => w.Ignore(RelationalEventId.PendingModelChangesWarning))
+            .Options;
+
+        return new ApplicationDbContext(options);
     }
 }

@@ -2,14 +2,14 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Shouldly;
+using VsaTemplate.Common.Exceptions;
 using VsaTemplate.Common.Pipeline;
-using VsaTemplate.TemplateTests.Infrastructure;
-using VsaTemplate.TemplateTests.Infrastructure.Common.BaseClasses;
+using VsaTemplate.Tests.TestInfrastructure;
+using VsaTemplate.Tests.TestInfrastructure.FunctionalTests;
 
-namespace VsaTemplate.TemplateTests.Tests;
+namespace VsaTemplate.Tests.Common.Pipeline;
 
-public sealed class ProblemDetailsExceptionHandlerTests : TestBase
+public sealed class ProblemDetailsExceptionHandlerTests : FunctionalTestBase
 {
     [Test]
     [Arguments(StatusCodes.Status400BadRequest, "Bad Request")]
@@ -24,7 +24,7 @@ public sealed class ProblemDetailsExceptionHandlerTests : TestBase
         var handler = new ProblemDetailsExceptionHandler(logger, problemDetailsService);
 
         var body = new MemoryStream();
-        var requestPath = "/test";
+        const string requestPath = "/test";
         var httpContext = new DefaultHttpContext
         {
             Response = { Body = body },
@@ -56,6 +56,45 @@ public sealed class ProblemDetailsExceptionHandlerTests : TestBase
     }
 
     [Test]
+    public async Task TryHandleAsyncShouldWriteProblemDetailsAndReturnTrueOnInvalidNameIdentifierException()
+    {
+        var problemDetailsService = GetRequiredService<IProblemDetailsService>();
+        var logger = new LoggerSpy<ProblemDetailsExceptionHandler>();
+        var handler = new ProblemDetailsExceptionHandler(logger, problemDetailsService);
+
+        var body = new MemoryStream();
+        const string requestPath = "/test";
+        var httpContext = new DefaultHttpContext
+        {
+            Response = { Body = body },
+            Request = { Path = requestPath },
+        };
+        var exception = new InvalidNameIdentifierException("test");
+
+        var result = await handler.TryHandleAsync(httpContext, exception, CancellationToken.None);
+        result.ShouldBeTrue();
+
+        var response = httpContext.Response;
+        response.StatusCode.ShouldBe(StatusCodes.Status401Unauthorized);
+
+        body.Seek(0, SeekOrigin.Begin);
+
+        var problem = await JsonSerializer.DeserializeAsync<ProblemDetails>(
+            body,
+            new JsonSerializerOptions(JsonSerializerDefaults.Web)
+        );
+
+        problem.ShouldNotBeNull();
+        problem.Instance.ShouldBe(requestPath);
+
+        logger.Entries.Count.ShouldBe(1);
+        logger.Entries[0].Level.ShouldBe(LogLevel.Error);
+        logger
+            .Entries[0]
+            .Message.ShouldContain("HTTP Request contains invalid name identifier claim at");
+    }
+
+    [Test]
     [Arguments(typeof(InvalidOperationException))]
     [Arguments(typeof(ArgumentNullException))]
     [Arguments(typeof(OperationCanceledException))]
@@ -68,7 +107,7 @@ public sealed class ProblemDetailsExceptionHandlerTests : TestBase
         var handler = new ProblemDetailsExceptionHandler(logger, problemDetailsService);
 
         var body = new MemoryStream();
-        var requestPath = "/test";
+        const string requestPath = "/test";
         var httpContext = new DefaultHttpContext
         {
             Response = { Body = body },
@@ -114,7 +153,7 @@ public sealed class ProblemDetailsExceptionHandlerTests : TestBase
         var handler = new ProblemDetailsExceptionHandler(logger, problemDetailsService);
 
         var body = new MemoryStream();
-        var requestPath = "/test";
+        const string requestPath = "/test";
         var httpContext = new DefaultHttpContext
         {
             Response = { Body = body },

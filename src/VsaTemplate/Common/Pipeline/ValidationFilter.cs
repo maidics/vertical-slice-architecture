@@ -38,12 +38,12 @@ public sealed class ValidationFilter : IEndpointFilter
             .Cast<IValidator>()
             .ToList();
 
-        var validationContext = new ValidationContext<object>(request);
-
         if (validators.Count == 0)
         {
             return await next(context);
         }
+
+        var validationContext = new ValidationContext<object>(request);
 
         var cancellationToken = context.HttpContext.RequestAborted;
 

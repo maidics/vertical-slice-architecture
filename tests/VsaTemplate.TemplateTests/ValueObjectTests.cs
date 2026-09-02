@@ -1,7 +1,7 @@
 ﻿using Shouldly;
 using VsaTemplate.TemplateTests.Infrastructure.Common;
 
-namespace VsaTemplate.TemplateTests.Tests;
+namespace VsaTemplate.TemplateTests;
 
 public sealed class ValueObjectTests
 {

@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Moq;
 using VsaTemplate.Common.Extensions;
 using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Common.Interfaces.Features;
@@ -18,7 +17,7 @@ public sealed class WebApiFactory(string connectionString)
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        builder.UseEnvironment("Testing");
+        builder.UseEnvironment("TemplateTesting");
 
         builder.UseSetting("ConnectionStrings:VsaTemplateDb", connectionString);
 

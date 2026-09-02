@@ -65,7 +65,7 @@ jobs: # only runs pack -> test if there changes to something that is not inside 
 
       - name: Test Instantiated
         if: steps.gate.outputs.run == 'true'
-        run: dotnet test ./scratch/Scratch.slnx
+        run: dotnet test ./scratch/Scratch.slnx --disable-logo
 
       - name: NuGet Login # retrieves the short-lived API key from NuGet
         if: github.ref_type == 'tag'

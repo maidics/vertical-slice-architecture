@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Aspire.Hosting.SQLite" />
+    <PackageReference Include="CommunityToolkit.Aspire.Hosting.SqLite" />
   </ItemGroup>
 
   <ItemGroup>
@@ -14,5 +14,6 @@
       Include="..\..\src\VsaTemplate.Shared\VsaTemplate.Shared.csproj"
       IsAspireProjectResource="false"
     />
+    <ProjectReference Include="..\..\src\VsaTemplate\VsaTemplate.csproj" />
   </ItemGroup>
 </Project>
