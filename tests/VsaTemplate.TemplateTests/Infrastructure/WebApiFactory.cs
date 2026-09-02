@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using VsaTemplate.Common.Extensions;
 using VsaTemplate.Common.Interfaces;
-using VsaTemplate.Common.Interfaces.Features;
 using VsaTemplate.Common.Services;
 
 namespace VsaTemplate.TemplateTests.Infrastructure;

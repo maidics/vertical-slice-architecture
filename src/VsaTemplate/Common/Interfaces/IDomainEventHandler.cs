@@ -1,4 +1,4 @@
-namespace VsaTemplate.Common.Interfaces.Features;
+namespace VsaTemplate.Common.Interfaces;
 
 public interface IDomainEventHandler<in TEvent>
     where TEvent : IDomainEvent

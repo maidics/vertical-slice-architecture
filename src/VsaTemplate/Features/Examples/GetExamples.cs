@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using VsaTemplate.Common.Extensions;
-using VsaTemplate.Common.Interfaces.Features;
+using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Infrastructure.Database;
 
 namespace VsaTemplate.Features.Examples;

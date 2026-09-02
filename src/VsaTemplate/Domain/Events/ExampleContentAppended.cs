@@ -1,4 +1,4 @@
-using VsaTemplate.Common.Interfaces.Features;
+using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Domain.Entities;
 using VsaTemplate.Infrastructure.Database;
 

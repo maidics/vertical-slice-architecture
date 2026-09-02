@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Http.HttpResults;
 using VsaTemplate.Common.Extensions;
-using VsaTemplate.Common.Interfaces.Features;
+using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Common.Models;
 using VsaTemplate.Domain.Entities;
 using VsaTemplate.Infrastructure.Database;

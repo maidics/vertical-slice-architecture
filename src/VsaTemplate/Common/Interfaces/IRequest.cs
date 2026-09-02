@@ -1,4 +1,4 @@
-namespace VsaTemplate.Common.Interfaces.Features;
+namespace VsaTemplate.Common.Interfaces;
 
 //marker interface for IEndpointFilter implementations
 public interface IRequest;

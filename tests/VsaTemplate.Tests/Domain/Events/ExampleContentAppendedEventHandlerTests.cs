@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using VsaTemplate.Common.Services;
 using VsaTemplate.Domain.Entities;
 using VsaTemplate.Domain.Events;
@@ -7,9 +7,9 @@ using VsaTemplate.Infrastructure.Database;
 using VsaTemplate.Tests.TestInfrastructure;
 using VsaTemplate.Tests.TestInfrastructure.FunctionalTests;
 
-namespace VsaTemplate.Tests.Features.Examples.AppendContent;
+namespace VsaTemplate.Tests.Domain.Events;
 
-public sealed class ExampleContentAppendedEventTests : FunctionalTestBase
+public sealed class ExampleContentAppendedEventHandlerTests : FunctionalTestBase
 {
     [Test]
     public async Task AppendExampleContentShouldDispatchEvent()
@@ -32,15 +32,17 @@ public sealed class ExampleContentAppendedEventTests : FunctionalTestBase
     }
 
     [Test]
-    public async Task ShouldThrowIfExampleIsNotFound()
+    public async Task ShouldThrowInvalidOperationExceptionWhenExampleNotFound()
     {
         var domainEvent = new ExampleContentAppendedEvent(Guid.Empty);
 
-        var dispatcher = GetRequiredService<IDomainEventDispatcher>();
+        var handler = GetRequiredService<ExampleContentAppendedEventHandler>();
 
-        await Should.ThrowAsync<InvalidOperationException>(() =>
-            dispatcher.DispatchAsync(domainEvent, CancellationToken.None)
+        var ex = await Should.ThrowAsync<InvalidOperationException>(() =>
+            handler.Handle(domainEvent, CancellationToken.None)
         );
+
+        ex.Message.ShouldBe($"{nameof(Example)} not found: {Guid.Empty}");
     }
 
     [Test]

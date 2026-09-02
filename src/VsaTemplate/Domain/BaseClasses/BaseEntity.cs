@@ -1,6 +1,6 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
-using VsaTemplate.Common.Interfaces.Features;
+using VsaTemplate.Common.Interfaces;
 
 namespace VsaTemplate.Domain.BaseClasses;
 

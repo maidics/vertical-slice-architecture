@@ -1,9 +1,8 @@
 using VsaTemplate.Domain.Entities;
-using VsaTemplate.Features.Examples;
 using VsaTemplate.Infrastructure.Database.Configurations;
 using VsaTemplate.Tests.TestInfrastructure.UnitTests;
 
-namespace VsaTemplate.Tests.Features.Examples;
+namespace VsaTemplate.Tests.Infrastructure.Database.Configurations;
 
 public sealed class ExampleConfigurationTests
 {

@@ -1,5 +1,4 @@
 using VsaTemplate.Common.Interfaces;
-using VsaTemplate.Common.Interfaces.Features;
 
 namespace VsaTemplate.Common.Pipeline;
 

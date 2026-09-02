@@ -1,5 +1,5 @@
 using System.Reflection;
-using VsaTemplate.Common.Interfaces.Features;
+using VsaTemplate.Common.Interfaces;
 
 namespace VsaTemplate.Common.Extensions;
 

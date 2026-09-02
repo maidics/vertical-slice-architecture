@@ -1,4 +1,4 @@
-﻿using VsaTemplate.Common.Interfaces.Features;
+﻿using VsaTemplate.Common.Interfaces;
 
 namespace VsaTemplate.TemplateTests.Infrastructure.Common;
 

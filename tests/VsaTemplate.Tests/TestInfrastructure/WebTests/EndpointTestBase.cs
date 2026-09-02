@@ -1,4 +1,4 @@
-﻿using VsaTemplate.Common.Interfaces.Features;
+﻿using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Infrastructure.Database;
 
 namespace VsaTemplate.Tests.TestInfrastructure.WebTests;
