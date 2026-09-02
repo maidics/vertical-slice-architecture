@@ -27,6 +27,7 @@ jobs: # only runs pack -> test if there changes to something that is not inside 
               - '**'
               - '!.github/**'
               - '!docs/**'
+              - '!scripts/**'
 
       - name: Announce skip
         if: steps.filter.outputs.relevant == 'false'
