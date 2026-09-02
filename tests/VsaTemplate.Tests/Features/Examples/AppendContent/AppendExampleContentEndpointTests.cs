@@ -26,6 +26,30 @@ public sealed class AppendExampleContentEndpointTests
     }
 
     [Test]
+    public async Task ShouldReturnBadRequestIfAdditionalContentIsEmpty()
+    {
+        var command = new AppendExampleContentCommand(Guid.Empty, string.Empty);
+
+        using var client = CreateHttpClient();
+
+        var response = await client.PatchAsJsonAsync(Endpoint, command);
+        response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
+
+        var validationProblem = await response.GetValidationProblemDetailsAsync();
+        validationProblem.ShouldNotBeNull();
+        validationProblem
+            .Errors.TryGetValue(
+                nameof(AppendExampleContentCommand.AdditionalContent),
+                out var errors
+            )
+            .ShouldBeTrue();
+
+        errors.ShouldNotBeNull();
+        errors.Length.ShouldBe(1);
+        errors.ShouldContain("'Additional Content' must not be empty.");
+    }
+
+    [Test]
     public async Task ShouldReturnNotFoundIfExampleDoesNotExist()
     {
         var command = new AppendExampleContentCommand(Guid.Empty, "test");
@@ -84,6 +108,8 @@ public sealed class AppendExampleContentEndpointTests
 
         var response = await client.PatchAsJsonAsync(Endpoint, command);
         response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
+
+        context.ChangeTracker.Clear();
 
         var updated = await context.Examples.FirstOrDefaultAsync(e => e.Id == example.Id);
         updated.ShouldNotBeNull();
