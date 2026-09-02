@@ -1,11 +1,11 @@
 using System.Reflection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using VsaTemplate.Domain.Entities;
 using VsaTemplate.Infrastructure.Identity;
 #if (AddExamples)
-using VsaTemplate.Features.Examples;
+using VsaTemplate.Domain.Entities;
 #endif
+
 
 namespace VsaTemplate.Infrastructure.Database;
 
