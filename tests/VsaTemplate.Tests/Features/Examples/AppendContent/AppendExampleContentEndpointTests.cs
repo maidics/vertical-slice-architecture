@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
+using Microsoft.EntityFrameworkCore;
 using VsaTemplate.Features.Examples;
 using VsaTemplate.Features.Examples.AppendContent;
 using VsaTemplate.Tests.TestInfrastructure;
@@ -83,5 +84,10 @@ public sealed class AppendExampleContentEndpointTests
 
         var response = await client.PatchAsJsonAsync(Endpoint, command);
         response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
+
+        var updated = await context.Examples.FirstOrDefaultAsync(e => e.Id == example.Id);
+        updated.ShouldNotBeNull();
+        updated.Content.ShouldBe(example.Content + command.AdditionalContent);
+        updated.HasAppendedContent.ShouldBeTrue();
     }
 }

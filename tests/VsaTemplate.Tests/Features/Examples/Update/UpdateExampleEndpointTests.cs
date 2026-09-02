@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
+using Microsoft.EntityFrameworkCore;
 using VsaTemplate.Features.Examples;
 using VsaTemplate.Features.Examples.Update;
 using VsaTemplate.Tests.TestInfrastructure;
@@ -98,5 +99,9 @@ public sealed class UpdateExampleEndpointTests : EndpointTestBase<UpdateExampleE
 
         var response = await client.PutAsJsonAsync(Endpoint, command);
         response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
+
+        var updated = await context.Examples.FirstOrDefaultAsync(e => e.Id == example.Id);
+        updated.ShouldNotBeNull();
+        updated.Content.ShouldBe(command.Content);
     }
 }

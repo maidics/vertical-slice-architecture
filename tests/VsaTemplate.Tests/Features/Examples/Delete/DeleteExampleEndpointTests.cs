@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using Microsoft.EntityFrameworkCore;
 using VsaTemplate.Features.Examples;
 using VsaTemplate.Features.Examples.Delete;
 using VsaTemplate.Tests.TestInfrastructure;
@@ -49,7 +50,9 @@ public sealed class DeleteExampleEndpointTests : EndpointTestBase<DeleteExampleE
         using var client = CreateHttpClient();
 
         var response = await client.DeleteAsync(Endpoint + $"/{example.Id}");
-
         response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
+
+        var deleted = await context.Examples.FirstOrDefaultAsync(e => e.Id == example.Id);
+        deleted.ShouldBeNull();
     }
 }
