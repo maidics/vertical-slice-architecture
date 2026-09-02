@@ -28,6 +28,9 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\openapi\" />
+    <Folder Include="Domain\Entities\" />
+    <Folder Include="Domain\Events\" />
+    <Folder Include="Infrastructure\Database\Configurations" />
   </ItemGroup>
 
   <ItemGroup>

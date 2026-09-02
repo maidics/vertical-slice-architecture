@@ -14,6 +14,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Domain\Entities\" />
+    <Folder Include="Domain\Events\" />
+    <Folder Include="Infrastructure\Database\Configurations" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\src\VsaTemplate\VsaTemplate.csproj" />
     <ProjectReference Include="..\VsaTemplate.TestAppHost\VsaTemplate.TestAppHost.csproj" />
   </ItemGroup>
