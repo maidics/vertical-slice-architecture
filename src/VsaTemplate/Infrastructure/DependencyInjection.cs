@@ -32,7 +32,7 @@ public static class DependencyInjection
                 }
             );
 
-            builder.Services.AddScoped<DatabaseInitialiser>();
+            builder.Services.AddScoped<DatabaseInitializer>();
 
             builder.Services.AddAuthorizationBuilder();
 

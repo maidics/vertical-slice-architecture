@@ -15,8 +15,8 @@ if (app.Environment.IsDevelopment())
 {
     using var scope = app.Services.CreateScope();
 
-    var initialiser = scope.ServiceProvider.GetRequiredService<DatabaseInitialiser>();
-    await initialiser.InitialiseAsync();
+    var initializer = scope.ServiceProvider.GetRequiredService<DatabaseInitializer>();
+    await initializer.InitializeAsync();
 }
 else
 {

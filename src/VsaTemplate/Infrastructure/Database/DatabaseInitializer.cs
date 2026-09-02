@@ -4,13 +4,13 @@ using VsaTemplate.Infrastructure.Identity;
 
 namespace VsaTemplate.Infrastructure.Database;
 
-public sealed class DatabaseInitialiser
+public sealed class DatabaseInitializer
 {
     private readonly ApplicationDbContext _context;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly RoleManager<IdentityRole<Guid>> _roleManager;
 
-    public DatabaseInitialiser(
+    public DatabaseInitializer(
         ApplicationDbContext context,
         UserManager<ApplicationUser> userManager,
         RoleManager<IdentityRole<Guid>> roleManager
@@ -21,7 +21,7 @@ public sealed class DatabaseInitialiser
         _roleManager = roleManager;
     }
 
-    public async Task InitialiseAsync()
+    public async Task InitializeAsync()
     {
         await _context.Database.EnsureDeletedAsync();
         await _context.Database.EnsureCreatedAsync();
