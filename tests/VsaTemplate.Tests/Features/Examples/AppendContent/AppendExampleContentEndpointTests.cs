@@ -1,6 +1,9 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
+using VsaTemplate.Domain.Constants;
 using VsaTemplate.Domain.Entities;
 using VsaTemplate.Features.Examples;
 using VsaTemplate.Tests.TestInfrastructure;
@@ -26,7 +29,28 @@ public sealed class AppendExampleContentEndpointTests
     }
 
     [Test]
-    public async Task ShouldReturnBadRequestIfAdditionalContentIsEmpty()
+    public void MapMethodShouldMapEndpointWithAttributes()
+    {
+        var spy = new EndpointRouteBuilderSpy();
+
+        AppendExampleContentEndpoint.Map(spy);
+
+        var endpoints = spy.GetEndpoints();
+        endpoints.Count.ShouldBe(1);
+
+        var metadata = endpoints[0].Metadata;
+
+        var name = metadata.GetMetadata<IEndpointNameMetadata>()?.EndpointName;
+        name.ShouldNotBeNull();
+        name.ShouldBe("AppendExampleContent");
+
+        var authMetadata = metadata.GetOrderedMetadata<IAuthorizeData>();
+        authMetadata.Count.ShouldBe(1);
+        authMetadata[0].Roles.ShouldBe(string.Join(",", Roles.User, Roles.Administrator));
+    }
+
+    [Test]
+    public async Task ShouldReturnUnauthorizedWhenAnonymous()
     {
         var command = new AppendExampleContentCommand(Guid.Empty, string.Empty);
 
