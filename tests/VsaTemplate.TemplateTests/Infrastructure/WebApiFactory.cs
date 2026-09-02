@@ -5,12 +5,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using Moq;
 using VsaTemplate.Common.Extensions;
 using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Common.Interfaces.Features;
 using VsaTemplate.Common.Services;
-using VsaTemplate.Shared;
 
 namespace VsaTemplate.TemplateTests.Infrastructure;
 
