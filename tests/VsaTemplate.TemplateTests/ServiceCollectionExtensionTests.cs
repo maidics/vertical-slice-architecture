@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Shouldly;
 using VsaTemplate.Common.Extensions;
-using VsaTemplate.Common.Interfaces.Features;
+using VsaTemplate.Common.Interfaces;
 using VsaTemplate.TemplateTests.Infrastructure.Common;
 
 namespace VsaTemplate.TemplateTests;

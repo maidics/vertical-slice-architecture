@@ -1,5 +1,5 @@
+using VsaTemplate.Domain.Entities;
 using VsaTemplate.Features.Examples;
-using VsaTemplate.Features.Examples.GetAll;
 using VsaTemplate.Infrastructure.Database;
 using VsaTemplate.Tests.TestInfrastructure.FunctionalTests;
 

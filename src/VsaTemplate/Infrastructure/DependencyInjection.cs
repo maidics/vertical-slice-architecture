@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Common.Services;
-using VsaTemplate.Features.Users;
 using VsaTemplate.Infrastructure.Database;
 using VsaTemplate.Infrastructure.Database.Interceptors;
+using VsaTemplate.Infrastructure.Identity;
 using VsaTemplate.Shared;
 
 namespace VsaTemplate.Infrastructure;
@@ -32,7 +32,7 @@ public static class DependencyInjection
                 }
             );
 
-            builder.Services.AddScoped<DatabaseInitialiser>();
+            builder.Services.AddScoped<DatabaseInitializer>();
 
             builder.Services.AddAuthorizationBuilder();
 

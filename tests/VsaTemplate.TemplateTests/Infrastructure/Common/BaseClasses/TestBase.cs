@@ -2,6 +2,7 @@
 
 namespace VsaTemplate.TemplateTests.Infrastructure.Common.BaseClasses;
 
+[NotInParallel("TemplateTests")]
 public abstract class TestBase
 {
     [ClassDataSource<Fixture>(Shared = SharedType.PerTestSession)]

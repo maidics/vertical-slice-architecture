@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Projects;
 using TUnit.Core.Interfaces;
-using VsaTemplate.Common.Constants;
+using VsaTemplate.Domain.Constants;
 using VsaTemplate.Shared;
 
 namespace VsaTemplate.TemplateTests.Infrastructure;

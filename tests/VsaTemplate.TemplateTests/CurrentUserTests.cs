@@ -1,8 +1,8 @@
 ﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Shouldly;
-using VsaTemplate.Common.Constants;
 using VsaTemplate.Common.Exceptions;
+using VsaTemplate.Domain.Constants;
 using VsaTemplate.Infrastructure;
 
 namespace VsaTemplate.TemplateTests;

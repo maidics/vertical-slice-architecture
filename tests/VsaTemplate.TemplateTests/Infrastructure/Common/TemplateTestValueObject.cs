@@ -1,4 +1,4 @@
-﻿using VsaTemplate.Common.BaseClasses;
+﻿using VsaTemplate.Domain.BaseClasses;
 
 namespace VsaTemplate.TemplateTests.Infrastructure.Common;
 

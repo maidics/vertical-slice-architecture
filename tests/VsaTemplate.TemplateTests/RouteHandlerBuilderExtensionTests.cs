@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Shouldly;
-using VsaTemplate.Common.Constants;
 using VsaTemplate.Common.Extensions;
+using VsaTemplate.Domain.Constants;
 using VsaTemplate.TemplateTests.Infrastructure;
 using VsaTemplate.TemplateTests.Infrastructure.Common.BaseClasses;
 
