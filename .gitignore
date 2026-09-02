@@ -494,5 +494,6 @@ $RECYCLE.BIN/
 # API description
 v1.json
 
-# Template review before pushing
+# Template development
 scratch/
+scripts/dotnet-path.ps1
