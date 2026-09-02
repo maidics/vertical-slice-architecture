@@ -1,7 +1,7 @@
-using VsaTemplate.Common.BaseClasses;
-using VsaTemplate.Features.Examples.AppendContent;
+using VsaTemplate.Domain.BaseClasses;
+using VsaTemplate.Domain.Events;
 
-namespace VsaTemplate.Features.Examples;
+namespace VsaTemplate.Domain.Entities;
 
 public sealed class Example : BaseEntity
 {

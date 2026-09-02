@@ -1,7 +1,8 @@
 using System.Reflection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using VsaTemplate.Features.Users;
+using VsaTemplate.Domain.Entities;
+using VsaTemplate.Infrastructure.Identity;
 #if (AddExamples)
 using VsaTemplate.Features.Examples;
 #endif

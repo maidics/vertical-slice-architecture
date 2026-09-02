@@ -3,7 +3,7 @@ using System.Reflection;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using VsaTemplate.Common.Interfaces.Features;
-using VsaTemplate.Features.Users;
+using VsaTemplate.Infrastructure.Identity;
 
 namespace VsaTemplate.Common.Extensions;
 

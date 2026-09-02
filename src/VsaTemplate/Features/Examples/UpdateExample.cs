@@ -1,8 +1,22 @@
-﻿using VsaTemplate.Common.Interfaces.Features;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Http.HttpResults;
+using VsaTemplate.Common.Extensions;
+using VsaTemplate.Common.Interfaces.Features;
 using VsaTemplate.Common.Models;
+using VsaTemplate.Domain.Entities;
 using VsaTemplate.Infrastructure.Database;
 
-namespace VsaTemplate.Features.Examples.Update;
+namespace VsaTemplate.Features.Examples;
+
+public sealed record UpdateExampleCommand(Guid Id, string Content) : IRequest;
+
+public sealed class UpdateExampleCommandValidator : AbstractValidator<UpdateExampleCommand>
+{
+    public UpdateExampleCommandValidator()
+    {
+        RuleFor(x => x.Content).NotEmpty();
+    }
+}
 
 public sealed class UpdateExampleCommandHandler : IRequestHandler
 {
@@ -43,5 +57,26 @@ public sealed class UpdateExampleCommandHandler : IRequestHandler
         await _context.SaveChangesAsync(cancellationToken);
 
         return Result.Success();
+    }
+}
+
+public sealed class UpdateExampleEndpoint : IEndpoint
+{
+    public static string Prefix => "examples";
+
+    public static void Map(IEndpointRouteBuilder builder)
+    {
+        builder.MapPut(UpdateExample, "");
+    }
+
+    private static async Task<Results<NoContent, ProblemHttpResult>> UpdateExample(
+        UpdateExampleCommandHandler handler,
+        UpdateExampleCommand command,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = await handler.Handle(command, cancellationToken);
+
+        return result.ToTypedResult();
     }
 }

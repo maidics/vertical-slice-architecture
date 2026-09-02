@@ -1,4 +1,4 @@
-namespace VsaTemplate.Common.BaseClasses;
+namespace VsaTemplate.Domain.BaseClasses;
 
 // credit: https://github.com/jasontaylordev/CleanArchitecture
 public abstract class BaseAuditableEntity : BaseEntity

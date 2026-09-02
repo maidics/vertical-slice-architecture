@@ -1,8 +1,11 @@
-﻿using VsaTemplate.Common.Interfaces.Features;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using VsaTemplate.Common.Extensions;
+using VsaTemplate.Common.Interfaces.Features;
 using VsaTemplate.Common.Models;
+using VsaTemplate.Domain.Entities;
 using VsaTemplate.Infrastructure.Database;
 
-namespace VsaTemplate.Features.Examples.GetById;
+namespace VsaTemplate.Features.Examples;
 
 public sealed class GetExampleByIdQueryHandler : IRequestHandler
 {
@@ -28,5 +31,26 @@ public sealed class GetExampleByIdQueryHandler : IRequestHandler
             return Result.NotFound($"{nameof(Example)} not found.");
 
         return Result.Success(example);
+    }
+}
+
+public sealed class GetExampleByIdEndpoint : IEndpoint
+{
+    public static string Prefix => "examples";
+
+    public static void Map(IEndpointRouteBuilder builder)
+    {
+        builder.MapGet(GetExampleById, "{exampleId:guid}");
+    }
+
+    private static async Task<Results<Ok<ExampleDto>, ProblemHttpResult>> GetExampleById(
+        Guid exampleId,
+        GetExampleByIdQueryHandler handler,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = await handler.Handle(exampleId, cancellationToken);
+
+        return result.ToTypedResult();
     }
 }

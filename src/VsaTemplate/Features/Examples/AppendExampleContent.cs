@@ -1,8 +1,24 @@
-﻿using VsaTemplate.Common.Interfaces.Features;
+﻿using FluentValidation;
+using Microsoft.AspNetCore.Http.HttpResults;
+using VsaTemplate.Common.Extensions;
+using VsaTemplate.Common.Interfaces.Features;
 using VsaTemplate.Common.Models;
+using VsaTemplate.Domain.Entities;
 using VsaTemplate.Infrastructure.Database;
 
-namespace VsaTemplate.Features.Examples.AppendContent;
+namespace VsaTemplate.Features.Examples;
+
+public sealed record AppendExampleContentCommand(Guid ExampleId, string AdditionalContent)
+    : IRequest;
+
+public sealed class AppendExampleContentCommandValidator
+    : AbstractValidator<AppendExampleContentCommand>
+{
+    public AppendExampleContentCommandValidator()
+    {
+        RuleFor(x => x.AdditionalContent).NotEmpty();
+    }
+}
 
 public sealed class AppendExampleContentCommandHandler : IRequestHandler
 {
@@ -43,5 +59,26 @@ public sealed class AppendExampleContentCommandHandler : IRequestHandler
         await _context.SaveChangesAsync(cancellationToken);
 
         return Result.Success();
+    }
+}
+
+public sealed class AppendExampleContentEndpoint : IEndpoint
+{
+    public static string Prefix => "examples";
+
+    public static void Map(IEndpointRouteBuilder builder)
+    {
+        builder.MapPatch(AppendExampleContent, "append-content");
+    }
+
+    private static async Task<Results<NoContent, ProblemHttpResult>> AppendExampleContent(
+        AppendExampleContentCommandHandler handler,
+        AppendExampleContentCommand command,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = await handler.Handle(command, cancellationToken);
+
+        return result.ToTypedResult();
     }
 }

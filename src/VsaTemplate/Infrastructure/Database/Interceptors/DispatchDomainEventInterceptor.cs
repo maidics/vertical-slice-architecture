@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using VsaTemplate.Common.BaseClasses;
 using VsaTemplate.Common.Services;
+using VsaTemplate.Domain.BaseClasses;
 
 namespace VsaTemplate.Infrastructure.Database.Interceptors;
 

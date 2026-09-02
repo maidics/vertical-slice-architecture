@@ -1,3 +1,4 @@
+using VsaTemplate.Domain.Entities;
 using VsaTemplate.Features.Examples;
 
 namespace VsaTemplate.Tests.Features.Examples;

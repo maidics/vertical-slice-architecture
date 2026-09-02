@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
-using VsaTemplate.Common.Constants;
-using VsaTemplate.Features.Users;
+using VsaTemplate.Domain.Constants;
+using VsaTemplate.Infrastructure.Identity;
 
 namespace VsaTemplate.Infrastructure.Database;
 

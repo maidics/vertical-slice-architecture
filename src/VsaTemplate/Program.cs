@@ -1,9 +1,9 @@
 using Scalar.AspNetCore;
 using VsaTemplate.Common.Extensions;
 using VsaTemplate.Common.Pipeline;
-using VsaTemplate.Features.Users;
 using VsaTemplate.Infrastructure;
 using VsaTemplate.Infrastructure.Database;
+using VsaTemplate.Infrastructure.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 

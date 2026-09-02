@@ -1,5 +1,5 @@
 ﻿using FluentValidation.TestHelper;
-using VsaTemplate.Features.Examples.Update;
+using VsaTemplate.Features.Examples;
 
 namespace VsaTemplate.Tests.Features.Examples.Update;
 

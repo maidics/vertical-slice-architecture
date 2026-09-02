@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
-using VsaTemplate.Common.BaseClasses;
 using VsaTemplate.Common.Interfaces;
+using VsaTemplate.Domain.BaseClasses;
 
 namespace VsaTemplate.Infrastructure.Database.Interceptors;
 

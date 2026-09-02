@@ -2,7 +2,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations.Schema;
 using VsaTemplate.Common.Interfaces.Features;
 
-namespace VsaTemplate.Common.BaseClasses;
+namespace VsaTemplate.Domain.BaseClasses;
 
 //credit: https://github.com/jasontaylordev/CleanArchitecture
 public abstract class BaseEntity

@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using Microsoft.EntityFrameworkCore;
+using VsaTemplate.Domain.Entities;
 using VsaTemplate.Features.Examples;
-using VsaTemplate.Features.Examples.Delete;
 using VsaTemplate.Tests.TestInfrastructure;
 using VsaTemplate.Tests.TestInfrastructure.WebTests;
 

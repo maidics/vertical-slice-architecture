@@ -1,7 +1,8 @@
 using VsaTemplate.Common.Interfaces.Features;
+using VsaTemplate.Domain.Entities;
 using VsaTemplate.Infrastructure.Database;
 
-namespace VsaTemplate.Features.Examples.AppendContent;
+namespace VsaTemplate.Domain.Events;
 
 public sealed record ExampleContentAppendedEvent(Guid ExampleId) : IDomainEvent;
 

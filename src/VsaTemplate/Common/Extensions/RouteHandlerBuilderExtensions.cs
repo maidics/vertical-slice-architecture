@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Authorization;
-using VsaTemplate.Common.Constants;
+using VsaTemplate.Domain.Constants;
 
 namespace VsaTemplate.Common.Extensions;
 

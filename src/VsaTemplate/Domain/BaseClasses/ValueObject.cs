@@ -1,4 +1,4 @@
-namespace VsaTemplate.Common.BaseClasses;
+namespace VsaTemplate.Domain.BaseClasses;
 
 // credit: https://github.com/jasontaylordev/CleanArchitecture
 // Learn more: https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/implement-value-objects

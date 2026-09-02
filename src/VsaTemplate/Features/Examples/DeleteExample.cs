@@ -1,8 +1,11 @@
-﻿using VsaTemplate.Common.Interfaces.Features;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using VsaTemplate.Common.Extensions;
+using VsaTemplate.Common.Interfaces.Features;
 using VsaTemplate.Common.Models;
+using VsaTemplate.Domain.Entities;
 using VsaTemplate.Infrastructure.Database;
 
-namespace VsaTemplate.Features.Examples.Delete;
+namespace VsaTemplate.Features.Examples;
 
 public sealed class DeleteExampleCommandHandler : IRequestHandler
 {
@@ -27,5 +30,26 @@ public sealed class DeleteExampleCommandHandler : IRequestHandler
         await _context.SaveChangesAsync(cancellationToken);
 
         return Result.Success();
+    }
+}
+
+public sealed class DeleteExampleEndpoint : IEndpoint
+{
+    public static string Prefix => "examples";
+
+    public static void Map(IEndpointRouteBuilder builder)
+    {
+        builder.MapDelete(DeleteExample, "{exampleId:guid}");
+    }
+
+    private static async Task<Results<NoContent, ProblemHttpResult>> DeleteExample(
+        Guid exampleId,
+        DeleteExampleCommandHandler handler,
+        CancellationToken cancellationToken
+    )
+    {
+        var result = await handler.Handle(exampleId, cancellationToken);
+
+        return result.ToTypedResult();
     }
 }

@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using VsaTemplate.Domain.Entities;
 
-namespace VsaTemplate.Features.Examples;
+namespace VsaTemplate.Infrastructure.Database.Configurations;
 
 public sealed class ExampleConfiguration : IEntityTypeConfiguration<Example>
 {

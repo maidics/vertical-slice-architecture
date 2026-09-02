@@ -1,4 +1,4 @@
-﻿using VsaTemplate.Common.Constants;
+﻿using VsaTemplate.Domain.Constants;
 
 namespace VsaTemplate.Tests.Common.Constants;
 

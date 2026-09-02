@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using VsaTemplate.Common.Models;
+using VsaTemplate.Domain.Entities;
 using VsaTemplate.Features.Examples;
-using VsaTemplate.Features.Examples.Create;
 using VsaTemplate.Infrastructure.Database;
 using VsaTemplate.Tests.TestInfrastructure;
 using VsaTemplate.Tests.TestInfrastructure.FunctionalTests;
