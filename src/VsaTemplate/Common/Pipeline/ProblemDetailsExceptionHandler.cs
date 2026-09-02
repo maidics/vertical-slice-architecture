@@ -99,7 +99,7 @@ public sealed class ProblemDetailsExceptionHandler : IExceptionHandler
     {
         _logger.LogError(
             exception,
-            "HTTP Request contains invalid name identifier claim at [{HttpMethod}] {Path}]",
+            "HTTP Request contains invalid name identifier claim at [{HttpMethod}] {Path}",
             requestMethod,
             requestPath
         );
