@@ -1,6 +1,6 @@
 ﻿using VsaTemplate.Domain.Constants;
 
-namespace VsaTemplate.Tests.Common.Constants;
+namespace VsaTemplate.Tests.Domain.Constants;
 
 public sealed class RolesTests
 {
