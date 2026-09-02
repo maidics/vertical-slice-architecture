@@ -59,7 +59,7 @@ public sealed class Fixture : IAsyncInitializer, IAsyncDisposable
         if (_factory is not null)
             await _factory.DisposeAsync();
 
-        ServiceScope.Dispose();
+        ServiceScope?.Dispose();
     }
 
     public async Task ResetAsync()
