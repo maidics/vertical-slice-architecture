@@ -35,29 +35,32 @@ dotnet new vsa-sln -n [SolutionName]
 
 ## Structure
 
-Code is grouped by feature rather than technical layer. Everything required to execute a specific feature lives in a single folder inside the Features directory.
-
-Tests project structure reflects the main project's structure with the testing infrastructure additionally.
+Code is grouped by feature rather than technical layer. Tests project structure reflects the main project's structure with the testing infrastructure additionally.
 
 ```
 Common/  # Cross-cutting concerns; any slice may use these
+
+Domain/
+├── BaseClasses/
+├── Constants/
+├── Entities/
+└── Events/
+    └── ExampleContentAppended.cs # Contains: IDomainEvent & IDomainEvent
+
 Features/
 └── Examples/
-    └── AppendContent/
-        ├── AppendExampleContentCommand.cs          # IRequest object
-        ├── AppendExampleContentCommandHandler.cs   # IRequestHandler
-        ├── AppendExampleContentCommandValidator.cs # FluentValidation validator
-        ├── AppendExampleContentEndpoint.cs         # IEndpoint
-        └── ExampleContentAppendedEvent.cs          # IDomainEvent & IDomainEventHandler
-    ├── Create/
-    ├── Delete/
-    ├── GetAll/
-    ├── GetById/
-    ├── Update/
-    ├── Example.cs              # Entity
-    ├── ExampleConfiguration.cs # EF Core configuration
-    └── ExampleDto.cs           # DTO
+    ├── AppendExampleContent.cs # Contains: IRequest, AbstractValidator, IRequestHandler, IEndpoint
+    ├── CreateExample.cs
+    ├── DeleteExample.cs
+    ├── ExampleDto.cs
+    ├── GetExampleById.cs
+    ├── GetExamples.cs
+    └── UpdateExample.cs
+
 Infrastructure/ # External dependencies
+├── Database/
+├── Identity/
+
 ```
 
 ---
