@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Common.Services;
 using VsaTemplate.Domain.Entities;
 using VsaTemplate.Domain.Events;
@@ -36,7 +37,7 @@ public sealed class ExampleContentAppendedEventHandlerTests : FunctionalTestBase
     {
         var domainEvent = new ExampleContentAppendedEvent(Guid.Empty);
 
-        var handler = GetRequiredService<ExampleContentAppendedEventHandler>();
+        var handler = GetRequiredService<IDomainEventHandler<ExampleContentAppendedEvent>>();
 
         var ex = await Should.ThrowAsync<InvalidOperationException>(() =>
             handler.Handle(domainEvent, CancellationToken.None)
