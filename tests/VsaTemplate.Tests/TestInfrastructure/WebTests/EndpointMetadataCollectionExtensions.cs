@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
-namespace VsaTemplate.Tests.TestInfrastructure;
+namespace VsaTemplate.Tests.TestInfrastructure.WebTests;
 
 public static class EndpointMetadataCollectionExtensions
 {
