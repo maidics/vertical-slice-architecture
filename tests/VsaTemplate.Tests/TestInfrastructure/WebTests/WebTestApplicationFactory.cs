@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace VsaTemplate.Tests.TestInfrastructure.WebTests;
 
 public sealed class WebTestApplicationFactory(string connectionString)
-    : WebApplicationFactory<Program>
+    : WebApplicationFactory<VsaTemplate.Program>
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
