@@ -1,25 +1,20 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace VsaTemplate.TemplateTests.Infrastructure;
 
 public sealed class EndpointRouteBuilderSpy : IEndpointRouteBuilder
 {
-    public EndpointRouteBuilderSpy()
+    public EndpointRouteBuilderSpy(IServiceProvider serviceProvider)
     {
-        Services = new ServiceCollection();
-        //Services.AddRouting(); - is this required to call?
+        ServiceProvider = serviceProvider;
         DataSources = new List<EndpointDataSource>();
     }
 
-    public IApplicationBuilder CreateApplicationBuilder() =>
-        new ApplicationBuilder(ServiceProvider);
+    public IApplicationBuilder CreateApplicationBuilder() => throw new NotSupportedException();
 
-    public IServiceCollection Services { get; }
-    public IServiceProvider ServiceProvider => Services.BuildServiceProvider();
-
+    public IServiceProvider ServiceProvider { get; }
     public ICollection<EndpointDataSource> DataSources { get; }
 
     public List<Endpoint> GetEndpoints() => DataSources.SelectMany(x => x.Endpoints).ToList();

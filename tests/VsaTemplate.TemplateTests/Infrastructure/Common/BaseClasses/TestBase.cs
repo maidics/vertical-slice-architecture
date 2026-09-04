@@ -8,10 +8,22 @@ public abstract class TestBase
     [ClassDataSource<Fixture>(Shared = SharedType.PerTestSession)]
     public required Fixture Fixture { get; init; }
 
-    [Before(Test)]
-    public async Task ResetAsync() => await Fixture.ResetAsync();
+    protected IServiceScope _scope = null!;
 
-    public TService GetRequiredService<TService>()
-        where TService : notnull =>
-        Fixture.ServiceScope.ServiceProvider.GetRequiredService<TService>();
+    [Before(Test)]
+    public async Task ResetAsync()
+    {
+        await Fixture.ResetAsync();
+
+        _scope = Fixture.ScopeFactory.CreateScope();
+    }
+
+    [After(Test)]
+    public void CleanUpAsync()
+    {
+        _scope?.Dispose();
+    }
+
+    protected TService GetRequiredService<TService>()
+        where TService : notnull => _scope.ServiceProvider.GetRequiredService<TService>();
 }

@@ -19,7 +19,7 @@ public sealed class ValidationFilterTests : TestBase
         var httpContext = new DefaultHttpContext
         {
             Request = { Method = "POST", Path = new PathString("/test") },
-            RequestServices = Fixture.ServiceScope.ServiceProvider,
+            RequestServices = _scope.ServiceProvider,
         };
         var request = new TestRequest(prop);
         var context = EndpointFilterInvocationContext.Create(httpContext, request);

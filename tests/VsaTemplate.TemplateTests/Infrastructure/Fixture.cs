@@ -1,10 +1,8 @@
 ﻿using Aspire.Hosting;
 using Aspire.Hosting.Testing;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Projects;
 using TUnit.Core.Interfaces;
-using VsaTemplate.Domain.Constants;
 using VsaTemplate.Shared;
 
 namespace VsaTemplate.TemplateTests.Infrastructure;
@@ -14,10 +12,8 @@ public sealed class Fixture : IAsyncInitializer, IAsyncDisposable
     private DistributedApplication? _app;
     private WebApiFactory? _factory;
 
-    private IServiceScopeFactory _scopeFactory = null!;
+    public IServiceScopeFactory ScopeFactory { get; private set; } = null!;
     private TestDatabase? _database;
-
-    public IServiceScope ServiceScope { get; private set; } = null!;
 
     public async Task InitializeAsync()
     {
@@ -45,7 +41,7 @@ public sealed class Fixture : IAsyncInitializer, IAsyncDisposable
         ArgumentNullException.ThrowIfNull(connectionString);
 
         _factory = new WebApiFactory(connectionString);
-        _scopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
+        ScopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
         _database = await TestDatabase.CreateAsync(connectionString);
     }
 
@@ -58,25 +54,11 @@ public sealed class Fixture : IAsyncInitializer, IAsyncDisposable
             await _app.DisposeAsync();
         if (_factory is not null)
             await _factory.DisposeAsync();
-
-        ServiceScope?.Dispose();
     }
 
     public async Task ResetAsync()
     {
         if (_database is not null)
             await _database.ResetAsync();
-
-        ServiceScope?.Dispose();
-        ServiceScope = _scopeFactory.CreateScope();
-
-        var roleManager = ServiceScope.ServiceProvider.GetRequiredService<
-            RoleManager<IdentityRole<Guid>>
-        >();
-
-        foreach (var role in Roles.All)
-        {
-            await roleManager.CreateAsync(new IdentityRole<Guid>(role));
-        }
     }
 }
