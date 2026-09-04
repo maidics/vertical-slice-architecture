@@ -13,7 +13,7 @@ public sealed class EndpointRouteBuilderSpy : IEndpointRouteBuilder
         DataSources = new List<EndpointDataSource>();
     }
 
-    public IApplicationBuilder CreateApplicationBuilder() => null!;
+    public IApplicationBuilder CreateApplicationBuilder() => throw new NotSupportedException();
 
     public IServiceProvider ServiceProvider { get; }
     public ICollection<EndpointDataSource> DataSources { get; }
