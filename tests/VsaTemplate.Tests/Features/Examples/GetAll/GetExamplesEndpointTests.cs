@@ -22,6 +22,7 @@ public sealed class GetExamplesEndpointTests : EndpointTestBase<GetExamplesEndpo
         Tags.ShouldBeEquivalentTo(Array.Empty<string>());
     }
 
+    [Test]
     public override void MapMethodShouldMapEndpointWithAttributes()
     {
         var spy = CreateEndpointRouteBuilderSpy();
