@@ -15,7 +15,7 @@ public sealed class WebTestFixture : IAsyncInitializer, IAsyncDisposable
     private DistributedApplication? _app;
     private WebTestApplicationFactory? _factory;
 
-    public IServiceScopeFactory ScopeFactory = null!;
+    public IServiceScopeFactory ScopeFactory { get; private set; } = null!;
 
     private TestDatabase? _database;
 
