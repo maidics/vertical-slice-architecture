@@ -39,6 +39,15 @@ public sealed class GetExampleByIdEndpointTests : EndpointTestBase<GetExampleByI
     }
 
     [Test]
+    public async Task ShouldReturnUnauthorizedWhenAnonymous()
+    {
+        using var client = CreateHttpClient();
+
+        var response = await client.GetAsync(Endpoint + $"/{Guid.Empty}");
+        response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
+    }
+
+    [Test]
     public async Task ShouldReturnNotFoundIfExampleDoesNotExist()
     {
         using var client = await LogInAsync();
