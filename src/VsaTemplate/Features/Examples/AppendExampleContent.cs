@@ -75,8 +75,8 @@ public sealed class AppendExampleContentEndpoint : IEndpoint
     }
 
     private static async Task<Results<NoContent, ProblemHttpResult>> AppendExampleContent(
-        AppendExampleContentCommandHandler handler,
         AppendExampleContentCommand command,
+        AppendExampleContentCommandHandler handler,
         CancellationToken cancellationToken
     )
     {

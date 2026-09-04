@@ -10,7 +10,7 @@ using VsaTemplate.Shared;
 namespace VsaTemplate.Tests.TestInfrastructure.FunctionalTests;
 
 public class FunctionalTestWebApplicationFactory(string connectionString)
-    : WebApplicationFactory<VsaTemplate.Program>
+    : WebApplicationFactory<Program>
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {

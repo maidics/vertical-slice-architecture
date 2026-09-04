@@ -37,7 +37,7 @@ public sealed class DatabaseInitializer
 
             if (!result.Succeeded)
                 throw new InvalidOperationException(
-                    $"Failed to create role: {string.Join(", ", result.Errors)}"
+                    $"Failed to create role: {string.Join(", ", result.Errors.Select(e => e.Description))}"
                 );
         }
 
@@ -69,14 +69,14 @@ public sealed class DatabaseInitializer
 
             if (!creationResult.Succeeded)
                 throw new InvalidOperationException(
-                    $"Failed to create user: {string.Join(", ", creationResult.Errors)}"
+                    $"Failed to create user: {string.Join(", ", creationResult.Errors.Select(e => e.Description))}"
                 );
 
             var roleResult = await _userManager.AddToRoleAsync(userTuple.user, userTuple.role);
 
             if (!roleResult.Succeeded)
                 throw new InvalidOperationException(
-                    $"Failed to add user to role: {string.Join(", ", roleResult.Errors)}"
+                    $"Failed to add user to role: {string.Join(", ", roleResult.Errors.Select(e => e.Description))}"
                 );
         }
     }

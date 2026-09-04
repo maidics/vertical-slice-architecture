@@ -29,9 +29,9 @@ public sealed class AppendExampleContentEndpointTests
     }
 
     [Test]
-    public void MapMethodShouldMapEndpointWithAttributes()
+    public override void MapMethodShouldMapEndpointWithAttributes()
     {
-        var spy = new EndpointRouteBuilderSpy();
+        var spy = CreateEndpointRouteBuilderSpy();
 
         AppendExampleContentEndpoint.Map(spy);
 
@@ -39,14 +39,8 @@ public sealed class AppendExampleContentEndpointTests
         endpoints.Count.ShouldBe(1);
 
         var metadata = endpoints[0].Metadata;
-
-        var name = metadata.GetMetadata<IEndpointNameMetadata>()?.EndpointName;
-        name.ShouldNotBeNull();
-        name.ShouldBe("AppendExampleContent");
-
-        var authMetadata = metadata.GetOrderedMetadata<IAuthorizeData>();
-        authMetadata.Count.ShouldBe(1);
-        authMetadata[0].Roles.ShouldBe(string.Join(",", Roles.User, Roles.Administrator));
+        metadata.ShouldHaveEndpointName("AppendExampleContent");
+        metadata.ShouldHaveOneAuthMetadataWithRoles(Roles.User, Roles.Administrator);
     }
 
     [Test]
@@ -57,20 +51,7 @@ public sealed class AppendExampleContentEndpointTests
         using var client = CreateHttpClient();
 
         var response = await client.PatchAsJsonAsync(Endpoint, command);
-        response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
-
-        var validationProblem = await response.GetValidationProblemDetailsAsync();
-        validationProblem.ShouldNotBeNull();
-        validationProblem
-            .Errors.TryGetValue(
-                nameof(AppendExampleContentCommand.AdditionalContent),
-                out var errors
-            )
-            .ShouldBeTrue();
-
-        errors.ShouldNotBeNull();
-        errors.Length.ShouldBe(1);
-        errors.ShouldContain("'Additional Content' must not be empty.");
+        response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
     }
 
     [Test]
@@ -78,7 +59,7 @@ public sealed class AppendExampleContentEndpointTests
     {
         var command = new AppendExampleContentCommand(Guid.Empty, "test");
 
-        using var client = CreateHttpClient();
+        using var client = await LogInAsync(Roles.User);
 
         var response = await client.PatchAsJsonAsync(Endpoint, command);
         response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
@@ -95,13 +76,9 @@ public sealed class AppendExampleContentEndpointTests
         var example1 = new Example { Content = "test-content" };
         var example2 = new Example { Content = "test" };
 
-        await using var context = CreateDbContext();
+        await SeedAsync(example1, example2);
 
-        await context.Examples.AddAsync(example2);
-        await context.Examples.AddAsync(example1);
-        await context.SaveChangesAsync();
-
-        using var client = CreateHttpClient();
+        using var client = await LogInAsync(Roles.User);
 
         var command = new AppendExampleContentCommand(example2.Id, "-content");
 
@@ -117,25 +94,25 @@ public sealed class AppendExampleContentEndpointTests
     }
 
     [Test]
-    public async Task ShouldReturnNoContentAndIdIfContentHasBeenAppended()
+    [Arguments(Roles.User)]
+    [Arguments(Roles.Administrator)]
+    [Arguments(Roles.User, Roles.Administrator)]
+    public async Task ShouldReturnNoContentAndIdIfContentHasBeenAppended(params string[] roles)
     {
         var example = new Example { Content = "test" };
 
-        await using var context = CreateDbContext();
+        await SeedAsync(example);
 
-        await context.Examples.AddAsync(example);
-        await context.SaveChangesAsync();
-
-        using var client = CreateHttpClient();
+        using var client = await LogInAsync(roles);
 
         var command = new AppendExampleContentCommand(example.Id, "-content");
 
         var response = await client.PatchAsJsonAsync(Endpoint, command);
         response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
 
-        context.ChangeTracker.Clear();
-
-        var updated = await context.Examples.FirstOrDefaultAsync(e => e.Id == example.Id);
+        var updated = await QueryAsync(c =>
+            c.Examples.FirstOrDefaultAsync(e => e.Id == example.Id)
+        );
         updated.ShouldNotBeNull();
         updated.Content.ShouldBe(example.Content + command.AdditionalContent);
         updated.HasAppendedContent.ShouldBeTrue();

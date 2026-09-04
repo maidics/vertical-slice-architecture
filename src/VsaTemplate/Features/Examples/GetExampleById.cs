@@ -40,7 +40,7 @@ public sealed class GetExampleByIdEndpoint : IEndpoint
 
     public static void Map(IEndpointRouteBuilder builder)
     {
-        builder.MapGet(GetExampleById, "{exampleId:guid}");
+        builder.MapGet(GetExampleById, "{exampleId:guid}").RequireAuthorization();
     }
 
     private static async Task<Results<Ok<ExampleDto>, ProblemHttpResult>> GetExampleById(

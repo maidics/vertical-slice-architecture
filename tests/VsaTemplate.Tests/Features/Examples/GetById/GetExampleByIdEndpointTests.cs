@@ -24,9 +24,24 @@ public sealed class GetExampleByIdEndpointTests : EndpointTestBase<GetExampleByI
     }
 
     [Test]
+    public override void MapMethodShouldMapEndpointWithAttributes()
+    {
+        var spy = CreateEndpointRouteBuilderSpy();
+
+        GetExampleByIdEndpoint.Map(spy);
+
+        var endpoints = spy.GetEndpoints();
+        endpoints.Count.ShouldBe(1);
+
+        var metadata = endpoints[0].Metadata;
+        metadata.ShouldHaveEndpointName("GetExampleById");
+        metadata.ShouldHaveOneAuthMetadataWithoutRoles();
+    }
+
+    [Test]
     public async Task ShouldReturnNotFoundIfExampleDoesNotExist()
     {
-        using var client = CreateHttpClient();
+        using var client = await LogInAsync();
 
         var response = await client.GetAsync(Endpoint + $"/{Guid.Empty}");
         response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
@@ -42,12 +57,9 @@ public sealed class GetExampleByIdEndpointTests : EndpointTestBase<GetExampleByI
     {
         var example = new Example { Content = "test" };
 
-        await using var context = CreateDbContext();
+        await SeedAsync(example);
 
-        await context.Examples.AddAsync(example);
-        await context.SaveChangesAsync();
-
-        using var client = CreateHttpClient();
+        using var client = await LogInAsync();
 
         var response = await client.GetAsync(Endpoint + $"/{example.Id}");
         response.StatusCode.ShouldBe(HttpStatusCode.OK);

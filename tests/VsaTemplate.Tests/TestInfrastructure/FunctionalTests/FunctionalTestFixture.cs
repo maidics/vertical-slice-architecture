@@ -3,6 +3,7 @@ using Aspire.Hosting.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Projects;
 using TUnit.Core.Interfaces;
+using VsaTemplate.Infrastructure.Database;
 using VsaTemplate.Shared;
 
 namespace VsaTemplate.Tests.TestInfrastructure.FunctionalTests;
@@ -45,25 +46,32 @@ public sealed class FunctionalTestFixture : IAsyncInitializer, IAsyncDisposable
 
         _factory = new FunctionalTestWebApplicationFactory(connectionString);
         _scopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
+
+        using var scope = _scopeFactory.CreateScope();
+
+        var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        await context.Database.EnsureCreatedAsync(CancellationToken.None);
+
         _database = await TestDatabase.CreateAsync(connectionString);
     }
 
     public async ValueTask DisposeAsync()
     {
+        if (_factory is not null)
+            await _factory.DisposeAsync();
         if (_database is not null)
             await _database.DisposeAsync();
         if (_app is not null)
             await _app.DisposeAsync();
-        if (_factory is not null)
-            await _factory.DisposeAsync();
 
         ServiceScope?.Dispose();
     }
 
     public async Task ResetAsync()
     {
-        if (_database is not null)
-            await _database.ResetAsync();
+        ArgumentNullException.ThrowIfNull(_database);
+
+        await _database.ResetAsync();
 
         ServiceScope?.Dispose();
         ServiceScope = _scopeFactory.CreateScope();
