@@ -2,9 +2,10 @@
 using Microsoft.Extensions.Logging;
 using Shouldly;
 using VsaTemplate.Common.Services;
-using VsaTemplate.TemplateTests.Infrastructure;
 using VsaTemplate.TemplateTests.Infrastructure.Common;
 using VsaTemplate.TemplateTests.Infrastructure.Common.BaseClasses;
+using VsaTemplate.Tests.TestInfrastructure;
+using DomainEventDispatcherSpy = VsaTemplate.TemplateTests.Infrastructure.DomainEventDispatcherSpy;
 
 namespace VsaTemplate.TemplateTests;
 
