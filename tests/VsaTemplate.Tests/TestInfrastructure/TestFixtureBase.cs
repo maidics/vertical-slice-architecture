@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using Aspire.Hosting;
+﻿using Aspire.Hosting;
 using Aspire.Hosting.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Projects;
