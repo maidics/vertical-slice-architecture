@@ -12,6 +12,7 @@ public static class EndpointMetadataCollectionExtensions
         {
             var name = metadata.GetMetadata<IEndpointNameMetadata>()?.EndpointName;
             name.ShouldNotBeNull();
+            name.ShouldBe(value);
         }
 
         public void ShouldNotHaveAuthMetadata()
