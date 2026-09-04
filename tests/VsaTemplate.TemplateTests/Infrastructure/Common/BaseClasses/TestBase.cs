@@ -19,7 +19,7 @@ public abstract class TestBase
     }
 
     [After(Test)]
-    public void CleanUpAsync()
+    public void CleanUp()
     {
         _scope?.Dispose();
     }

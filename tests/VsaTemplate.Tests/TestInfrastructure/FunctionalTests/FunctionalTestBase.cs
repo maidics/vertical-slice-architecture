@@ -20,7 +20,7 @@ public abstract class FunctionalTestBase
     }
 
     [After(Test)]
-    public void CleanUpAsync()
+    public void CleanUp()
     {
         _scope?.Dispose();
     }

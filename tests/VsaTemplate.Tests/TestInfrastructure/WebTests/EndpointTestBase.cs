@@ -98,7 +98,7 @@ public abstract class EndpointTestBase<TEndpoint>
     }
 
     [After(Test)]
-    public void CleanUpAsync()
+    public void CleanUp()
     {
         _scope?.Dispose();
     }
