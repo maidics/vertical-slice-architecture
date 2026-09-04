@@ -37,6 +37,8 @@ public sealed class WebTestFixture : IAsyncInitializer, IAsyncDisposable
 
         await _app.StartAsync(cts.Token).WaitAsync(cts.Token);
 
+        await _app.ResourceNotifications.WaitForResourceHealthyAsync(Services.Database, cts.Token);
+
         var connectionString = await _app.GetConnectionStringAsync(Services.Database, cts.Token);
         ArgumentNullException.ThrowIfNull(connectionString);
 
