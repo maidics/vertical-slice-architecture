@@ -1,18 +1,15 @@
 ﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace VsaTemplate.Tests.TestInfrastructure.WebTests;
 
 public sealed class WebTestApplicationFactory(string connectionString)
-    : WebApplicationFactory<VsaTemplate.Program>
+    : TestApplicationFactoryBase(connectionString: connectionString)
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        builder.UseEnvironment("Testing");
-
-        builder.UseSetting("ConnectionStrings:VsaTemplateDb", connectionString);
+        ConfigureBase(builder);
 
         builder.ConfigureServices(services =>
         {

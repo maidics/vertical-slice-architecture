@@ -1,22 +1,18 @@
 ﻿using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Common.Services;
-using VsaTemplate.Shared;
 
 namespace VsaTemplate.Tests.TestInfrastructure.FunctionalTests;
 
 public class FunctionalTestWebApplicationFactory(string connectionString)
-    : WebApplicationFactory<VsaTemplate.Program>
+    : TestApplicationFactoryBase(connectionString: connectionString)
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        builder.UseEnvironment("Testing");
-
-        builder.UseSetting("ConnectionStrings:VsaTemplateDb", connectionString);
+        ConfigureBase(builder);
 
         builder.ConfigureServices(services =>
         {
