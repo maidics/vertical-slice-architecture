@@ -36,9 +36,7 @@ public sealed class TestDatabase : IAsyncDisposable
 
     public async Task SeedRolesAsync(IServiceProvider serviceProvider)
     {
-        using var roleManager = serviceProvider.GetRequiredService<
-            RoleManager<IdentityRole<Guid>>
-        >();
+        var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
 
         foreach (var role in Roles.All)
         {
