@@ -41,7 +41,7 @@ public sealed class CreateExampleEndpointTests : EndpointTestBase<CreateExampleE
     }
 
     [Test]
-    public async Task ShouldReturnUnathorizedWhenAnonymous()
+    public async Task ShouldReturnUnauthorizedWhenAnonymous()
     {
         var command = new CreateExampleCommand(string.Empty);
 
