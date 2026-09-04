@@ -103,7 +103,7 @@ public sealed class UpdateExampleEndpointTests : EndpointTestBase<UpdateExampleE
     public async Task ShouldReturnConflictWhenExampleAlreadyExistsWithNewContent()
     {
         var example1 = new Example { Content = "test" };
-        var example2 = new Example { Content = "" };
+        var example2 = new Example { Content = "test2" };
 
         await SeedAsync(example1, example2);
 
