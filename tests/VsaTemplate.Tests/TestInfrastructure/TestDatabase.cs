@@ -1,11 +1,9 @@
 using System.Data.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Respawn;
 using VsaTemplate.Domain.Constants;
-using VsaTemplate.Infrastructure.Database;
 
 namespace VsaTemplate.Tests.TestInfrastructure;
 

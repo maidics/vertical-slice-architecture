@@ -1,7 +1,5 @@
 ﻿using Aspire.Hosting;
 using Aspire.Hosting.Testing;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
 using Projects;
 using TUnit.Core.Interfaces;
