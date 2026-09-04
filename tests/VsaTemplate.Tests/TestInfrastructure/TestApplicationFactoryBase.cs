@@ -8,7 +8,7 @@ public abstract class TestApplicationFactoryBase(string connectionString)
 {
     protected const string EnvironmentName = "Testing";
 
-    protected void ConfigureBase(IWebHostBuilder builder)
+    protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.UseEnvironment(EnvironmentName);
         builder.UseSetting($"ConnectionStrings:{Shared.Services.Database}", connectionString);

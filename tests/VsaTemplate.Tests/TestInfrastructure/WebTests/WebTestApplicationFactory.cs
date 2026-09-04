@@ -9,7 +9,7 @@ public sealed class WebTestApplicationFactory(string connectionString)
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        ConfigureBase(builder);
+        base.ConfigureWebHost(builder);
 
         builder.ConfigureServices(services =>
         {
