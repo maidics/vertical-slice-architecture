@@ -2,6 +2,7 @@
 using VsaTemplate.Common.Extensions;
 using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Common.Models;
+using VsaTemplate.Domain.Constants;
 using VsaTemplate.Domain.Entities;
 using VsaTemplate.Infrastructure.Database;
 
@@ -39,7 +40,9 @@ public sealed class DeleteExampleEndpoint : IEndpoint
 
     public static void Map(IEndpointRouteBuilder builder)
     {
-        builder.MapDelete(DeleteExample, "{exampleId:guid}");
+        builder
+            .MapDelete(DeleteExample, "{exampleId:guid}")
+            .RequireAuthorizationWithRoles(Roles.Administrator);
     }
 
     private static async Task<Results<NoContent, ProblemHttpResult>> DeleteExample(

@@ -1,9 +1,9 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
 using Microsoft.EntityFrameworkCore;
+using VsaTemplate.Domain.Constants;
 using VsaTemplate.Domain.Entities;
 using VsaTemplate.Features.Examples;
-using VsaTemplate.Tests.TestInfrastructure;
 using VsaTemplate.Tests.TestInfrastructure.WebTests;
 
 namespace VsaTemplate.Tests.Features.Examples.AppendContent;
@@ -26,17 +26,55 @@ public sealed class AppendExampleContentEndpointTests
     }
 
     [Test]
-    public async Task ShouldReturnBadRequestIfAdditionalContentIsEmpty()
+    public override void MapMethodShouldMapEndpointWithAttributes()
+    {
+        var spy = CreateEndpointRouteBuilderSpy();
+
+        AppendExampleContentEndpoint.Map(spy);
+
+        var endpoints = spy.GetEndpoints();
+        endpoints.Count.ShouldBe(1);
+
+        var metadata = endpoints[0].Metadata;
+        metadata.ShouldHaveEndpointName("AppendExampleContent");
+        metadata.ShouldHaveOneAuthMetadataWithRoles(Roles.User, Roles.Administrator);
+    }
+
+    [Test]
+    public async Task ShouldReturnUnauthorizedWhenAnonymous()
     {
         var command = new AppendExampleContentCommand(Guid.Empty, string.Empty);
 
         using var client = CreateHttpClient();
 
         var response = await client.PatchAsJsonAsync(Endpoint, command);
+        response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
+    }
+
+    [Test]
+    public async Task ShouldReturnForbiddenIfUserDoesNotHaveRequiredRole()
+    {
+        var command = new AppendExampleContentCommand(Guid.Empty, string.Empty);
+
+        using var client = await LogInAsync();
+
+        var response = await client.PatchAsJsonAsync(Endpoint, command);
+        response.StatusCode.ShouldBe(HttpStatusCode.Forbidden);
+    }
+
+    [Test]
+    public async Task ShouldReturnBadRequestIfAdditionalContentIsEmpty()
+    {
+        var command = new AppendExampleContentCommand(Guid.Empty, string.Empty);
+
+        using var client = await LogInAsync(Roles.User);
+
+        var response = await client.PatchAsJsonAsync(Endpoint, command);
         response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
 
         var validationProblem = await response.GetValidationProblemDetailsAsync();
         validationProblem.ShouldNotBeNull();
+        validationProblem.Errors.Count.ShouldBe(1);
         validationProblem
             .Errors.TryGetValue(
                 nameof(AppendExampleContentCommand.AdditionalContent),
@@ -54,7 +92,7 @@ public sealed class AppendExampleContentEndpointTests
     {
         var command = new AppendExampleContentCommand(Guid.Empty, "test");
 
-        using var client = CreateHttpClient();
+        using var client = await LogInAsync(Roles.User);
 
         var response = await client.PatchAsJsonAsync(Endpoint, command);
         response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
@@ -71,13 +109,9 @@ public sealed class AppendExampleContentEndpointTests
         var example1 = new Example { Content = "test-content" };
         var example2 = new Example { Content = "test" };
 
-        await using var context = CreateDbContext();
+        await SeedAsync(example1, example2);
 
-        await context.Examples.AddAsync(example2);
-        await context.Examples.AddAsync(example1);
-        await context.SaveChangesAsync();
-
-        using var client = CreateHttpClient();
+        using var client = await LogInAsync(Roles.User);
 
         var command = new AppendExampleContentCommand(example2.Id, "-content");
 
@@ -93,25 +127,25 @@ public sealed class AppendExampleContentEndpointTests
     }
 
     [Test]
-    public async Task ShouldReturnNoContentAndIdIfContentHasBeenAppended()
+    [Arguments(Roles.User)]
+    [Arguments(Roles.Administrator)]
+    [Arguments(Roles.User, Roles.Administrator)]
+    public async Task ShouldReturnNoContentIfContentHasBeenAppended(params string[] roles)
     {
         var example = new Example { Content = "test" };
 
-        await using var context = CreateDbContext();
+        await SeedAsync(example);
 
-        await context.Examples.AddAsync(example);
-        await context.SaveChangesAsync();
-
-        using var client = CreateHttpClient();
+        using var client = await LogInAsync(roles);
 
         var command = new AppendExampleContentCommand(example.Id, "-content");
 
         var response = await client.PatchAsJsonAsync(Endpoint, command);
         response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
 
-        context.ChangeTracker.Clear();
-
-        var updated = await context.Examples.FirstOrDefaultAsync(e => e.Id == example.Id);
+        var updated = await QueryAsync(c =>
+            c.Examples.FirstOrDefaultAsync(e => e.Id == example.Id)
+        );
         updated.ShouldNotBeNull();
         updated.Content.ShouldBe(example.Content + command.AdditionalContent);
         updated.HasAppendedContent.ShouldBeTrue();

@@ -6,6 +6,7 @@ using VsaTemplate.Common.Pipeline;
 using VsaTemplate.TemplateTests.Infrastructure;
 using VsaTemplate.TemplateTests.Infrastructure.Common;
 using VsaTemplate.TemplateTests.Infrastructure.Common.BaseClasses;
+using VsaTemplate.Tests.TestInfrastructure;
 
 namespace VsaTemplate.TemplateTests;
 
@@ -19,7 +20,7 @@ public sealed class ValidationFilterTests : TestBase
         var httpContext = new DefaultHttpContext
         {
             Request = { Method = "POST", Path = new PathString("/test") },
-            RequestServices = Fixture.ServiceScope.ServiceProvider,
+            RequestServices = _scope.ServiceProvider,
         };
         var request = new TestRequest(prop);
         var context = EndpointFilterInvocationContext.Create(httpContext, request);

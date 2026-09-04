@@ -1,9 +1,9 @@
 ﻿using System.Net;
 using System.Net.Http.Json;
 using Microsoft.EntityFrameworkCore;
+using VsaTemplate.Domain.Constants;
 using VsaTemplate.Domain.Entities;
 using VsaTemplate.Features.Examples;
-using VsaTemplate.Tests.TestInfrastructure;
 using VsaTemplate.Tests.TestInfrastructure.WebTests;
 
 namespace VsaTemplate.Tests.Features.Examples.Create;
@@ -25,17 +25,55 @@ public sealed class CreateExampleEndpointTests : EndpointTestBase<CreateExampleE
     }
 
     [Test]
-    public async Task ShouldReturnBadRequestIfContentIsEmpty()
+    public override void MapMethodShouldMapEndpointWithAttributes()
+    {
+        var spy = CreateEndpointRouteBuilderSpy();
+
+        CreateExampleEndpoint.Map(spy);
+
+        var endpoints = spy.GetEndpoints();
+        endpoints.Count.ShouldBe(1);
+
+        var metadata = endpoints[0].Metadata;
+        metadata.ShouldHaveEndpointName("CreateExample");
+        metadata.ShouldHaveOneAuthMetadataWithRoles(Roles.User, Roles.Administrator);
+    }
+
+    [Test]
+    public async Task ShouldReturnUnauthorizedWhenAnonymous()
     {
         var command = new CreateExampleCommand(string.Empty);
 
         using var client = CreateHttpClient();
 
         var response = await client.PostAsJsonAsync(Endpoint, command);
+        response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
+    }
+
+    [Test]
+    public async Task ShouldReturnForbiddenIfUserDoesNotHaveRequiredRole()
+    {
+        var command = new CreateExampleCommand(string.Empty);
+
+        using var client = await LogInAsync();
+
+        var response = await client.PostAsJsonAsync(Endpoint, command);
+        response.StatusCode.ShouldBe(HttpStatusCode.Forbidden);
+    }
+
+    [Test]
+    public async Task ShouldReturnBadRequestIfContentIsEmpty()
+    {
+        var command = new CreateExampleCommand(string.Empty);
+
+        using var client = await LogInAsync(Roles.User);
+
+        var response = await client.PostAsJsonAsync(Endpoint, command);
         response.StatusCode.ShouldBe(HttpStatusCode.BadRequest);
 
         var validationProblem = await response.GetValidationProblemDetailsAsync();
         validationProblem.ShouldNotBeNull();
+        validationProblem.Errors.Count.ShouldBe(1);
         validationProblem
             .Errors.TryGetValue(nameof(Example.Content), out var errors)
             .ShouldBeTrue();
@@ -50,14 +88,11 @@ public sealed class CreateExampleEndpointTests : EndpointTestBase<CreateExampleE
     {
         var example = new Example { Content = "test" };
 
-        await using var context = CreateDbContext();
-
-        await context.AddAsync(example);
-        await context.SaveChangesAsync();
+        await SeedAsync(example);
 
         var command = new CreateExampleCommand(example.Content);
 
-        using var client = CreateHttpClient();
+        using var client = await LogInAsync(Roles.User);
 
         var response = await client.PostAsJsonAsync(Endpoint, command);
         response.StatusCode.ShouldBe(HttpStatusCode.Conflict);
@@ -69,11 +104,14 @@ public sealed class CreateExampleEndpointTests : EndpointTestBase<CreateExampleE
     }
 
     [Test]
-    public async Task ShouldReturnOkWithId()
+    [Arguments(Roles.User)]
+    [Arguments(Roles.Administrator)]
+    [Arguments(Roles.User, Roles.Administrator)]
+    public async Task ShouldReturnOkWithId(params string[] roles)
     {
         var command = new CreateExampleCommand("test");
 
-        using var client = CreateHttpClient();
+        using var client = await LogInAsync(roles);
 
         var response = await client.PostAsJsonAsync(Endpoint, command);
         response.StatusCode.ShouldBe(HttpStatusCode.OK);
@@ -81,9 +119,7 @@ public sealed class CreateExampleEndpointTests : EndpointTestBase<CreateExampleE
         var id = await response.Content.ReadFromJsonAsync<Guid>();
         id.ShouldNotBe(Guid.Empty);
 
-        await using var context = CreateDbContext();
-
-        var created = await context.Examples.FirstOrDefaultAsync(e => e.Id == id);
+        var created = await QueryAsync(c => c.Examples.FirstOrDefaultAsync(e => e.Id == id));
         created.ShouldNotBeNull();
     }
 }

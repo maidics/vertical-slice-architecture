@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http.HttpResults;
 using VsaTemplate.Common.Extensions;
 using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Common.Models;
+using VsaTemplate.Domain.Constants;
 using VsaTemplate.Domain.Entities;
 using VsaTemplate.Infrastructure.Database;
 
@@ -57,7 +58,9 @@ public sealed class CreateExampleEndpoint : IEndpoint
 
     public static void Map(IEndpointRouteBuilder builder)
     {
-        builder.MapPost(CreateExample);
+        builder
+            .MapPost(CreateExample)
+            .RequireAuthorizationWithRoles(Roles.User, Roles.Administrator);
     }
 
     private static async Task<Results<Ok<Guid>, ProblemHttpResult>> CreateExample(

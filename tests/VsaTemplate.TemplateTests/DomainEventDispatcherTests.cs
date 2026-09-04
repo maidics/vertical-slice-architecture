@@ -2,9 +2,10 @@
 using Microsoft.Extensions.Logging;
 using Shouldly;
 using VsaTemplate.Common.Services;
-using VsaTemplate.TemplateTests.Infrastructure;
 using VsaTemplate.TemplateTests.Infrastructure.Common;
 using VsaTemplate.TemplateTests.Infrastructure.Common.BaseClasses;
+using VsaTemplate.Tests.TestInfrastructure;
+using DomainEventDispatcherSpy = VsaTemplate.TemplateTests.Infrastructure.DomainEventDispatcherSpy;
 
 namespace VsaTemplate.TemplateTests;
 
@@ -30,7 +31,7 @@ public sealed class DomainEventDispatcherTests : TestBase
     public async Task DispatchAsyncShouldDispatchEventIfHasHandlersRegisteredToDomainEvent()
     {
         var logger = new LoggerSpy<DomainEventDispatcher>();
-        var dispatcher = new DomainEventDispatcher(Fixture.ServiceScope.ServiceProvider, logger);
+        var dispatcher = new DomainEventDispatcher(_scope.ServiceProvider, logger);
         var spy = new DomainEventDispatcherSpy(dispatcher);
 
         var domainEvent = new TestDomainEvent();

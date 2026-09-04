@@ -18,5 +18,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\VsaTemplate\VsaTemplate.csproj" />
     <ProjectReference Include="..\VsaTemplate.TestAppHost\VsaTemplate.TestAppHost.csproj" />
+    <ProjectReference Include="..\VsaTemplate.Tests\VsaTemplate.Tests.csproj" />
   </ItemGroup>
 </Project>

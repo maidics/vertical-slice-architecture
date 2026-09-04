@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,17 +7,17 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 using VsaTemplate.Common.Extensions;
 using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Common.Services;
+using VsaTemplate.Tests.TestInfrastructure;
+using VsaTemplate.Tests.TestInfrastructure.WebTests;
 
 namespace VsaTemplate.TemplateTests.Infrastructure;
 
-public sealed class WebApiFactory(string connectionString)
-    : WebApplicationFactory<VsaTemplate.Program>
+public sealed class TemplateTestFactory(string connectionString)
+    : TestApplicationFactoryBase(connectionString: connectionString)
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        builder.UseEnvironment("TemplateTesting");
-
-        builder.UseSetting("ConnectionStrings:VsaTemplateDb", connectionString);
+        base.ConfigureWebHost(builder);
 
         builder.ConfigureServices(services =>
         {
@@ -48,9 +47,9 @@ public sealed class WebApiFactory(string connectionString)
                 .RemoveAll<IRequestHandler>()
                 .RemoveAll<IDomainEventHandler<IDomainEvent>>()
                 .RemoveAll<IValidator<IRequest>>()
-                .AddRequestHandlers(typeof(WebApiFactory).Assembly)
-                .AddDomainEventHandlers(typeof(WebApiFactory).Assembly)
-                .AddValidatorsFromAssembly(typeof(WebApiFactory).Assembly);
+                .AddRequestHandlers(typeof(TemplateTestFactory).Assembly)
+                .AddDomainEventHandlers(typeof(TemplateTestFactory).Assembly)
+                .AddValidatorsFromAssembly(typeof(TemplateTestFactory).Assembly);
 
             services.AddScoped<EndpointRouteBuilderSpy>();
         });

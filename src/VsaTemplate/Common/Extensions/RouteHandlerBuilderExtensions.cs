@@ -7,9 +7,9 @@ public static class RouteHandlerBuilderExtensions
 {
     extension(RouteHandlerBuilder builder)
     {
-        public RouteHandlerBuilder RequireAuthorizationWithRoles(string[] roles)
+        public RouteHandlerBuilder RequireAuthorizationWithRoles(params string[] roles)
         {
-            ArgumentOutOfRangeException.ThrowIfZero(roles.Length, nameof(roles));
+            ArgumentOutOfRangeException.ThrowIfZero(roles.Length);
 
             var invalid = roles.Where(r => !Roles.IsValid(r)).ToList();
 

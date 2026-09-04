@@ -2,7 +2,7 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 
-namespace VsaTemplate.Tests.TestInfrastructure;
+namespace VsaTemplate.Tests.TestInfrastructure.WebTests;
 
 public static class HttpResponseMessageExtensions
 {

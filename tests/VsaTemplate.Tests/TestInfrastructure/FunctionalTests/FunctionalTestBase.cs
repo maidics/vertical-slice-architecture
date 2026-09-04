@@ -9,10 +9,22 @@ public abstract class FunctionalTestBase
     [ClassDataSource<FunctionalTestFixture>(Shared = SharedType.PerTestSession)]
     public required FunctionalTestFixture Fixture { get; init; }
 
+    protected IServiceScope _scope = null!;
+
     [Before(Test)]
-    public async Task ResetAsync() => await Fixture.ResetAsync();
+    public async Task ResetAsync()
+    {
+        await Fixture.ResetAsync();
+
+        _scope = Fixture.ScopeFactory.CreateScope();
+    }
+
+    [After(Test)]
+    public void CleanUp()
+    {
+        _scope?.Dispose();
+    }
 
     protected TService GetRequiredService<TService>()
-        where TService : notnull =>
-        Fixture.ServiceScope.ServiceProvider.GetRequiredService<TService>();
+        where TService : notnull => _scope.ServiceProvider.GetRequiredService<TService>();
 }

@@ -1,8 +1,8 @@
 ﻿using System.Net;
 using Microsoft.EntityFrameworkCore;
+using VsaTemplate.Domain.Constants;
 using VsaTemplate.Domain.Entities;
 using VsaTemplate.Features.Examples;
-using VsaTemplate.Tests.TestInfrastructure;
 using VsaTemplate.Tests.TestInfrastructure.WebTests;
 
 namespace VsaTemplate.Tests.Features.Examples.Delete;
@@ -24,9 +24,42 @@ public sealed class DeleteExampleEndpointTests : EndpointTestBase<DeleteExampleE
     }
 
     [Test]
-    public async Task ShouldReturnNotFoundIfExampleNotExists()
+    public override void MapMethodShouldMapEndpointWithAttributes()
+    {
+        var spy = CreateEndpointRouteBuilderSpy();
+
+        DeleteExampleEndpoint.Map(spy);
+
+        var endpoints = spy.GetEndpoints();
+        endpoints.Count.ShouldBe(1);
+
+        var metadata = endpoints[0].Metadata;
+        metadata.ShouldHaveEndpointName("DeleteExample");
+        metadata.ShouldHaveOneAuthMetadataWithRoles(Roles.Administrator);
+    }
+
+    [Test]
+    public async Task ShouldReturnUnauthorizedWhenAnonymous()
     {
         using var client = CreateHttpClient();
+
+        var response = await client.DeleteAsync(Endpoint + $"/{Guid.Empty}");
+        response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
+    }
+
+    [Test]
+    public async Task ShouldReturnForbiddenIfUserDoesNotHaveRequiredRole()
+    {
+        using var client = await LogInAsync(Roles.User);
+
+        var response = await client.DeleteAsync(Endpoint + $"/{Guid.Empty}");
+        response.StatusCode.ShouldBe(HttpStatusCode.Forbidden);
+    }
+
+    [Test]
+    public async Task ShouldReturnNotFoundIfExampleNotExists()
+    {
+        using var client = await LogInAsync(Roles.Administrator);
 
         var response = await client.DeleteAsync(Endpoint + $"/{Guid.Empty}");
         response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
@@ -42,17 +75,16 @@ public sealed class DeleteExampleEndpointTests : EndpointTestBase<DeleteExampleE
     {
         var example = new Example { Content = "test" };
 
-        await using var context = CreateDbContext();
+        await SeedAsync(example);
 
-        await context.Examples.AddAsync(example);
-        await context.SaveChangesAsync();
-
-        using var client = CreateHttpClient();
+        using var client = await LogInAsync(Roles.Administrator);
 
         var response = await client.DeleteAsync(Endpoint + $"/{example.Id}");
         response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
 
-        var deleted = await context.Examples.FirstOrDefaultAsync(e => e.Id == example.Id);
+        var deleted = await QueryAsync(c =>
+            c.Examples.FirstOrDefaultAsync(e => e.Id == example.Id)
+        );
         deleted.ShouldBeNull();
     }
 }

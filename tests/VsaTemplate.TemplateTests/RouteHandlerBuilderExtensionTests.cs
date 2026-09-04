@@ -5,6 +5,7 @@ using VsaTemplate.Common.Extensions;
 using VsaTemplate.Domain.Constants;
 using VsaTemplate.TemplateTests.Infrastructure;
 using VsaTemplate.TemplateTests.Infrastructure.Common.BaseClasses;
+using VsaTemplate.Tests.TestInfrastructure.WebTests;
 
 namespace VsaTemplate.TemplateTests;
 
@@ -38,8 +39,8 @@ public sealed class RouteHandlerBuilderExtensionTests : TestBase
     }
 
     [Test]
-    [Arguments("User")]
-    [Arguments("User", "Administrator")]
+    [Arguments(Roles.User)]
+    [Arguments(Roles.User, Roles.Administrator)]
     public void RequireAuthorizationWithRolesShouldApplyAuthorizationAttributeWithGivenValidRoles(
         params string[] roles
     )

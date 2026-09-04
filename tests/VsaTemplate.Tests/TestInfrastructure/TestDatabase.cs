@@ -1,8 +1,9 @@
 using System.Data.Common;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Respawn;
-using VsaTemplate.Infrastructure.Database;
+using VsaTemplate.Domain.Constants;
 
 namespace VsaTemplate.Tests.TestInfrastructure;
 
@@ -20,13 +21,6 @@ public sealed class TestDatabase : IAsyncDisposable
 
     public static async Task<TestDatabase> CreateAsync(string connectionString)
     {
-        var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseSqlite(connectionString)
-            .Options;
-
-        await using (var context = new ApplicationDbContext(options))
-            await context.Database.EnsureCreatedAsync();
-
         var connection = new SqliteConnection(connectionString);
 
         await connection.OpenAsync();
@@ -36,6 +30,21 @@ public sealed class TestDatabase : IAsyncDisposable
         );
         await connection.CloseAsync();
         return new TestDatabase(connection, respawner);
+    }
+
+    public async Task SeedRolesAsync(IServiceProvider serviceProvider)
+    {
+        var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
+
+        foreach (var role in Roles.All)
+        {
+            var result = await roleManager.CreateAsync(new IdentityRole<Guid>(role));
+
+            if (!result.Succeeded)
+                throw new InvalidOperationException(
+                    $"Failed to seed role: {string.Join(", ", result.Errors.Select(e => e.Description))}."
+                );
+        }
     }
 
     public async Task ResetAsync()

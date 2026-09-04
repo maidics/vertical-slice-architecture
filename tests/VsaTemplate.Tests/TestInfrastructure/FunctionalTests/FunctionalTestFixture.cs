@@ -1,71 +1,9 @@
-﻿using Aspire.Hosting;
-using Aspire.Hosting.Testing;
-using Microsoft.Extensions.DependencyInjection;
-using Projects;
-using TUnit.Core.Interfaces;
-using VsaTemplate.Shared;
+﻿namespace VsaTemplate.Tests.TestInfrastructure.FunctionalTests;
 
-namespace VsaTemplate.Tests.TestInfrastructure.FunctionalTests;
-
-public sealed class FunctionalTestFixture : IAsyncInitializer, IAsyncDisposable
+public sealed class FunctionalTestFixture : TestFixtureBase<FunctionalTestWebApplicationFactory>
 {
-    private DistributedApplication? _app;
-    private FunctionalTestWebApplicationFactory? _factory;
-
-    private IServiceScopeFactory _scopeFactory = null!;
-
-    private TestDatabase? _database;
-    public IServiceScope ServiceScope { get; private set; } = null!;
-
-    public async Task InitializeAsync()
+    protected override FunctionalTestWebApplicationFactory CreateFactory(string connectionString)
     {
-        var cts = new CancellationTokenSource(TimeSpan.FromSeconds(60));
-
-        var builder =
-            await DistributedApplicationTestingBuilder.CreateAsync<VsaTemplate_TestAppHost>(
-                args: [],
-                configureBuilder: (options, settings) =>
-                {
-                    options.DisableDashboard = true;
-                    settings.EnvironmentName = TestingEnvironments.Functional;
-                },
-                cts.Token
-            );
-
-        builder.Configuration["ASPIRE_ALLOW_UNSECURED_TRANSPORT"] = "true";
-
-        _app = await builder.BuildAsync(cts.Token).WaitAsync(cts.Token);
-
-        await _app.StartAsync(cts.Token).WaitAsync(cts.Token);
-
-        await _app.ResourceNotifications.WaitForResourceHealthyAsync(Services.Database, cts.Token);
-
-        var connectionString = await _app.GetConnectionStringAsync(Services.Database, cts.Token);
-        ArgumentNullException.ThrowIfNull(connectionString);
-
-        _factory = new FunctionalTestWebApplicationFactory(connectionString);
-        _scopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
-        _database = await TestDatabase.CreateAsync(connectionString);
-    }
-
-    public async ValueTask DisposeAsync()
-    {
-        if (_database is not null)
-            await _database.DisposeAsync();
-        if (_app is not null)
-            await _app.DisposeAsync();
-        if (_factory is not null)
-            await _factory.DisposeAsync();
-
-        ServiceScope?.Dispose();
-    }
-
-    public async Task ResetAsync()
-    {
-        if (_database is not null)
-            await _database.ResetAsync();
-
-        ServiceScope?.Dispose();
-        ServiceScope = _scopeFactory.CreateScope();
+        return new FunctionalTestWebApplicationFactory(connectionString);
     }
 }
