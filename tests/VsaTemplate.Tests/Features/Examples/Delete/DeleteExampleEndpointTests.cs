@@ -49,7 +49,7 @@ public sealed class DeleteExampleEndpointTests : EndpointTestBase<DeleteExampleE
     }
 
     [Test]
-    public async Task ShouldReturnForbiddenForUserRole()
+    public async Task ShouldReturnForbiddenIfUserDoesNotHaveRequiredRole()
     {
         using var client = await LogInAsync(Roles.User);
 
