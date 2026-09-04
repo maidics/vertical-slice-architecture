@@ -14,11 +14,9 @@ public sealed class WebTestApplicationFactory(string connectionString)
 
         builder.UseSetting("ConnectionStrings:VsaTemplateDb", connectionString);
 
-        /*
         builder.ConfigureServices(services =>
         {
             services.Configure<PasswordHasherOptions>(o => o.IterationCount = 1);
         });
-        */
     }
 }
