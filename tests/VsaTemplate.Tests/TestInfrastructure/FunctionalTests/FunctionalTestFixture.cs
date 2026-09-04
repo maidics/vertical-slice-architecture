@@ -13,10 +13,8 @@ public sealed class FunctionalTestFixture : IAsyncInitializer, IAsyncDisposable
     private DistributedApplication? _app;
     private FunctionalTestWebApplicationFactory? _factory;
 
-    private IServiceScopeFactory _scopeFactory = null!;
-
+    public IServiceScopeFactory ScopeFactory = null!;
     private TestDatabase? _database;
-    public IServiceScope ServiceScope { get; private set; } = null!;
 
     public async Task InitializeAsync()
     {
@@ -44,9 +42,9 @@ public sealed class FunctionalTestFixture : IAsyncInitializer, IAsyncDisposable
         ArgumentNullException.ThrowIfNull(connectionString);
 
         _factory = new FunctionalTestWebApplicationFactory(connectionString);
-        _scopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
+        ScopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
 
-        using var scope = _scopeFactory.CreateScope();
+        using var scope = ScopeFactory.CreateScope();
 
         var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
         await context.Database.EnsureCreatedAsync(CancellationToken.None);
@@ -62,8 +60,6 @@ public sealed class FunctionalTestFixture : IAsyncInitializer, IAsyncDisposable
             await _database.DisposeAsync();
         if (_app is not null)
             await _app.DisposeAsync();
-
-        ServiceScope?.Dispose();
     }
 
     public async Task ResetAsync()
@@ -71,8 +67,5 @@ public sealed class FunctionalTestFixture : IAsyncInitializer, IAsyncDisposable
         ArgumentNullException.ThrowIfNull(_database);
 
         await _database.ResetAsync();
-
-        ServiceScope?.Dispose();
-        ServiceScope = _scopeFactory.CreateScope();
     }
 }
