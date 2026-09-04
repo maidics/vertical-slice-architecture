@@ -20,13 +20,6 @@ public sealed class TestDatabase : IAsyncDisposable
 
     public static async Task<TestDatabase> CreateAsync(string connectionString)
     {
-        var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-            .UseSqlite(connectionString)
-            .Options;
-
-        await using (var context = new ApplicationDbContext(options))
-            await context.Database.EnsureCreatedAsync();
-
         var connection = new SqliteConnection(connectionString);
 
         await connection.OpenAsync();

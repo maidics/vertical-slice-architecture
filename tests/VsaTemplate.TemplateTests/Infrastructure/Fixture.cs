@@ -3,6 +3,7 @@ using Aspire.Hosting.Testing;
 using Microsoft.Extensions.DependencyInjection;
 using Projects;
 using TUnit.Core.Interfaces;
+using VsaTemplate.Infrastructure.Database;
 using VsaTemplate.Shared;
 
 namespace VsaTemplate.TemplateTests.Infrastructure;
@@ -42,6 +43,11 @@ public sealed class Fixture : IAsyncInitializer, IAsyncDisposable
 
         _factory = new WebApiFactory(connectionString);
         ScopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
+
+        using var scope = ScopeFactory.CreateScope();
+        var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        await context.Database.EnsureCreatedAsync(CancellationToken.None);
+
         _database = await TestDatabase.CreateAsync(connectionString);
     }
 
