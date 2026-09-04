@@ -135,10 +135,11 @@ Tests are organized into a structure that reflects the [main ASP.NET project](./
 **[`Common`](./tests/VsaTemplate.Tests/Common) folder**
 - Unit tests for base, constants classes, extensions and more in the [main ASP.NET project's `Common` folder](./src/VsaTemplate/Common).
 
+**[`Domain`](./src/VsaTemplate)**
+- Unit tests for base classes, constants, entities
+- Also includes IDomainEvent & IDomainEventHandler implementations for structural simplicity
+
 **[`Features`](./tests/VsaTemplate.Tests/Features) folder**
-- Holds tests for everything inside the [main ASP.NET project's `Features` folder](./src/VsaTemplate/Features):
-  - Entities
-  - EF Core entity configurations. Instantiate the unit test helper for assertions: [`EntityConfigurationFixture`](./tests/VsaTemplate.Tests/TestInfrastructure/UnitTests)
   - `AbstractValidator` classes
   - **[`IRequest`](./src/VsaTemplate/Common/Interfaces/IRequest.cs)** and **[`IDomainEvent`](./src/VsaTemplate/Common/Interfaces/IDomainEvent.cs) implementations and their handlers**. You can use the [`FunctionalTestBase`](./tests/VsaTemplate.Tests/TestInfrastructure/FunctionalTests/FunctionalTestBase.cs) class:
     - Marked with `NotInParallel` attribute due to shared db instance

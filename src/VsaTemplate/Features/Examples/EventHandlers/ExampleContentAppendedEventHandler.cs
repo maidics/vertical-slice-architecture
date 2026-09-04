@@ -1,10 +1,9 @@
-using VsaTemplate.Common.Interfaces;
+﻿using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Domain.Entities;
+using VsaTemplate.Domain.Events;
 using VsaTemplate.Infrastructure.Database;
 
-namespace VsaTemplate.Domain.Events;
-
-public sealed record ExampleContentAppendedEvent(Guid ExampleId) : IDomainEvent;
+namespace VsaTemplate.Features.Examples.EventHandlers;
 
 public sealed class ExampleContentAppendedEventHandler
     : IDomainEventHandler<ExampleContentAppendedEvent>

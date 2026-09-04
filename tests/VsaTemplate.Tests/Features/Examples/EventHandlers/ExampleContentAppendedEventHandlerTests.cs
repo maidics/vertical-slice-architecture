@@ -8,7 +8,7 @@ using VsaTemplate.Infrastructure.Database;
 using VsaTemplate.Tests.TestInfrastructure;
 using VsaTemplate.Tests.TestInfrastructure.FunctionalTests;
 
-namespace VsaTemplate.Tests.Domain.Events;
+namespace VsaTemplate.Tests.Features.Examples.EventHandlers;
 
 public sealed class ExampleContentAppendedEventHandlerTests : FunctionalTestBase
 {
