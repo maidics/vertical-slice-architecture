@@ -5,6 +5,7 @@ using VsaTemplate.Common.Extensions;
 using VsaTemplate.TemplateTests.Infrastructure;
 using VsaTemplate.TemplateTests.Infrastructure.Common;
 using VsaTemplate.TemplateTests.Infrastructure.Common.BaseClasses;
+using VsaTemplate.Tests.TestInfrastructure.WebTests;
 
 namespace VsaTemplate.TemplateTests;
 

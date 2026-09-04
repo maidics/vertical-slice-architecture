@@ -8,6 +8,7 @@ using VsaTemplate.Common.Extensions;
 using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Common.Services;
 using VsaTemplate.Tests.TestInfrastructure;
+using VsaTemplate.Tests.TestInfrastructure.WebTests;
 
 namespace VsaTemplate.TemplateTests.Infrastructure;
 
