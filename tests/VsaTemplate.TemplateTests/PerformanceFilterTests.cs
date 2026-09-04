@@ -3,7 +3,6 @@ using Microsoft.Extensions.Logging;
 using Shouldly;
 using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Common.Pipeline;
-using VsaTemplate.TemplateTests.Infrastructure;
 using VsaTemplate.TemplateTests.Infrastructure.Common;
 using VsaTemplate.TemplateTests.Infrastructure.Common.BaseClasses;
 using VsaTemplate.Tests.TestInfrastructure;
