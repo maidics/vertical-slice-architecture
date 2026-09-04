@@ -93,7 +93,12 @@ public abstract class EndpointTestBase<TEndpoint>
     {
         await Fixture.ResetAsync();
 
-        Scope?.Dispose();
         Scope = Fixture.ScopeFactory.CreateScope();
+    }
+
+    [After(Test)]
+    public async Task CleanUpAsync()
+    {
+        Scope?.Dispose();
     }
 }
