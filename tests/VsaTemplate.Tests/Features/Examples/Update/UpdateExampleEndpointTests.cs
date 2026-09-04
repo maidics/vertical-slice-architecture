@@ -74,7 +74,9 @@ public sealed class UpdateExampleEndpointTests : EndpointTestBase<UpdateExampleE
         var validationProblem = await response.GetValidationProblemDetailsAsync();
         validationProblem.ShouldNotBeNull();
         validationProblem.Errors.Count.ShouldBe(1);
-        validationProblem.Errors.TryGetValue($"{nameof(Example.Content)}", out var errors);
+        validationProblem
+            .Errors.TryGetValue($"{nameof(Example.Content)}", out var errors)
+            .ShouldBeTrue();
 
         errors.ShouldNotBeNull();
         errors.Length.ShouldBe(1);
