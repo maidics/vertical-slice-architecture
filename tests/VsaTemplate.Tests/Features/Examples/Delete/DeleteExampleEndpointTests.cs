@@ -40,7 +40,7 @@ public sealed class DeleteExampleEndpointTests : EndpointTestBase<DeleteExampleE
     }
 
     [Test]
-    public async Task ShouldReturnAuthorizedWhenAnonymous()
+    public async Task ShouldReturnUnauthorizedWhenAnonymous()
     {
         using var client = CreateHttpClient();
 

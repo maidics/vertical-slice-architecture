@@ -132,7 +132,7 @@ public sealed class AppendExampleContentEndpointTests
     [Arguments(Roles.User)]
     [Arguments(Roles.Administrator)]
     [Arguments(Roles.User, Roles.Administrator)]
-    public async Task ShouldReturnNoContentAndIdIfContentHasBeenAppended(params string[] roles)
+    public async Task ShouldReturnNoContentIfContentHasBeenAppended(params string[] roles)
     {
         var example = new Example { Content = "test" };
 
