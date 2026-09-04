@@ -13,7 +13,7 @@ public sealed class FunctionalTestFixture : IAsyncInitializer, IAsyncDisposable
     private DistributedApplication? _app;
     private FunctionalTestWebApplicationFactory? _factory;
 
-    public IServiceScopeFactory ScopeFactory = null!;
+    public IServiceScopeFactory ScopeFactory { get; private set; } = null!;
     private TestDatabase? _database;
 
     public async Task InitializeAsync()
