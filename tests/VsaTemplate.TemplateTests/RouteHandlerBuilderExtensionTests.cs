@@ -38,8 +38,8 @@ public sealed class RouteHandlerBuilderExtensionTests : TestBase
     }
 
     [Test]
-    [Arguments("User")]
-    [Arguments("User", "Administrator")]
+    [Arguments(Roles.User)]
+    [Arguments(Roles.User, Roles.Administrator)]
     public void RequireAuthorizationWithRolesShouldApplyAuthorizationAttributeWithGivenValidRoles(
         params string[] roles
     )
