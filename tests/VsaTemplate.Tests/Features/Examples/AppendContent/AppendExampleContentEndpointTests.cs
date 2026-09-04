@@ -74,6 +74,7 @@ public sealed class AppendExampleContentEndpointTests
 
         var validationProblem = await response.GetValidationProblemDetailsAsync();
         validationProblem.ShouldNotBeNull();
+        validationProblem.Errors.Count.ShouldBe(1);
         validationProblem
             .Errors.TryGetValue(
                 nameof(AppendExampleContentCommand.AdditionalContent),
