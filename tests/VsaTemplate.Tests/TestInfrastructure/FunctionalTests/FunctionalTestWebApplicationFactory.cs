@@ -14,7 +14,7 @@ public class FunctionalTestWebApplicationFactory(string connectionString)
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
-        builder.UseEnvironment(TestingEnvironments.Functional);
+        builder.UseEnvironment("Testing");
 
         builder.UseSetting("ConnectionStrings:VsaTemplateDb", connectionString);
 

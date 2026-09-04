@@ -16,8 +16,4 @@
     <PackageReference Include="OpenTelemetry.Instrumentation.Http" />
     <PackageReference Include="OpenTelemetry.Instrumentation.Runtime" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\VsaTemplate.Shared\VsaTemplate.Shared.csproj" />
-  </ItemGroup>
 </Project>

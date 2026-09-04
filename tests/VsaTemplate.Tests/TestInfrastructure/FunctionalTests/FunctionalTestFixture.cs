@@ -25,10 +25,9 @@ public sealed class FunctionalTestFixture : IAsyncInitializer, IAsyncDisposable
         var builder =
             await DistributedApplicationTestingBuilder.CreateAsync<VsaTemplate_TestAppHost>(
                 args: [],
-                configureBuilder: (options, settings) =>
+                configureBuilder: (options, _) =>
                 {
                     options.DisableDashboard = true;
-                    settings.EnvironmentName = TestingEnvironments.Functional;
                 },
                 cts.Token
             );
