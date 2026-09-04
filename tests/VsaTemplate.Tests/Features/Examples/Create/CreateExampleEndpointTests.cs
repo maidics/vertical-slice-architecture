@@ -52,6 +52,17 @@ public sealed class CreateExampleEndpointTests : EndpointTestBase<CreateExampleE
     }
 
     [Test]
+    public async Task ShouldReturnForbiddenIfUserDoesNotHaveRequiredRole()
+    {
+        var command = new CreateExampleCommand(string.Empty);
+
+        using var client = await LogInAsync();
+
+        var response = await client.PostAsJsonAsync(Endpoint, command);
+        response.StatusCode.ShouldBe(HttpStatusCode.Forbidden);
+    }
+
+    [Test]
     public async Task ShouldReturnBadRequestIfContentIsEmpty()
     {
         var command = new CreateExampleCommand(string.Empty);

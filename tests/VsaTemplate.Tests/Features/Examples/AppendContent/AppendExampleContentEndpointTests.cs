@@ -55,6 +55,17 @@ public sealed class AppendExampleContentEndpointTests
     }
 
     [Test]
+    public async Task ShouldReturnForbiddenIfUserDoesNotHaveRequiredRole()
+    {
+        var command = new AppendExampleContentCommand(Guid.Empty, string.Empty);
+
+        using var client = await LogInAsync();
+
+        var response = await client.PatchAsJsonAsync(Endpoint, command);
+        response.StatusCode.ShouldBe(HttpStatusCode.Forbidden);
+    }
+
+    [Test]
     public async Task ShouldReturnNotFoundIfExampleDoesNotExist()
     {
         var command = new AppendExampleContentCommand(Guid.Empty, "test");

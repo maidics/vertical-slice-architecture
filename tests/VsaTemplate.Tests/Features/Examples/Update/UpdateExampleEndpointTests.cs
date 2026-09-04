@@ -43,13 +43,23 @@ public sealed class UpdateExampleEndpointTests : EndpointTestBase<UpdateExampleE
     [Test]
     public async Task ShouldReturnUnauthorizedWhenAnonymous()
     {
-        var command = new UpdateExampleCommand(Guid.Empty, "test");
+        var command = new UpdateExampleCommand(Guid.Empty, string.Empty);
 
         using var client = CreateHttpClient();
 
         var response = await client.PutAsJsonAsync(Endpoint, command);
-
         response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
+    }
+
+    [Test]
+    public async Task ShouldReturnForbiddenIfUserDoesNotHaveRequiredRole()
+    {
+        var command = new UpdateExampleCommand(Guid.Empty, string.Empty);
+
+        using var client = await LogInAsync();
+
+        var response = await client.PutAsJsonAsync(Endpoint, command);
+        response.StatusCode.ShouldBe(HttpStatusCode.Forbidden);
     }
 
     [Test]
