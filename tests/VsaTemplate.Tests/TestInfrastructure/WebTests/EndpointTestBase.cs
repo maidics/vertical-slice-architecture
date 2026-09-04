@@ -16,9 +16,10 @@ public abstract class EndpointTestBase<TEndpoint>
     [ClassDataSource<WebTestFixture>(Shared = SharedType.PerTestSession)]
     public required WebTestFixture Fixture { get; init; }
 
-    protected IServiceScope Scope = null!;
+    protected IServiceScope _scope = null!;
 
-    protected EndpointRouteBuilderSpy CreateEndpointRouteBuilderSpy() => new(Scope.ServiceProvider);
+    protected EndpointRouteBuilderSpy CreateEndpointRouteBuilderSpy() =>
+        new(_scope.ServiceProvider);
 
     protected HttpClient CreateHttpClient() => Fixture.CreateHttpClient();
 
@@ -78,7 +79,7 @@ public abstract class EndpointTestBase<TEndpoint>
     }
 
     protected TService GetRequiredService<TService>()
-        where TService : notnull => Scope.ServiceProvider.GetRequiredService<TService>();
+        where TService : notnull => _scope.ServiceProvider.GetRequiredService<TService>();
 
     protected static string Prefix => TEndpoint.Prefix;
     protected static string[] Tags => TEndpoint.Tags;
@@ -93,12 +94,12 @@ public abstract class EndpointTestBase<TEndpoint>
     {
         await Fixture.ResetAsync();
 
-        Scope = Fixture.ScopeFactory.CreateScope();
+        _scope = Fixture.ScopeFactory.CreateScope();
     }
 
     [After(Test)]
     public void CleanUpAsync()
     {
-        Scope?.Dispose();
+        _scope?.Dispose();
     }
 }
