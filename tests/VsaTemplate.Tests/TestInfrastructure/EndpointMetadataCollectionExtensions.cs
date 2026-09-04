@@ -34,7 +34,12 @@ public static class EndpointMetadataCollectionExtensions
 
             var auth = metadata.GetOrderedMetadata<IAuthorizeData>();
             auth.Count.ShouldBe(1);
-            auth[0].Roles.ShouldBe(string.Join(",", roles));
+            auth[0].Roles.ShouldNotBeNull();
+
+            var applied = auth[0]
+                .Roles!.Split(",", StringSplitOptions.RemoveEmptyEntries)
+                .ToHashSet();
+            applied.ShouldBeEquivalentTo(roles.ToHashSet());
         }
     }
 }
