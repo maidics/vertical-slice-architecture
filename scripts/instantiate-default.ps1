@@ -1,0 +1,1 @@
+dotnet new vsa-sln -n Scratch -o ./scratch
