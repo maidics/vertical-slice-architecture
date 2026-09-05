@@ -45,10 +45,11 @@ Domain/
 ├── Constants/
 ├── Entities/
 └── Events/
-    └── ExampleContentAppended.cs # Contains: IDomainEvent & IDomainEvent
+    └── ExampleContentAppended.cs # Contains: IDomainEvents
 
 Features/
 └── Examples/
+    ├── EventHandlers/ ExampleContentAppendedEventHandler.cs # IDomainEventHandlers
     ├── AppendExampleContent.cs # Contains: IRequest, AbstractValidator, IRequestHandler, IEndpoint
     ├── CreateExample.cs
     ├── DeleteExample.cs
@@ -59,7 +60,7 @@ Features/
 
 Infrastructure/ # External dependencies
 ├── Database/
-├── Identity/
+└── Identity/
 
 ```
 
