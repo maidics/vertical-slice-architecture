@@ -15,7 +15,6 @@
 
   <ItemGroup>
     <Folder Include="Features" />
-    <Folder Include="Domain\Entities\" />
     <Folder Include="Infrastructure\Database\Configurations" />
   </ItemGroup>
 
