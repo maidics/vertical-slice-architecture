@@ -49,7 +49,7 @@ public sealed class PerformanceFilterTests : TestBase
 
         async ValueTask<object?> Next(EndpointFilterInvocationContext _)
         {
-            await Task.Delay(TimeSpan.FromMilliseconds(501));
+            await Task.Delay(TimeSpan.FromMilliseconds(600));
             return expectedResult;
         }
 
