@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using VsaTemplate.Common.Extensions;
 using VsaTemplate.Common.Interfaces;
-using VsaTemplate.Common.Services;
 using VsaTemplate.Tests.TestInfrastructure;
 using VsaTemplate.Tests.TestInfrastructure.WebTests;
 
@@ -36,19 +35,9 @@ public sealed class TemplateTestFactory(string connectionString)
             );
 
             services
-                .RemoveAll<IDomainEventDispatcher>()
-                .AddScoped<DomainEventDispatcher>()
-                .AddScoped<DomainEventDispatcherSpy>()
-                .AddScoped<IDomainEventDispatcher>(sp =>
-                    sp.GetRequiredService<DomainEventDispatcherSpy>()
-                );
-
-            services
                 .RemoveAll<IRequestHandler>()
-                .RemoveAll<IDomainEventHandler<IDomainEvent>>()
                 .RemoveAll<IValidator<IRequest>>()
                 .AddRequestHandlers(typeof(TemplateTestFactory).Assembly)
-                .AddDomainEventHandlers(typeof(TemplateTestFactory).Assembly)
                 .AddValidatorsFromAssembly(typeof(TemplateTestFactory).Assembly);
 
             services.AddScoped<EndpointRouteBuilderSpy>();

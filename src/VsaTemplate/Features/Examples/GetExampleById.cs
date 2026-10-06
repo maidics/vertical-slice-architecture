@@ -24,7 +24,7 @@ public sealed class GetExampleByIdQueryHandler : IRequestHandler
         var example = await _context
             .Examples.AsNoTracking()
             .Where(x => x.Id == exampleId)
-            .Select(x => new ExampleDto(x.Id, x.Content, x.HasAppendedContent))
+            .Select(x => new ExampleDto(x.Id, x.Content))
             .FirstOrDefaultAsync(cancellationToken);
 
         if (example is null)
