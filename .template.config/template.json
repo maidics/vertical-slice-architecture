@@ -41,10 +41,7 @@
           "exclude": [
             "**/Examples/**",
             "**/Example.cs",
-            "**/ExampleContentAppended.cs",
             "**/ExampleConfiguration.cs",
-            "**/ExampleTests.cs",
-            "**/ExampleContentAppendedEventHandlerTests.cs",
             "**/ExampleConfigurationTests.cs"
           ]
         }
