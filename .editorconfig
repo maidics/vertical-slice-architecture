@@ -132,6 +132,8 @@ csharp_style_unused_value_expression_statement_preference = discard_variable:err
 # 'using' directive preferences
 csharp_using_directive_placement = outside_namespace:silent
 
+dotnet_diagnostic.CA2000.severity = suggestion # dispose must be called
+
 #### C# Formatting Rules ####
 
 # New line preferences
