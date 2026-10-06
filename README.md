@@ -62,7 +62,7 @@ Infrastructure/ # External dependencies
 
 ---
 
-## Featues
+## Features
 - **Target Framework**: [.NET SDK 10.0.400](https://dotnet.microsoft.com/en-us/download/dotnet/10.0)
 - **No [MediatR](https://github.com/LuckyPennySoftware/MediatR) dependency**: Uses lightweight reflection at application startup to automatically discover and register [`IRequestHandler`](./src/VsaTemplate/Common/Interfaces/IRequestHandler.cs) services.
 - **Native Pipeline Filters**: Because MediatR was removed, `PipelineBehavior` has been replaced with native `IEndpointFilter` implementations.
@@ -125,7 +125,7 @@ Tests are organized into a structure that reflects the [main ASP.NET project](./
 **[`Common`](./tests/VsaTemplate.Tests/Common) folder**
 - Unit tests for base, constants classes, extensions and more in the [main ASP.NET project's `Common` folder](./src/VsaTemplate/Common).
 
-**[`Domain`](./src/VsaTemplate)**
+**[`Domain`](./tests/VsaTemplate.Tests/Domain)**
 - Unit tests for base classes, constants, entities
 
 **[`Features`](./tests/VsaTemplate.Tests/Features) folder**
