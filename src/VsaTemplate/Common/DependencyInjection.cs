@@ -9,9 +9,8 @@ public static class DependencyInjection
     {
         public WebApplicationBuilder AddCommonServices()
         {
-            var assembly = typeof(Program).Assembly;
-            builder.Services.AddRequestHandlers(assembly);
-            builder.Services.AddDomainEventHandlers(assembly);
+            builder.Services.AddRequestHandlers(typeof(Program).Assembly);
+
             builder.Services.AddExceptionHandler<ProblemDetailsExceptionHandler>();
 
             return builder;

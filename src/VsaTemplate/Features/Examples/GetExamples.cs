@@ -18,7 +18,7 @@ public sealed class GetExamplesQueryHandler : IRequestHandler
     {
         return await _context
             .Examples.AsNoTracking()
-            .Select(x => new ExampleDto(x.Id, x.Content, x.HasAppendedContent))
+            .Select(x => new ExampleDto(x.Id, x.Content))
             .ToListAsync(cancellationToken);
     }
 }

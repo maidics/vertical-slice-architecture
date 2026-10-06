@@ -23,27 +23,5 @@ public static class ServiceCollectionExtensions
 
             return services;
         }
-
-        public IServiceCollection AddDomainEventHandlers(Assembly assembly)
-        {
-            var handlers = assembly
-                .GetTypes()
-                .Where(t => t is { IsClass: true, IsAbstract: false })
-                .SelectMany(
-                    t => t.GetInterfaces(),
-                    (implementation, @interface) => new { implementation, @interface }
-                )
-                .Where(x =>
-                    x.@interface.IsGenericType
-                    && x.@interface.GetGenericTypeDefinition() == typeof(IDomainEventHandler<>)
-                );
-
-            foreach (var match in handlers)
-            {
-                services.AddTransient(match.@interface, match.implementation);
-            }
-
-            return services;
-        }
     }
 }

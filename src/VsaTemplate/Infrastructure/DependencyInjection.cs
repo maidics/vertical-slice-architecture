@@ -3,7 +3,6 @@ using FluentValidation;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using VsaTemplate.Common.Interfaces;
-using VsaTemplate.Common.Services;
 using VsaTemplate.Infrastructure.Database;
 using VsaTemplate.Infrastructure.Database.Interceptors;
 using VsaTemplate.Infrastructure.Identity;
@@ -42,10 +41,8 @@ public static class DependencyInjection
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             builder.Services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
-            builder.Services.AddScoped<ISaveChangesInterceptor, DispatchDomainEventInterceptor>();
 
             // Other services
-            builder.Services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
             builder.Services.AddScoped<IUser, CurrentUser>();
             builder.Services.AddSingleton(TimeProvider.System);
 

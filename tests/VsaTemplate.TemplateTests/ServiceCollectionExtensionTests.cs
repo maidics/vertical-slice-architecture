@@ -18,15 +18,4 @@ public sealed class ServiceCollectionExtensionTests
         var handler = serviceProvider.GetService<TestRequestHandler>();
         handler.ShouldNotBeNull();
     }
-
-    [Test]
-    public void AddDomainEventHandlersShouldRegisterDomainEventHandlers()
-    {
-        var services = new ServiceCollection();
-        services.AddDomainEventHandlers(typeof(ServiceCollectionExtensionTests).Assembly);
-        var serviceProvider = services.BuildServiceProvider();
-
-        var handler = serviceProvider.GetService<IDomainEventHandler<TestDomainEvent>>();
-        handler.ShouldNotBeNull();
-    }
 }

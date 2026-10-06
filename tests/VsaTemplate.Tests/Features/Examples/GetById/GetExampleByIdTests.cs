@@ -33,6 +33,6 @@ public sealed class GetExampleByIdTests : FunctionalTestBase
         var result = await handler.Handle(example.Id, CancellationToken.None);
 
         result.ShouldBeSuccessful();
-        result.Value.ShouldBeEquivalentTo(new ExampleDto(example.Id, example.Content, false));
+        result.Value.ShouldBeEquivalentTo(new ExampleDto(example.Id, example.Content));
     }
 }
