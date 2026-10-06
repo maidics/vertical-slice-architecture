@@ -130,7 +130,7 @@ Tests are organized into a structure that reflects the [main ASP.NET project](./
 
 **[`Features`](./tests/VsaTemplate.Tests/Features) folder**
   - `AbstractValidator` classes
-  - **[`IRequest`](./src/VsaTemplate/Common/Interfaces/IRequest.cs)** implementations and their handlers**. You can use the [`FunctionalTestBase`](./tests/VsaTemplate.Tests/TestInfrastructure/FunctionalTests/FunctionalTestBase.cs) class:
+  - **[`IRequest`](./src/VsaTemplate/Common/Interfaces/IRequest.cs)** implementations and their handlers. You can use the [`FunctionalTestBase`](./tests/VsaTemplate.Tests/TestInfrastructure/FunctionalTests/FunctionalTestBase.cs) class:
     - Marked with `NotInParallel` attribute due to shared db instance
     - Instantiates [`FunctionalTestFixture`](./tests/VsaTemplate.Tests/TestInfrastructure/FunctionalTests/FunctionalTestFixture.cs) (injected via `ClassDataSource<T>`)
     - Resets the `Fixture` (resets db, creates a new `IServiceScope`)
