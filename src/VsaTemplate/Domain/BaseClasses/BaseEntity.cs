@@ -1,7 +1,3 @@
-using System.Collections.ObjectModel;
-using System.ComponentModel.DataAnnotations.Schema;
-using VsaTemplate.Common.Interfaces;
-
 namespace VsaTemplate.Domain.BaseClasses;
 
 //credit: https://github.com/jasontaylordev/CleanArchitecture
