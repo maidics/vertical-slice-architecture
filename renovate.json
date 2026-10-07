@@ -1,45 +1,16 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
-  ],
+  "extends": ["config:recommended", "group:all"],
+  "dependencyDashboard": false,
   "osvVulnerabilityAlerts": true,
   "vulnerabilityAlerts": {
-    "labels": [
-      "security"
-    ]
+    "labels": ["security"]
   },
   "packageRules": [
     {
       "description": "Minor and patch updates only, security fixes included. Keeps packages and the SDK on their current major (no net11.0 bumps).",
-      "matchUpdateTypes": [
-        "major"
-      ],
+      "matchUpdateTypes": ["major"],
       "enabled": false
-    },
-    {
-      "description": "Aspire SDK, hosting packages and CommunityToolkit.Aspire integrations must stay in sync.",
-      "matchPackageNames": [
-        "Aspire.*",
-        "CommunityToolkit.Aspire.*"
-      ],
-      "groupName": "Aspire"
-    },
-    {
-      "description": "OpenTelemetry core and contrib instrumentation packages depend on matching API versions.",
-      "matchPackageNames": [
-        "OpenTelemetry",
-        "OpenTelemetry.*"
-      ],
-      "groupName": "OpenTelemetry"
-    },
-    {
-      "description": "FluentValidation and its DI extensions are released together.",
-      "matchPackageNames": [
-        "FluentValidation",
-        "FluentValidation.*"
-      ],
-      "groupName": "FluentValidation"
     }
   ]
 }
