@@ -6,12 +6,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using VsaTemplate.Common.Extensions;
 using VsaTemplate.Common.Interfaces;
-using VsaTemplate.Tests.TestInfrastructure;
 using VsaTemplate.Tests.TestInfrastructure.WebTests;
 
-namespace VsaTemplate.TemplateTests.Infrastructure;
+namespace VsaTemplate.Tests.TestInfrastructure.TemplateTests;
 
-public sealed class TemplateTestFactory(string connectionString)
+public sealed class TemplateTestWebApplicationFactory(string connectionString)
     : TestApplicationFactoryBase(connectionString: connectionString)
 {
     protected override void ConfigureWebHost(IWebHostBuilder builder)
@@ -22,8 +21,8 @@ public sealed class TemplateTestFactory(string connectionString)
         {
             services
                 .RemoveAll<IUser>()
-                .AddScoped<TestUser>()
-                .AddScoped<IUser>(sp => sp.GetRequiredService<TestUser>());
+                .AddScoped<TemplateTestUser>()
+                .AddScoped<IUser>(sp => sp.GetRequiredService<TemplateTestUser>());
 
             services.AddDbContext<TestDbContext>(
                 (sp, options) =>
@@ -37,8 +36,8 @@ public sealed class TemplateTestFactory(string connectionString)
             services
                 .RemoveAll<IRequestHandler>()
                 .RemoveAll<IValidator<IRequest>>()
-                .AddRequestHandlers(typeof(TemplateTestFactory).Assembly)
-                .AddValidatorsFromAssembly(typeof(TemplateTestFactory).Assembly);
+                .AddRequestHandlers(typeof(TemplateTestWebApplicationFactory).Assembly)
+                .AddValidatorsFromAssembly(typeof(TemplateTestWebApplicationFactory).Assembly);
 
             services.AddScoped<EndpointRouteBuilderSpy>();
         });

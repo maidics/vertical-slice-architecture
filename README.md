@@ -16,10 +16,10 @@ dotnet new install Vertical.Slice.Architecture
 dotnet new vsa-sln -n [SolutionName]
 ```
 
-| Options               | Values      | Default | Description                               |
-|-----------------------|-------------|---------|-------------------------------------------|
-| --examples, -e        | true, false | false   | Includes example implementations and tests |
-| --template-tests, -tt | true, false | false   | Includes TemplateTest project             |
+| Options               | Values      | Default | Description                                                     |
+|-----------------------|-------------|---------|-----------------------------------------------------------------|
+| --examples, -e        | true, false | false   | Includes example implementations and tests                      |
+| --template-tests, -tt | true, false | false   | Includes [template tests](#template-tests) in the Tests project |
 
 ---
 
@@ -102,11 +102,11 @@ This solution uses **[TUnit](https://tunit.dev/)** as its testing framework for 
 
 ### Tests
 
-Unit, functional, integration and web testing merged into one project to reduce project count in the solution. This also allows to reflect the [main ASP.NET project's](./src/VsaTemplate) structure for convenience.
+Unit, functional, integration, web and template testing merged into one project to reduce project count in the solution. This also allows to reflect the [main ASP.NET project's](./src/VsaTemplate) structure for convenience.
 
 ---
 
-**[Testing infrastructure](./tests/VsaTemplate.Tests/TestInfrastructure)**: This template includes infrastructure for functional and web testing.
+**[Testing infrastructure](./tests/VsaTemplate.Tests/TestInfrastructure)**: This template includes infrastructure for functional, web and template testing.
 
 Functional test infrastructure:
 - [`FunctionalTestFixture`](./tests/VsaTemplate.Tests/TestInfrastructure/FunctionalTests/FunctionalTestFixture.cs) initializes asynchronously:
@@ -118,14 +118,23 @@ Web test infrastructure:
   - Database and web API resources via the [`TestAppHost`](./tests/VsaTemplate.TestAppHost)
   - Provides helper methods for creating `HttpClient` and [`ApplicationDbContext`](./src/VsaTemplate/Infrastructure/Database/ApplicationDbContext.cs) instances
 
+Template test infrastructure (included with the [`--template-tests`](#create-a-new-solution) option):
+- [`TemplateTestFixture`](./tests/VsaTemplate.Tests/TestInfrastructure/TemplateTests/TemplateTestFixture.cs) initializes asynchronously:
+  - Database, setup via the [`TestAppHost`](./tests/VsaTemplate.TestAppHost)
+  - [`TemplateTestWebApplicationFactory`](./tests/VsaTemplate.Tests/TestInfrastructure/TemplateTests/TemplateTestWebApplicationFactory.cs) for test doubles: [`TemplateTestUser`](./tests/VsaTemplate.Tests/TestInfrastructure/TemplateTests/TemplateTestUser.cs), an in-memory [`TestDbContext`](./tests/VsaTemplate.Tests/TestInfrastructure/TemplateTests/TestDbContext.cs), test `IRequestHandler`/`IValidator` implementations and an [`EndpointRouteBuilderSpy`](./tests/VsaTemplate.Tests/TestInfrastructure/WebTests/EndpointRouteBuilderSpy.cs)
+- [`TemplateTestBase`](./tests/VsaTemplate.Tests/TestInfrastructure/TemplateTests/TemplateTestBase.cs):
+  - Marked with `NotInParallel` attribute due to shared db instance
+  - Instantiates [`TemplateTestFixture`](./tests/VsaTemplate.Tests/TestInfrastructure/TemplateTests/TemplateTestFixture.cs) (injected via `ClassDataSource<T>`)
+  - Resets the `Fixture` (resets db, creates a new `IServiceScope`)
+
 ---
 
 Tests are organized into a structure that reflects the [main ASP.NET project](./src/VsaTemplate).
 
 **[`Common`](./tests/VsaTemplate.Tests/Common) folder**
-- Unit tests for base, constants classes, extensions and more in the [main ASP.NET project's `Common` folder](./src/VsaTemplate/Common).
+- Unit tests for extensions, models, pipeline classes and more in the [main ASP.NET project's `Common` folder](./src/VsaTemplate/Common).
 
-**[`Domain`](./tests/VsaTemplate.Tests/Domain)**
+**[`Domain`](./tests/VsaTemplate.Tests/Domain) folder**
 - Unit tests for base classes, constants, entities
 
 **[`Features`](./tests/VsaTemplate.Tests/Features) folder**
@@ -139,6 +148,9 @@ Tests are organized into a structure that reflects the [main ASP.NET project](./
     - Assert `Prefix` and `Tags` attributes
     - E2E test the endpoint itself
 
+**[`Infrastructure`](./tests/VsaTemplate.Tests/Infrastructure) folder**
+- Tests for the current user, database configurations, interceptors and more in the [main ASP.NET project's `Infrastructure` folder](./src/VsaTemplate/Infrastructure).
+
 ### Template Tests
 
 Tests the infrastructure shipped with the template such as the:
@@ -148,4 +160,6 @@ Tests the infrastructure shipped with the template such as the:
 - Extension methods
 - and more...
 
-***This project can be explicitly included when instantiating the template (see [options](#create-a-new-solution))***.
+Template tests are part of the Tests project and live next to the other tests, in the folders mirroring the tested classes (e.g. [`Common/Pipeline`](./tests/VsaTemplate.Tests/Common/Pipeline)). They use the [template test infrastructure](./tests/VsaTemplate.Tests/TestInfrastructure/TemplateTests).
+
+***Template tests can be explicitly included when instantiating the template (see [options](#create-a-new-solution))***.

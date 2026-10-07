@@ -1,12 +1,12 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace VsaTemplate.TemplateTests.Infrastructure.Common.BaseClasses;
+namespace VsaTemplate.Tests.TestInfrastructure.TemplateTests;
 
 [NotInParallel("TemplateTests")]
-public abstract class TestBase
+public abstract class TemplateTestBase
 {
-    [ClassDataSource<Fixture>(Shared = SharedType.PerTestSession)]
-    public required Fixture Fixture { get; init; }
+    [ClassDataSource<TemplateTestFixture>(Shared = SharedType.PerTestSession)]
+    public required TemplateTestFixture Fixture { get; init; }
 
     protected IServiceScope _scope = null!;
 

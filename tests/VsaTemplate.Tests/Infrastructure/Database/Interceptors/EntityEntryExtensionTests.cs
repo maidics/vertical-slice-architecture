@@ -1,12 +1,9 @@
-﻿using Shouldly;
-using VsaTemplate.Infrastructure.Database.Interceptors;
-using VsaTemplate.TemplateTests.Infrastructure;
-using VsaTemplate.TemplateTests.Infrastructure.Common;
-using VsaTemplate.TemplateTests.Infrastructure.Common.BaseClasses;
+﻿using VsaTemplate.Infrastructure.Database.Interceptors;
+using VsaTemplate.Tests.TestInfrastructure.TemplateTests;
 
-namespace VsaTemplate.TemplateTests;
+namespace VsaTemplate.Tests.Infrastructure.Database.Interceptors;
 
-public sealed class EntityEntryExtensionTests : TestBase
+public sealed class EntityEntryExtensionTests : TemplateTestBase
 {
     [Test]
     public void ShouldReturnTrueIfOwnerEntityIsAdded()

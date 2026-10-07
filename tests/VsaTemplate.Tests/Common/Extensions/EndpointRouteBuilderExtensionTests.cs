@@ -1,14 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http.Metadata;
 using Microsoft.AspNetCore.Routing;
-using Shouldly;
 using VsaTemplate.Common.Extensions;
-using VsaTemplate.TemplateTests.Infrastructure.Common;
-using VsaTemplate.TemplateTests.Infrastructure.Common.BaseClasses;
+using VsaTemplate.Tests.TestInfrastructure.TemplateTests;
 using VsaTemplate.Tests.TestInfrastructure.WebTests;
 
-namespace VsaTemplate.TemplateTests;
+namespace VsaTemplate.Tests.Common.Extensions;
 
-public sealed class EndpointRouteBuilderExtensionTests : TestBase
+public sealed class EndpointRouteBuilderExtensionTests : TemplateTestBase
 {
     [Test]
     public void MapMethodsShouldThrowIsDelegateIsAnonymous()

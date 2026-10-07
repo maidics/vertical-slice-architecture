@@ -1,8 +1,7 @@
-﻿using Shouldly;
-using VsaTemplate.Common.Models;
-using VsaTemplate.TemplateTests.Infrastructure.Common.Extensions;
+﻿using VsaTemplate.Common.Models;
+using VsaTemplate.Tests.TestInfrastructure;
 
-namespace VsaTemplate.TemplateTests;
+namespace VsaTemplate.Tests.Common.Models;
 
 public sealed class ResultTests
 {
