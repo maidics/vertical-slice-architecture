@@ -22,7 +22,7 @@ Do not bump template version in [`nuspec.csproj`](nuspec.csproj) unless asked to
 ## Git workflow
 
 - Use conventional naming when it comes to commits and branches; only add a commit body for non trivial cases.
-- This is not a must, but try to keep commits atomic (no mixing of feat, fix, chore changes inside commits) - this improves readability of your feature branch.
+- This is not a must, but try to keep commits atomic (e.g. no mixing of feat, fix, chore changes inside commits) - this improves readability of your feature branch.
 - Never use the Claude Code Web default branch: `claude/`, create a new branch for your changes.
 - Use a feature branch and a ready-for-review PR by default. Create drafts only when requested.
 - Trivial documentation and typo changes may go directly into main.
