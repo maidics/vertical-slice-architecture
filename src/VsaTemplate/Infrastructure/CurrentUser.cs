@@ -1,4 +1,3 @@
-using System.Collections.Frozen;
 using System.Security.Claims;
 using VsaTemplate.Common.Exceptions;
 using VsaTemplate.Common.Interfaces;
@@ -17,8 +16,8 @@ public sealed class CurrentUser : IUser
 
     public Guid? Id => ParseNameIdentifier(Principal?.FindFirstValue(ClaimTypes.NameIdentifier));
 
-    public FrozenSet<string> Roles =>
-        Principal?.FindAll(ClaimTypes.Role).Select(x => x.Value).ToFrozenSet() ?? [];
+    public IReadOnlyList<string> Roles =>
+        Principal?.FindAll(ClaimTypes.Role).Select(x => x.Value).ToList() ?? [];
 
     private ClaimsPrincipal? Principal => _httpContextAccessor.HttpContext?.User;
 
