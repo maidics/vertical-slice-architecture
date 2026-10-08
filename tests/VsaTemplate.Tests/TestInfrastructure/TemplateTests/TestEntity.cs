@@ -2,7 +2,7 @@
 
 namespace VsaTemplate.Tests.TestInfrastructure.TemplateTests;
 
-public sealed class TestEntity : BaseAuditableEntity
+public sealed class TestEntity : BaseEntity
 {
     public string Prop { get; set; } = Guid.NewGuid().ToString();
 

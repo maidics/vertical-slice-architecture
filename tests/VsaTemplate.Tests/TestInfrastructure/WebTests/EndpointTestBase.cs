@@ -23,7 +23,12 @@ public abstract class EndpointTestBase<TEndpoint>
 
     protected HttpClient CreateHttpClient() => Fixture.CreateHttpClient();
 
-    protected async Task<HttpClient> LogInAsync(params string[] roles)
+    protected async Task<HttpClient> LogInAsync(params string[] roles) =>
+        (await LogInWithUserIdAsync(roles)).Client;
+
+    protected async Task<(HttpClient Client, Guid UserId)> LogInWithUserIdAsync(
+        params string[] roles
+    )
     {
         string email = $"{Guid.NewGuid()}@test";
         const string password = "Passw0rd!";
@@ -59,7 +64,7 @@ public abstract class EndpointTestBase<TEndpoint>
         if (response.StatusCode is not HttpStatusCode.OK)
             throw new InvalidOperationException("Failed to log user in.");
 
-        return client;
+        return (client, user.Id);
     }
 
     protected async Task SeedAsync(params object[] entities)

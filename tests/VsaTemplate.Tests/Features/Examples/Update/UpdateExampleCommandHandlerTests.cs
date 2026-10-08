@@ -50,16 +50,29 @@ public sealed class UpdateExampleCommandHandlerTests : FunctionalTestBase
         await context.AddAsync(example);
         await context.SaveChangesAsync();
 
+        var createdOn = example.CreatedOn;
+
+        var userId = Guid.NewGuid();
+        GetRequiredService<FunctionalTestUser>().LogIn(userId, null);
+
+        var timeProvider = GetRequiredService<TimeProvider>();
+
         var command = new UpdateExampleCommand(example.Id, "new-test-content");
 
         var handler = GetRequiredService<UpdateExampleCommandHandler>();
 
+        var before = timeProvider.GetUtcNow();
         var result = await handler.Handle(command, CancellationToken.None);
+        var after = timeProvider.GetUtcNow();
         result.ShouldBeSuccessful();
 
         var updated = await context.Examples.FirstOrDefaultAsync(x => x.Id == example.Id);
         updated.ShouldNotBeNull();
         updated.Content.ShouldBe(command.Content);
+        updated.CreatedBy.ShouldBeNull();
+        updated.CreatedOn.ShouldBe(createdOn);
+        updated.LastModifiedBy.ShouldBe(userId);
+        updated.LastModifiedOn.ShouldBeInRange(before, after);
     }
 
     [Test]

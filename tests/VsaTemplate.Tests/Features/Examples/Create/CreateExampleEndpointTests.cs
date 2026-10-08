@@ -111,9 +111,14 @@ public sealed class CreateExampleEndpointTests : EndpointTestBase<CreateExampleE
     {
         var command = new CreateExampleCommand("test");
 
-        using var client = await LogInAsync(roles);
+        var (client, userId) = await LogInWithUserIdAsync(roles);
+        using var _ = client;
 
+        var timeProvider = GetRequiredService<TimeProvider>();
+
+        var before = timeProvider.GetUtcNow();
         var response = await client.PostAsJsonAsync(Endpoint, command);
+        var after = timeProvider.GetUtcNow();
         response.StatusCode.ShouldBe(HttpStatusCode.OK);
 
         var id = await response.Content.ReadFromJsonAsync<Guid>();
@@ -121,5 +126,10 @@ public sealed class CreateExampleEndpointTests : EndpointTestBase<CreateExampleE
 
         var created = await QueryAsync(c => c.Examples.FirstOrDefaultAsync(e => e.Id == id));
         created.ShouldNotBeNull();
+        created.Content.ShouldBe(command.Content);
+        created.CreatedBy.ShouldBe(userId);
+        created.CreatedOn.ShouldBeInRange(before, after);
+        created.LastModifiedBy.ShouldBe(userId);
+        created.LastModifiedOn.ShouldBe(created.CreatedOn);
     }
 }
