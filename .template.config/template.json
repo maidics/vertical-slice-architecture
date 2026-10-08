@@ -16,8 +16,8 @@
       "type": "parameter",
       "datatype": "bool",
       "defaultValue": "false",
-      "displayName": "Add template test project",
-      "description": "Includes the template test project in the generated output."
+      "displayName": "Add template tests",
+      "description": "Includes tests for the infrastructure shipped with the template (Result, endpoint filters, extension methods, interceptors and more) in the Tests project."
     },
     "AddExamples": {
       "type": "parameter",
@@ -33,7 +33,20 @@
         {
           "condition": "(!AddTemplateTests)",
           "exclude": [
-            "**/VsaTemplate.TemplateTests/**"
+            "**/VsaTemplate.Tests/Common/Extensions/EndpointRouteBuilderExtensionTests.cs",
+            "**/VsaTemplate.Tests/Common/Extensions/MethodInfoExtensionTests.cs",
+            "**/VsaTemplate.Tests/Common/Extensions/ResultExtensionTests.cs",
+            "**/VsaTemplate.Tests/Common/Extensions/RouteHandlerBuilderExtensionTests.cs",
+            "**/VsaTemplate.Tests/Common/Extensions/ServiceCollectionExtensionTests.cs",
+            "**/VsaTemplate.Tests/Common/Models/ResultTests.cs",
+            "**/VsaTemplate.Tests/Common/Pipeline/LoggingFilterTests.cs",
+            "**/VsaTemplate.Tests/Common/Pipeline/PerformanceFilterTests.cs",
+            "**/VsaTemplate.Tests/Common/Pipeline/ValidationFilterTests.cs",
+            "**/VsaTemplate.Tests/Domain/BaseClasses/ValueObjectTests.cs",
+            "**/VsaTemplate.Tests/Infrastructure/CurrentUserTests.cs",
+            "**/VsaTemplate.Tests/Infrastructure/Database/Interceptors/AuditableEntityInterceptorTests.cs",
+            "**/VsaTemplate.Tests/Infrastructure/Database/Interceptors/EntityEntryExtensionTests.cs",
+            "**/VsaTemplate.Tests/TestInfrastructure/TemplateTests/**"
           ]
         },
         {

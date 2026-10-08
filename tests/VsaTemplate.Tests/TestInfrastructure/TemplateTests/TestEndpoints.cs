@@ -2,7 +2,7 @@
 using VsaTemplate.Common.Extensions;
 using VsaTemplate.Common.Interfaces;
 
-namespace VsaTemplate.TemplateTests.Infrastructure.Common;
+namespace VsaTemplate.Tests.TestInfrastructure.TemplateTests;
 
 public sealed class TestGetEndpoint : IEndpoint
 {

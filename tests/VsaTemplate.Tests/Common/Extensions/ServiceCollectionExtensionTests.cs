@@ -1,9 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Shouldly;
 using VsaTemplate.Common.Extensions;
-using VsaTemplate.TemplateTests.Infrastructure.Common;
+using VsaTemplate.Tests.TestInfrastructure.TemplateTests;
 
-namespace VsaTemplate.TemplateTests;
+namespace VsaTemplate.Tests.Common.Extensions;
 
 public sealed class ServiceCollectionExtensionTests
 {

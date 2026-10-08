@@ -1,14 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore.Infrastructure;
-using Shouldly;
 using VsaTemplate.Infrastructure.Database;
 using VsaTemplate.Infrastructure.Database.Interceptors;
-using VsaTemplate.TemplateTests.Infrastructure;
-using VsaTemplate.TemplateTests.Infrastructure.Common;
-using VsaTemplate.TemplateTests.Infrastructure.Common.BaseClasses;
+using VsaTemplate.Tests.TestInfrastructure.TemplateTests;
 
-namespace VsaTemplate.TemplateTests;
+namespace VsaTemplate.Tests.Infrastructure.Database.Interceptors;
 
-public sealed class AuditableEntityInterceptorTests : TestBase
+public sealed class AuditableEntityInterceptorTests : TemplateTestBase
 {
     [Test]
     public void InterceptorShouldBeRegisteredToDbContext()
@@ -116,7 +113,7 @@ public sealed class AuditableEntityInterceptorTests : TestBase
             return userId;
         }
 
-        var user = GetRequiredService<TestUser>();
+        var user = GetRequiredService<TemplateTestUser>();
         return user.LogIn(Guid.NewGuid(), null);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using VsaTemplate.Domain.BaseClasses;
 
-namespace VsaTemplate.TemplateTests.Infrastructure.Common;
+namespace VsaTemplate.Tests.TestInfrastructure.TemplateTests;
 
 public sealed class TestValueObject : ValueObject
 {

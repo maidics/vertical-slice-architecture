@@ -1,10 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
-using Shouldly;
 using VsaTemplate.Common.Extensions;
 using VsaTemplate.Common.Models;
 
-namespace VsaTemplate.TemplateTests;
+namespace VsaTemplate.Tests.Common.Extensions;
 
 public sealed class ResultExtensionTests
 {

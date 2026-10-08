@@ -1,7 +1,6 @@
-﻿using Shouldly;
-using VsaTemplate.Common.Extensions;
+﻿using VsaTemplate.Common.Extensions;
 
-namespace VsaTemplate.TemplateTests;
+namespace VsaTemplate.Tests.Common.Extensions;
 
 public sealed class MethodInfoExtensionTests
 {

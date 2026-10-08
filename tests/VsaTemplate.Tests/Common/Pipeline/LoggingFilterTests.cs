@@ -1,15 +1,13 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
-using Shouldly;
 using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Common.Pipeline;
-using VsaTemplate.TemplateTests.Infrastructure.Common;
-using VsaTemplate.TemplateTests.Infrastructure.Common.BaseClasses;
 using VsaTemplate.Tests.TestInfrastructure;
+using VsaTemplate.Tests.TestInfrastructure.TemplateTests;
 
-namespace VsaTemplate.TemplateTests;
+namespace VsaTemplate.Tests.Common.Pipeline;
 
-public sealed class LoggingFilterTests : TestBase
+public sealed class LoggingFilterTests : TemplateTestBase
 {
     [Test]
     public async Task LoggingFilterShouldLogRequestAndReturnNext()
