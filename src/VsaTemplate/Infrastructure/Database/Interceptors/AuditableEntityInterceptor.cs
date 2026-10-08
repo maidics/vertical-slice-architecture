@@ -38,7 +38,7 @@ public sealed class AuditableEntityInterceptor : SaveChangesInterceptor
         return base.SavingChangesAsync(eventData, result, cancellationToken);
     }
 
-    public void UpdateAuditableProperties(DbContext? context)
+    private void UpdateAuditableProperties(DbContext? context)
     {
         if (context is null)
             return;
