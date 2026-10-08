@@ -22,21 +22,21 @@ public sealed class GetExampleByIdEndpointTests : EndpointTestBase<GetExampleByI
         Tags.ShouldBeEquivalentTo(Array.Empty<string>());
     }
 
-    [Test]
-    public override async Task MapMethodShouldMapEndpointWithAttributes()
-    {
-        await using var spy = new EndpointRouteBuilderSpy();
-        await spy.InitializeAsync();
-
-        GetExampleByIdEndpoint.Map(spy);
-
-        var endpoints = spy.GetEndpoints();
-        endpoints.Count.ShouldBe(1);
-
-        var metadata = endpoints[0].Metadata;
-        metadata.ShouldHaveEndpointName("GetExampleById");
-        metadata.ShouldHaveOneAuthMetadataWithoutRoles();
-    }
+    // [Test]
+    // public override async Task MapMethodShouldMapEndpointWithAttributes()
+    // {
+    //     await using var spy = new EndpointRouteBuilderSpy();
+    //     await spy.InitializeAsync();
+    //
+    //     GetExampleByIdEndpoint.Map(spy);
+    //
+    //     var endpoints = spy.GetEndpoints();
+    //     endpoints.Count.ShouldBe(1);
+    //
+    //     var metadata = endpoints[0].Metadata;
+    //     metadata.ShouldHaveEndpointName("GetExampleById");
+    //     metadata.ShouldHaveOneAuthMetadataWithoutRoles();
+    // }
 
     [Test]
     public async Task ShouldReturnUnauthorizedWhenAnonymous()

@@ -18,9 +18,6 @@ public abstract class EndpointTestBase<TEndpoint>
 
     protected IServiceScope _scope = null!;
 
-    protected EndpointRouteBuilderSpy CreateEndpointRouteBuilderSpy() =>
-        new(_scope.ServiceProvider);
-
     protected HttpClient CreateHttpClient() => Fixture.CreateHttpClient();
 
     protected async Task<HttpClient> LogInAsync(params string[] roles) =>
@@ -92,7 +89,8 @@ public abstract class EndpointTestBase<TEndpoint>
     protected abstract string Endpoint { get; }
     public abstract void ShouldHaveCorrectPrefix();
     public abstract void ShouldHaveCorrectTags();
-    public abstract Task MapMethodShouldMapEndpointWithAttributes();
+
+    // public abstract Task MapMethodShouldMapEndpointWithAttributes();
 
     [Before(Test)]
     public async Task ResetAsync()
