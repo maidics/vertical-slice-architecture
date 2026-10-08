@@ -19,7 +19,7 @@ Use the specified SDK version in [`global.json`](global.json). Solution uses cen
 
 ## Git workflow
 
-- Use conventional naming when it comes to commits and branches.
+- Use conventional naming when it comes to commits and branches; only add a commit body for non trivial cases.
 - Never use the Claude Code Web default branch: `claude/`, create a new branch for your changes.
 - Use a feature branch and a ready-for-review PR by default. Create drafts only when requested.
 - Trivial documentation and typo changes may go directly into main.
