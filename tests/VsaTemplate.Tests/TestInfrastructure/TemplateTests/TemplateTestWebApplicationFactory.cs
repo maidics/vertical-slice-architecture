@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using VsaTemplate.Common.Extensions;
@@ -18,10 +17,6 @@ public sealed class TemplateTestWebApplicationFactory(string connectionString)
 
         builder.ConfigureServices(services =>
         {
-            services.AddDbContext<TestDbContext>(options =>
-                options.UseInMemoryDatabase("TestDb")
-            );
-
             services
                 .RemoveAll<IRequestHandler>()
                 .RemoveAll<IValidator<IRequest>>()
