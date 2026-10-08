@@ -5,9 +5,7 @@ using VsaTemplate.Common.Interfaces;
 
 namespace VsaTemplate.Infrastructure;
 
-// Claims are read on access, not in the constructor: this scoped service can be created before
-// authentication has populated HttpContext.User (e.g. Identity's SecurityStampValidator resolves
-// the DbContext, and therefore its interceptors, while authenticating the request).
+// Read claims on access: Identity's SecurityStampValidator can create this before HttpContext.User is set.
 public sealed class CurrentUser : IUser
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
