@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Testing;
 using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Common.Pipeline;
 using VsaTemplate.Tests.TestInfrastructure;
@@ -25,7 +26,7 @@ public sealed class ValidationFilterTests : TemplateTestBase
         var expectedResult = TypedResults.Ok();
         EndpointFilterDelegate next = _ => ValueTask.FromResult<object?>(expectedResult);
 
-        var logger = new LoggerSpy<ValidationFilter>();
+        var logger = new FakeLogger<ValidationFilter>();
         var user = GetRequiredService<IUser>();
         var filter = new ValidationFilter(logger, user);
 
@@ -34,14 +35,14 @@ public sealed class ValidationFilterTests : TemplateTestBase
         if (shouldPass)
         {
             result.ShouldBe(expectedResult);
-            logger.Entries.Count.ShouldBe(0);
+            logger.Collector.Count.ShouldBe(0);
             return;
         }
 
         result.ShouldNotBe(expectedResult);
 
-        logger.Entries.Count.ShouldBe(1);
-        logger.Entries[0].Level.ShouldBe(LogLevel.Warning);
-        logger.Entries[0].Message.ShouldContain("Request validation failed");
+        logger.Collector.Count.ShouldBe(1);
+        logger.Collector.LatestRecord.Level.ShouldBe(LogLevel.Warning);
+        logger.Collector.LatestRecord.Message.ShouldContain("Request validation failed");
     }
 }
