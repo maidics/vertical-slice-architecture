@@ -92,7 +92,7 @@ public abstract class EndpointTestBase<TEndpoint>
     protected abstract string Endpoint { get; }
     public abstract void ShouldHaveCorrectPrefix();
     public abstract void ShouldHaveCorrectTags();
-    public abstract void MapMethodShouldMapEndpointWithAttributes();
+    public abstract Task MapMethodShouldMapEndpointWithAttributes();
 
     [Before(Test)]
     public async Task ResetAsync()

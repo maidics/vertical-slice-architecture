@@ -25,9 +25,10 @@ public sealed class UpdateExampleEndpointTests : EndpointTestBase<UpdateExampleE
     }
 
     [Test]
-    public override void MapMethodShouldMapEndpointWithAttributes()
+    public override async Task MapMethodShouldMapEndpointWithAttributes()
     {
-        var spy = CreateEndpointRouteBuilderSpy();
+        await using var spy = new EndpointRouteBuilderSpy();
+        await spy.InitializeAsync();
 
         UpdateExampleEndpoint.Map(spy);
 

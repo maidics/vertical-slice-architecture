@@ -22,9 +22,10 @@ public sealed class GetExamplesEndpointTests : EndpointTestBase<GetExamplesEndpo
     }
 
     [Test]
-    public override void MapMethodShouldMapEndpointWithAttributes()
+    public override async Task MapMethodShouldMapEndpointWithAttributes()
     {
-        var spy = CreateEndpointRouteBuilderSpy();
+        await using var spy = new EndpointRouteBuilderSpy();
+        await spy.InitializeAsync();
 
         GetExamplesEndpoint.Map(spy);
 
