@@ -58,7 +58,7 @@ jobs: # only runs pack -> test if there changes to something that is not inside 
 
       - name: Instantiate Template
         if: steps.gate.outputs.run == 'true'
-        run: dotnet new vsa-sln -n Scratch -o ./scratch -tt -e
+        run: dotnet new vsa-sln -n Scratch -o ./scratch -e
 
       - name: Build Instantiated
         if: steps.gate.outputs.run == 'true'

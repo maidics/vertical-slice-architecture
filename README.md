@@ -16,10 +16,9 @@ dotnet new install Vertical.Slice.Architecture
 dotnet new vsa-sln -n [SolutionName]
 ```
 
-| Options               | Values      | Default | Description                                                     |
-|-----------------------|-------------|---------|-----------------------------------------------------------------|
-| --examples, -e        | true, false | false   | Includes example implementations and tests                      |
-| --template-tests, -tt | true, false | false   | Includes [template tests](#template-tests) in the Tests project |
+| Options        | Values      | Default | Description                                |
+|----------------|-------------|---------|--------------------------------------------|
+| --examples, -e | true, false | false   | Includes example implementations and tests |
 
 ---
 
@@ -118,7 +117,7 @@ Web test infrastructure:
   - Database and web API resources via the [`TestAppHost`](./tests/VsaTemplate.TestAppHost)
   - Provides helper methods for creating `HttpClient` and [`ApplicationDbContext`](./src/VsaTemplate/Infrastructure/Database/ApplicationDbContext.cs) instances
 
-Template test infrastructure (included with the [`--template-tests`](#create-a-new-solution) option):
+Template test infrastructure:
 - [`TemplateTestFixture`](./tests/VsaTemplate.Tests/TestInfrastructure/TemplateTests/TemplateTestFixture.cs) initializes asynchronously:
   - Database, setup via the [`TestAppHost`](./tests/VsaTemplate.TestAppHost)
   - [`TemplateTestWebApplicationFactory`](./tests/VsaTemplate.Tests/TestInfrastructure/TemplateTests/TemplateTestWebApplicationFactory.cs) for test doubles: [`TemplateTestUser`](./tests/VsaTemplate.Tests/TestInfrastructure/TemplateTests/TemplateTestUser.cs), an in-memory [`TestDbContext`](./tests/VsaTemplate.Tests/TestInfrastructure/TemplateTests/TestDbContext.cs), test `IRequestHandler`/`IValidator` implementations and an [`EndpointRouteBuilderSpy`](./tests/VsaTemplate.Tests/TestInfrastructure/WebTests/EndpointRouteBuilderSpy.cs)
@@ -161,5 +160,3 @@ Tests the infrastructure shipped with the template such as the:
 - and more...
 
 Template tests are part of the Tests project and live next to the other tests, in the folders mirroring the tested classes (e.g. [`Common/Pipeline`](./tests/VsaTemplate.Tests/Common/Pipeline)). They use the [template test infrastructure](./tests/VsaTemplate.Tests/TestInfrastructure/TemplateTests).
-
-***Template tests can be explicitly included when instantiating the template (see [options](#create-a-new-solution))***.
