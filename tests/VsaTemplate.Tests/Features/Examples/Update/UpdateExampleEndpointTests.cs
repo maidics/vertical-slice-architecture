@@ -132,9 +132,14 @@ public sealed class UpdateExampleEndpointTests : EndpointTestBase<UpdateExampleE
 
         var command = new UpdateExampleCommand(example.Id, "new-content");
 
-        using var client = await LogInAsync(roles);
+        var (client, userId) = await LogInWithUserIdAsync(roles);
+        using var _ = client;
 
+        var timeProvider = GetRequiredService<TimeProvider>();
+
+        var before = timeProvider.GetUtcNow();
         var response = await client.PutAsJsonAsync(Endpoint, command);
+        var after = timeProvider.GetUtcNow();
         response.StatusCode.ShouldBe(HttpStatusCode.NoContent);
 
         var updated = await QueryAsync(c =>
@@ -142,5 +147,9 @@ public sealed class UpdateExampleEndpointTests : EndpointTestBase<UpdateExampleE
         );
         updated.ShouldNotBeNull();
         updated.Content.ShouldBe(command.Content);
+        updated.CreatedBy.ShouldBeNull();
+        updated.CreatedOn.ShouldBe(example.CreatedOn);
+        updated.LastModifiedBy.ShouldBe(userId);
+        updated.LastModifiedOn.ShouldBeInRange(before, after);
     }
 }

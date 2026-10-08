@@ -5,31 +5,24 @@ using VsaTemplate.Common.Interfaces;
 
 namespace VsaTemplate.Infrastructure;
 
+// Read claims on access: Identity's SecurityStampValidator can create this before HttpContext.User is set.
 public sealed class CurrentUser : IUser
 {
-    public Guid? Id { get; }
-    public FrozenSet<string> Roles { get; } = [];
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
     public CurrentUser(IHttpContextAccessor httpContextAccessor)
     {
-        if (httpContextAccessor.HttpContext is null)
-        {
-            return;
-        }
-
-        var nameIdentifier = httpContextAccessor.HttpContext.User.FindFirstValue(
-            ClaimTypes.NameIdentifier
-        );
-
-        Id = ParseNameIdentifier(nameIdentifier);
-
-        Roles = httpContextAccessor
-            .HttpContext.User.FindAll(ClaimTypes.Role)
-            .Select(x => x.Value)
-            .ToFrozenSet();
+        _httpContextAccessor = httpContextAccessor;
     }
 
-    private Guid? ParseNameIdentifier(string? nameIdentifier)
+    public Guid? Id => ParseNameIdentifier(Principal?.FindFirstValue(ClaimTypes.NameIdentifier));
+
+    public FrozenSet<string> Roles =>
+        Principal?.FindAll(ClaimTypes.Role).Select(x => x.Value).ToFrozenSet() ?? [];
+
+    private ClaimsPrincipal? Principal => _httpContextAccessor.HttpContext?.User;
+
+    private static Guid? ParseNameIdentifier(string? nameIdentifier)
     {
         if (nameIdentifier is null)
             return null;

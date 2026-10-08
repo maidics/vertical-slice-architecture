@@ -120,7 +120,7 @@ Web test infrastructure:
 Template test infrastructure:
 - [`TemplateTestFixture`](./tests/VsaTemplate.Tests/TestInfrastructure/TemplateTests/TemplateTestFixture.cs) initializes asynchronously:
   - Database, setup via the [`TestAppHost`](./tests/VsaTemplate.TestAppHost)
-  - [`TemplateTestWebApplicationFactory`](./tests/VsaTemplate.Tests/TestInfrastructure/TemplateTests/TemplateTestWebApplicationFactory.cs) for test doubles: [`TemplateTestUser`](./tests/VsaTemplate.Tests/TestInfrastructure/TemplateTests/TemplateTestUser.cs), an in-memory [`TestDbContext`](./tests/VsaTemplate.Tests/TestInfrastructure/TemplateTests/TestDbContext.cs), test `IRequestHandler`/`IValidator` implementations and an [`EndpointRouteBuilderSpy`](./tests/VsaTemplate.Tests/TestInfrastructure/WebTests/EndpointRouteBuilderSpy.cs)
+  - [`TemplateTestWebApplicationFactory`](./tests/VsaTemplate.Tests/TestInfrastructure/TemplateTests/TemplateTestWebApplicationFactory.cs) for test doubles: test `IRequestHandler`/`IValidator` implementations and an [`EndpointRouteBuilderSpy`](./tests/VsaTemplate.Tests/TestInfrastructure/WebTests/EndpointRouteBuilderSpy.cs)
 - [`TemplateTestBase`](./tests/VsaTemplate.Tests/TestInfrastructure/TemplateTests/TemplateTestBase.cs):
   - Marked with `NotInParallel` attribute due to shared db instance
   - Instantiates [`TemplateTestFixture`](./tests/VsaTemplate.Tests/TestInfrastructure/TemplateTests/TemplateTestFixture.cs) (injected via `ClassDataSource<T>`)
@@ -148,12 +148,11 @@ Tests are organized into a structure that reflects the [main ASP.NET project](./
     - E2E test the endpoint itself
 
 **[`Infrastructure`](./tests/VsaTemplate.Tests/Infrastructure) folder**
-- Tests for the current user, database configurations, interceptors and more in the [main ASP.NET project's `Infrastructure` folder](./src/VsaTemplate/Infrastructure).
+- Tests for the current user, database configurations and more in the [main ASP.NET project's `Infrastructure` folder](./src/VsaTemplate/Infrastructure).
 
 ### Template Tests
 
 Tests the infrastructure shipped with the template such as the:
-- [`AuditableEntityInterceptor`](./src/VsaTemplate/Infrastructure/Database/Interceptors/AuditableEntityInterceptor.cs)
 - `IEndpointFilter` implementations
 - [`Result`](./src/VsaTemplate/Common/Models/Result.cs)
 - Extension methods

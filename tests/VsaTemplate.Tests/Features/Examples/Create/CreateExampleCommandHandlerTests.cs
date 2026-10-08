@@ -33,11 +33,18 @@ public sealed class CreateExampleCommandHandlerTests : FunctionalTestBase
     [Test]
     public async Task ShouldCreateExample()
     {
+        var userId = Guid.NewGuid();
+        GetRequiredService<FunctionalTestUser>().LogIn(userId, null);
+
+        var timeProvider = GetRequiredService<TimeProvider>();
+
         var command = new CreateExampleCommand("test");
 
         var handler = GetRequiredService<CreateExampleCommandHandler>();
 
+        var before = timeProvider.GetUtcNow();
         var result = await handler.Handle(command, CancellationToken.None);
+        var after = timeProvider.GetUtcNow();
         result.ShouldBeSuccessful();
 
         await using var context = GetRequiredService<ApplicationDbContext>();
@@ -45,5 +52,9 @@ public sealed class CreateExampleCommandHandlerTests : FunctionalTestBase
         var example = await context.Examples.FirstOrDefaultAsync(x => x.Id == result.Value);
         example.ShouldNotBeNull();
         example.Content.ShouldBe(command.Content);
+        example.CreatedBy.ShouldBe(userId);
+        example.CreatedOn.ShouldBeInRange(before, after);
+        example.LastModifiedBy.ShouldBe(userId);
+        example.LastModifiedOn.ShouldBe(example.CreatedOn);
     }
 }
