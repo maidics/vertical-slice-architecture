@@ -2,6 +2,8 @@
 
 Use the specified SDK version in [`global.json`](global.json). Solution uses central package management: [`Directory.Packages.props`](Directory.Packages.props).
 
+Do not bump template version in [`nuspec.csproj`](nuspec.csproj) unless asked to.
+
 ---
 
 ## Validation
