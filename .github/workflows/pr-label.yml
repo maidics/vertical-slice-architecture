@@ -1,0 +1,32 @@
+name: PR Label
+
+on:
+  pull_request_target: # labels the PR with its conventional commit type, e.g. "feat: ..." -> feat
+    types: [opened, edited, reopened]
+
+concurrency: # only the run for the latest title survives
+  group: pr-label-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const types = ['feat', 'fix', 'perf', 'refactor', 'test', 'style', 'revert', 'build', 'ci', 'docs', 'chore'];
+            const pr = context.payload.pull_request;
+            const type = pr.title.match(/^(\w+)(\(.*\))?!?:/)?.[1];
+            const issue = { ...context.repo, issue_number: pr.number };
+
+            const { data: labels } = await github.rest.issues.listLabelsOnIssue(issue); // event payload labels may be stale
+
+            for (const { name } of labels)
+              if (types.includes(name) && name !== type)
+                await github.rest.issues.removeLabel({ ...issue, name });
+
+            if (types.includes(type))
+              await github.rest.issues.addLabels({ ...issue, labels: [type] });

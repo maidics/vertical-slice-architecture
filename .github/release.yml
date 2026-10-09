@@ -1,0 +1,11 @@
+# Used by GitHub's "Generate release notes" — PRs are labeled by .github/workflows/pr-label.yml
+changelog:
+  exclude:
+    labels: [chore, ci, docs, build]
+  categories:
+    - title: New
+      labels: [feat]
+    - title: Fixes
+      labels: [fix]
+    - title: Changes
+      labels: ['*']
