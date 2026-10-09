@@ -1,9 +1,11 @@
 ﻿using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Testing;
 using TUnit.Mocks;
+using TUnit.Mocks.Arguments;
 using TUnit.Mocks.Generated;
 using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Common.Pipeline;
@@ -18,6 +20,13 @@ public sealed class ValidationFilterTests
     public async Task ValidationFilterShouldReturnCorrectResult(bool shouldPass)
     {
         var validator = IValidator<TestRequest>.Mock();
+        validator
+            .ValidateAsync(Arg.Any<IValidationContext>(), Arg.Any<CancellationToken>())
+            .Returns(
+                shouldPass
+                    ? new ValidationResult()
+                    : new ValidationResult([new ValidationFailure("Prop", "Invalid")])
+            );
 
         var services = new ServiceCollection();
         services.AddScoped<IValidator<TestRequest>>(_ => validator.Object);
