@@ -7,15 +7,16 @@ using VsaTemplate.Tests.TestInfrastructure.WebTests;
 
 namespace VsaTemplate.Tests.Common.Extensions;
 
-public sealed class RouteHandlerBuilderExtensionTests : TemplateTestBase
+public sealed class RouteHandlerBuilderExtensionTests
 {
+    [ClassDataSource<EndpointRouteBuilderSpy>]
+    public required EndpointRouteBuilderSpy Spy { get; init; }
+
     [Test]
     public void RequireAuthorizationWithRolesShouldThrowIfRolesIsEmpty()
     {
-        var spy = GetRequiredService<EndpointRouteBuilderSpy>();
-
         Should.Throw<ArgumentOutOfRangeException>(() =>
-            spy.MapGet("/test", () => { }).RequireAuthorizationWithRoles([])
+            Spy.MapGet("/test", () => { }).RequireAuthorizationWithRoles([])
         );
     }
 
@@ -27,10 +28,8 @@ public sealed class RouteHandlerBuilderExtensionTests : TemplateTestBase
     [Arguments("Administrator", "Userr", "user")]
     public void RequireAuthorizationWithRolesShouldThrowIfAnyRoleIsInvalid(params string[] roles)
     {
-        var spy = GetRequiredService<EndpointRouteBuilderSpy>();
-
         var ex = Should.Throw<ArgumentException>(() =>
-            spy.MapGet("/test", () => { }).RequireAuthorizationWithRoles(roles)
+            Spy.MapGet("/test", () => { }).RequireAuthorizationWithRoles(roles)
         );
 
         ex.Message.ShouldContain(string.Join(", ", roles.Where(r => !Roles.IsValid(r))));
@@ -43,11 +42,9 @@ public sealed class RouteHandlerBuilderExtensionTests : TemplateTestBase
         params string[] roles
     )
     {
-        var spy = GetRequiredService<EndpointRouteBuilderSpy>();
+        Spy.MapGet("/test", () => { }).RequireAuthorizationWithRoles(roles);
 
-        spy.MapGet("/test", () => { }).RequireAuthorizationWithRoles(roles);
-
-        var endpoints = spy.GetEndpoints();
+        var endpoints = Spy.GetEndpoints();
         endpoints.Count.ShouldBe(1);
 
         var endpoint = endpoints.First();

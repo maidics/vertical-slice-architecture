@@ -22,8 +22,6 @@ public sealed class TemplateTestWebApplicationFactory(string connectionString)
                 .RemoveAll<IValidator<IRequest>>()
                 .AddRequestHandlers(typeof(TemplateTestWebApplicationFactory).Assembly)
                 .AddValidatorsFromAssembly(typeof(TemplateTestWebApplicationFactory).Assembly);
-
-            services.AddScoped<EndpointRouteBuilderSpy>();
         });
     }
 }

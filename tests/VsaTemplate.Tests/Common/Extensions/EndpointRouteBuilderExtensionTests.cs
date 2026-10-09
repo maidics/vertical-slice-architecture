@@ -6,18 +6,19 @@ using VsaTemplate.Tests.TestInfrastructure.WebTests;
 
 namespace VsaTemplate.Tests.Common.Extensions;
 
-public sealed class EndpointRouteBuilderExtensionTests : TemplateTestBase
+public sealed class EndpointRouteBuilderExtensionTests
 {
+    [ClassDataSource<EndpointRouteBuilderSpy>]
+    public required EndpointRouteBuilderSpy Spy { get; init; }
+
     [Test]
     public void MapMethodsShouldThrowIsDelegateIsAnonymous()
     {
-        var spy = GetRequiredService<EndpointRouteBuilderSpy>();
-
-        Should.Throw<ArgumentException>(() => spy.MapGet(() => { }));
-        Should.Throw<ArgumentException>(() => spy.MapPost(() => { }));
-        Should.Throw<ArgumentException>(() => spy.MapPut(() => { }, "test"));
-        Should.Throw<ArgumentException>(() => spy.MapPatch(() => { }, "test"));
-        Should.Throw<ArgumentException>(() => spy.MapDelete(() => { }, "test"));
+        Should.Throw<ArgumentException>(() => Spy.MapGet(() => { }));
+        Should.Throw<ArgumentException>(() => Spy.MapPost(() => { }));
+        Should.Throw<ArgumentException>(() => Spy.MapPut(() => { }, "test"));
+        Should.Throw<ArgumentException>(() => Spy.MapPatch(() => { }, "test"));
+        Should.Throw<ArgumentException>(() => Spy.MapDelete(() => { }, "test"));
     }
 
     private void TestEndpointMethod() { }
@@ -25,22 +26,19 @@ public sealed class EndpointRouteBuilderExtensionTests : TemplateTestBase
     [Test]
     public void MapMethodsShouldNotThrowIfDelegateIsNotAnonymous()
     {
-        var spy = GetRequiredService<EndpointRouteBuilderSpy>();
-
-        Should.NotThrow(() => spy.MapGet(TestEndpointMethod));
-        Should.NotThrow(() => spy.MapPost(TestEndpointMethod));
-        Should.NotThrow(() => spy.MapPut(TestEndpointMethod, "test"));
-        Should.NotThrow(() => spy.MapPatch(TestEndpointMethod, "test"));
-        Should.NotThrow(() => spy.MapDelete(TestEndpointMethod, "test"));
+        Should.NotThrow(() => Spy.MapGet(TestEndpointMethod));
+        Should.NotThrow(() => Spy.MapPost(TestEndpointMethod));
+        Should.NotThrow(() => Spy.MapPut(TestEndpointMethod, "test"));
+        Should.NotThrow(() => Spy.MapPatch(TestEndpointMethod, "test"));
+        Should.NotThrow(() => Spy.MapDelete(TestEndpointMethod, "test"));
     }
 
     [Test]
     public void MapEndpointsShouldMapAllEndpointsFromAssembly()
     {
-        var spy = GetRequiredService<EndpointRouteBuilderSpy>();
-        spy.MapEndpoints(typeof(EndpointRouteBuilderExtensionTests).Assembly);
+        Spy.MapEndpoints(typeof(EndpointRouteBuilderExtensionTests).Assembly);
 
-        var endpoints = spy.GetEndpoints();
+        var endpoints = Spy.GetEndpoints();
         endpoints.Count.ShouldBe(2);
 
         var names = endpoints
@@ -65,11 +63,9 @@ public sealed class EndpointRouteBuilderExtensionTests : TemplateTestBase
     [Test]
     public void MapLogoutEndpointShouldMapLogout()
     {
-        var spy = GetRequiredService<EndpointRouteBuilderSpy>();
+        Spy.MapLogoutEndpoint();
 
-        spy.MapLogoutEndpoint();
-
-        var endpoints = spy.GetEndpoints();
+        var endpoints = Spy.GetEndpoints();
         endpoints.Count.ShouldBe(1);
 
         var endpoint = endpoints.First();
