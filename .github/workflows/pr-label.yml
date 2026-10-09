@@ -4,6 +4,10 @@ on:
   pull_request_target: # labels the PR with its conventional commit type, e.g. "feat: ..." -> feat
     types: [opened, edited, reopened]
 
+concurrency: # only the run for the latest title survives
+  group: pr-label-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 jobs:
   label:
     runs-on: ubuntu-latest
@@ -18,7 +22,9 @@ jobs:
             const type = pr.title.match(/^(\w+)(\(.*\))?!?:/)?.[1];
             const issue = { ...context.repo, issue_number: pr.number };
 
-            for (const { name } of pr.labels)
+            const { data: labels } = await github.rest.issues.listLabelsOnIssue(issue); // event payload labels may be stale
+
+            for (const { name } of labels)
               if (types.includes(name) && name !== type)
                 await github.rest.issues.removeLabel({ ...issue, name });
 
