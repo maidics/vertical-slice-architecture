@@ -32,7 +32,7 @@ public sealed class PerformanceFilter : IEndpointFilter
             var request = context.Arguments.OfType<IRequest>().FirstOrDefault();
 
             _logger.LogWarning(
-                "Long running request: {HttpMethod} {Path}, {@UserId}, {@Request}, ({@ElapsedMilliseconds}ms)",
+                "Long running request: {HttpMethod} {Path}, {UserId}, {@Request}, ({ElapsedMilliseconds}ms)",
                 context.HttpContext.Request.Method,
                 context.HttpContext.Request.Path.Value,
                 _user.Id,
