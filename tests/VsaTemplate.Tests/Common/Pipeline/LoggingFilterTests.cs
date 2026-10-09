@@ -8,7 +8,7 @@ using VsaTemplate.Tests.TestInfrastructure.TemplateTests;
 
 namespace VsaTemplate.Tests.Common.Pipeline;
 
-public sealed class LoggingFilterTests : TemplateTestBase
+public sealed class LoggingFilterTests
 {
     [Test]
     public async Task LoggingFilterShouldLogRequestAndReturnNext()
