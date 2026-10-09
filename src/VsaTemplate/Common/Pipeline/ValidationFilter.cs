@@ -62,7 +62,7 @@ public sealed class ValidationFilter : IEndpointFilter
             .ToDictionary(g => g.Key, g => g.Select(x => x.ErrorMessage).ToArray());
 
         _logger.LogWarning(
-            "Request validation failed: {HttpMethod} {Path}, {@UserId}, {@ValidationErrors}",
+            "Request validation failed: {HttpMethod} {Path}, {UserId}, {@ValidationErrors}",
             context.HttpContext.Request.Method,
             context.HttpContext.Request.Path.Value,
             _user.Id,
