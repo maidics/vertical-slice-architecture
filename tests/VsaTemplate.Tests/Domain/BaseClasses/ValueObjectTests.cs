@@ -1,9 +1,25 @@
-﻿using VsaTemplate.Tests.TestInfrastructure.TemplateTests;
+﻿using VsaTemplate.Domain.BaseClasses;
+using VsaTemplate.Tests.TestInfrastructure.TemplateTests;
 
 namespace VsaTemplate.Tests.Domain.BaseClasses;
 
 public sealed class ValueObjectTests
 {
+    private sealed class TestValueObject : ValueObject
+    {
+        public int Number { get; }
+
+        public TestValueObject(int number)
+        {
+            Number = number;
+        }
+
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return Number;
+        }
+    }
+
     [Test]
     public void EqualsShouldReturnTrueWhenValueObjectIsComparedToItself()
     {
