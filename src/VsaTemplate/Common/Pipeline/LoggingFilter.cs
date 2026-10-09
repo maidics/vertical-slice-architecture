@@ -29,7 +29,7 @@ public sealed class LoggingFilter : IEndpointFilter
             context.HttpContext.Request.Path.Value,
             statusCode,
             _user.Id,
-            request is null ? "none" : request
+            request
         );
 
         return result;
