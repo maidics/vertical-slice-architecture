@@ -24,12 +24,12 @@ public sealed class LoggingFilter : IEndpointFilter
         var statusCode = result is IResult r ? GetStatusCode(r) : null;
 
         _logger.LogInformation(
-            "Request: {HttpMethod} {Path}, {@UserId}, {@Request}, {@ResponseStatusCode}",
+            "Request: {HttpMethod} {Path}, {ResponseStatusCode}, {UserId}, {@Request}",
             context.HttpContext.Request.Method,
             context.HttpContext.Request.Path.Value,
+            statusCode,
             _user.Id,
-            request is null ? "none" : request,
-            statusCode
+            request
         );
 
         return result;
