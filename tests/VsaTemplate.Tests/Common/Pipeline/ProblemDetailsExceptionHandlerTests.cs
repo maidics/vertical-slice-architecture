@@ -26,11 +26,14 @@ public sealed class ProblemDetailsExceptionHandlerTests : FunctionalTestBase
         var handler = new ProblemDetailsExceptionHandler(_logger, problemDetailsService);
 
         var body = new MemoryStream();
-        const string requestPath = "/test";
+
+        const string httpMethod = "POST";
+        const string path = "/test";
+
         var httpContext = new DefaultHttpContext
         {
+            Request = { Method = httpMethod, Path = new PathString(path) },
             Response = { Body = body },
-            Request = { Path = requestPath },
         };
         var exception = new BadHttpRequestException("Test.", statusCode);
 
@@ -50,11 +53,13 @@ public sealed class ProblemDetailsExceptionHandlerTests : FunctionalTestBase
         problem.ShouldNotBeNull();
         problem.Title.ShouldBe(expectedTitle);
         problem.Status.ShouldBe(statusCode);
-        problem.Instance.ShouldBe(requestPath);
+        problem.Instance.ShouldBe(path);
 
         _logger.Collector.Count.ShouldBe(1);
         _logger.Collector.LatestRecord.Level.ShouldBe(LogLevel.Warning);
-        _logger.Collector.LatestRecord.Message.ShouldContain("Bad HTTP Request at");
+        _logger.Collector.LatestRecord.Message.ShouldContain(
+            $"Bad HTTP Request at [{httpMethod}] {path}"
+        );
     }
 
     [Test]
@@ -64,11 +69,14 @@ public sealed class ProblemDetailsExceptionHandlerTests : FunctionalTestBase
         var handler = new ProblemDetailsExceptionHandler(_logger, problemDetailsService);
 
         var body = new MemoryStream();
-        const string requestPath = "/test";
+
+        const string httpMethod = "POST";
+        const string path = "/test";
+
         var httpContext = new DefaultHttpContext
         {
             Response = { Body = body },
-            Request = { Path = requestPath },
+            Request = { Method = httpMethod, Path = new PathString(path) },
         };
         var exception = new InvalidNameIdentifierException("test");
 
@@ -86,12 +94,12 @@ public sealed class ProblemDetailsExceptionHandlerTests : FunctionalTestBase
         );
 
         problem.ShouldNotBeNull();
-        problem.Instance.ShouldBe(requestPath);
+        problem.Instance.ShouldBe(path);
 
         _logger.Collector.Count.ShouldBe(1);
         _logger.Collector.LatestRecord.Level.ShouldBe(LogLevel.Error);
         _logger.Collector.LatestRecord.Message.ShouldContain(
-            "HTTP Request contains invalid name identifier claim at"
+            $"HTTP Request contains invalid name identifier claim at [{httpMethod}] {path}"
         );
     }
 
@@ -107,11 +115,14 @@ public sealed class ProblemDetailsExceptionHandlerTests : FunctionalTestBase
         var handler = new ProblemDetailsExceptionHandler(_logger, problemDetailsService);
 
         var body = new MemoryStream();
-        const string requestPath = "/test";
+
+        const string httpMethod = "POST";
+        const string path = "/test";
+
         var httpContext = new DefaultHttpContext
         {
             Response = { Body = body },
-            Request = { Path = requestPath },
+            Request = { Method = httpMethod, Path = new PathString(path) },
         };
 
         var exception = (Exception)Activator.CreateInstance(exceptionType)!;
@@ -136,12 +147,12 @@ public sealed class ProblemDetailsExceptionHandlerTests : FunctionalTestBase
             "https://datatracker.ietf.org/doc/html/rfc9110#name-500-internal-server-error"
         );
         problem.Status.ShouldBe(StatusCodes.Status500InternalServerError);
-        problem.Instance.ShouldBe(requestPath);
+        problem.Instance.ShouldBe(path);
 
         _logger.Collector.Count.ShouldBe(1);
         _logger.Collector.LatestRecord.Level.ShouldBe(LogLevel.Error);
         _logger.Collector.LatestRecord.Message.ShouldContain(
-            "Unhandled exception caught while processing request at"
+            $"Unhandled exception caught while processing request at [{httpMethod}] {path}"
         );
     }
 
@@ -152,11 +163,13 @@ public sealed class ProblemDetailsExceptionHandlerTests : FunctionalTestBase
         var handler = new ProblemDetailsExceptionHandler(_logger, problemDetailsService);
 
         var body = new MemoryStream();
-        const string requestPath = "/test";
+
+        const string path = "/test";
+
         var httpContext = new DefaultHttpContext
         {
             Response = { Body = body },
-            Request = { Path = requestPath },
+            Request = { Path = new PathString(path) },
         };
 
         using var cts = new CancellationTokenSource();
