@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Testing;
 using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Common.Pipeline;
 using VsaTemplate.Tests.TestInfrastructure;
@@ -22,7 +23,7 @@ public sealed class LoggingFilterTests : TemplateTestBase
         var expectedResult = TypedResults.Ok();
         EndpointFilterDelegate next = _ => ValueTask.FromResult<object?>(expectedResult);
 
-        var logger = new LoggerSpy<LoggingFilter>();
+        var logger = new FakeLogger<LoggingFilter>();
         var user = GetRequiredService<IUser>();
         var filter = new LoggingFilter(logger, user);
 
@@ -30,8 +31,8 @@ public sealed class LoggingFilterTests : TemplateTestBase
 
         result.ShouldBe(expectedResult);
 
-        logger.Entries.Count.ShouldBe(1);
-        logger.Entries[0].Level.ShouldBe(LogLevel.Information);
-        logger.Entries[0].Message.ShouldContain("logging-test");
+        logger.Collector.Count.ShouldBe(1);
+        logger.Collector.LatestRecord.Level.ShouldBe(LogLevel.Information);
+        logger.Collector.LatestRecord.Message.ShouldContain("logging-test");
     }
 }

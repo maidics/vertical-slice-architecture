@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Testing;
 using VsaTemplate.Common.Exceptions;
 using VsaTemplate.Common.Pipeline;
 using VsaTemplate.Tests.TestInfrastructure;
@@ -11,6 +12,8 @@ namespace VsaTemplate.Tests.Common.Pipeline;
 
 public sealed class ProblemDetailsExceptionHandlerTests : FunctionalTestBase
 {
+    private readonly FakeLogger<ProblemDetailsExceptionHandler> _logger = new();
+
     [Test]
     [Arguments(StatusCodes.Status400BadRequest, "Bad Request")]
     [Arguments(StatusCodes.Status413PayloadTooLarge, "Content Too Large")]
@@ -20,8 +23,7 @@ public sealed class ProblemDetailsExceptionHandlerTests : FunctionalTestBase
     )
     {
         var problemDetailsService = GetRequiredService<IProblemDetailsService>();
-        var logger = new LoggerSpy<ProblemDetailsExceptionHandler>();
-        var handler = new ProblemDetailsExceptionHandler(logger, problemDetailsService);
+        var handler = new ProblemDetailsExceptionHandler(_logger, problemDetailsService);
 
         var body = new MemoryStream();
         const string requestPath = "/test";
@@ -50,17 +52,16 @@ public sealed class ProblemDetailsExceptionHandlerTests : FunctionalTestBase
         problem.Status.ShouldBe(statusCode);
         problem.Instance.ShouldBe(requestPath);
 
-        logger.Entries.Count.ShouldBe(1);
-        logger.Entries[0].Level.ShouldBe(LogLevel.Warning);
-        logger.Entries[0].Message.ShouldContain("Bad HTTP Request at");
+        _logger.Collector.Count.ShouldBe(1);
+        _logger.Collector.LatestRecord.Level.ShouldBe(LogLevel.Warning);
+        _logger.Collector.LatestRecord.Message.ShouldContain("Bad HTTP Request at");
     }
 
     [Test]
     public async Task TryHandleAsyncShouldWriteProblemDetailsAndReturnTrueOnInvalidNameIdentifierException()
     {
         var problemDetailsService = GetRequiredService<IProblemDetailsService>();
-        var logger = new LoggerSpy<ProblemDetailsExceptionHandler>();
-        var handler = new ProblemDetailsExceptionHandler(logger, problemDetailsService);
+        var handler = new ProblemDetailsExceptionHandler(_logger, problemDetailsService);
 
         var body = new MemoryStream();
         const string requestPath = "/test";
@@ -87,11 +88,11 @@ public sealed class ProblemDetailsExceptionHandlerTests : FunctionalTestBase
         problem.ShouldNotBeNull();
         problem.Instance.ShouldBe(requestPath);
 
-        logger.Entries.Count.ShouldBe(1);
-        logger.Entries[0].Level.ShouldBe(LogLevel.Error);
-        logger
-            .Entries[0]
-            .Message.ShouldContain("HTTP Request contains invalid name identifier claim at");
+        _logger.Collector.Count.ShouldBe(1);
+        _logger.Collector.LatestRecord.Level.ShouldBe(LogLevel.Error);
+        _logger.Collector.LatestRecord.Message.ShouldContain(
+            "HTTP Request contains invalid name identifier claim at"
+        );
     }
 
     [Test]
@@ -103,8 +104,7 @@ public sealed class ProblemDetailsExceptionHandlerTests : FunctionalTestBase
     )
     {
         var problemDetailsService = GetRequiredService<IProblemDetailsService>();
-        var logger = new LoggerSpy<ProblemDetailsExceptionHandler>();
-        var handler = new ProblemDetailsExceptionHandler(logger, problemDetailsService);
+        var handler = new ProblemDetailsExceptionHandler(_logger, problemDetailsService);
 
         var body = new MemoryStream();
         const string requestPath = "/test";
@@ -138,19 +138,18 @@ public sealed class ProblemDetailsExceptionHandlerTests : FunctionalTestBase
         problem.Status.ShouldBe(StatusCodes.Status500InternalServerError);
         problem.Instance.ShouldBe(requestPath);
 
-        logger.Entries.Count.ShouldBe(1);
-        logger.Entries[0].Level.ShouldBe(LogLevel.Error);
-        logger
-            .Entries[0]
-            .Message.ShouldContain("Unhandled exception caught while processing request at");
+        _logger.Collector.Count.ShouldBe(1);
+        _logger.Collector.LatestRecord.Level.ShouldBe(LogLevel.Error);
+        _logger.Collector.LatestRecord.Message.ShouldContain(
+            "Unhandled exception caught while processing request at"
+        );
     }
 
     [Test]
     public async Task TryHandleAsyncShouldReturnTrueWithoutBodyWhenClientAborted()
     {
         var problemDetailsService = GetRequiredService<IProblemDetailsService>();
-        var logger = new LoggerSpy<ProblemDetailsExceptionHandler>();
-        var handler = new ProblemDetailsExceptionHandler(logger, problemDetailsService);
+        var handler = new ProblemDetailsExceptionHandler(_logger, problemDetailsService);
 
         var body = new MemoryStream();
         const string requestPath = "/test";
@@ -173,6 +172,6 @@ public sealed class ProblemDetailsExceptionHandlerTests : FunctionalTestBase
         result.ShouldBeTrue();
         httpContext.Response.StatusCode.ShouldBe(StatusCodes.Status499ClientClosedRequest);
         body.Length.ShouldBe(0);
-        logger.Entries.Count.ShouldBe(0);
+        _logger.Collector.Count.ShouldBe(0);
     }
 }

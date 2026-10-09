@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Testing;
 using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Common.Pipeline;
 using VsaTemplate.Tests.TestInfrastructure;
@@ -9,6 +10,8 @@ namespace VsaTemplate.Tests.Common.Pipeline;
 
 public sealed class PerformanceFilterTests : TemplateTestBase
 {
+    private readonly FakeLogger<PerformanceFilter> _logger = new();
+
     [Test]
     public async Task PerformanceFilterShouldNotLogIfRequestIsResolvedFasterThan500Ms()
     {
@@ -22,15 +25,14 @@ public sealed class PerformanceFilterTests : TemplateTestBase
         var expectedResult = TypedResults.Ok();
         EndpointFilterDelegate next = _ => ValueTask.FromResult<object?>(expectedResult);
 
-        var logger = new LoggerSpy<PerformanceFilter>();
         var user = GetRequiredService<IUser>();
-        var filter = new PerformanceFilter(logger, user);
+        var filter = new PerformanceFilter(_logger, user);
 
         var result = await filter.InvokeAsync(context, next);
 
         result.ShouldBe(expectedResult);
 
-        logger.Entries.Count.ShouldBe(0);
+        _logger.Collector.Count.ShouldBe(0);
     }
 
     [Test]
@@ -51,19 +53,16 @@ public sealed class PerformanceFilterTests : TemplateTestBase
             return expectedResult;
         }
 
-        var logger = new LoggerSpy<PerformanceFilter>();
         var user = GetRequiredService<IUser>();
-        var filter = new PerformanceFilter(logger, user);
+        var filter = new PerformanceFilter(_logger, user);
 
         var result = await filter.InvokeAsync(context, Next);
 
         result.ShouldBe(expectedResult);
 
-        logger.Entries.Count.ShouldBe(1);
-
-        var log = logger.Entries[0];
-        log.Level.ShouldBe(LogLevel.Warning);
-        log.Message.ShouldContain("Long running request");
-        log.Message.ShouldContain("performance-test");
+        _logger.Collector.Count.ShouldBe(1);
+        _logger.Collector.LatestRecord.Level.ShouldBe(LogLevel.Warning);
+        _logger.Collector.LatestRecord.Message.ShouldContain("Long running request");
+        _logger.Collector.LatestRecord.Message.ShouldContain("performance-test");
     }
 }
