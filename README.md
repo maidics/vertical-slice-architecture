@@ -62,7 +62,7 @@ Infrastructure/ # External dependencies
 ---
 
 ## Features
-- **Target Framework**: [.NET SDK 10.0.400](https://dotnet.microsoft.com/en-us/download/dotnet/10.0)
+- **Target Framework**: [.NET SDK 10.0.401](https://dotnet.microsoft.com/en-us/download/dotnet/10.0)
 - **No [MediatR](https://github.com/LuckyPennySoftware/MediatR) dependency**: Uses lightweight reflection at application startup to automatically discover and register [`IRequestHandler`](./src/VsaTemplate/Common/Interfaces/IRequestHandler.cs) services.
 - **Native Pipeline Filters**: Because MediatR was removed, `PipelineBehavior` has been replaced with native `IEndpointFilter` implementations.
 - **Persistence**: Configured with SQLite db out of the box.
