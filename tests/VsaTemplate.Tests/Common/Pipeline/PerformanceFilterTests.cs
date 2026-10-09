@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Testing;
+using TUnit.Mocks;
+using TUnit.Mocks.Generated;
 using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Common.Pipeline;
-using VsaTemplate.Tests.TestInfrastructure;
-using VsaTemplate.Tests.TestInfrastructure.TemplateTests;
 
 namespace VsaTemplate.Tests.Common.Pipeline;
 
-public sealed class PerformanceFilterTests : TemplateTestBase
+public sealed class PerformanceFilterTests
 {
     private readonly FakeLogger<PerformanceFilter> _logger = new();
 
@@ -19,13 +19,15 @@ public sealed class PerformanceFilterTests : TemplateTestBase
         {
             Request = { Method = "POST", Path = new PathString("/test") },
         };
-        var request = new TestRequest(string.Empty);
-        var context = EndpointFilterInvocationContext.Create(httpContext, request);
+
+        var request = IRequest.Mock();
+
+        var context = EndpointFilterInvocationContext.Create(httpContext, request.Object);
 
         var expectedResult = TypedResults.Ok();
         EndpointFilterDelegate next = _ => ValueTask.FromResult<object?>(expectedResult);
 
-        var user = GetRequiredService<IUser>();
+        var user = IUser.Mock();
         var filter = new PerformanceFilter(_logger, user);
 
         var result = await filter.InvokeAsync(context, next);
@@ -38,12 +40,17 @@ public sealed class PerformanceFilterTests : TemplateTestBase
     [Test]
     public async Task PerformanceFilterShouldLogIfRequestIsResolvedSlowerThan500Ms()
     {
+        const string httpMethod = "POST";
+        const string path = "/test";
+
         var httpContext = new DefaultHttpContext
         {
-            Request = { Method = "POST", Path = new PathString("/test") },
+            Request = { Method = httpMethod, Path = new PathString(path) },
         };
-        var request = new TestRequest("performance-test");
-        var context = EndpointFilterInvocationContext.Create(httpContext, request);
+
+        var request = IRequest.Mock();
+
+        var context = EndpointFilterInvocationContext.Create(httpContext, request.Object);
 
         var expectedResult = TypedResults.Ok();
 
@@ -53,7 +60,10 @@ public sealed class PerformanceFilterTests : TemplateTestBase
             return expectedResult;
         }
 
-        var user = GetRequiredService<IUser>();
+        var user = IUser.Mock();
+        var userId = Guid.NewGuid();
+        user.Id.Returns(userId);
+
         var filter = new PerformanceFilter(_logger, user);
 
         var result = await filter.InvokeAsync(context, Next);
@@ -62,7 +72,8 @@ public sealed class PerformanceFilterTests : TemplateTestBase
 
         _logger.Collector.Count.ShouldBe(1);
         _logger.Collector.LatestRecord.Level.ShouldBe(LogLevel.Warning);
-        _logger.Collector.LatestRecord.Message.ShouldContain("Long running request");
-        _logger.Collector.LatestRecord.Message.ShouldContain("performance-test");
+        _logger.Collector.LatestRecord.Message.ShouldContain(
+            $"Long running request: {httpMethod} {path}, {userId}, "
+        );
     }
 }
