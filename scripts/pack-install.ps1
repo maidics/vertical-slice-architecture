@@ -1,4 +1,3 @@
-$env:PATH = "D:\tools\dotnet-sdk-10.0.400-win-x64;$env:PATH"
 $repo = "D:\code\vertical-slice-architecture"
 
 dotnet new uninstall Vertical.Slice.Architecture
