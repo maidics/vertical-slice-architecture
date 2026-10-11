@@ -8,10 +8,10 @@
     <PackageReference Include="Aspire.Hosting.Testing" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
     <PackageReference Include="Microsoft.Extensions.Diagnostics.Testing" />
-    <PackageReference Include="Moq" />
     <PackageReference Include="Respawn" />
     <PackageReference Include="Shouldly" />
     <PackageReference Include="TUnit" />
+    <PackageReference Include="TUnit.Mocks" />
   </ItemGroup>
 
   <ItemGroup>
