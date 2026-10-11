@@ -2,7 +2,7 @@
 
 namespace VsaTemplate.UnitTests.TestInfrastructure;
 
-public abstract class EndpointTestBase<TEndpoint>
+public abstract class EndpointUnitTestBase<TEndpoint>
     where TEndpoint : IEndpoint
 {
     protected static string Prefix => TEndpoint.Prefix;

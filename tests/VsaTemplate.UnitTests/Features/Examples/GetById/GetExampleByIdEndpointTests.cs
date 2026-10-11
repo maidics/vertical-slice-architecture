@@ -2,7 +2,7 @@
 
 namespace VsaTemplate.UnitTests.Features.Examples.GetById;
 
-public sealed class GetExampleByIdEndpointTests : EndpointTestBase<GetExampleByIdEndpoint>
+public sealed class GetExampleByIdEndpointTests : EndpointUnitTestBase<GetExampleByIdEndpoint>
 {
     [Test]
     public override void ShouldHaveCorrectPrefix()

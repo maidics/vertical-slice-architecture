@@ -2,7 +2,7 @@
 
 namespace VsaTemplate.UnitTests.Features.Examples.Delete;
 
-public sealed class DeleteExampleEndpointTests : EndpointTestBase<DeleteExampleEndpoint>
+public sealed class DeleteExampleEndpointTests : EndpointUnitTestBase<DeleteExampleEndpoint>
 {
     [Test]
     public override void ShouldHaveCorrectPrefix()

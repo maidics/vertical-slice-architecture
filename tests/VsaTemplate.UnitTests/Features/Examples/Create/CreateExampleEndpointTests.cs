@@ -2,7 +2,7 @@
 
 namespace VsaTemplate.UnitTests.Features.Examples.Create;
 
-public sealed class CreateExampleEndpointTests : EndpointTestBase<CreateExampleEndpoint>
+public sealed class CreateExampleEndpointTests : EndpointUnitTestBase<CreateExampleEndpoint>
 {
     [Test]
     public override void ShouldHaveCorrectPrefix()

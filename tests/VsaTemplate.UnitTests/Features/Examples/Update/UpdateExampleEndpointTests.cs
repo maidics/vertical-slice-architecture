@@ -2,7 +2,7 @@
 
 namespace VsaTemplate.UnitTests.Features.Examples.Update;
 
-public sealed class UpdateExampleEndpointTests : EndpointTestBase<UpdateExampleEndpoint>
+public sealed class UpdateExampleEndpointTests : EndpointUnitTestBase<UpdateExampleEndpoint>
 {
     [Test]
     public override void ShouldHaveCorrectPrefix()

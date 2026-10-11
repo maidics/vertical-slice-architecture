@@ -2,7 +2,7 @@
 
 namespace VsaTemplate.UnitTests.Features.Examples.GetAll;
 
-public sealed class GetExamplesEndpointTests : EndpointTestBase<GetExamplesEndpoint>
+public sealed class GetExamplesEndpointTests : EndpointUnitTestBase<GetExamplesEndpoint>
 {
     [Test]
     public override void ShouldHaveCorrectPrefix()
