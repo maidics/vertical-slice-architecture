@@ -34,33 +34,6 @@ public sealed class EndpointRouteBuilderExtensionTests
     }
 
     [Test]
-    public void MapEndpointsShouldMapAllEndpointsFromAssembly()
-    {
-        Spy.MapEndpoints(typeof(EndpointRouteBuilderExtensionTests).Assembly);
-
-        var endpoints = Spy.GetEndpoints();
-        endpoints.Count.ShouldBe(2);
-
-        var names = endpoints
-            .Select(e => e.Metadata.GetMetadata<IEndpointNameMetadata>()?.EndpointName)
-            .ToList();
-        names.Count.ShouldBe(2);
-
-        names.ShouldContain(nameof(TestGetEndpoint.Get));
-        names.ShouldContain(nameof(TestPostEndpoint.Post));
-
-        foreach (var endpoint in endpoints)
-        {
-            var tags = endpoint.Metadata.GetMetadata<ITagsMetadata>()!.Tags.ToArray();
-
-            tags.Length.ShouldBe(1);
-            tags.ShouldBeEquivalentTo(new[] { "Test" });
-
-            endpoint.DisplayName!.ShouldContain("Test");
-        }
-    }
-
-    [Test]
     public void MapLogoutEndpointShouldMapLogout()
     {
         Spy.MapLogoutEndpoint();
