@@ -1,34 +1,27 @@
-﻿using VsaTemplate.Features.Examples;
+﻿using VsaTemplate.Domain.Constants;
+using VsaTemplate.Features.Examples;
 
 namespace VsaTemplate.UnitTests.Features.Examples.Update;
 
+[InheritsTests]
 public sealed class UpdateExampleEndpointTests : EndpointUnitTestBase<UpdateExampleEndpoint>
 {
-    [Test]
-    public override void ShouldHaveCorrectPrefix()
-    {
-        Prefix.ShouldBe("examples");
-    }
+    protected override string ExpectedPrefix => "examples";
+    protected override string[] ExpectedTags { get; } = [];
 
     [Test]
-    public override void ShouldHaveCorrectTags()
+    public override async Task MapMethodShouldMapEndpointWithAttributes() // TODO: this fails because the request handler is not registered in services
     {
-        Tags.ShouldBeEquivalentTo(Array.Empty<string>());
-    }
+        await using var spy = new EndpointRouteBuilderSpy();
+        await spy.InitializeAsync();
 
-    // [Test]
-    // public override async Task MapMethodShouldMapEndpointWithAttributes()
-    // {
-    //     await using var spy = new EndpointRouteBuilderSpy();
-    //     await spy.InitializeAsync();
-    //
-    //     UpdateExampleEndpoint.Map(spy);
-    //
-    //     var endpoints = spy.GetEndpoints();
-    //     endpoints.Count.ShouldBe(1);
-    //
-    //     var metadata = endpoints[0].Metadata;
-    //     metadata.ShouldHaveEndpointName("UpdateExample");
-    //     metadata.ShouldHaveOneAuthMetadataWithRoles(Roles.User, Roles.Administrator);
-    // }
+        UpdateExampleEndpoint.Map(spy);
+
+        var endpoints = spy.GetEndpoints();
+        endpoints.Count.ShouldBe(1);
+
+        var metadata = endpoints[0].Metadata;
+        metadata.ShouldHaveEndpointName("UpdateExample");
+        metadata.ShouldHaveOneAuthMetadataWithRoles(Roles.User, Roles.Administrator);
+    }
 }

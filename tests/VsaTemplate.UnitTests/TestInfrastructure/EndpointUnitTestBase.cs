@@ -5,11 +5,23 @@ namespace VsaTemplate.UnitTests.TestInfrastructure;
 public abstract class EndpointUnitTestBase<TEndpoint>
     where TEndpoint : IEndpoint
 {
-    protected static string Prefix => TEndpoint.Prefix;
-    protected static string[] Tags => TEndpoint.Tags;
+    protected abstract string ExpectedPrefix { get; }
+    protected abstract string[] ExpectedTags { get; }
 
-    public abstract void ShouldHaveCorrectPrefix();
-    public abstract void ShouldHaveCorrectTags();
+    private static string _prefix => TEndpoint.Prefix;
+    private static string[] _tags => TEndpoint.Tags;
 
-    // public abstract Task MapMethodShouldMapEndpointWithAttributes();
+    [Test]
+    public void ShouldHaveCorrectPrefix()
+    {
+        _prefix.ShouldBe(ExpectedPrefix);
+    }
+
+    [Test]
+    public void ShouldHaveCorrectTags()
+    {
+        _tags.ShouldBe(ExpectedTags);
+    }
+
+    public abstract Task MapMethodShouldMapEndpointWithAttributes();
 }
