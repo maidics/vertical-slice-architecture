@@ -106,7 +106,7 @@ Tests are split into projects by their dependencies and test infrastructure. Eac
 | Project | Tests | Infrastructure |
 |---|---|---|
 | [`UnitTests`](./tests/VsaTemplate.UnitTests) | Plain unit tests, validators, endpoint metadata, request handlers via DI | In-memory app (`WebApplicationFactory`, no server), database via [`TestAppHost`](./tests/VsaTemplate.TestAppHost), mocks via `TUnit.Mocks` |
-| [`IntegrationTests`](./tests/VsaTemplate.IntegrationTests) | Nothing yet; add integration tests here as the solution grows | None, a bare TUnit project |
+| [`IntegrationTests`](./tests/VsaTemplate.IntegrationTests) | Nothing yet; add integration tests here as the solution grows | None, an empty project without a test framework; add one with the first test |
 | [`WebTests`](./tests/VsaTemplate.WebTests) | E2E tests of endpoints through `HttpClient` | In-memory app with Kestrel started, database via [`TestAppHost`](./tests/VsaTemplate.TestAppHost) |
 
 Database-backed tests run against the database provisioned by Aspire through the [`TestAppHost`](./tests/VsaTemplate.TestAppHost), so they use the same provider as production. Because the tests share one database instance, those tests are marked `NotInParallel` and the database is reset with Respawn before each test.
