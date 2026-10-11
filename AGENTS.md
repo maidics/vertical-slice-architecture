@@ -4,6 +4,8 @@ Use the specified SDK version in [`global.json`](global.json). Solution uses cen
 
 Do not bump template version in [`nuspec.csproj`](nuspec.csproj) unless asked to.
 
+Each `-.-` is an empty placeholder file that keeps a folder in a generated project even when the folder has nothing else in it.
+
 ---
 
 ## Validation
