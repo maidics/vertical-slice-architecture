@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Builder;
 using VsaTemplate.Common.Extensions;
 using VsaTemplate.Domain.Constants;
-using VsaTemplate.Tests.TestInfrastructure.TemplateTests;
 using VsaTemplate.Tests.TestInfrastructure.WebTests;
 
 namespace VsaTemplate.Tests.Common.Extensions;

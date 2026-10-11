@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http.Metadata;
-using Microsoft.AspNetCore.Routing;
 using VsaTemplate.Common.Extensions;
-using VsaTemplate.Tests.TestInfrastructure.TemplateTests;
 using VsaTemplate.Tests.TestInfrastructure.WebTests;
 
 namespace VsaTemplate.Tests.Common.Extensions;

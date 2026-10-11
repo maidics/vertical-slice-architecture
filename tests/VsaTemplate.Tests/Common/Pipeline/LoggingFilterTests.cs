@@ -1,8 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Testing;
-using TUnit.Mocks;
-using TUnit.Mocks.Generated;
 using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Common.Pipeline;
 
