@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using TUnit.Core.Interfaces;
+using VsaTemplate.Common.Extensions;
 
 namespace VsaTemplate.UnitTests.TestInfrastructure;
 
@@ -27,7 +28,8 @@ public sealed class EndpointRouteBuilderSpy
 
     public Task InitializeAsync()
     {
-        _services = new ServiceCollection();
+        // endpoint parameter inference needs to know which parameters are services
+        _services = new ServiceCollection().AddRequestHandlers(typeof(Program).Assembly);
         _serviceProvider = _services.BuildServiceProvider();
         DataSources = [];
 
