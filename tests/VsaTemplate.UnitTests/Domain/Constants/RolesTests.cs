@@ -1,0 +1,18 @@
+﻿using VsaTemplate.Domain.Constants;
+
+namespace VsaTemplate.UnitTests.Domain.Constants;
+
+public sealed class RolesTests
+{
+    [Test]
+    public void IsValidShouldReturnTrueWhenRoleIsValid()
+    {
+        Roles.IsValid(Roles.User).ShouldBeTrue();
+    }
+
+    [Test]
+    public void IsValidShouldReturnFalseWhenRoleIsNotValid()
+    {
+        Roles.IsValid("test").ShouldBeFalse();
+    }
+}

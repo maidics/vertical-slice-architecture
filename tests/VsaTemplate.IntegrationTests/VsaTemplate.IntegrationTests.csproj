@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>VsaTemplate.IntegrationTests</RootNamespace>
+    <AssemblyName>VsaTemplate.IntegrationTests</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- exit code 8: zero tests ran - remove once the project has tests -->
+    <TestingPlatformCommandLineArguments>$(TestingPlatformCommandLineArguments) --ignore-exit-code 8</TestingPlatformCommandLineArguments>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="TUnit" />
+  </ItemGroup>
+</Project>

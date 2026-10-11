@@ -1,0 +1,37 @@
+using VsaTemplate.Domain.Entities;
+using VsaTemplate.Features.Examples;
+using VsaTemplate.Infrastructure.Database;
+
+namespace VsaTemplate.UnitTests.Features.Examples.GetAll;
+
+public sealed class GetExamplesTests : UnitTestBase
+{
+    [Test]
+    [Arguments(0)]
+    [Arguments(10)]
+    public async Task ShouldReturnExamples(int exampleAmount)
+    {
+        List<Example> examples = [];
+
+        await using var context = GetRequiredService<ApplicationDbContext>();
+
+        for (var i = 0; i < exampleAmount; i++)
+        {
+            var example = new Example { Content = $"test{i}" };
+
+            await context.Examples.AddAsync(example);
+            await context.SaveChangesAsync();
+
+            examples.Add(example);
+        }
+
+        var entityIds = examples.Select(x => x.Id).ToList();
+
+        var handler = GetRequiredService<GetExamplesQueryHandler>();
+
+        var dtos = await handler.Handle(CancellationToken.None);
+        var dtoIds = dtos.Select(x => x.Id).ToList();
+
+        entityIds.ShouldBeEquivalentTo(dtoIds);
+    }
+}

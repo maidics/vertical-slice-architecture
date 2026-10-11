@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>VsaTemplate.WebTests</RootNamespace>
+    <AssemblyName>VsaTemplate.WebTests</AssemblyName>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- exit code 8: zero tests ran - the project has no tests without the example feature -->
+    <TestingPlatformCommandLineArguments>$(TestingPlatformCommandLineArguments) --ignore-exit-code 8</TestingPlatformCommandLineArguments>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.Testing" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
+    <PackageReference Include="Respawn" />
+    <PackageReference Include="Shouldly" />
+    <PackageReference Include="TUnit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\VsaTemplate\VsaTemplate.csproj" />
+    <ProjectReference Include="..\VsaTemplate.TestAppHost\VsaTemplate.TestAppHost.csproj" />
+  </ItemGroup>
+</Project>
