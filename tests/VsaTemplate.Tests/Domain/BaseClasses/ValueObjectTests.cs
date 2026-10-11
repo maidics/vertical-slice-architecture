@@ -1,4 +1,4 @@
-﻿using VsaTemplate.Tests.TestInfrastructure.TemplateTests;
+﻿using VsaTemplate.Domain.BaseClasses;
 
 namespace VsaTemplate.Tests.Domain.BaseClasses;
 
@@ -112,5 +112,20 @@ public sealed class ValueObjectTests
         var objOther = new TestValueObject(2);
 
         (obj != objOther).ShouldBeTrue();
+    }
+
+    private sealed class TestValueObject : ValueObject
+    {
+        public int Number { get; }
+
+        public TestValueObject(int number)
+        {
+            Number = number;
+        }
+
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return Number;
+        }
     }
 }

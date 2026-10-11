@@ -5,7 +5,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Testing;
 using VsaTemplate.Common.Exceptions;
 using VsaTemplate.Common.Pipeline;
-using VsaTemplate.Tests.TestInfrastructure;
 using VsaTemplate.Tests.TestInfrastructure.FunctionalTests;
 
 namespace VsaTemplate.Tests.Common.Pipeline;

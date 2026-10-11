@@ -4,9 +4,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Testing;
-using TUnit.Mocks;
-using TUnit.Mocks.Arguments;
-using TUnit.Mocks.Generated;
 using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Common.Pipeline;
 
@@ -21,7 +18,7 @@ public sealed class ValidationFilterTests
     {
         var validator = IValidator<TestRequest>.Mock();
         validator
-            .ValidateAsync(Arg.Any<IValidationContext>(), Arg.Any<CancellationToken>())
+            .ValidateAsync(Any<IValidationContext>(), Any<CancellationToken>())
             .Returns(
                 shouldPass
                     ? new ValidationResult()
