@@ -105,7 +105,7 @@ Unit, functional, integration, web and template testing merged into one project 
 
 ---
 
-**[Testing infrastructure](./tests/VsaTemplate.Tests/TestInfrastructure)**: This template includes infrastructure for functional, web and template testing.
+**[Testing infrastructure](./tests/VsaTemplate.Tests/TestInfrastructure)**: This template includes infrastructure for functional and web testing.
 
 Functional test infrastructure:
 - [`FunctionalTestFixture`](./tests/VsaTemplate.Tests/TestInfrastructure/FunctionalTests/FunctionalTestFixture.cs) initializes asynchronously:
@@ -117,14 +117,8 @@ Web test infrastructure:
   - Database and web API resources via the [`TestAppHost`](./tests/VsaTemplate.TestAppHost)
   - Provides helper methods for creating `HttpClient` and [`ApplicationDbContext`](./src/VsaTemplate/Infrastructure/Database/ApplicationDbContext.cs) instances
 
-Template test infrastructure:
-- [`TemplateTestFixture`](./tests/VsaTemplate.Tests/TestInfrastructure/TemplateTests/TemplateTestFixture.cs) initializes asynchronously:
-  - Database, setup via the [`TestAppHost`](./tests/VsaTemplate.TestAppHost)
-  - [`TemplateTestWebApplicationFactory`](./tests/VsaTemplate.Tests/TestInfrastructure/TemplateTests/TemplateTestWebApplicationFactory.cs) for test doubles: test `IRequestHandler`/`IValidator` implementations and an [`EndpointRouteBuilderSpy`](./tests/VsaTemplate.Tests/TestInfrastructure/WebTests/EndpointRouteBuilderSpy.cs)
-- [`TemplateTestBase`](./tests/VsaTemplate.Tests/TestInfrastructure/TemplateTests/TemplateTestBase.cs):
-  - Marked with `NotInParallel` attribute due to shared db instance
-  - Instantiates [`TemplateTestFixture`](./tests/VsaTemplate.Tests/TestInfrastructure/TemplateTests/TemplateTestFixture.cs) (injected via `ClassDataSource<T>`)
-  - Resets the `Fixture` (resets db, creates a new `IServiceScope`)
+Shared test doubles:
+- [`EndpointRouteBuilderSpy`](./tests/VsaTemplate.Tests/TestInfrastructure/WebTests/EndpointRouteBuilderSpy.cs): an in-memory `IEndpointRouteBuilder` for asserting mapped endpoints (injected via `ClassDataSource<T>`)
 
 ---
 
@@ -158,4 +152,4 @@ Tests the infrastructure shipped with the template such as the:
 - Extension methods
 - and more...
 
-Template tests are part of the Tests project and live next to the other tests, in the folders mirroring the tested classes (e.g. [`Common/Pipeline`](./tests/VsaTemplate.Tests/Common/Pipeline)). They use the [template test infrastructure](./tests/VsaTemplate.Tests/TestInfrastructure/TemplateTests).
+Template tests are part of the Tests project and live next to the other tests, in the folders mirroring the tested classes (e.g. [`Common/Pipeline`](./tests/VsaTemplate.Tests/Common/Pipeline)). They are plain unit tests that rely on mocks (via `TUnit.Mocks`) and the [`EndpointRouteBuilderSpy`](./tests/VsaTemplate.Tests/TestInfrastructure/WebTests/EndpointRouteBuilderSpy.cs) instead of a dedicated test infrastructure.
