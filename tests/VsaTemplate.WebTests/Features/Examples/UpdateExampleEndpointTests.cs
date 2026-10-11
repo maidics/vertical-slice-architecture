@@ -5,7 +5,7 @@ using VsaTemplate.Domain.Constants;
 using VsaTemplate.Domain.Entities;
 using VsaTemplate.Features.Examples;
 
-namespace VsaTemplate.WebTests.Features.Examples.Update;
+namespace VsaTemplate.WebTests.Features.Examples;
 
 public sealed class UpdateExampleEndpointTests : EndpointTestBase<UpdateExampleEndpoint>
 {

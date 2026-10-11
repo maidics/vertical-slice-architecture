@@ -2,7 +2,7 @@
 using VsaTemplate.Domain.Entities;
 using VsaTemplate.Features.Examples;
 
-namespace VsaTemplate.WebTests.Features.Examples.GetAll;
+namespace VsaTemplate.WebTests.Features.Examples;
 
 public sealed class GetExamplesEndpointTests : EndpointTestBase<GetExamplesEndpoint>
 {

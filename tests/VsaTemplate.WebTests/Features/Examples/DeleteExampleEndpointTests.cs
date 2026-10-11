@@ -4,7 +4,7 @@ using VsaTemplate.Domain.Constants;
 using VsaTemplate.Domain.Entities;
 using VsaTemplate.Features.Examples;
 
-namespace VsaTemplate.WebTests.Features.Examples.Delete;
+namespace VsaTemplate.WebTests.Features.Examples;
 
 public sealed class DeleteExampleEndpointTests : EndpointTestBase<DeleteExampleEndpoint>
 {

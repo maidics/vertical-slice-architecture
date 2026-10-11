@@ -5,7 +5,7 @@ using VsaTemplate.Domain.Constants;
 using VsaTemplate.Domain.Entities;
 using VsaTemplate.Features.Examples;
 
-namespace VsaTemplate.WebTests.Features.Examples.Create;
+namespace VsaTemplate.WebTests.Features.Examples;
 
 public sealed class CreateExampleEndpointTests : EndpointTestBase<CreateExampleEndpoint>
 {

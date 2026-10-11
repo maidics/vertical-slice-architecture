@@ -3,7 +3,7 @@ using System.Net.Http.Json;
 using VsaTemplate.Domain.Entities;
 using VsaTemplate.Features.Examples;
 
-namespace VsaTemplate.WebTests.Features.Examples.GetById;
+namespace VsaTemplate.WebTests.Features.Examples;
 
 public sealed class GetExampleByIdEndpointTests : EndpointTestBase<GetExampleByIdEndpoint>
 {
