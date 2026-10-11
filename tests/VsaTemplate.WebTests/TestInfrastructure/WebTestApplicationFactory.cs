@@ -5,14 +5,21 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace VsaTemplate.WebTests.TestInfrastructure;
 
-public sealed class WebTestApplicationFactory(string connectionString)
-    : WebApplicationFactory<Program>
+public sealed class WebTestApplicationFactory : WebApplicationFactory<Program>
 {
+    private readonly string _connectionString;
+
+    public WebTestApplicationFactory(string connectionString)
+    {
+        _connectionString = connectionString;
+
+        UseKestrel(0); // dynamic port, clients created via CreateClient talk to it over the network
+    }
 
     protected override void ConfigureWebHost(IWebHostBuilder builder)
     {
         builder.UseEnvironment("Testing");
-        builder.UseSetting($"ConnectionStrings:{Shared.Services.Database}", connectionString);
+        builder.UseSetting($"ConnectionStrings:{Shared.Services.Database}", _connectionString);
 
         builder.ConfigureServices(services =>
         {

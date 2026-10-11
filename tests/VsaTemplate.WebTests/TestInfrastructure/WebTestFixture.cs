@@ -42,6 +42,7 @@ public sealed class WebTestFixture : IAsyncInitializer, IAsyncDisposable
         ArgumentException.ThrowIfNullOrEmpty(connectionString);
 
         _factory = new WebTestApplicationFactory(connectionString);
+        _factory.StartServer();
         ScopeFactory = _factory.Services.GetRequiredService<IServiceScopeFactory>();
 
         using var scope = ScopeFactory.CreateScope();
