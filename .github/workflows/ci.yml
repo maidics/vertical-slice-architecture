@@ -5,6 +5,10 @@ on:
     branches: ['**'] # runs on all branches, but pack & publish only ran on master branch
     tags: ['v*']
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true # cancels in progress run if pushing again
+
 jobs: # only runs pack -> test if there changes to something that is not inside .github/
   ci: # only runs publish if a new tag is pushed
     runs-on: ubuntu-latest
@@ -13,10 +17,6 @@ jobs: # only runs pack -> test if there changes to something that is not inside 
       pull-requests: read
       id-token: write # enable GitHub OIDC token issuance for this job
 
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true # cancels in progress run if pushing again
-    
     steps:
       - uses: actions/checkout@v4
 
