@@ -7,7 +7,7 @@ using VsaTemplate.Features.Examples;
 
 namespace VsaTemplate.WebTests.Features.Examples;
 
-public sealed class UpdateExampleEndpointTests : EndpointTestBase<UpdateExampleEndpoint>
+public sealed class UpdateExampleEndpointTests : EndpointTestBase
 {
     protected override string Endpoint => "api/examples";
 

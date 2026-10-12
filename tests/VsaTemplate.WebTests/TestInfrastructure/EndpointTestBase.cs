@@ -2,7 +2,6 @@
 using System.Net.Http.Json;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
-using VsaTemplate.Common.Interfaces;
 using VsaTemplate.Infrastructure.Database;
 using VsaTemplate.Infrastructure.Identity;
 
@@ -10,8 +9,7 @@ namespace VsaTemplate.WebTests.TestInfrastructure;
 
 // should not be parallelized since the tests use a shared db instance
 [NotInParallel("EndpointTests")]
-public abstract class EndpointTestBase<TEndpoint>
-    where TEndpoint : IEndpoint
+public abstract class EndpointTestBase
 {
     [ClassDataSource<WebTestFixture>(Shared = SharedType.PerTestSession)]
     public required WebTestFixture Fixture { get; init; }

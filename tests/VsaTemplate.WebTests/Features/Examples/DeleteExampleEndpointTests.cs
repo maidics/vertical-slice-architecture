@@ -2,11 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using VsaTemplate.Domain.Constants;
 using VsaTemplate.Domain.Entities;
-using VsaTemplate.Features.Examples;
 
 namespace VsaTemplate.WebTests.Features.Examples;
 
-public sealed class DeleteExampleEndpointTests : EndpointTestBase<DeleteExampleEndpoint>
+public sealed class DeleteExampleEndpointTests : EndpointTestBase
 {
     protected override string Endpoint => "api/examples";
 

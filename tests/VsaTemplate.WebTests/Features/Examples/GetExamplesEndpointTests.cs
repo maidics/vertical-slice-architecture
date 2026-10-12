@@ -4,7 +4,7 @@ using VsaTemplate.Features.Examples;
 
 namespace VsaTemplate.WebTests.Features.Examples;
 
-public sealed class GetExamplesEndpointTests : EndpointTestBase<GetExamplesEndpoint>
+public sealed class GetExamplesEndpointTests : EndpointTestBase
 {
     protected override string Endpoint => "api/examples";
 
