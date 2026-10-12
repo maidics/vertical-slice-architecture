@@ -15,6 +15,8 @@
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/VsaTemplate.TestAppHost/VsaTemplate.TestAppHost.csproj" />
-    <Project Path="tests/VsaTemplate.Tests/VsaTemplate.Tests.csproj" />
+    <Project Path="tests/VsaTemplate.IntegrationTests/VsaTemplate.IntegrationTests.csproj" />
+    <Project Path="tests/VsaTemplate.UnitTests/VsaTemplate.UnitTests.csproj" />
+    <Project Path="tests/VsaTemplate.WebTests/VsaTemplate.WebTests.csproj" />
   </Folder>
 </Solution>

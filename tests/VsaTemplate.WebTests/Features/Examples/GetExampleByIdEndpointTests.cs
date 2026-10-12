@@ -1,0 +1,51 @@
+﻿using System.Net;
+using System.Net.Http.Json;
+using VsaTemplate.Domain.Entities;
+using VsaTemplate.Features.Examples;
+
+namespace VsaTemplate.WebTests.Features.Examples;
+
+public sealed class GetExampleByIdEndpointTests : EndpointTestBase
+{
+    protected override string Endpoint => "api/examples";
+
+    [Test]
+    public async Task ShouldReturnUnauthorizedWhenAnonymous()
+    {
+        using var client = CreateHttpClient();
+
+        var response = await client.GetAsync(Endpoint + $"/{Guid.Empty}");
+        response.StatusCode.ShouldBe(HttpStatusCode.Unauthorized);
+    }
+
+    [Test]
+    public async Task ShouldReturnNotFoundIfExampleDoesNotExist()
+    {
+        using var client = await LogInAsync();
+
+        var response = await client.GetAsync(Endpoint + $"/{Guid.Empty}");
+        response.StatusCode.ShouldBe(HttpStatusCode.NotFound);
+
+        var errors = await response.GetResultErrorsAsync();
+        errors.ShouldNotBeNull();
+        errors.Length.ShouldBe(1);
+        errors.ShouldContain($"{nameof(Example)} not found.");
+    }
+
+    [Test]
+    public async Task ShouldReturnOkAndExampleById()
+    {
+        var example = new Example { Content = "test" };
+
+        await SeedAsync(example);
+
+        using var client = await LogInAsync();
+
+        var response = await client.GetAsync(Endpoint + $"/{example.Id}");
+        response.StatusCode.ShouldBe(HttpStatusCode.OK);
+
+        var returned = await response.Content.ReadFromJsonAsync<ExampleDto>();
+        returned.ShouldNotBeNull();
+        returned.Id.ShouldBe(example.Id);
+    }
+}
