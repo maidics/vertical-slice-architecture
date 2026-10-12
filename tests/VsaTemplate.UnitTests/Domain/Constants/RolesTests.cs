@@ -5,9 +5,11 @@ namespace VsaTemplate.UnitTests.Domain.Constants;
 public sealed class RolesTests
 {
     [Test]
-    public void IsValidShouldReturnTrueWhenRoleIsValid()
+    [Arguments(Roles.User)]
+    [Arguments(Roles.Administrator)]
+    public void IsValidShouldReturnTrueWhenRoleIsValid(string role)
     {
-        Roles.IsValid(Roles.User).ShouldBeTrue();
+        Roles.IsValid(role).ShouldBeTrue();
     }
 
     [Test]
