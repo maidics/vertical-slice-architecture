@@ -102,7 +102,7 @@ Infrastructure/ # External dependencies
 
 ## Testing
 
-This solution uses **[TUnit](https://tunit.dev/)** as its testing framework. 
+This solution uses **[TUnit](https://tunit.dev/)** as its testing framework.
 
 ### Test projects
 
@@ -127,7 +127,7 @@ Database-backed tests run against the database provisioned by Aspire through the
   - Instantiates `UnitTestFixture` (injected via [`ClassDataSource<T>`](https://tunit.dev/docs/writing-tests/class-data-source/))
   - Resets the database and creates a new `IServiceScope` before each test
 - [`EndpointUnitTestBase`](./tests/VsaTemplate.UnitTests/TestInfrastructure/EndpointUnitTestBase.cs) asserts the `Prefix`, `Tags` of `IEndpoint` implementations and attributes
-- [`EndpointRouteBuilderSpy`](./tests/VsaTemplate.UnitTests/TestInfrastructure/EndpointRouteBuilderSpy.cs): an in-memory `IEndpointRouteBuilder` for asserting mapped endpoints (injected via [`ClassDataSource<T>`](https://tunit.dev/docs/writing-tests/class-data-source/)))
+- [`EndpointRouteBuilderSpy`](./tests/VsaTemplate.UnitTests/TestInfrastructure/EndpointRouteBuilderSpy.cs): an in-memory `IEndpointRouteBuilder` for asserting mapped endpoints (injected via [`ClassDataSource<T>`](https://tunit.dev/docs/writing-tests/class-data-source/))
 - [`EntityConfigurationFixture`](./tests/VsaTemplate.UnitTests/TestInfrastructure/EntityConfigurationFixture.cs) for asserting `IEntityTypeConfiguration` implementations
 
 **[WebTests infrastructure](./tests/VsaTemplate.WebTests/TestInfrastructure)**
