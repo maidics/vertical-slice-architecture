@@ -4,11 +4,6 @@
     <AssemblyName>VsaTemplate.WebTests</AssemblyName>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <!-- exit code 8: zero tests ran - the project has no tests without the example feature -->
-    <TestingPlatformCommandLineArguments>$(TestingPlatformCommandLineArguments) --ignore-exit-code 8</TestingPlatformCommandLineArguments>
-  </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.Testing" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />
