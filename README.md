@@ -126,7 +126,7 @@ Database-backed tests run against the database provisioned by Aspire through the
 - [`UnitTestBase`](./tests/VsaTemplate.UnitTests/TestInfrastructure/UnitTestBase.cs) for testing **[`IRequest`](./src/VsaTemplate/Common/Interfaces/IRequest.cs)** handlers and other services resolved from DI:
   - Instantiates `UnitTestFixture` (injected via [`ClassDataSource<T>`](https://tunit.dev/docs/writing-tests/class-data-source/))
   - Resets the database and creates a new `IServiceScope` before each test
-- [`EndpointTestBase`](./tests/VsaTemplate.UnitTests/TestInfrastructure/EndpointTestBase.cs) asserts the `Prefix`, `Tags` of `IEndpoint` implementations and attributes
+- [`EndpointUnitTestBase`](./tests/VsaTemplate.UnitTests/TestInfrastructure/EndpointUnitTestBase.cs) asserts the `Prefix`, `Tags` of `IEndpoint` implementations and attributes
 - [`EndpointRouteBuilderSpy`](./tests/VsaTemplate.UnitTests/TestInfrastructure/EndpointRouteBuilderSpy.cs): an in-memory `IEndpointRouteBuilder` for asserting mapped endpoints (injected via [`ClassDataSource<T>`](https://tunit.dev/docs/writing-tests/class-data-source/)))
 - [`EntityConfigurationFixture`](./tests/VsaTemplate.UnitTests/TestInfrastructure/EntityConfigurationFixture.cs) for asserting `IEntityTypeConfiguration` implementations
 
