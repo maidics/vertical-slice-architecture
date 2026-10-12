@@ -94,7 +94,7 @@ Infrastructure/ # External dependencies
 - Marker interface for dependency injection registration
 - It defines no methods for return and parameter type flexibility and simplicity (e.g: consuming a type such as `Guid` - which requires no manual validation - should not require creating a new [`IRequest`](./src/VsaTemplate/Common/Interfaces/IRequest.cs) type)
 
-### [`IEndpoint`](./src/VsaTemplate/Common/Interfaces/IEndpoint.cs) & [`IEndpoint<TResource>`](./src/VsaTemplate/Common/Interfaces/IEndpoint.cs)
+### [`IEndpoint`](./src/VsaTemplate/Common/Interfaces/IEndpoint.cs)
 
 - Interface to register an endpoint automatically (see: [`EndpointRouteBuilderExtensions`](./src/VsaTemplate/Common/Extensions/EndpointRouteBuilderExtensions.cs))
 
