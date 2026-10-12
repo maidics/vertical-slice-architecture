@@ -23,6 +23,8 @@ Each `-.-` is an empty placeholder file that keeps a folder in a generated proje
 
 ## Git workflow
 
+- When asked to open an issue do not create a branch or push changes - open the issue.
+- Do not subscribe to the PR unless you're explicitly asked by the user.
 - Use conventional naming when it comes to commits and branches; only add a commit body for non trivial cases.
 - This is not a must, but try to keep commits atomic (e.g. no mixing of feat, fix, chore changes inside commits) - this improves readability of your feature branch.
 - Never use the Claude Code Web default branch: `claude/`, create a new branch for your changes.
