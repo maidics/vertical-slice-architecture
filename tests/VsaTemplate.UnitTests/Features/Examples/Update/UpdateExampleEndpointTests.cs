@@ -10,7 +10,7 @@ public sealed class UpdateExampleEndpointTests : EndpointUnitTestBase<UpdateExam
     protected override string[] ExpectedTags { get; } = [];
 
     [Test]
-    public override async Task MapMethodShouldMapEndpointWithAttributes() // TODO: this fails because the request handler is not registered in services
+    public override async Task MapMethodShouldMapEndpointWithAttributes()
     {
         await using var spy = new EndpointRouteBuilderSpy();
         await spy.InitializeAsync();
