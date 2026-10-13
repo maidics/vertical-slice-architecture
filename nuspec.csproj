@@ -32,7 +32,40 @@
 
     <Content
       Include="**\*"
-      Exclude="**\.claude\**;**\artifacts\**;**\.vs\**;**\.idea\**;**\.git\**;**\.nuget\**;*.nupkg;**\*.user;**\.github\**;**\nuspec.csproj;**\docs\**;**\*.db;**\*.db-shm;**\*.db-wal;**\*.db-journal;**\scratch\**;**\v1.json;**\pack-install.sh;**\scripts\**;**\.gitattributes;**\AGENTS.md;**\LICENSE;**\renovate.json"
-    />
+      Exclude="
+        **\.git\**;
+        **\.github\**;
+        **\.gitattributes;
+        **\renovate.json;
+    
+        **\.vs\**;
+        **\.idea\**;
+        **\.claude\**;
+        **\*.user;
+        **\AGENTS.md;
+    
+        **\artifacts\**;
+        **\.nuget\**;
+        *.nupkg;
+        **\nuspec.csproj;
+    
+        **\docs\**;
+        **\scratch\**;
+        **\scripts\**;
+        **\pack-install.sh;
+        **\v1.json;
+        **\LICENSE;
+    
+        **\*.db;
+        **\*.db-shm;
+        **\*.db-wal;
+        **\*.db-journal;
+    
+        **\VsaTemplate.Pipeline\**;
+        **\VsaTemplate.Pipeline.Tests\**;
+    "/>
+
+    <!--Exclude everything from VsaTemplate.Pipeline/ & VsaTemplate.Pipeline.Tests/ but then include what is required for the AddModularPipeline option -->
+    <Content Include="**\VsaTemplate.Pipeline\Program.cs;**\VsaTemplate.Pipeline\VsaTemplate.Pipeline.csproj;**\VsaTemplate.Pipeline.Tests.csproj" />
   </ItemGroup>
 </Project>

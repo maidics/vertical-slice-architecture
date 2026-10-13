@@ -1,0 +1,9 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="Shouldly" />
+    <!--#if (TemplateDev) -->
+    <PackageReference Include="TUnit" />
+    <PackageReference Include="TUnit.Mocks" />
+    <!--#endif -->
+  </ItemGroup>
+</Project>
