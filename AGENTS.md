@@ -11,6 +11,9 @@ Each `-.-` is an empty placeholder file that keeps a folder in a generated proje
 ## Validation
 
 - Run tests relevant to the change before pushing code.
+- Running dotnet test on repo .slnx will cause exit code 8 (zero tests) ran on Integration.Tests
+- Additionally this can be caused by instantiating the template with -mp option causing the Pipeline.Tests to fail
+- These errors can be ignored locally; in CI it is a pipeline failure
 - Instantiating the template is only required if the user asks for it or before opening a PR.
 - Instatiate template with relevant options to your change.
 - Prior instantiation:
