@@ -4,6 +4,10 @@
     "AddExamples": {
       "longName": "examples",
       "shortName": "e"
+    },
+    "AddModularPipelines": {
+      "longName": "modular-pipelines",
+      "shortname": "mp"
     }
   }
 }

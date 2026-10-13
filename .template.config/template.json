@@ -18,6 +18,13 @@
       "defaultValue": "false",
       "displayName": "Add example feature and tests",
       "description": "Example implementations and tests: an Example entity, CRUD IRequest/IRequestHandler handlers and Minimal API endpoints and tests showing the template in use."
+    },
+    "AddModularPipelines": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "displayName": "Add Pipeline project with ModularPipelines package",
+      "description": "Write your CI pipeline in C# using ModularPipelines package. This option provides a scaffold project and test project."
     }
   },
   "sources": [
@@ -30,6 +37,13 @@
             "**/Example.cs",
             "**/ExampleConfiguration.cs",
             "**/ExampleConfigurationTests.cs"
+          ]
+        },
+        {
+          "condition": "(!AddModularPipelines)",
+          "exclude": [
+            "**/VsaTemplate.Pipeline/**",
+            "**/VsaTemplate.Pipeline.Tests/**"
           ]
         }
       ]

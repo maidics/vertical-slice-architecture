@@ -16,9 +16,12 @@ dotnet new install Vertical.Slice.Architecture
 dotnet new vsa-sln -n [SolutionName]
 ```
 
-| Options        | Values      | Default | Description                                |
-|----------------|-------------|---------|--------------------------------------------|
-| --examples, -e | true, false | false   | Includes example implementations and tests |
+| Options                      | Values      | Default | Description                                                                                                                                                                                                                                               |
+|------------------------------|-------------|---------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `--examples`, `-e`           | true, false | false   | Includes example implementations and tests                                                                                                                                                                                                                |
+| `--modular-pipelines`, `-mp` | true, false | false   | Includes the [`Pipeline`](./src/VsaTemplate.Pipeline/) and [`Pipeline.Tests`](./tests/VsaTemplate.Pipeline.Tests) scaffold projects with [`ModularPipelines`](https://thomhurst.github.io/ModularPipelines/) allowing you to write your CI pipeline in C# |
+
+> **Tip**: run `dotnet new vsa-sln --help` to see all available options.
 
 ---
 
@@ -29,6 +32,7 @@ dotnet new vsa-sln -n [SolutionName]
 - [FluentValidation](https://docs.fluentvalidation.net/en/latest/)
 - [Scalar](https://scalar.com/)
 - [TUnit](https://tunit.dev/), [TUnit.Mocks](https://tunit.dev/docs/writing-tests/mocking/), [Shouldly](https://docs.shouldly.org/), & [Respawn](https://github.com/jbogard/Respawn)
+- [ModularPipelines](https://thomhurst.github.io/ModularPipelines/) (`-mp` option only)
 
 ---
 
@@ -111,7 +115,7 @@ Tests are split into projects by their dependencies and test infrastructure.
 | Project                                                    | Tests                                                                    | Infrastructure                                                                                                                             |
 |------------------------------------------------------------|--------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
 | [`UnitTests`](./tests/VsaTemplate.UnitTests)               | Plain unit tests, validators, endpoint metadata, request handlers via DI | In-memory app (`WebApplicationFactory`, no server), database via [`TestAppHost`](./tests/VsaTemplate.TestAppHost), mocks via `TUnit.Mocks` |
-| [`IntegrationTests`](./tests/VsaTemplate.IntegrationTests) | -            | -                                                               |
+| [`IntegrationTests`](./tests/VsaTemplate.IntegrationTests) | -                                                                        | -                                                                                                                                          |
 | [`WebTests`](./tests/VsaTemplate.WebTests)                 | E2E tests of endpoints through `HttpClient`                              | In-memory app with Kestrel started, database via [`TestAppHost`](./tests/VsaTemplate.TestAppHost)                                          |
 
 Database-backed tests run against the database provisioned by Aspire through the [`TestAppHost`](./tests/VsaTemplate.TestAppHost), so they use the same provider as production. Because the tests share one database instance, those tests are marked `NotInParallel` and the database is reset with Respawn before each test.

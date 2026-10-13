@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <PackageReference Include="Shouldly" />
+    <!--#if (TemplateDev) -->
+    <PackageReference Include="TUnit" />
+    <PackageReference Include="TUnit.Mocks" />
+    <!--#endif -->
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\VsaTemplate.Pipeline\VsaTemplate.Pipeline.csproj" />
+  </ItemGroup>
+</Project>

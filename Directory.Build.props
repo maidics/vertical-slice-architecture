@@ -9,6 +9,11 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <!--#if (TemplateDev) -->
+  <PropertyGroup>
+    <DefineConstants>$(DefineConstants);TemplateDev</DefineConstants>
+  </PropertyGroup>
+  <!--#endif -->
   <PropertyGroup>
     <TestingPlatformCommandLineArguments>$(TestingPlatformCommandLineArguments) --results-directory "$(ArtifactsPath)/test-results"</TestingPlatformCommandLineArguments>
   </PropertyGroup>

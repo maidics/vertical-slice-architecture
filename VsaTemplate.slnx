@@ -9,11 +9,17 @@
   </Folder>
   <Folder Name="/src/">
     <Project Path="src/VsaTemplate.AppHost/VsaTemplate.AppHost.csproj" />
+    <!--#if (AddModularPipelines)-->
+    <Project Path="src/VsaTemplate.Pipeline/VsaTemplate.Pipeline.csproj" />
+    <!--#endif -->
     <Project Path="src/VsaTemplate.ServiceDefaults/VsaTemplate.ServiceDefaults.csproj" />
     <Project Path="src/VsaTemplate.Shared/VsaTemplate.Shared.csproj" />
     <Project Path="src/VsaTemplate/VsaTemplate.csproj" />
   </Folder>
   <Folder Name="/tests/">
+    <!--#if (AddModularPipelines)-->
+    <Project Path="tests/VsaTemplate.Pipeline.Tests/VsaTemplate.Pipeline.Tests.csproj" />
+    <!--#endif -->
     <Project Path="tests/VsaTemplate.TestAppHost/VsaTemplate.TestAppHost.csproj" />
     <Project Path="tests/VsaTemplate.IntegrationTests/VsaTemplate.IntegrationTests.csproj" />
     <Project Path="tests/VsaTemplate.UnitTests/VsaTemplate.UnitTests.csproj" />
