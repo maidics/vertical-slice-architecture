@@ -4,9 +4,9 @@ Majority of CI logic is written in C# using the [`ModularPipelines`](https://tho
 
 ## Requirements
 
-| Requirement | Skipped on | Description |
+| Requirement | Run Condition | Description |
 | - | - | - |
-| VersionTagRequirement | Non tag pushes | Asserts tag semantics: vMAJOR.MINOR.PATCH |
+| VersionTagRequirement | Tag push | Asserts tag semantics: vMAJOR.MINOR.PATCH |
 
 Requirements have no skip logic: handled with a log and early return.
 
@@ -19,11 +19,11 @@ Requirements have no skip logic: handled with a log and early return.
 | `TestTemplateModule` | `TemplateBuildModule` | - | Runs Pipeline.Tests _only_. `IntegrationTests` project is empty; `UnitTests` & `WebTests` are ran after instantiations. |
 | `PackTemplateModule` | `TemplateTestModule` | - | Packs template into a `.nupkg` and verifies that it only produced a single artifact. |
 | `InstallPackedTemplateModule` | `PackTemplateModule` | - | Installs the packed template. |
-| `InstantiateVariantsModule` | `InstallPackedTemplateModule` | PR and main pushes | Instantiates every single variant **in parrallel**. |
-| `RestoreVariantsModule` | `InstantiateVariantsModule` | PR and main pushes | Restores all nuget packages for the variants **in parrallel**. |
-| `BuildVariantsModule` | `RestoreVariantsModule` | PR and main pushes | Builds all variant **sequencially** - `dotnet build` uses all cores, collect Exceptions, rethrow as aggregate exception. |
-| `TestVariantsModule` | `BuildVariantsModule` | PR and main pushes | Tests all variants **in parrallel**. |
-| `PublishModule` | `VerifyTemplateVariantsModule` | Tag pushes | Logs into NuGet and posts the packed template. |
+| `InstantiateVariantsModule` | `InstallPackedTemplateModule` | PR or main push | Instantiates every single variant **in parrallel**. |
+| `RestoreVariantsModule` | `InstantiateVariantsModule` | PR or main push | Restores all nuget packages for the variants **in parrallel**. |
+| `BuildVariantsModule` | `RestoreVariantsModule` | PR or main push | Builds all variant **sequencially** - `dotnet build` uses all cores, collect Exceptions, rethrow as aggregate exception. |
+| `TestVariantsModule` | `BuildVariantsModule` | PR or main push | Tests all variants **in parrallel**. |
+| `PublishModule` | `VerifyTemplateVariantsModule` | Tag push | Logs into NuGet and posts the packed template. |
 
 For parrallelized modules:
 ```csharp
