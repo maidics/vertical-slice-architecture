@@ -1,9 +1,4 @@
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <RootNamespace>VsaTemplate.UnitTests</RootNamespace>
-    <AssemblyName>VsaTemplate.UnitTests</AssemblyName>
-  </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Aspire.Hosting.Testing" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Testing" />

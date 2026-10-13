@@ -1,6 +1,1 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <RootNamespace>VsaTemplate.Shared</RootNamespace>
-    <AssemblyName>VsaTemplate.Shared</AssemblyName>
-  </PropertyGroup>
-</Project>
+﻿<Project Sdk="Microsoft.NET.Sdk" />
