@@ -17,8 +17,8 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true # cancels in progress run if pushing again
 
-jobs: # only runs pack -> test if there changes to something that is not inside .github/
-  pipeline: # only runs publish if a new tag is pushed
+jobs:
+  pipeline:
     runs-on: ubuntu-latest
     permissions:
       contents: read
