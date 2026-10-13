@@ -6,4 +6,7 @@
     <PackageReference Include="TUnit.Mocks" />
     <!--#endif -->
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\VsaTemplate.Pipeline\VsaTemplate.Pipeline.csproj" />
+  </ItemGroup>
 </Project>
