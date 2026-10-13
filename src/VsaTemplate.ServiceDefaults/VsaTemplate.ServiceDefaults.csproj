@@ -1,8 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <IsAspireSharedProject>true</IsAspireSharedProject>
-    <RootNamespace>VsaTemplate.ServiceDefaults</RootNamespace>
-    <AssemblyName>VsaTemplate.ServiceDefaults</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

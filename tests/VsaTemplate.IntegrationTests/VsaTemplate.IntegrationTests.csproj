@@ -1,6 +1,1 @@
-<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <RootNamespace>VsaTemplate.IntegrationTests</RootNamespace>
-    <AssemblyName>VsaTemplate.IntegrationTests</AssemblyName>
-  </PropertyGroup>
-</Project>
+<Project Sdk="Microsoft.NET.Sdk" />

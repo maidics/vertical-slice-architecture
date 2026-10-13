@@ -1,8 +1,6 @@
 <Project Sdk="Aspire.AppHost.Sdk/13.6.1">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <RootNamespace>VsaTemplate.AppHost</RootNamespace>
-    <AssemblyName>VsaTemplate.AppHost</AssemblyName>
     <UserSecretsId>17498916-7299-464c-83d4-abc0d4d154ff</UserSecretsId>
   </PropertyGroup>
 
