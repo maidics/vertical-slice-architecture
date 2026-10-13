@@ -24,7 +24,7 @@
       "datatype": "bool",
       "defaultValue": "false",
       "displayName": "Add Pipeline project with ModularPipelines package",
-      "description": "Write your CI pipeline in C# using ModularPipelines package. This option provides a scaffold project and test project."
+      "description": "Write your CI pipeline in C# using ModularPipelines package. This option scaffolds the Pipeline and Pipeline.Tests projects."
     }
   },
   "sources": [
