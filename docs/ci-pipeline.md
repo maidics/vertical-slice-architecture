@@ -14,9 +14,9 @@ Requirements have no skip logic: handled with a log and early return.
 
  | Module | Depends on | Run Condition | Description |
 | - | - | - | - |
-| `RestoreModule` | - | - | Restores NuGet packages. |
-| `TemplateBuildModule` | `RestoreModule` | - | Builds the template itself. |
-| `TemplateTestModule` | `TemplateBuildModule` | - | Runs Pipeline.Tests _only_. `IntegrationTests` project is empty; `UnitTests` & `WebTests` are ran after instantiations. |
+| `RestoreTemplateModule` | - | - | Restores NuGet packages. |
+| `BuildTemplateModule` | `RestoreModule` | - | Builds the template itself. |
+| `TestTemplateModule` | `TemplateBuildModule` | - | Runs Pipeline.Tests _only_. `IntegrationTests` project is empty; `UnitTests` & `WebTests` are ran after instantiations. |
 | `PackTemplateModule` | `TemplateTestModule` | - | Packs template into a `.nupkg` and verifies that it only produced a single artifact. |
 | `InstallPackedTemplateModule` | `PackTemplateModule` | - | Installs the packed template. |
 | `InstantiateVariantsModule` | `InstallPackedTemplateModule` | PR and main pushes | Instantiates every single variant **in parrallel**. |
