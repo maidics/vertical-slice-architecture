@@ -10,6 +10,10 @@
 
 ### Testing
 
+<!-- Running dotnet test on repo .slnx will cause exit code 8 (zero tests) ran on Integration.Tests -->
+<!-- Additionally this can be caused by instantiating the template with -mp option causing the Pipeline.Tests to fail -->
+<!-- These errors can be ignored locally; in CI it is a pipeline failure -->
+
 - [ ] All existing tests pass (`dotnet test`)
 - [ ] I have added tests that cover my changes
 
