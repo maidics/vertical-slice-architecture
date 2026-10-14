@@ -38,8 +38,8 @@ public sealed class TestTemplateModule(ISolutionFilterBuilder builder) : Module
         string solutionFilter,
         IDotNet dotnet,
         CancellationToken cancellationToken
-    ) // run all tests except Integration tests
-    { // requires .slnf -> requires builder - because this will be reused in later modules
+    )
+    {
         var options = new DotNetTestOptions
         {
             NoRestore = true,
