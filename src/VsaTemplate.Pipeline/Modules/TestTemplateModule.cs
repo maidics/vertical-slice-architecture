@@ -5,27 +5,46 @@ using ModularPipelines.DotNet.Options;
 using ModularPipelines.DotNet.Services;
 using ModularPipelines.Modules;
 using VsaTemplate.Pipeline.Constants;
+using VsaTemplate.Pipeline.Interfaces;
 
 namespace VsaTemplate.Pipeline.Modules;
 
 [DependsOn<BuildTemplateModule>]
-public sealed class TestTemplateModule : Module
+public sealed class TestTemplateModule(ISolutionFilterBuilder builder) : Module
 {
     protected override async Task ExecuteModuleAsync(
         IModuleContext context,
         CancellationToken cancellationToken
     )
     {
-        await TestAsync(context.DotNet(), cancellationToken);
+        var filter = await CreateSolutionFilterAsync(builder);
+
+        await TestAsync(filter, context.DotNet(), cancellationToken);
     }
 
-    public static async Task TestAsync(IDotNet dotnet, CancellationToken cancellationToken)
+    public static async Task<string> CreateSolutionFilterAsync(ISolutionFilterBuilder builder)
     {
+        return await builder
+            .WithName(nameof(TestTemplateModule))
+            .WithProjects(
+                Template.ProjectPaths.UnitTests,
+                Template.ProjectPaths.WebTests,
+                Template.ProjectPaths.PipelineTests
+            )
+            .BuildAsync();
+    }
+
+    public static async Task TestAsync(
+        string solutionFilter,
+        IDotNet dotnet,
+        CancellationToken cancellationToken
+    ) // run all tests except Integration tests
+    { // requires .slnf -> requires builder - because this will be reused in later modules
         var options = new DotNetTestOptions
         {
             NoRestore = true,
             NoBuild = true,
-            Project = Template.PipelineTestProjectPath,
+            Solution = solutionFilter,
             Configuration = Template.Configuration,
         };
 

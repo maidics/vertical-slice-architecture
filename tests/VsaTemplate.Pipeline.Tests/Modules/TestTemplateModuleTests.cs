@@ -1,5 +1,6 @@
 ﻿using ModularPipelines.DotNet.Services;
 using VsaTemplate.Pipeline.Constants;
+using VsaTemplate.Pipeline.Interfaces;
 using VsaTemplate.Pipeline.Modules;
 using VsaTemplate.Pipeline.Tests.TestInfrastructure.BaseClasses;
 
@@ -10,18 +11,37 @@ public sealed class TestTemplateModuleTests()
     : ModuleTestBase<TestTemplateModule>(typeof(BuildTemplateModule))
 {
     [Test]
+    public async Task BuildSolutionFilterAsyncShouldBuildCorrectFilter()
+    {
+        var builder = ISolutionFilterBuilder.Mock();
+
+        await TestTemplateModule.CreateSolutionFilterAsync(builder);
+
+        builder.WithName(nameof(TestTemplateModule)).WasCalled(Times.Once);
+        builder
+            .WithProjects(
+                Template.ProjectPaths.UnitTests,
+                Template.ProjectPaths.WebTests,
+                Template.ProjectPaths.PipelineTests
+            )
+            .WasCalled(Times.Once);
+        builder.BuildAsync().WasCalled(Times.Once);
+    }
+
+    [Test]
     public async Task TestAsyncShouldTestWithCorrectOptions()
     {
+        const string filter = nameof(filter);
         var dotnet = IDotNet.Mock();
 
-        await TestTemplateModule.TestAsync(dotnet.Object, CancellationToken.None);
+        await TestTemplateModule.TestAsync(filter, dotnet.Object, CancellationToken.None);
 
         dotnet
             .Test(
                 o =>
                     o.NoRestore == true
                     && o.NoBuild == true
-                    && o.Project == Template.PipelineTestProjectPath
+                    && o.Solution == filter
                     && o.Configuration == Template.Configuration,
                 Any(),
                 Any()
