@@ -25,11 +25,7 @@ public sealed class TestTemplateModule : Module
         {
             NoRestore = true,
             NoBuild = true,
-            Project = Path.Join(
-                "test",
-                "VsaTemplate.Pipeline.Tests",
-                Template.PipelineTestProjectPath
-            ),
+            Project = Template.PipelineTestProjectPath,
             Configuration = Template.Configuration,
         };
 
