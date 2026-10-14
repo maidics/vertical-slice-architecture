@@ -14,6 +14,8 @@ public sealed class TestTemplateModuleTests()
     public async Task BuildSolutionFilterAsyncShouldBuildCorrectFilter()
     {
         var builder = ISolutionFilterBuilder.Mock();
+        builder.WithName(Any()).Returns(builder.Object);
+        builder.WithProjects(Any()).Returns(builder.Object);
 
         await TestTemplateModule.CreateSolutionFilterAsync(builder);
 
