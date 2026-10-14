@@ -21,7 +21,10 @@ public static class PipelineBuilderExtensions
 
         public PipelineBuilder AddModules()
         {
-            return builder.AddModule<RestoreTemplateModule>().AddModule<BuildTemplateModule>();
+            return builder
+                .AddModule<RestoreTemplateModule>()
+                .AddModule<BuildTemplateModule>()
+                .AddModule<TestTemplateModule>();
         }
     }
 }
