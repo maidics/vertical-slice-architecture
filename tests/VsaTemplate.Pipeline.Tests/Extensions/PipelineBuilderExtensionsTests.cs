@@ -4,6 +4,7 @@ using ModularPipelines.Modules;
 using ModularPipelines.Options;
 using Shouldly;
 using VsaTemplate.Pipeline.Extensions;
+using VsaTemplate.Pipeline.Interfaces;
 using VsaTemplate.Pipeline.Modules;
 
 namespace VsaTemplate.Pipeline.Tests.Extensions;
@@ -23,8 +24,9 @@ public sealed class PipelineBuilderExtensionsTests
     }
 
     [Test]
-    public async Task ShouldAddAllModules()
+    public async Task ShouldAddAllModulesAndServices()
     {
+        _builder.AddServices();
         _builder.AddModules();
 
         List<Type> expected =
@@ -37,5 +39,7 @@ public sealed class PipelineBuilderExtensionsTests
         await using var pipeline = await _builder.BuildAsync();
 
         pipeline.Services.GetServices<IModule>().Select(m => m.GetType()).ShouldBe(expected);
+
+        pipeline.Services.GetService<ISolutionFilterBuilder>().ShouldNotBeNull();
     }
 }
