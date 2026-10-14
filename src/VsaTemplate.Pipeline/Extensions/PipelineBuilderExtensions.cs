@@ -1,7 +1,10 @@
-﻿using ModularPipelines;
+﻿using Microsoft.Extensions.DependencyInjection;
+using ModularPipelines;
 using ModularPipelines.Extensions;
 using ModularPipelines.Options;
+using VsaTemplate.Pipeline.Interfaces;
 using VsaTemplate.Pipeline.Modules;
+using VsaTemplate.Pipeline.Services;
 
 namespace VsaTemplate.Pipeline.Extensions;
 
@@ -17,6 +20,13 @@ public static class PipelineBuilderExtensions
                 options.ShowProgressInConsole = true;
                 options.ExecutionMode = ExecutionMode.StopOnFirstException;
             });
+        }
+
+        public PipelineBuilder AddServices()
+        {
+            builder.Services.AddSingleton<ISolutionFilterBuilder, SolutionFilterBuilder>();
+
+            return builder;
         }
 
         public PipelineBuilder AddModules()
