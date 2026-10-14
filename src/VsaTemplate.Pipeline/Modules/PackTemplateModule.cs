@@ -25,7 +25,6 @@ public sealed class PackTemplateModule : Module<string>
     {
         var options = new DotNetPackOptions
         {
-            NoRestore = true,
             NoBuild = true,
             ProjectSolution = Template.NuSpec,
             Configuration = Template.Configuration,
