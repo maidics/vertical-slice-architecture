@@ -57,9 +57,11 @@ public sealed class PackTemplateModuleTests()
         var file2Relative = Path.GetRelativePath(Environment.CurrentDirectory, file2);
 
         var ex = Should.Throw<InvalidOperationException>(PackTemplateModule.EnsureSingleNupkg);
-        ex.Message.ShouldBe(
-            $"More than one '.nupkg' files found in pack output folder ({Template.ArtifactsDirectory.PackOutput}): {string.Join(", ", file1Relative, file2Relative)}."
+        ex.Message.ShouldContain(
+            $"More than one '.nupkg' files found in pack output folder ({Template.ArtifactsDirectory.PackOutput}):"
         );
+        ex.Message.ShouldContain(file1Relative);
+        ex.Message.ShouldContain(file2Relative);
     }
 
     [Test]

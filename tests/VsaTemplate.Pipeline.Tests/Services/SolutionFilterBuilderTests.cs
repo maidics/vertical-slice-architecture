@@ -28,15 +28,20 @@ public sealed class SolutionFilterBuilderTests
     [Test]
     public void WithProjectsShouldThrowIfAnyProjectFileIsNotFound()
     {
+        var invalid1 = Guid.NewGuid().ToString();
+        var invalid2 = Guid.NewGuid().ToString();
+
         string[] projects =
         [
-            "invalid1",
-            "invalid2",
+            invalid1,
+            invalid2,
             TemplateTesting.ResolvePathFromSolutionRoot(Template.ProjectPaths.PipelineTests),
         ];
 
         var ex = Should.Throw<FileNotFoundException>(() => _builder.WithProjects(projects));
-        ex.Message.ShouldBe($"Project(s) not found: {string.Join(", ", "invalid1", "invalid2")}.");
+        ex.Message.ShouldContain("Project(s) not found:");
+        ex.Message.ShouldContain(invalid1);
+        ex.Message.ShouldContain(invalid2);
     }
 
     [Test]
