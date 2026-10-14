@@ -22,7 +22,7 @@ Requirements have no skip logic: handled with a log and early return.
 | `InstantiateVariantsModule` | `InstallPackedTemplateModule` | PR or main push | Instantiates every single variant **in parrallel**. |
 | `RestoreVariantsModule` | `InstantiateVariantsModule` | PR or main push | Restores all nuget packages for the variants **in parrallel**. |
 | `BuildVariantsModule` | `RestoreVariantsModule` | PR or main push | Builds all variant **sequencially** - `dotnet build` uses all cores, collect Exceptions, rethrow as aggregate exception. |
-| `TestVariantsModule` | `BuildVariantsModule` | PR or main push | Tests all variants **in parrallel**. |
+| `TestVariantsModule` | `BuildVariantsModule` | PR or main push | Runs unit and web tests for all variants **in parrallel**. |
 | `PublishModule` | `VerifyTemplateVariantsModule` | Tag push | Logs into NuGet and posts the packed template. |
 
 For parrallelized modules:
