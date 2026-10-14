@@ -27,7 +27,12 @@ public sealed class PipelineBuilderExtensionsTests
     {
         _builder.AddModules();
 
-        List<Type> expected = [typeof(RestoreTemplateModule), typeof(BuildTemplateModule)];
+        List<Type> expected =
+        [
+            typeof(RestoreTemplateModule),
+            typeof(BuildTemplateModule),
+            typeof(TestTemplateModule),
+        ];
 
         await using var pipeline = await _builder.BuildAsync();
 
