@@ -92,7 +92,7 @@ public sealed class SolutionFilterBuilderTests
 
             var path = solution.GetProperty("path");
             path.ValueKind.ShouldBe(JsonValueKind.String);
-            path.GetString().ShouldBe(Template.Solution);
+            path.GetString().ShouldBe(Path.Join("..", "..", Template.Solution));
 
             var projects = solution.GetProperty("projects");
             projects.ValueKind.ShouldBe(JsonValueKind.Array);

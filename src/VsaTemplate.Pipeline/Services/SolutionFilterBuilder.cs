@@ -53,7 +53,14 @@ public sealed class SolutionFilterBuilder : ISolutionFilterBuilder
         if (_projects.Count == 0)
             throw new InvalidOperationException("Solution Filter projects has not been set.");
 
-        var content = new { solution = new { path = Template.Solution, projects = _projects } };
+        var content = new
+        {
+            solution = new
+            {
+                path = Path.Join("..", "..", Template.Solution),
+                projects = _projects,
+            },
+        };
 
         var serialized = JsonSerializer.Serialize(
             content,
