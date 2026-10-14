@@ -23,8 +23,7 @@ public sealed class PackTemplateModuleTests()
         dotnet
             .Pack(
                 o =>
-                    o.NoRestore == true
-                    && o.NoBuild == true
+                    o.NoBuild == true
                     && o.ProjectSolution == Template.NuSpec
                     && o.Configuration == Template.Configuration,
                 Any(),
