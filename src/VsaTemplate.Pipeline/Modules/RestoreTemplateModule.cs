@@ -7,7 +7,7 @@ using VsaTemplate.Pipeline.Constants;
 
 namespace VsaTemplate.Pipeline.Modules;
 
-public sealed class RestoreTemplateModule : Module // TODO: add testing to registration
+public sealed class RestoreTemplateModule : Module
 {
     protected override async Task ExecuteModuleAsync(
         IModuleContext context,
