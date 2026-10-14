@@ -34,7 +34,8 @@ public static class PipelineBuilderExtensions
             return builder
                 .AddModule<RestoreTemplateModule>()
                 .AddModule<BuildTemplateModule>()
-                .AddModule<TestTemplateModule>();
+                .AddModule<TestTemplateModule>()
+                .AddModule<PackTemplateModule>();
         }
     }
 }
