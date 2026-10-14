@@ -3,6 +3,7 @@ using Shouldly;
 using VsaTemplate.Pipeline.Constants;
 using VsaTemplate.Pipeline.Services;
 using VsaTemplate.Pipeline.Tests.TestInfrastructure.Constants;
+using VsaTemplate.Pipeline.Tests.TestInfrastructure.Services;
 
 namespace VsaTemplate.Pipeline.Tests.Services;
 
@@ -72,37 +73,31 @@ public sealed class SolutionFilterBuilderTests
     [Test]
     public async Task BuildAsyncShouldCreateSolutionFilterFile()
     {
-        try
-        {
-            const string name = "SolutionFilterBuilderTesting";
-            string[] prjcts =
-            [
-                TemplateTesting.ResolvePathFromSolutionRoot(Template.ProjectPaths.PipelineTests),
-            ];
+        await using var fileSystem = new TestFileSystem("artifacts");
 
-            var filter = await _builder.WithName(name).WithProjects(prjcts).BuildAsync();
+        const string name = "SolutionFilterBuilderTesting";
+        string[] prjcts =
+        [
+            TemplateTesting.ResolvePathFromSolutionRoot(Template.ProjectPaths.PipelineTests),
+        ];
 
-            File.Exists(filter).ShouldBeTrue();
-            Path.GetFileName(filter).ShouldBe($"VsaTemplate.{name}.slnf");
+        var filter = await _builder.WithName(name).WithProjects(prjcts).BuildAsync();
 
-            await using var stream = File.OpenRead(filter);
-            using var doc = await JsonDocument.ParseAsync(stream);
+        File.Exists(filter).ShouldBeTrue();
+        Path.GetFileName(filter).ShouldBe($"VsaTemplate.{name}.slnf");
 
-            var solution = doc.RootElement.GetProperty("solution");
+        await using var stream = File.OpenRead(filter);
+        using var doc = await JsonDocument.ParseAsync(stream);
 
-            var path = solution.GetProperty("path");
-            path.ValueKind.ShouldBe(JsonValueKind.String);
-            path.GetString().ShouldBe(Path.Join("..", "..", Template.Solution));
+        var solution = doc.RootElement.GetProperty("solution");
 
-            var projects = solution.GetProperty("projects");
-            projects.ValueKind.ShouldBe(JsonValueKind.Array);
-            projects.GetArrayLength().ShouldBe(1);
-            projects.EnumerateArray().Select(p => p.GetString()).ShouldBe(prjcts);
-        }
-        finally
-        {
-            if (Directory.Exists("artifacts")) // builder creates a folder in current dir/artifacts/solution-filters
-                Directory.Delete("artifacts", recursive: true);
-        }
+        var path = solution.GetProperty("path");
+        path.ValueKind.ShouldBe(JsonValueKind.String);
+        path.GetString().ShouldBe(Path.Join("..", "..", Template.Solution));
+
+        var projects = solution.GetProperty("projects");
+        projects.ValueKind.ShouldBe(JsonValueKind.Array);
+        projects.GetArrayLength().ShouldBe(1);
+        projects.EnumerateArray().Select(p => p.GetString()).ShouldBe(prjcts);
     }
 }
