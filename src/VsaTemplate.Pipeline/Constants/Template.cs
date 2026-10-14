@@ -1,12 +1,14 @@
 ﻿namespace VsaTemplate.Pipeline.Constants;
 
-public sealed class Template
+public static class Template
 {
     public const string Solution = nameof(VsaTemplate) + ".slnx";
 
     public const string Configuration = "Release";
 
-    public sealed class ProjectPaths
+    public const string NuSpec = "nuspec.csproj";
+
+    public static class ProjectPaths
     {
         public static string PipelineTests =>
             Path.Combine(
@@ -22,11 +24,13 @@ public sealed class Template
             Path.Combine("tests", "VsaTemplate.WebTests", "VsaTemplate.WebTests.csproj");
     }
 
-    public sealed class ArtifactsDirectory
+    public static class ArtifactsDirectory
     {
-        public static string SolutionFilterDirectory = Path.Combine(
+        public static readonly string SolutionFilterDirectory = Path.Combine(
             "artifacts",
             "solution-filters"
         );
+
+        public static readonly string PackOutput = Path.Combine("artifacts", "package", "release");
     }
 }
