@@ -1,10 +1,13 @@
 ﻿using ModularPipelines.DotNet.Services;
 using VsaTemplate.Pipeline.Constants;
 using VsaTemplate.Pipeline.Modules;
+using VsaTemplate.Pipeline.Tests.TestInfrastructure.BaseClasses;
 
 namespace VsaTemplate.Pipeline.Tests.Modules;
 
-public sealed class BuildTemplateModuleTests
+[InheritsTests]
+public sealed class BuildTemplateModuleTests()
+    : ModuleTestBase<BuildTemplateModule>(typeof(RestoreTemplateModule))
 {
     [Test]
     public async Task BuildAsyncShouldBuildWithCorrectOptions()

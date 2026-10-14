@@ -1,10 +1,12 @@
 ﻿using ModularPipelines.DotNet.Services;
 using VsaTemplate.Pipeline.Constants;
 using VsaTemplate.Pipeline.Modules;
+using VsaTemplate.Pipeline.Tests.TestInfrastructure.BaseClasses;
 
 namespace VsaTemplate.Pipeline.Tests.Modules;
 
-public sealed class RestoreTemplateModuleTests
+[InheritsTests]
+public sealed class RestoreTemplateModuleTests : ModuleTestBase<RestoreTemplateModule>
 {
     [Test]
     public async Task RestoreAsyncShouldCallRestoreWithCorrectOptions()
