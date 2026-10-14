@@ -24,8 +24,7 @@ public sealed class PackTemplateModule : Module<string>
     public static async Task PackAsync(IDotNet dotnet, CancellationToken cancellationToken)
     {
         var options = new DotNetPackOptions
-        {
-            NoBuild = true,
+        { // NoBuild is set in nuspec.csproj - passing --no-build would also skip restore
             ProjectSolution = Template.NuSpec,
             Configuration = Template.Configuration,
         };
