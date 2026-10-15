@@ -11,7 +11,7 @@ public sealed record TemplateVariant
         Arguments = arguments;
     }
 
-    private static IReadOnlyList<TemplateVariant> All =>
+    public static IReadOnlyList<TemplateVariant> All =>
         new List<TemplateVariant>
         {
             new("Default", []),
