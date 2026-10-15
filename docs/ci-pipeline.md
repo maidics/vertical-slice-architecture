@@ -18,8 +18,8 @@ Requirements have no skip logic: handled with a log and early return.
 | `BuildTemplateModule` | `RestoreModule` | - | Builds the template itself. |
 | `TestTemplateModule` | `TemplateBuildModule` | - | Runs Pipeline.Tests _only_. `IntegrationTests` project is empty; `UnitTests` & `WebTests` are ran after instantiations. |
 | `PackTemplateModule` | `TemplateTestModule` | - | Packs template into a `.nupkg` and verifies that it only produced a single artifact. |
-| `InstallPackedTemplateModule` | `PackTemplateModule` | - | Installs the packed template. |
-| `InstantiateVariantsModule` | `InstallPackedTemplateModule` | PR or main push | Instantiates every single variant **in parrallel**. |
+| `InstallTemplateModule` | `PackTemplateModule` | - | Installs the packed template. |
+| `InstantiateVariantsModule` | `InstallTemplateModule` | PR or main push | Instantiates every single variant **in parrallel**. |
 | `RestoreVariantsModule` | `InstantiateVariantsModule` | PR or main push | Restores all nuget packages for the variants **in parrallel**. |
 | `BuildVariantsModule` | `RestoreVariantsModule` | PR or main push | Builds all variant **sequencially** - `dotnet build` uses all cores, collect Exceptions, rethrow as aggregate exception. |
 | `TestVariantsModule` | `BuildVariantsModule` | PR or main push | Runs unit and web tests for all variants **in parrallel**. |
