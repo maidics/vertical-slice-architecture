@@ -22,6 +22,13 @@ public static class PipelineBuilderExtensions
             });
         }
 
+        public PipelineBuilder AddSettings()
+        {
+            builder.Services.AddGitHubSettings(builder.Configuration);
+
+            return builder;
+        }
+
         public PipelineBuilder AddServices()
         {
             builder.Services.AddSingleton<ISolutionFilterBuilder, SolutionFilterBuilder>();
