@@ -35,18 +35,18 @@ public sealed class PackTemplateModule : Module<string>
     public static string EnsureSingleNupkg()
     {
         var nupkgFiles = Directory
-            .EnumerateFiles(Template.ArtifactsDirectory.PackOutput)
+            .EnumerateFiles(Template.ArtifactsDirectory.PackageReleaseDirectory)
             .Where(f => Path.GetExtension(f) == ".nupkg")
             .ToList();
 
         if (nupkgFiles.Count == 0)
             throw new FileNotFoundException(
-                $"No '.nupkg' file found in pack output folder: '{Template.ArtifactsDirectory.PackOutput}'."
+                $"No '.nupkg' file found in pack output folder: '{Template.ArtifactsDirectory.PackageReleaseDirectory}'."
             );
 
         if (nupkgFiles.Count > 1)
             throw new InvalidOperationException(
-                $"More than one '.nupkg' files found in pack output folder ({Template.ArtifactsDirectory.PackOutput}): {string.Join(", ", nupkgFiles)}."
+                $"More than one '.nupkg' files found in pack output folder ({Template.ArtifactsDirectory.PackageReleaseDirectory}): {string.Join(", ", nupkgFiles)}."
             );
 
         return nupkgFiles[0];

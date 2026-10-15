@@ -31,6 +31,10 @@ public static class Template
             "solution-filters"
         );
 
-        public static readonly string PackOutput = Path.Combine("artifacts", "package", "release");
+        public static readonly string PackageReleaseDirectory = Path.Combine(
+            "artifacts",
+            "package",
+            "release"
+        );
     }
 }

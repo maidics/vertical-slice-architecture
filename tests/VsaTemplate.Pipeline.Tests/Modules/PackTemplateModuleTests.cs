@@ -36,11 +36,13 @@ public sealed class PackTemplateModuleTests()
     [NotInParallel(_ensureSingleNupkgTest)]
     public async Task EnsureSingleNupkgShouldThrowIfNoNupkgFound()
     {
-        await using var fileSystem = new TestFileSystem(Template.ArtifactsDirectory.PackOutput);
+        await using var fileSystem = new TestFileSystem(
+            Template.ArtifactsDirectory.PackageReleaseDirectory
+        );
 
         var ex = Should.Throw<FileNotFoundException>(PackTemplateModule.EnsureSingleNupkg);
         ex.Message.ShouldBe(
-            $"No '.nupkg' file found in pack output folder: '{Template.ArtifactsDirectory.PackOutput}'."
+            $"No '.nupkg' file found in pack output folder: '{Template.ArtifactsDirectory.PackageReleaseDirectory}'."
         );
     }
 
@@ -48,7 +50,9 @@ public sealed class PackTemplateModuleTests()
     [NotInParallel(_ensureSingleNupkgTest)]
     public async Task EnsureSingleNupkgShouldThrowIfMoreThanOneNupkgExists()
     {
-        await using var fileSystem = new TestFileSystem(Template.ArtifactsDirectory.PackOutput);
+        await using var fileSystem = new TestFileSystem(
+            Template.ArtifactsDirectory.PackageReleaseDirectory
+        );
         var file1 = fileSystem.CreateTestFile("package1.nupkg");
         var file2 = fileSystem.CreateTestFile("package2.nupkg");
 
@@ -57,7 +61,7 @@ public sealed class PackTemplateModuleTests()
 
         var ex = Should.Throw<InvalidOperationException>(PackTemplateModule.EnsureSingleNupkg);
         ex.Message.ShouldContain(
-            $"More than one '.nupkg' files found in pack output folder ({Template.ArtifactsDirectory.PackOutput}):"
+            $"More than one '.nupkg' files found in pack output folder ({Template.ArtifactsDirectory.PackageReleaseDirectory}):"
         );
         ex.Message.ShouldContain(file1Relative);
         ex.Message.ShouldContain(file2Relative);
@@ -67,7 +71,9 @@ public sealed class PackTemplateModuleTests()
     [NotInParallel(_ensureSingleNupkgTest)]
     public async Task EnsureSingleNupkgShouldReturnSingleNupkg()
     {
-        await using var fileSystem = new TestFileSystem(Template.ArtifactsDirectory.PackOutput);
+        await using var fileSystem = new TestFileSystem(
+            Template.ArtifactsDirectory.PackageReleaseDirectory
+        );
 
         var nupkgFile = fileSystem.CreateTestFile("package.nupkg");
         var relative = Path.GetRelativePath(Environment.CurrentDirectory, nupkgFile);
