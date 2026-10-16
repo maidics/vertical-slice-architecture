@@ -19,7 +19,8 @@ public sealed class TemplateBenchmarkContainer : IAsyncDisposable
         _benchmarkCase = benchmarkCase;
 
         _container = new ContainerBuilder(Host.Image)
-            .WithHostname(benchmarkCase.Name)
+            // Docker rejects hostnames longer than 64 bytes
+            .WithHostname(benchmarkCase.Name[..Math.Min(benchmarkCase.Name.Length, 64)])
             .WithCreateParameterModifier(p =>
             {
                 p.HostConfig ??= new HostConfig();
