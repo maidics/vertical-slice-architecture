@@ -72,16 +72,17 @@ public sealed class TemplateBenchmarkContainer : IAsyncDisposable
 
         ExecResult[] results = await processor.GetResultsAsync();
 
-        Console.WriteLine(step.Name + " results:");
-
-        foreach (var result in results)
-        {
-            Console.WriteLine($"Exit code: {result.ExitCode}");
-            Console.WriteLine("-----------------------------");
-            Console.WriteLine($"Stdout: {result.Stdout}");
-            Console.WriteLine("-----------------------------");
-            Console.WriteLine($"Stderr: {result.Stderr}");
-        }
+        var commandResults = results
+            .Select(
+                (r, i) =>
+                    new TemplateBenchmarkCommandResult(
+                        string.Join(" ", step.CommandLineArguments[i]),
+                        r.ExitCode,
+                        r.Stdout,
+                        r.Stderr
+                    )
+            )
+            .ToList();
 
         var writableBytes = await _storageUsage.GetWritableLayerBytesAsync();
 
@@ -89,7 +90,8 @@ public sealed class TemplateBenchmarkContainer : IAsyncDisposable
             step.Name,
             elapsed,
             _memoryPeak.ReadPeakBytes(),
-            writableBytes ?? -1
+            writableBytes ?? -1,
+            commandResults
         );
     }
 
