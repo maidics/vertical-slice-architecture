@@ -5,7 +5,6 @@ namespace VsaTemplate.Pipeline.Benchmarks.Models;
 public sealed record TemplateBenchmarkStep
 {
     public readonly string Name;
-    public readonly TemplateBenchmarkStepType Type;
     public readonly int MaxConcurrency;
 
     public readonly IReadOnlyList<IReadOnlyList<string>> CommandLineArguments;
@@ -18,13 +17,23 @@ public sealed record TemplateBenchmarkStep
     )
     {
         Name = $"{type}_{name}";
-        Type = type;
         MaxConcurrency = maxConcurrency;
 
         CommandLineArguments = GetCommandLineArguments(type, names).ToList();
     }
 
-    private static IReadOnlyList<IReadOnlyList<string>> GetCommandLineArguments( // TODO: add git clone repo and restore step
+    public TemplateBenchmarkStep(
+        string name,
+        int maxConcurrency,
+        List<List<string>> commandLineArguments
+    )
+    {
+        Name = name;
+        MaxConcurrency = maxConcurrency;
+        CommandLineArguments = commandLineArguments;
+    }
+
+    private static IReadOnlyList<IReadOnlyList<string>> GetCommandLineArguments(
         TemplateBenchmarkStepType type,
         IReadOnlyList<string> names
     )
@@ -43,6 +52,11 @@ public sealed record TemplateBenchmarkStep
                     name,
                 })
                 .ToList(),
+            TemplateBenchmarkStepType.CloneAndRestoreRepo =>
+            [
+                ["git", "clone", "https://github.com/maidics/vertical-slice-architecture"],
+                ["dotnet", "restore", "vertical-slice-architecture/VsaTemplate.slnx"],
+            ],
             TemplateBenchmarkStepType.Restore => names
                 .Select(name => new List<string> { "dotnet", "restore", $"{name}/{name}.slnx" })
                 .ToList(),

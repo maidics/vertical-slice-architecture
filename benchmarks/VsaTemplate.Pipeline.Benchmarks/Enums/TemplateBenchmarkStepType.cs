@@ -3,6 +3,7 @@
 public enum TemplateBenchmarkStepType
 {
     Instantiate,
+    CloneAndRestoreRepo,
     Restore,
     Build,
     Test,

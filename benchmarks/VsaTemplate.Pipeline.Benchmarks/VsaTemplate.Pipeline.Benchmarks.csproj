@@ -10,8 +10,4 @@
     <PackageReference Include="Testcontainers" />
     <PackageReference Include="TomLonghurst.EnumerableAsyncProcessor" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-  </ItemGroup>
 </Project>
