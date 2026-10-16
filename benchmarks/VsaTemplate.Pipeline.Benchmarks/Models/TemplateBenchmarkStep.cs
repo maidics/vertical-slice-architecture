@@ -71,13 +71,14 @@ public sealed record TemplateBenchmarkStep
                 })
                 .ToList(),
             TemplateBenchmarkStepType.Test => names
+                // run from the solution folder: dotnet test only reads the Microsoft.Testing.Platform opt-in
+                // from global.json in the working directory
+                // exit code 8 = zero tests ran (IntegrationTests has no tests without the examples option)
                 .Select(name => new List<string>
                 {
-                    "dotnet",
-                    "test",
-                    $"{name}/{name}.slnx",
-                    "--no-restore",
-                    "--no-build",
+                    "sh",
+                    "-c",
+                    $"cd {name} && dotnet test --solution {name}.slnx --no-restore --no-build --ignore-exit-code 8",
                 })
                 .ToList(),
             _ => throw new NotSupportedException(
