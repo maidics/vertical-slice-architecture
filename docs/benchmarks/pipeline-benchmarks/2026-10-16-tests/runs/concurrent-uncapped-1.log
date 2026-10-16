@@ -1,0 +1,871 @@
+[testcontainers.org 00:00:00.19] Connected to Docker:
+  Host: unix:///var/run/docker.sock
+  Server Version: 29.8.2
+  Kernel Version: 6.18.44-fc-v139
+  API Version: 1.56
+  Operating System: Ubuntu 24.04.5 LTS (containerized)
+  Total Memory: 15.72 GB
+[testcontainers.org 00:00:00.51] Docker container 6136704d307e created
+[testcontainers.org 00:00:00.56] Start Docker container 6136704d307e
+[testcontainers.org 00:00:00.73] Wait for Docker container 6136704d307e to complete readiness checks
+[testcontainers.org 00:00:01.77] Docker container 6136704d307e ready
+[testcontainers.org 00:00:01.87] Docker container 2c69a129d8fb created
+[testcontainers.org 00:00:01.88] Start Docker container 2c69a129d8fb
+[testcontainers.org 00:00:01.98] Wait for Docker container 2c69a129d8fb to complete readiness checks
+[testcontainers.org 00:00:01.98] Docker container 2c69a129d8fb ready
+Installing Vertical.Slice.Architecture...
+[testcontainers.org 00:00:01.99] Add file to tar archive: Content length: 90435 byte(s), Target file: "/tmp/Vertical.Slice.Architecture.4.0.0.nupkg", UID: 0, GID: 0, Mode: 0644
+[testcontainers.org 00:00:02.00] Copy tar archive to container: Content length: 90435 byte(s), Docker container: 2c69a129d8fb
+[testcontainers.org 00:00:02.01] Execute "dotnet new install /tmp/Vertical.Slice.Architecture.4.0.0.nupkg" at Docker container 2c69a129d8fb
+Template installation finished with exit code: 0
+	- Stdout: 
+		The following template packages will be installed:
+   /tmp/Vertical.Slice.Architecture.4.0.0.nupkg
+
+Success: Vertical.Slice.Architecture@4.0.0 installed the following templates:
+Template Name                         Short Name  Language  Tags                   
+------------------------------------  ----------  --------  -----------------------
+Vertical Slice Architecture Template  vsa-sln     [C#]      Web/WebAPI/Architecture
+
+
+	- Stderr: 
+		
+[testcontainers.org 00:00:02.77] Execute "dotnet new vsa-sln -n Bff2cc4970eee47c491a1247cd26bf10c -o Bff2cc4970eee47c491a1247cd26bf10c --no-update-check" at Docker container 2c69a129d8fb
+[testcontainers.org 00:00:02.77] Execute "dotnet new vsa-sln -n Bc980c60cebb0429bb7dc8ac244436ae0 -o Bc980c60cebb0429bb7dc8ac244436ae0 --no-update-check" at Docker container 2c69a129d8fb
+[testcontainers.org 00:00:02.77] Execute "dotnet new vsa-sln -n Bc74168a665354f29be5d9ec571f3efb8 -o Bc74168a665354f29be5d9ec571f3efb8 --no-update-check" at Docker container 2c69a129d8fb
+[testcontainers.org 00:00:02.77] Execute "dotnet new vsa-sln -n B8f9c8a4a10de44899d38262933ae1d27 -o B8f9c8a4a10de44899d38262933ae1d27 --no-update-check" at Docker container 2c69a129d8fb
+[testcontainers.org 00:00:04.00] Execute "dotnet new vsa-sln -n Be1133d65d40f4f669de3e367f6879e6e -o Be1133d65d40f4f669de3e367f6879e6e --no-update-check" at Docker container 2c69a129d8fb
+[testcontainers.org 00:00:04.05] Execute "dotnet new vsa-sln -n B1daa6d5b2df14906a40139131b866662 -o B1daa6d5b2df14906a40139131b866662 --no-update-check" at Docker container 2c69a129d8fb
+[testcontainers.org 00:00:04.14] Execute "dotnet new vsa-sln -n B167232b1bd1b4d3aa2813081a6aeb4e1 -o B167232b1bd1b4d3aa2813081a6aeb4e1 --no-update-check" at Docker container 2c69a129d8fb
+[testcontainers.org 00:00:04.14] Execute "dotnet new vsa-sln -n Bd468ef1641974e1bb92daa034dc4ac57 -o Bd468ef1641974e1bb92daa034dc4ac57 --no-update-check" at Docker container 2c69a129d8fb
+[testcontainers.org 00:00:05.03] Execute "dotnet new vsa-sln -n B291e221c806240cbb4bfd89e4a58f53b -o B291e221c806240cbb4bfd89e4a58f53b --no-update-check" at Docker container 2c69a129d8fb
+[testcontainers.org 00:00:05.20] Execute "dotnet new vsa-sln -n Bb8e76d4d365642e39622fd01fb8fcf8b -o Bb8e76d4d365642e39622fd01fb8fcf8b --no-update-check" at Docker container 2c69a129d8fb
+[testcontainers.org 00:00:06.17] Execute "git clone https://github.com/maidics/vertical-slice-architecture" at Docker container 2c69a129d8fb
+[testcontainers.org 00:00:07.33] Execute "dotnet restore vertical-slice-architecture/VsaTemplate.slnx" at Docker container 2c69a129d8fb
+[testcontainers.org 00:00:18.96] Execute "dotnet restore Bc980c60cebb0429bb7dc8ac244436ae0/Bc980c60cebb0429bb7dc8ac244436ae0.slnx" at Docker container 2c69a129d8fb
+[testcontainers.org 00:00:18.96] Execute "dotnet restore B8f9c8a4a10de44899d38262933ae1d27/B8f9c8a4a10de44899d38262933ae1d27.slnx" at Docker container 2c69a129d8fb
+[testcontainers.org 00:00:22.48] Execute "dotnet restore Bc74168a665354f29be5d9ec571f3efb8/Bc74168a665354f29be5d9ec571f3efb8.slnx" at Docker container 2c69a129d8fb
+[testcontainers.org 00:00:23.49] Execute "dotnet restore Bff2cc4970eee47c491a1247cd26bf10c/Bff2cc4970eee47c491a1247cd26bf10c.slnx" at Docker container 2c69a129d8fb
+[testcontainers.org 00:00:25.81] Execute "dotnet restore Be1133d65d40f4f669de3e367f6879e6e/Be1133d65d40f4f669de3e367f6879e6e.slnx" at Docker container 2c69a129d8fb
+[testcontainers.org 00:00:27.69] Execute "dotnet restore B1daa6d5b2df14906a40139131b866662/B1daa6d5b2df14906a40139131b866662.slnx" at Docker container 2c69a129d8fb
+[testcontainers.org 00:00:29.59] Execute "dotnet restore B167232b1bd1b4d3aa2813081a6aeb4e1/B167232b1bd1b4d3aa2813081a6aeb4e1.slnx" at Docker container 2c69a129d8fb
+[testcontainers.org 00:00:31.66] Execute "dotnet restore Bd468ef1641974e1bb92daa034dc4ac57/Bd468ef1641974e1bb92daa034dc4ac57.slnx" at Docker container 2c69a129d8fb
+[testcontainers.org 00:00:33.55] Execute "dotnet restore B291e221c806240cbb4bfd89e4a58f53b/B291e221c806240cbb4bfd89e4a58f53b.slnx" at Docker container 2c69a129d8fb
+[testcontainers.org 00:00:35.06] Execute "dotnet restore Bb8e76d4d365642e39622fd01fb8fcf8b/Bb8e76d4d365642e39622fd01fb8fcf8b.slnx" at Docker container 2c69a129d8fb
+[testcontainers.org 00:00:37.49] Execute "dotnet build Bc980c60cebb0429bb7dc8ac244436ae0/Bc980c60cebb0429bb7dc8ac244436ae0.slnx --no-restore" at Docker container 2c69a129d8fb
+[testcontainers.org 00:00:37.49] Execute "dotnet build B8f9c8a4a10de44899d38262933ae1d27/B8f9c8a4a10de44899d38262933ae1d27.slnx --no-restore" at Docker container 2c69a129d8fb
+[testcontainers.org 00:00:53.35] Execute "dotnet build Bc74168a665354f29be5d9ec571f3efb8/Bc74168a665354f29be5d9ec571f3efb8.slnx --no-restore" at Docker container 2c69a129d8fb
+[testcontainers.org 00:00:53.40] Execute "dotnet build Bff2cc4970eee47c491a1247cd26bf10c/Bff2cc4970eee47c491a1247cd26bf10c.slnx --no-restore" at Docker container 2c69a129d8fb
+[testcontainers.org 00:01:07.19] Execute "dotnet build Be1133d65d40f4f669de3e367f6879e6e/Be1133d65d40f4f669de3e367f6879e6e.slnx --no-restore" at Docker container 2c69a129d8fb
+[testcontainers.org 00:01:07.68] Execute "dotnet build B1daa6d5b2df14906a40139131b866662/B1daa6d5b2df14906a40139131b866662.slnx --no-restore" at Docker container 2c69a129d8fb
+[testcontainers.org 00:01:18.41] Execute "dotnet build B167232b1bd1b4d3aa2813081a6aeb4e1/B167232b1bd1b4d3aa2813081a6aeb4e1.slnx --no-restore" at Docker container 2c69a129d8fb
+[testcontainers.org 00:01:18.92] Execute "dotnet build Bd468ef1641974e1bb92daa034dc4ac57/Bd468ef1641974e1bb92daa034dc4ac57.slnx --no-restore" at Docker container 2c69a129d8fb
+[testcontainers.org 00:01:30.08] Execute "dotnet build B291e221c806240cbb4bfd89e4a58f53b/B291e221c806240cbb4bfd89e4a58f53b.slnx --no-restore" at Docker container 2c69a129d8fb
+[testcontainers.org 00:01:30.79] Execute "dotnet build Bb8e76d4d365642e39622fd01fb8fcf8b/Bb8e76d4d365642e39622fd01fb8fcf8b.slnx --no-restore" at Docker container 2c69a129d8fb
+[testcontainers.org 00:01:39.88] Execute "sh -c cd Bc980c60cebb0429bb7dc8ac244436ae0 && dotnet test --solution Bc980c60cebb0429bb7dc8ac244436ae0.slnx --no-restore --no-build --ignore-exit-code 8" at Docker container 2c69a129d8fb
+[testcontainers.org 00:01:39.88] Execute "sh -c cd B8f9c8a4a10de44899d38262933ae1d27 && dotnet test --solution B8f9c8a4a10de44899d38262933ae1d27.slnx --no-restore --no-build --ignore-exit-code 8" at Docker container 2c69a129d8fb
+[testcontainers.org 00:01:39.88] Execute "sh -c cd Bc74168a665354f29be5d9ec571f3efb8 && dotnet test --solution Bc74168a665354f29be5d9ec571f3efb8.slnx --no-restore --no-build --ignore-exit-code 8" at Docker container 2c69a129d8fb
+[testcontainers.org 00:01:39.88] Execute "sh -c cd Bff2cc4970eee47c491a1247cd26bf10c && dotnet test --solution Bff2cc4970eee47c491a1247cd26bf10c.slnx --no-restore --no-build --ignore-exit-code 8" at Docker container 2c69a129d8fb
+[testcontainers.org 00:01:39.88] Execute "sh -c cd Be1133d65d40f4f669de3e367f6879e6e && dotnet test --solution Be1133d65d40f4f669de3e367f6879e6e.slnx --no-restore --no-build --ignore-exit-code 8" at Docker container 2c69a129d8fb
+[testcontainers.org 00:01:39.88] Execute "sh -c cd B1daa6d5b2df14906a40139131b866662 && dotnet test --solution B1daa6d5b2df14906a40139131b866662.slnx --no-restore --no-build --ignore-exit-code 8" at Docker container 2c69a129d8fb
+[testcontainers.org 00:01:39.88] Execute "sh -c cd B167232b1bd1b4d3aa2813081a6aeb4e1 && dotnet test --solution B167232b1bd1b4d3aa2813081a6aeb4e1.slnx --no-restore --no-build --ignore-exit-code 8" at Docker container 2c69a129d8fb
+[testcontainers.org 00:01:39.88] Execute "sh -c cd Bd468ef1641974e1bb92daa034dc4ac57 && dotnet test --solution Bd468ef1641974e1bb92daa034dc4ac57.slnx --no-restore --no-build --ignore-exit-code 8" at Docker container 2c69a129d8fb
+[testcontainers.org 00:01:39.88] Execute "sh -c cd B291e221c806240cbb4bfd89e4a58f53b && dotnet test --solution B291e221c806240cbb4bfd89e4a58f53b.slnx --no-restore --no-build --ignore-exit-code 8" at Docker container 2c69a129d8fb
+[testcontainers.org 00:01:39.88] Execute "sh -c cd Bb8e76d4d365642e39622fd01fb8fcf8b && dotnet test --solution Bb8e76d4d365642e39622fd01fb8fcf8b.slnx --no-restore --no-build --ignore-exit-code 8" at Docker container 2c69a129d8fb
+   Name: Tests.ConcurrentUncapped
+        - Results: 
+                Name: Instantiate_Tests.ConcurrentUncapped
+        - Execution Time: 3.34 s
+        - Peak Memory: 387.21 MB
+        - Disk Space: 6.21 MB
+        -    Command: dotnet new vsa-sln -n Bc980c60cebb0429bb7dc8ac244436ae0 -o Bc980c60cebb0429bb7dc8ac244436ae0 --no-update-check
+        - ExitCode: 0
+        - Stdout: The template "Vertical Slice Architecture Template" was created successfully.
+
+
+        - Stderr:  
+   Command: dotnet new vsa-sln -n B8f9c8a4a10de44899d38262933ae1d27 -o B8f9c8a4a10de44899d38262933ae1d27 --no-update-check
+        - ExitCode: 0
+        - Stdout: The template "Vertical Slice Architecture Template" was created successfully.
+
+
+        - Stderr:  
+   Command: dotnet new vsa-sln -n Bc74168a665354f29be5d9ec571f3efb8 -o Bc74168a665354f29be5d9ec571f3efb8 --no-update-check
+        - ExitCode: 0
+        - Stdout: The template "Vertical Slice Architecture Template" was created successfully.
+
+
+        - Stderr:  
+   Command: dotnet new vsa-sln -n Bff2cc4970eee47c491a1247cd26bf10c -o Bff2cc4970eee47c491a1247cd26bf10c --no-update-check
+        - ExitCode: 0
+        - Stdout: The template "Vertical Slice Architecture Template" was created successfully.
+
+
+        - Stderr:  
+   Command: dotnet new vsa-sln -n Be1133d65d40f4f669de3e367f6879e6e -o Be1133d65d40f4f669de3e367f6879e6e --no-update-check
+        - ExitCode: 0
+        - Stdout: The template "Vertical Slice Architecture Template" was created successfully.
+
+
+        - Stderr:  
+   Command: dotnet new vsa-sln -n B1daa6d5b2df14906a40139131b866662 -o B1daa6d5b2df14906a40139131b866662 --no-update-check
+        - ExitCode: 0
+        - Stdout: The template "Vertical Slice Architecture Template" was created successfully.
+
+
+        - Stderr:  
+   Command: dotnet new vsa-sln -n B167232b1bd1b4d3aa2813081a6aeb4e1 -o B167232b1bd1b4d3aa2813081a6aeb4e1 --no-update-check
+        - ExitCode: 0
+        - Stdout: The template "Vertical Slice Architecture Template" was created successfully.
+
+
+        - Stderr:  
+   Command: dotnet new vsa-sln -n Bd468ef1641974e1bb92daa034dc4ac57 -o Bd468ef1641974e1bb92daa034dc4ac57 --no-update-check
+        - ExitCode: 0
+        - Stdout: The template "Vertical Slice Architecture Template" was created successfully.
+
+
+        - Stderr:  
+   Command: dotnet new vsa-sln -n B291e221c806240cbb4bfd89e4a58f53b -o B291e221c806240cbb4bfd89e4a58f53b --no-update-check
+        - ExitCode: 0
+        - Stdout: The template "Vertical Slice Architecture Template" was created successfully.
+
+
+        - Stderr:  
+   Command: dotnet new vsa-sln -n Bb8e76d4d365642e39622fd01fb8fcf8b -o Bb8e76d4d365642e39622fd01fb8fcf8b --no-update-check
+        - ExitCode: 0
+        - Stdout: The template "Vertical Slice Architecture Template" was created successfully.
+
+
+        - Stderr:  
+    Name: CloneAndRestoreRepo_Tests.ConcurrentUncapped
+        - Execution Time: 12.68 s
+        - Peak Memory: 1.87 GB
+        - Disk Space: 1.34 GB
+        -    Command: git clone https://github.com/maidics/vertical-slice-architecture
+        - ExitCode: 0
+        - Stdout: 
+        - Stderr: Cloning into 'vertical-slice-architecture'...
+ 
+   Command: dotnet restore vertical-slice-architecture/VsaTemplate.slnx
+        - ExitCode: 0
+        - Stdout:   Determining projects to restore...
+  Restored /vertical-slice-architecture/src/VsaTemplate.ServiceDefaults/VsaTemplate.ServiceDefaults.csproj (in 3.46 sec).
+  Restored /vertical-slice-architecture/src/VsaTemplate/VsaTemplate.csproj (in 3.46 sec).
+  Restored /vertical-slice-architecture/src/VsaTemplate.Shared/VsaTemplate.Shared.csproj (in 3 ms).
+  Restored /vertical-slice-architecture/tests/VsaTemplate.IntegrationTests/VsaTemplate.IntegrationTests.csproj (in 4.3 sec).
+  Restored /vertical-slice-architecture/src/VsaTemplate.AppHost/VsaTemplate.AppHost.csproj (in 5.96 sec).
+  Restored /vertical-slice-architecture/tests/VsaTemplate.UnitTests/VsaTemplate.UnitTests.csproj (in 1.4 sec).
+  Restored /vertical-slice-architecture/tests/VsaTemplate.WebTests/VsaTemplate.WebTests.csproj (in 2.46 sec).
+  Restored /vertical-slice-architecture/tests/VsaTemplate.TestAppHost/VsaTemplate.TestAppHost.csproj (in 19 ms).
+  Restored /vertical-slice-architecture/src/VsaTemplate.Pipeline/VsaTemplate.Pipeline.csproj (in 4.07 sec).
+  Restored /vertical-slice-architecture/tests/VsaTemplate.Pipeline.Tests/VsaTemplate.Pipeline.Tests.csproj (in 1.58 sec).
+
+        - Stderr:  
+    Name: Restore_Tests.ConcurrentUncapped
+        - Execution Time: 18.43 s
+        - Peak Memory: 2.38 GB
+        - Disk Space: 1.36 GB
+        -    Command: dotnet restore Bc980c60cebb0429bb7dc8ac244436ae0/Bc980c60cebb0429bb7dc8ac244436ae0.slnx
+        - ExitCode: 0
+        - Stdout:   Determining projects to restore...
+  Restored /Bc980c60cebb0429bb7dc8ac244436ae0/src/Bc980c60cebb0429bb7dc8ac244436ae0.ServiceDefaults/Bc980c60cebb0429bb7dc8ac244436ae0.ServiceDefaults.csproj (in 929 ms).
+  Restored /Bc980c60cebb0429bb7dc8ac244436ae0/tests/Bc980c60cebb0429bb7dc8ac244436ae0.IntegrationTests/Bc980c60cebb0429bb7dc8ac244436ae0.IntegrationTests.csproj (in 928 ms).
+  Restored /Bc980c60cebb0429bb7dc8ac244436ae0/src/Bc980c60cebb0429bb7dc8ac244436ae0.AppHost/Bc980c60cebb0429bb7dc8ac244436ae0.AppHost.csproj (in 967 ms).
+  Restored /Bc980c60cebb0429bb7dc8ac244436ae0/tests/Bc980c60cebb0429bb7dc8ac244436ae0.TestAppHost/Bc980c60cebb0429bb7dc8ac244436ae0.TestAppHost.csproj (in 20 ms).
+  Restored /Bc980c60cebb0429bb7dc8ac244436ae0/tests/Bc980c60cebb0429bb7dc8ac244436ae0.WebTests/Bc980c60cebb0429bb7dc8ac244436ae0.WebTests.csproj (in 32 ms).
+  Restored /Bc980c60cebb0429bb7dc8ac244436ae0/tests/Bc980c60cebb0429bb7dc8ac244436ae0.UnitTests/Bc980c60cebb0429bb7dc8ac244436ae0.UnitTests.csproj (in 982 ms).
+  Restored /Bc980c60cebb0429bb7dc8ac244436ae0/src/Bc980c60cebb0429bb7dc8ac244436ae0.Shared/Bc980c60cebb0429bb7dc8ac244436ae0.Shared.csproj (in 3 ms).
+  Restored /Bc980c60cebb0429bb7dc8ac244436ae0/src/Bc980c60cebb0429bb7dc8ac244436ae0/Bc980c60cebb0429bb7dc8ac244436ae0.csproj (in 33 ms).
+
+        - Stderr:  
+   Command: dotnet restore B8f9c8a4a10de44899d38262933ae1d27/B8f9c8a4a10de44899d38262933ae1d27.slnx
+        - ExitCode: 0
+        - Stdout:   Determining projects to restore...
+  Restored /B8f9c8a4a10de44899d38262933ae1d27/src/B8f9c8a4a10de44899d38262933ae1d27.Shared/B8f9c8a4a10de44899d38262933ae1d27.Shared.csproj (in 290 ms).
+  Restored /B8f9c8a4a10de44899d38262933ae1d27/tests/B8f9c8a4a10de44899d38262933ae1d27.IntegrationTests/B8f9c8a4a10de44899d38262933ae1d27.IntegrationTests.csproj (in 970 ms).
+  Restored /B8f9c8a4a10de44899d38262933ae1d27/src/B8f9c8a4a10de44899d38262933ae1d27/B8f9c8a4a10de44899d38262933ae1d27.csproj (in 52 ms).
+  Restored /B8f9c8a4a10de44899d38262933ae1d27/src/B8f9c8a4a10de44899d38262933ae1d27.ServiceDefaults/B8f9c8a4a10de44899d38262933ae1d27.ServiceDefaults.csproj (in 10 ms).
+  Restored /B8f9c8a4a10de44899d38262933ae1d27/tests/B8f9c8a4a10de44899d38262933ae1d27.WebTests/B8f9c8a4a10de44899d38262933ae1d27.WebTests.csproj (in 1.1 sec).
+  Restored /B8f9c8a4a10de44899d38262933ae1d27/tests/B8f9c8a4a10de44899d38262933ae1d27.TestAppHost/B8f9c8a4a10de44899d38262933ae1d27.TestAppHost.csproj (in 482 ms).
+  Restored /B8f9c8a4a10de44899d38262933ae1d27/src/B8f9c8a4a10de44899d38262933ae1d27.AppHost/B8f9c8a4a10de44899d38262933ae1d27.AppHost.csproj (in 21 ms).
+  Restored /B8f9c8a4a10de44899d38262933ae1d27/tests/B8f9c8a4a10de44899d38262933ae1d27.UnitTests/B8f9c8a4a10de44899d38262933ae1d27.UnitTests.csproj (in 1.12 sec).
+
+        - Stderr:  
+   Command: dotnet restore Bc74168a665354f29be5d9ec571f3efb8/Bc74168a665354f29be5d9ec571f3efb8.slnx
+        - ExitCode: 0
+        - Stdout:   Determining projects to restore...
+  Restored /Bc74168a665354f29be5d9ec571f3efb8/tests/Bc74168a665354f29be5d9ec571f3efb8.IntegrationTests/Bc74168a665354f29be5d9ec571f3efb8.IntegrationTests.csproj (in 988 ms).
+  Restored /Bc74168a665354f29be5d9ec571f3efb8/src/Bc74168a665354f29be5d9ec571f3efb8.ServiceDefaults/Bc74168a665354f29be5d9ec571f3efb8.ServiceDefaults.csproj (in 999 ms).
+  Restored /Bc74168a665354f29be5d9ec571f3efb8/src/Bc74168a665354f29be5d9ec571f3efb8.AppHost/Bc74168a665354f29be5d9ec571f3efb8.AppHost.csproj (in 1.05 sec).
+  Restored /Bc74168a665354f29be5d9ec571f3efb8/tests/Bc74168a665354f29be5d9ec571f3efb8.UnitTests/Bc74168a665354f29be5d9ec571f3efb8.UnitTests.csproj (in 1.05 sec).
+  Restored /Bc74168a665354f29be5d9ec571f3efb8/src/Bc74168a665354f29be5d9ec571f3efb8.Shared/Bc74168a665354f29be5d9ec571f3efb8.Shared.csproj (in 2 ms).
+  Restored /Bc74168a665354f29be5d9ec571f3efb8/tests/Bc74168a665354f29be5d9ec571f3efb8.TestAppHost/Bc74168a665354f29be5d9ec571f3efb8.TestAppHost.csproj (in 10 ms).
+  Restored /Bc74168a665354f29be5d9ec571f3efb8/src/Bc74168a665354f29be5d9ec571f3efb8/Bc74168a665354f29be5d9ec571f3efb8.csproj (in 33 ms).
+  Restored /Bc74168a665354f29be5d9ec571f3efb8/tests/Bc74168a665354f29be5d9ec571f3efb8.WebTests/Bc74168a665354f29be5d9ec571f3efb8.WebTests.csproj (in 60 ms).
+
+        - Stderr:  
+   Command: dotnet restore Bff2cc4970eee47c491a1247cd26bf10c/Bff2cc4970eee47c491a1247cd26bf10c.slnx
+        - ExitCode: 0
+        - Stdout:   Determining projects to restore...
+  Restored /Bff2cc4970eee47c491a1247cd26bf10c/src/Bff2cc4970eee47c491a1247cd26bf10c.ServiceDefaults/Bff2cc4970eee47c491a1247cd26bf10c.ServiceDefaults.csproj (in 987 ms).
+  Restored /Bff2cc4970eee47c491a1247cd26bf10c/tests/Bff2cc4970eee47c491a1247cd26bf10c.IntegrationTests/Bff2cc4970eee47c491a1247cd26bf10c.IntegrationTests.csproj (in 987 ms).
+  Restored /Bff2cc4970eee47c491a1247cd26bf10c/src/Bff2cc4970eee47c491a1247cd26bf10c.AppHost/Bff2cc4970eee47c491a1247cd26bf10c.AppHost.csproj (in 1.15 sec).
+  Restored /Bff2cc4970eee47c491a1247cd26bf10c/tests/Bff2cc4970eee47c491a1247cd26bf10c.TestAppHost/Bff2cc4970eee47c491a1247cd26bf10c.TestAppHost.csproj (in 64 ms).
+  Restored /Bff2cc4970eee47c491a1247cd26bf10c/tests/Bff2cc4970eee47c491a1247cd26bf10c.UnitTests/Bff2cc4970eee47c491a1247cd26bf10c.UnitTests.csproj (in 1.15 sec).
+  Restored /Bff2cc4970eee47c491a1247cd26bf10c/src/Bff2cc4970eee47c491a1247cd26bf10c.Shared/Bff2cc4970eee47c491a1247cd26bf10c.Shared.csproj (in 2 ms).
+  Restored /Bff2cc4970eee47c491a1247cd26bf10c/tests/Bff2cc4970eee47c491a1247cd26bf10c.WebTests/Bff2cc4970eee47c491a1247cd26bf10c.WebTests.csproj (in 94 ms).
+  Restored /Bff2cc4970eee47c491a1247cd26bf10c/src/Bff2cc4970eee47c491a1247cd26bf10c/Bff2cc4970eee47c491a1247cd26bf10c.csproj (in 41 ms).
+
+        - Stderr:  
+   Command: dotnet restore Be1133d65d40f4f669de3e367f6879e6e/Be1133d65d40f4f669de3e367f6879e6e.slnx
+        - ExitCode: 0
+        - Stdout:   Determining projects to restore...
+  Restored /Be1133d65d40f4f669de3e367f6879e6e/src/Be1133d65d40f4f669de3e367f6879e6e.ServiceDefaults/Be1133d65d40f4f669de3e367f6879e6e.ServiceDefaults.csproj (in 936 ms).
+  Restored /Be1133d65d40f4f669de3e367f6879e6e/tests/Be1133d65d40f4f669de3e367f6879e6e.IntegrationTests/Be1133d65d40f4f669de3e367f6879e6e.IntegrationTests.csproj (in 940 ms).
+  Restored /Be1133d65d40f4f669de3e367f6879e6e/tests/Be1133d65d40f4f669de3e367f6879e6e.TestAppHost/Be1133d65d40f4f669de3e367f6879e6e.TestAppHost.csproj (in 41 ms).
+  Restored /Be1133d65d40f4f669de3e367f6879e6e/tests/Be1133d65d40f4f669de3e367f6879e6e.WebTests/Be1133d65d40f4f669de3e367f6879e6e.WebTests.csproj (in 62 ms).
+  Restored /Be1133d65d40f4f669de3e367f6879e6e/src/Be1133d65d40f4f669de3e367f6879e6e.Shared/Be1133d65d40f4f669de3e367f6879e6e.Shared.csproj (in 6 ms).
+  Restored /Be1133d65d40f4f669de3e367f6879e6e/src/Be1133d65d40f4f669de3e367f6879e6e.AppHost/Be1133d65d40f4f669de3e367f6879e6e.AppHost.csproj (in 1.08 sec).
+  Restored /Be1133d65d40f4f669de3e367f6879e6e/tests/Be1133d65d40f4f669de3e367f6879e6e.UnitTests/Be1133d65d40f4f669de3e367f6879e6e.UnitTests.csproj (in 1.07 sec).
+  Restored /Be1133d65d40f4f669de3e367f6879e6e/src/Be1133d65d40f4f669de3e367f6879e6e/Be1133d65d40f4f669de3e367f6879e6e.csproj (in 23 ms).
+
+        - Stderr:  
+   Command: dotnet restore B1daa6d5b2df14906a40139131b866662/B1daa6d5b2df14906a40139131b866662.slnx
+        - ExitCode: 0
+        - Stdout:   Determining projects to restore...
+  Restored /B1daa6d5b2df14906a40139131b866662/src/B1daa6d5b2df14906a40139131b866662.Shared/B1daa6d5b2df14906a40139131b866662.Shared.csproj (in 472 ms).
+  Restored /B1daa6d5b2df14906a40139131b866662/tests/B1daa6d5b2df14906a40139131b866662.IntegrationTests/B1daa6d5b2df14906a40139131b866662.IntegrationTests.csproj (in 1.06 sec).
+  Restored /B1daa6d5b2df14906a40139131b866662/src/B1daa6d5b2df14906a40139131b866662/B1daa6d5b2df14906a40139131b866662.csproj (in 61 ms).
+  Restored /B1daa6d5b2df14906a40139131b866662/src/B1daa6d5b2df14906a40139131b866662.ServiceDefaults/B1daa6d5b2df14906a40139131b866662.ServiceDefaults.csproj (in 9 ms).
+  Restored /B1daa6d5b2df14906a40139131b866662/tests/B1daa6d5b2df14906a40139131b866662.UnitTests/B1daa6d5b2df14906a40139131b866662.UnitTests.csproj (in 1.15 sec).
+  Restored /B1daa6d5b2df14906a40139131b866662/src/B1daa6d5b2df14906a40139131b866662.AppHost/B1daa6d5b2df14906a40139131b866662.AppHost.csproj (in 22 ms).
+  Restored /B1daa6d5b2df14906a40139131b866662/tests/B1daa6d5b2df14906a40139131b866662.TestAppHost/B1daa6d5b2df14906a40139131b866662.TestAppHost.csproj (in 570 ms).
+  Restored /B1daa6d5b2df14906a40139131b866662/tests/B1daa6d5b2df14906a40139131b866662.WebTests/B1daa6d5b2df14906a40139131b866662.WebTests.csproj (in 1.16 sec).
+
+        - Stderr:  
+   Command: dotnet restore B167232b1bd1b4d3aa2813081a6aeb4e1/B167232b1bd1b4d3aa2813081a6aeb4e1.slnx
+        - ExitCode: 0
+        - Stdout:   Determining projects to restore...
+  Restored /B167232b1bd1b4d3aa2813081a6aeb4e1/src/B167232b1bd1b4d3aa2813081a6aeb4e1.Shared/B167232b1bd1b4d3aa2813081a6aeb4e1.Shared.csproj (in 424 ms).
+  Restored /B167232b1bd1b4d3aa2813081a6aeb4e1/tests/B167232b1bd1b4d3aa2813081a6aeb4e1.IntegrationTests/B167232b1bd1b4d3aa2813081a6aeb4e1.IntegrationTests.csproj (in 744 ms).
+  Restored /B167232b1bd1b4d3aa2813081a6aeb4e1/src/B167232b1bd1b4d3aa2813081a6aeb4e1.ServiceDefaults/B167232b1bd1b4d3aa2813081a6aeb4e1.ServiceDefaults.csproj (in 5 ms).
+  Restored /B167232b1bd1b4d3aa2813081a6aeb4e1/src/B167232b1bd1b4d3aa2813081a6aeb4e1/B167232b1bd1b4d3aa2813081a6aeb4e1.csproj (in 269 ms).
+  Restored /B167232b1bd1b4d3aa2813081a6aeb4e1/tests/B167232b1bd1b4d3aa2813081a6aeb4e1.UnitTests/B167232b1bd1b4d3aa2813081a6aeb4e1.UnitTests.csproj (in 38 ms).
+  Restored /B167232b1bd1b4d3aa2813081a6aeb4e1/src/B167232b1bd1b4d3aa2813081a6aeb4e1.AppHost/B167232b1bd1b4d3aa2813081a6aeb4e1.AppHost.csproj (in 814 ms).
+  Restored /B167232b1bd1b4d3aa2813081a6aeb4e1/tests/B167232b1bd1b4d3aa2813081a6aeb4e1.TestAppHost/B167232b1bd1b4d3aa2813081a6aeb4e1.TestAppHost.csproj (in 814 ms).
+  Restored /B167232b1bd1b4d3aa2813081a6aeb4e1/tests/B167232b1bd1b4d3aa2813081a6aeb4e1.WebTests/B167232b1bd1b4d3aa2813081a6aeb4e1.WebTests.csproj (in 49 ms).
+
+        - Stderr:  
+   Command: dotnet restore Bd468ef1641974e1bb92daa034dc4ac57/Bd468ef1641974e1bb92daa034dc4ac57.slnx
+        - ExitCode: 0
+        - Stdout:   Determining projects to restore...
+  Restored /Bd468ef1641974e1bb92daa034dc4ac57/src/Bd468ef1641974e1bb92daa034dc4ac57.Shared/Bd468ef1641974e1bb92daa034dc4ac57.Shared.csproj (in 378 ms).
+  Restored /Bd468ef1641974e1bb92daa034dc4ac57/tests/Bd468ef1641974e1bb92daa034dc4ac57.IntegrationTests/Bd468ef1641974e1bb92daa034dc4ac57.IntegrationTests.csproj (in 799 ms).
+  Restored /Bd468ef1641974e1bb92daa034dc4ac57/src/Bd468ef1641974e1bb92daa034dc4ac57/Bd468ef1641974e1bb92daa034dc4ac57.csproj (in 24 ms).
+  Restored /Bd468ef1641974e1bb92daa034dc4ac57/src/Bd468ef1641974e1bb92daa034dc4ac57.ServiceDefaults/Bd468ef1641974e1bb92daa034dc4ac57.ServiceDefaults.csproj (in 13 ms).
+  Restored /Bd468ef1641974e1bb92daa034dc4ac57/src/Bd468ef1641974e1bb92daa034dc4ac57.AppHost/Bd468ef1641974e1bb92daa034dc4ac57.AppHost.csproj (in 123 ms).
+  Restored /Bd468ef1641974e1bb92daa034dc4ac57/tests/Bd468ef1641974e1bb92daa034dc4ac57.TestAppHost/Bd468ef1641974e1bb92daa034dc4ac57.TestAppHost.csproj (in 439 ms).
+  Restored /Bd468ef1641974e1bb92daa034dc4ac57/tests/Bd468ef1641974e1bb92daa034dc4ac57.WebTests/Bd468ef1641974e1bb92daa034dc4ac57.WebTests.csproj (in 993 ms).
+  Restored /Bd468ef1641974e1bb92daa034dc4ac57/tests/Bd468ef1641974e1bb92daa034dc4ac57.UnitTests/Bd468ef1641974e1bb92daa034dc4ac57.UnitTests.csproj (in 997 ms).
+
+        - Stderr:  
+   Command: dotnet restore B291e221c806240cbb4bfd89e4a58f53b/B291e221c806240cbb4bfd89e4a58f53b.slnx
+        - ExitCode: 0
+        - Stdout:   Determining projects to restore...
+  Restored /B291e221c806240cbb4bfd89e4a58f53b/src/B291e221c806240cbb4bfd89e4a58f53b.Shared/B291e221c806240cbb4bfd89e4a58f53b.Shared.csproj (in 342 ms).
+  Restored /B291e221c806240cbb4bfd89e4a58f53b/tests/B291e221c806240cbb4bfd89e4a58f53b.IntegrationTests/B291e221c806240cbb4bfd89e4a58f53b.IntegrationTests.csproj (in 583 ms).
+  Restored /B291e221c806240cbb4bfd89e4a58f53b/src/B291e221c806240cbb4bfd89e4a58f53b/B291e221c806240cbb4bfd89e4a58f53b.csproj (in 28 ms).
+  Restored /B291e221c806240cbb4bfd89e4a58f53b/src/B291e221c806240cbb4bfd89e4a58f53b.ServiceDefaults/B291e221c806240cbb4bfd89e4a58f53b.ServiceDefaults.csproj (in 8 ms).
+  Restored /B291e221c806240cbb4bfd89e4a58f53b/tests/B291e221c806240cbb4bfd89e4a58f53b.TestAppHost/B291e221c806240cbb4bfd89e4a58f53b.TestAppHost.csproj (in 231 ms).
+  Restored /B291e221c806240cbb4bfd89e4a58f53b/src/B291e221c806240cbb4bfd89e4a58f53b.AppHost/B291e221c806240cbb4bfd89e4a58f53b.AppHost.csproj (in 10 ms).
+  Restored /B291e221c806240cbb4bfd89e4a58f53b/tests/B291e221c806240cbb4bfd89e4a58f53b.UnitTests/B291e221c806240cbb4bfd89e4a58f53b.UnitTests.csproj (in 645 ms).
+  Restored /B291e221c806240cbb4bfd89e4a58f53b/tests/B291e221c806240cbb4bfd89e4a58f53b.WebTests/B291e221c806240cbb4bfd89e4a58f53b.WebTests.csproj (in 643 ms).
+
+        - Stderr:  
+   Command: dotnet restore Bb8e76d4d365642e39622fd01fb8fcf8b/Bb8e76d4d365642e39622fd01fb8fcf8b.slnx
+        - ExitCode: 0
+        - Stdout:   Determining projects to restore...
+  Restored /Bb8e76d4d365642e39622fd01fb8fcf8b/src/Bb8e76d4d365642e39622fd01fb8fcf8b.Shared/Bb8e76d4d365642e39622fd01fb8fcf8b.Shared.csproj (in 254 ms).
+  Restored /Bb8e76d4d365642e39622fd01fb8fcf8b/tests/Bb8e76d4d365642e39622fd01fb8fcf8b.IntegrationTests/Bb8e76d4d365642e39622fd01fb8fcf8b.IntegrationTests.csproj (in 474 ms).
+  Restored /Bb8e76d4d365642e39622fd01fb8fcf8b/tests/Bb8e76d4d365642e39622fd01fb8fcf8b.TestAppHost/Bb8e76d4d365642e39622fd01fb8fcf8b.TestAppHost.csproj (in 190 ms).
+  Restored /Bb8e76d4d365642e39622fd01fb8fcf8b/src/Bb8e76d4d365642e39622fd01fb8fcf8b/Bb8e76d4d365642e39622fd01fb8fcf8b.csproj (in 20 ms).
+  Restored /Bb8e76d4d365642e39622fd01fb8fcf8b/src/Bb8e76d4d365642e39622fd01fb8fcf8b.ServiceDefaults/Bb8e76d4d365642e39622fd01fb8fcf8b.ServiceDefaults.csproj (in 5 ms).
+  Restored /Bb8e76d4d365642e39622fd01fb8fcf8b/tests/Bb8e76d4d365642e39622fd01fb8fcf8b.WebTests/Bb8e76d4d365642e39622fd01fb8fcf8b.WebTests.csproj (in 509 ms).
+  Restored /Bb8e76d4d365642e39622fd01fb8fcf8b/tests/Bb8e76d4d365642e39622fd01fb8fcf8b.UnitTests/Bb8e76d4d365642e39622fd01fb8fcf8b.UnitTests.csproj (in 507 ms).
+  Restored /Bb8e76d4d365642e39622fd01fb8fcf8b/src/Bb8e76d4d365642e39622fd01fb8fcf8b.AppHost/Bb8e76d4d365642e39622fd01fb8fcf8b.AppHost.csproj (in 8 ms).
+
+        - Stderr:  
+    Name: Build_Tests.ConcurrentUncapped
+        - Execution Time: 1.04 min
+        - Peak Memory: 8.33 GB
+        - Disk Space: 6.23 GB
+        -    Command: dotnet build Bc980c60cebb0429bb7dc8ac244436ae0/Bc980c60cebb0429bb7dc8ac244436ae0.slnx --no-restore
+        - ExitCode: 0
+        - Stdout: /root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: Bc980c60cebb0429bb7dc8ac244436ae0.AppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/Bc980c60cebb0429bb7dc8ac244436ae0/src/Bc980c60cebb0429bb7dc8ac244436ae0.AppHost/Bc980c60cebb0429bb7dc8ac244436ae0.AppHost.csproj]
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: Bc980c60cebb0429bb7dc8ac244436ae0.TestAppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/Bc980c60cebb0429bb7dc8ac244436ae0/tests/Bc980c60cebb0429bb7dc8ac244436ae0.TestAppHost/Bc980c60cebb0429bb7dc8ac244436ae0.TestAppHost.csproj]
+  Bc980c60cebb0429bb7dc8ac244436ae0.Shared -> /Bc980c60cebb0429bb7dc8ac244436ae0/artifacts/bin/Bc980c60cebb0429bb7dc8ac244436ae0.Shared/debug/Bc980c60cebb0429bb7dc8ac244436ae0.Shared.dll
+  Bc980c60cebb0429bb7dc8ac244436ae0.ServiceDefaults -> /Bc980c60cebb0429bb7dc8ac244436ae0/artifacts/bin/Bc980c60cebb0429bb7dc8ac244436ae0.ServiceDefaults/debug/Bc980c60cebb0429bb7dc8ac244436ae0.ServiceDefaults.dll
+  Bc980c60cebb0429bb7dc8ac244436ae0.IntegrationTests -> /Bc980c60cebb0429bb7dc8ac244436ae0/artifacts/bin/Bc980c60cebb0429bb7dc8ac244436ae0.IntegrationTests/debug/Bc980c60cebb0429bb7dc8ac244436ae0.IntegrationTests.dll
+  Bc980c60cebb0429bb7dc8ac244436ae0 -> /Bc980c60cebb0429bb7dc8ac244436ae0/artifacts/bin/Bc980c60cebb0429bb7dc8ac244436ae0/debug/Bc980c60cebb0429bb7dc8ac244436ae0.dll
+  
+  GenerateOpenApiDocuments:
+    dotnet "/root/.nuget/packages/microsoft.extensions.apidescription.server/10.0.12/build/../tools/dotnet-getdocument.dll" --assembly "/Bc980c60cebb0429bb7dc8ac244436ae0/artifacts/bin/Bc980c60cebb0429bb7dc8ac244436ae0/debug/Bc980c60cebb0429bb7dc8ac244436ae0.dll" --file-list "/Bc980c60cebb0429bb7dc8ac244436ae0/artifacts/obj/Bc980c60cebb0429bb7dc8ac244436ae0/Bc980c60cebb0429bb7dc8ac244436ae0.OpenApiFiles.cache" --framework ".NETCoreApp,Version=v10.0" --output "/Bc980c60cebb0429bb7dc8ac244436ae0/src/Bc980c60cebb0429bb7dc8ac244436ae0/wwwroot/openapi/" --project "Bc980c60cebb0429bb7dc8ac244436ae0" --assets-file "/Bc980c60cebb0429bb7dc8ac244436ae0/artifacts/obj/Bc980c60cebb0429bb7dc8ac244436ae0/project.assets.json" --platform "x64" --file-name v1
+  warn: Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository[60]
+        Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+  warn: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[35]
+        No XML encryptor configured. Key {7299f213-06d9-46eb-9c17-5af9c5984be0} may be persisted to storage in unencrypted form.
+  Generating document named 'v1'.
+  Using discovered `GenerateAsync` overload with version parameter.
+  Writing document named 'v1' to '/Bc980c60cebb0429bb7dc8ac244436ae0/src/Bc980c60cebb0429bb7dc8ac244436ae0/wwwroot/openapi/v1.json'.
+  Bc980c60cebb0429bb7dc8ac244436ae0.AppHost -> /Bc980c60cebb0429bb7dc8ac244436ae0/artifacts/bin/Bc980c60cebb0429bb7dc8ac244436ae0.AppHost/debug/Bc980c60cebb0429bb7dc8ac244436ae0.AppHost.dll
+  Bc980c60cebb0429bb7dc8ac244436ae0.TestAppHost -> /Bc980c60cebb0429bb7dc8ac244436ae0/artifacts/bin/Bc980c60cebb0429bb7dc8ac244436ae0.TestAppHost/debug/Bc980c60cebb0429bb7dc8ac244436ae0.TestAppHost.dll
+  Bc980c60cebb0429bb7dc8ac244436ae0.UnitTests -> /Bc980c60cebb0429bb7dc8ac244436ae0/artifacts/bin/Bc980c60cebb0429bb7dc8ac244436ae0.UnitTests/debug/Bc980c60cebb0429bb7dc8ac244436ae0.UnitTests.dll
+  Bc980c60cebb0429bb7dc8ac244436ae0.WebTests -> /Bc980c60cebb0429bb7dc8ac244436ae0/artifacts/bin/Bc980c60cebb0429bb7dc8ac244436ae0.WebTests/debug/Bc980c60cebb0429bb7dc8ac244436ae0.WebTests.dll
+
+Build succeeded.
+
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: Bc980c60cebb0429bb7dc8ac244436ae0.AppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/Bc980c60cebb0429bb7dc8ac244436ae0/src/Bc980c60cebb0429bb7dc8ac244436ae0.AppHost/Bc980c60cebb0429bb7dc8ac244436ae0.AppHost.csproj]
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: Bc980c60cebb0429bb7dc8ac244436ae0.TestAppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/Bc980c60cebb0429bb7dc8ac244436ae0/tests/Bc980c60cebb0429bb7dc8ac244436ae0.TestAppHost/Bc980c60cebb0429bb7dc8ac244436ae0.TestAppHost.csproj]
+    2 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:15.53
+
+        - Stderr:  
+   Command: dotnet build B8f9c8a4a10de44899d38262933ae1d27/B8f9c8a4a10de44899d38262933ae1d27.slnx --no-restore
+        - ExitCode: 0
+        - Stdout: /root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: B8f9c8a4a10de44899d38262933ae1d27.AppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/B8f9c8a4a10de44899d38262933ae1d27/src/B8f9c8a4a10de44899d38262933ae1d27.AppHost/B8f9c8a4a10de44899d38262933ae1d27.AppHost.csproj]
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: B8f9c8a4a10de44899d38262933ae1d27.TestAppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/B8f9c8a4a10de44899d38262933ae1d27/tests/B8f9c8a4a10de44899d38262933ae1d27.TestAppHost/B8f9c8a4a10de44899d38262933ae1d27.TestAppHost.csproj]
+  B8f9c8a4a10de44899d38262933ae1d27.Shared -> /B8f9c8a4a10de44899d38262933ae1d27/artifacts/bin/B8f9c8a4a10de44899d38262933ae1d27.Shared/debug/B8f9c8a4a10de44899d38262933ae1d27.Shared.dll
+  B8f9c8a4a10de44899d38262933ae1d27.ServiceDefaults -> /B8f9c8a4a10de44899d38262933ae1d27/artifacts/bin/B8f9c8a4a10de44899d38262933ae1d27.ServiceDefaults/debug/B8f9c8a4a10de44899d38262933ae1d27.ServiceDefaults.dll
+  B8f9c8a4a10de44899d38262933ae1d27.IntegrationTests -> /B8f9c8a4a10de44899d38262933ae1d27/artifacts/bin/B8f9c8a4a10de44899d38262933ae1d27.IntegrationTests/debug/B8f9c8a4a10de44899d38262933ae1d27.IntegrationTests.dll
+  B8f9c8a4a10de44899d38262933ae1d27 -> /B8f9c8a4a10de44899d38262933ae1d27/artifacts/bin/B8f9c8a4a10de44899d38262933ae1d27/debug/B8f9c8a4a10de44899d38262933ae1d27.dll
+  
+  GenerateOpenApiDocuments:
+    dotnet "/root/.nuget/packages/microsoft.extensions.apidescription.server/10.0.12/build/../tools/dotnet-getdocument.dll" --assembly "/B8f9c8a4a10de44899d38262933ae1d27/artifacts/bin/B8f9c8a4a10de44899d38262933ae1d27/debug/B8f9c8a4a10de44899d38262933ae1d27.dll" --file-list "/B8f9c8a4a10de44899d38262933ae1d27/artifacts/obj/B8f9c8a4a10de44899d38262933ae1d27/B8f9c8a4a10de44899d38262933ae1d27.OpenApiFiles.cache" --framework ".NETCoreApp,Version=v10.0" --output "/B8f9c8a4a10de44899d38262933ae1d27/src/B8f9c8a4a10de44899d38262933ae1d27/wwwroot/openapi/" --project "B8f9c8a4a10de44899d38262933ae1d27" --assets-file "/B8f9c8a4a10de44899d38262933ae1d27/artifacts/obj/B8f9c8a4a10de44899d38262933ae1d27/project.assets.json" --platform "x64" --file-name v1
+  warn: Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository[60]
+        Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+  warn: Microsoft.AspNetCore.DataProtection.KeyManagement.XmlKeyManager[35]
+        No XML encryptor configured. Key {79e0765f-4ae6-4e63-a860-ae7bac24340a} may be persisted to storage in unencrypted form.
+  Generating document named 'v1'.
+  Using discovered `GenerateAsync` overload with version parameter.
+  Writing document named 'v1' to '/B8f9c8a4a10de44899d38262933ae1d27/src/B8f9c8a4a10de44899d38262933ae1d27/wwwroot/openapi/v1.json'.
+  B8f9c8a4a10de44899d38262933ae1d27.AppHost -> /B8f9c8a4a10de44899d38262933ae1d27/artifacts/bin/B8f9c8a4a10de44899d38262933ae1d27.AppHost/debug/B8f9c8a4a10de44899d38262933ae1d27.AppHost.dll
+  B8f9c8a4a10de44899d38262933ae1d27.TestAppHost -> /B8f9c8a4a10de44899d38262933ae1d27/artifacts/bin/B8f9c8a4a10de44899d38262933ae1d27.TestAppHost/debug/B8f9c8a4a10de44899d38262933ae1d27.TestAppHost.dll
+  B8f9c8a4a10de44899d38262933ae1d27.UnitTests -> /B8f9c8a4a10de44899d38262933ae1d27/artifacts/bin/B8f9c8a4a10de44899d38262933ae1d27.UnitTests/debug/B8f9c8a4a10de44899d38262933ae1d27.UnitTests.dll
+  B8f9c8a4a10de44899d38262933ae1d27.WebTests -> /B8f9c8a4a10de44899d38262933ae1d27/artifacts/bin/B8f9c8a4a10de44899d38262933ae1d27.WebTests/debug/B8f9c8a4a10de44899d38262933ae1d27.WebTests.dll
+
+Build succeeded.
+
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: B8f9c8a4a10de44899d38262933ae1d27.AppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/B8f9c8a4a10de44899d38262933ae1d27/src/B8f9c8a4a10de44899d38262933ae1d27.AppHost/B8f9c8a4a10de44899d38262933ae1d27.AppHost.csproj]
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: B8f9c8a4a10de44899d38262933ae1d27.TestAppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/B8f9c8a4a10de44899d38262933ae1d27/tests/B8f9c8a4a10de44899d38262933ae1d27.TestAppHost/B8f9c8a4a10de44899d38262933ae1d27.TestAppHost.csproj]
+    2 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:15.54
+
+        - Stderr:  
+   Command: dotnet build Bc74168a665354f29be5d9ec571f3efb8/Bc74168a665354f29be5d9ec571f3efb8.slnx --no-restore
+        - ExitCode: 0
+        - Stdout:   Bc74168a665354f29be5d9ec571f3efb8.Shared -> /Bc74168a665354f29be5d9ec571f3efb8/artifacts/bin/Bc74168a665354f29be5d9ec571f3efb8.Shared/debug/Bc74168a665354f29be5d9ec571f3efb8.Shared.dll
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: Bc74168a665354f29be5d9ec571f3efb8.TestAppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/Bc74168a665354f29be5d9ec571f3efb8/tests/Bc74168a665354f29be5d9ec571f3efb8.TestAppHost/Bc74168a665354f29be5d9ec571f3efb8.TestAppHost.csproj]
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: Bc74168a665354f29be5d9ec571f3efb8.AppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/Bc74168a665354f29be5d9ec571f3efb8/src/Bc74168a665354f29be5d9ec571f3efb8.AppHost/Bc74168a665354f29be5d9ec571f3efb8.AppHost.csproj]
+  Bc74168a665354f29be5d9ec571f3efb8.IntegrationTests -> /Bc74168a665354f29be5d9ec571f3efb8/artifacts/bin/Bc74168a665354f29be5d9ec571f3efb8.IntegrationTests/debug/Bc74168a665354f29be5d9ec571f3efb8.IntegrationTests.dll
+  Bc74168a665354f29be5d9ec571f3efb8.ServiceDefaults -> /Bc74168a665354f29be5d9ec571f3efb8/artifacts/bin/Bc74168a665354f29be5d9ec571f3efb8.ServiceDefaults/debug/Bc74168a665354f29be5d9ec571f3efb8.ServiceDefaults.dll
+  Bc74168a665354f29be5d9ec571f3efb8 -> /Bc74168a665354f29be5d9ec571f3efb8/artifacts/bin/Bc74168a665354f29be5d9ec571f3efb8/debug/Bc74168a665354f29be5d9ec571f3efb8.dll
+  
+  GenerateOpenApiDocuments:
+    dotnet "/root/.nuget/packages/microsoft.extensions.apidescription.server/10.0.12/build/../tools/dotnet-getdocument.dll" --assembly "/Bc74168a665354f29be5d9ec571f3efb8/artifacts/bin/Bc74168a665354f29be5d9ec571f3efb8/debug/Bc74168a665354f29be5d9ec571f3efb8.dll" --file-list "/Bc74168a665354f29be5d9ec571f3efb8/artifacts/obj/Bc74168a665354f29be5d9ec571f3efb8/Bc74168a665354f29be5d9ec571f3efb8.OpenApiFiles.cache" --framework ".NETCoreApp,Version=v10.0" --output "/Bc74168a665354f29be5d9ec571f3efb8/src/Bc74168a665354f29be5d9ec571f3efb8/wwwroot/openapi/" --project "Bc74168a665354f29be5d9ec571f3efb8" --assets-file "/Bc74168a665354f29be5d9ec571f3efb8/artifacts/obj/Bc74168a665354f29be5d9ec571f3efb8/project.assets.json" --platform "x64" --file-name v1
+  warn: Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository[60]
+        Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+  Generating document named 'v1'.
+  Using discovered `GenerateAsync` overload with version parameter.
+  Writing document named 'v1' to '/Bc74168a665354f29be5d9ec571f3efb8/src/Bc74168a665354f29be5d9ec571f3efb8/wwwroot/openapi/v1.json'.
+  Bc74168a665354f29be5d9ec571f3efb8.TestAppHost -> /Bc74168a665354f29be5d9ec571f3efb8/artifacts/bin/Bc74168a665354f29be5d9ec571f3efb8.TestAppHost/debug/Bc74168a665354f29be5d9ec571f3efb8.TestAppHost.dll
+  Bc74168a665354f29be5d9ec571f3efb8.AppHost -> /Bc74168a665354f29be5d9ec571f3efb8/artifacts/bin/Bc74168a665354f29be5d9ec571f3efb8.AppHost/debug/Bc74168a665354f29be5d9ec571f3efb8.AppHost.dll
+  Bc74168a665354f29be5d9ec571f3efb8.WebTests -> /Bc74168a665354f29be5d9ec571f3efb8/artifacts/bin/Bc74168a665354f29be5d9ec571f3efb8.WebTests/debug/Bc74168a665354f29be5d9ec571f3efb8.WebTests.dll
+  Bc74168a665354f29be5d9ec571f3efb8.UnitTests -> /Bc74168a665354f29be5d9ec571f3efb8/artifacts/bin/Bc74168a665354f29be5d9ec571f3efb8.UnitTests/debug/Bc74168a665354f29be5d9ec571f3efb8.UnitTests.dll
+
+Build succeeded.
+
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: Bc74168a665354f29be5d9ec571f3efb8.TestAppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/Bc74168a665354f29be5d9ec571f3efb8/tests/Bc74168a665354f29be5d9ec571f3efb8.TestAppHost/Bc74168a665354f29be5d9ec571f3efb8.TestAppHost.csproj]
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: Bc74168a665354f29be5d9ec571f3efb8.AppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/Bc74168a665354f29be5d9ec571f3efb8/src/Bc74168a665354f29be5d9ec571f3efb8.AppHost/Bc74168a665354f29be5d9ec571f3efb8.AppHost.csproj]
+    2 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:13.44
+
+        - Stderr:  
+   Command: dotnet build Bff2cc4970eee47c491a1247cd26bf10c/Bff2cc4970eee47c491a1247cd26bf10c.slnx --no-restore
+        - ExitCode: 0
+        - Stdout: /root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: Bff2cc4970eee47c491a1247cd26bf10c.AppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/Bff2cc4970eee47c491a1247cd26bf10c/src/Bff2cc4970eee47c491a1247cd26bf10c.AppHost/Bff2cc4970eee47c491a1247cd26bf10c.AppHost.csproj]
+  Bff2cc4970eee47c491a1247cd26bf10c.Shared -> /Bff2cc4970eee47c491a1247cd26bf10c/artifacts/bin/Bff2cc4970eee47c491a1247cd26bf10c.Shared/debug/Bff2cc4970eee47c491a1247cd26bf10c.Shared.dll
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: Bff2cc4970eee47c491a1247cd26bf10c.TestAppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/Bff2cc4970eee47c491a1247cd26bf10c/tests/Bff2cc4970eee47c491a1247cd26bf10c.TestAppHost/Bff2cc4970eee47c491a1247cd26bf10c.TestAppHost.csproj]
+  Bff2cc4970eee47c491a1247cd26bf10c.ServiceDefaults -> /Bff2cc4970eee47c491a1247cd26bf10c/artifacts/bin/Bff2cc4970eee47c491a1247cd26bf10c.ServiceDefaults/debug/Bff2cc4970eee47c491a1247cd26bf10c.ServiceDefaults.dll
+  Bff2cc4970eee47c491a1247cd26bf10c.IntegrationTests -> /Bff2cc4970eee47c491a1247cd26bf10c/artifacts/bin/Bff2cc4970eee47c491a1247cd26bf10c.IntegrationTests/debug/Bff2cc4970eee47c491a1247cd26bf10c.IntegrationTests.dll
+  Bff2cc4970eee47c491a1247cd26bf10c -> /Bff2cc4970eee47c491a1247cd26bf10c/artifacts/bin/Bff2cc4970eee47c491a1247cd26bf10c/debug/Bff2cc4970eee47c491a1247cd26bf10c.dll
+  
+  GenerateOpenApiDocuments:
+    dotnet "/root/.nuget/packages/microsoft.extensions.apidescription.server/10.0.12/build/../tools/dotnet-getdocument.dll" --assembly "/Bff2cc4970eee47c491a1247cd26bf10c/artifacts/bin/Bff2cc4970eee47c491a1247cd26bf10c/debug/Bff2cc4970eee47c491a1247cd26bf10c.dll" --file-list "/Bff2cc4970eee47c491a1247cd26bf10c/artifacts/obj/Bff2cc4970eee47c491a1247cd26bf10c/Bff2cc4970eee47c491a1247cd26bf10c.OpenApiFiles.cache" --framework ".NETCoreApp,Version=v10.0" --output "/Bff2cc4970eee47c491a1247cd26bf10c/src/Bff2cc4970eee47c491a1247cd26bf10c/wwwroot/openapi/" --project "Bff2cc4970eee47c491a1247cd26bf10c" --assets-file "/Bff2cc4970eee47c491a1247cd26bf10c/artifacts/obj/Bff2cc4970eee47c491a1247cd26bf10c/project.assets.json" --platform "x64" --file-name v1
+  warn: Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository[60]
+        Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+  Generating document named 'v1'.
+  Using discovered `GenerateAsync` overload with version parameter.
+  Writing document named 'v1' to '/Bff2cc4970eee47c491a1247cd26bf10c/src/Bff2cc4970eee47c491a1247cd26bf10c/wwwroot/openapi/v1.json'.
+  Bff2cc4970eee47c491a1247cd26bf10c.TestAppHost -> /Bff2cc4970eee47c491a1247cd26bf10c/artifacts/bin/Bff2cc4970eee47c491a1247cd26bf10c.TestAppHost/debug/Bff2cc4970eee47c491a1247cd26bf10c.TestAppHost.dll
+  Bff2cc4970eee47c491a1247cd26bf10c.AppHost -> /Bff2cc4970eee47c491a1247cd26bf10c/artifacts/bin/Bff2cc4970eee47c491a1247cd26bf10c.AppHost/debug/Bff2cc4970eee47c491a1247cd26bf10c.AppHost.dll
+  Bff2cc4970eee47c491a1247cd26bf10c.UnitTests -> /Bff2cc4970eee47c491a1247cd26bf10c/artifacts/bin/Bff2cc4970eee47c491a1247cd26bf10c.UnitTests/debug/Bff2cc4970eee47c491a1247cd26bf10c.UnitTests.dll
+  Bff2cc4970eee47c491a1247cd26bf10c.WebTests -> /Bff2cc4970eee47c491a1247cd26bf10c/artifacts/bin/Bff2cc4970eee47c491a1247cd26bf10c.WebTests/debug/Bff2cc4970eee47c491a1247cd26bf10c.WebTests.dll
+
+Build succeeded.
+
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: Bff2cc4970eee47c491a1247cd26bf10c.AppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/Bff2cc4970eee47c491a1247cd26bf10c/src/Bff2cc4970eee47c491a1247cd26bf10c.AppHost/Bff2cc4970eee47c491a1247cd26bf10c.AppHost.csproj]
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: Bff2cc4970eee47c491a1247cd26bf10c.TestAppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/Bff2cc4970eee47c491a1247cd26bf10c/tests/Bff2cc4970eee47c491a1247cd26bf10c.TestAppHost/Bff2cc4970eee47c491a1247cd26bf10c.TestAppHost.csproj]
+    2 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:13.94
+
+        - Stderr:  
+   Command: dotnet build Be1133d65d40f4f669de3e367f6879e6e/Be1133d65d40f4f669de3e367f6879e6e.slnx --no-restore
+        - ExitCode: 0
+        - Stdout:   Be1133d65d40f4f669de3e367f6879e6e.Shared -> /Be1133d65d40f4f669de3e367f6879e6e/artifacts/bin/Be1133d65d40f4f669de3e367f6879e6e.Shared/debug/Be1133d65d40f4f669de3e367f6879e6e.Shared.dll
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: Be1133d65d40f4f669de3e367f6879e6e.TestAppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/Be1133d65d40f4f669de3e367f6879e6e/tests/Be1133d65d40f4f669de3e367f6879e6e.TestAppHost/Be1133d65d40f4f669de3e367f6879e6e.TestAppHost.csproj]
+  Be1133d65d40f4f669de3e367f6879e6e.ServiceDefaults -> /Be1133d65d40f4f669de3e367f6879e6e/artifacts/bin/Be1133d65d40f4f669de3e367f6879e6e.ServiceDefaults/debug/Be1133d65d40f4f669de3e367f6879e6e.ServiceDefaults.dll
+  Be1133d65d40f4f669de3e367f6879e6e.IntegrationTests -> /Be1133d65d40f4f669de3e367f6879e6e/artifacts/bin/Be1133d65d40f4f669de3e367f6879e6e.IntegrationTests/debug/Be1133d65d40f4f669de3e367f6879e6e.IntegrationTests.dll
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: Be1133d65d40f4f669de3e367f6879e6e.AppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/Be1133d65d40f4f669de3e367f6879e6e/src/Be1133d65d40f4f669de3e367f6879e6e.AppHost/Be1133d65d40f4f669de3e367f6879e6e.AppHost.csproj]
+  Be1133d65d40f4f669de3e367f6879e6e -> /Be1133d65d40f4f669de3e367f6879e6e/artifacts/bin/Be1133d65d40f4f669de3e367f6879e6e/debug/Be1133d65d40f4f669de3e367f6879e6e.dll
+  
+  GenerateOpenApiDocuments:
+    dotnet "/root/.nuget/packages/microsoft.extensions.apidescription.server/10.0.12/build/../tools/dotnet-getdocument.dll" --assembly "/Be1133d65d40f4f669de3e367f6879e6e/artifacts/bin/Be1133d65d40f4f669de3e367f6879e6e/debug/Be1133d65d40f4f669de3e367f6879e6e.dll" --file-list "/Be1133d65d40f4f669de3e367f6879e6e/artifacts/obj/Be1133d65d40f4f669de3e367f6879e6e/Be1133d65d40f4f669de3e367f6879e6e.OpenApiFiles.cache" --framework ".NETCoreApp,Version=v10.0" --output "/Be1133d65d40f4f669de3e367f6879e6e/src/Be1133d65d40f4f669de3e367f6879e6e/wwwroot/openapi/" --project "Be1133d65d40f4f669de3e367f6879e6e" --assets-file "/Be1133d65d40f4f669de3e367f6879e6e/artifacts/obj/Be1133d65d40f4f669de3e367f6879e6e/project.assets.json" --platform "x64" --file-name v1
+  warn: Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository[60]
+        Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+  Generating document named 'v1'.
+  Using discovered `GenerateAsync` overload with version parameter.
+  Writing document named 'v1' to '/Be1133d65d40f4f669de3e367f6879e6e/src/Be1133d65d40f4f669de3e367f6879e6e/wwwroot/openapi/v1.json'.
+  Be1133d65d40f4f669de3e367f6879e6e.TestAppHost -> /Be1133d65d40f4f669de3e367f6879e6e/artifacts/bin/Be1133d65d40f4f669de3e367f6879e6e.TestAppHost/debug/Be1133d65d40f4f669de3e367f6879e6e.TestAppHost.dll
+  Be1133d65d40f4f669de3e367f6879e6e.AppHost -> /Be1133d65d40f4f669de3e367f6879e6e/artifacts/bin/Be1133d65d40f4f669de3e367f6879e6e.AppHost/debug/Be1133d65d40f4f669de3e367f6879e6e.AppHost.dll
+  Be1133d65d40f4f669de3e367f6879e6e.WebTests -> /Be1133d65d40f4f669de3e367f6879e6e/artifacts/bin/Be1133d65d40f4f669de3e367f6879e6e.WebTests/debug/Be1133d65d40f4f669de3e367f6879e6e.WebTests.dll
+  Be1133d65d40f4f669de3e367f6879e6e.UnitTests -> /Be1133d65d40f4f669de3e367f6879e6e/artifacts/bin/Be1133d65d40f4f669de3e367f6879e6e.UnitTests/debug/Be1133d65d40f4f669de3e367f6879e6e.UnitTests.dll
+
+Build succeeded.
+
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: Be1133d65d40f4f669de3e367f6879e6e.TestAppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/Be1133d65d40f4f669de3e367f6879e6e/tests/Be1133d65d40f4f669de3e367f6879e6e.TestAppHost/Be1133d65d40f4f669de3e367f6879e6e.TestAppHost.csproj]
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: Be1133d65d40f4f669de3e367f6879e6e.AppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/Be1133d65d40f4f669de3e367f6879e6e/src/Be1133d65d40f4f669de3e367f6879e6e.AppHost/Be1133d65d40f4f669de3e367f6879e6e.AppHost.csproj]
+    2 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:10.51
+
+        - Stderr:  
+   Command: dotnet build B1daa6d5b2df14906a40139131b866662/B1daa6d5b2df14906a40139131b866662.slnx --no-restore
+        - ExitCode: 0
+        - Stdout:   B1daa6d5b2df14906a40139131b866662.Shared -> /B1daa6d5b2df14906a40139131b866662/artifacts/bin/B1daa6d5b2df14906a40139131b866662.Shared/debug/B1daa6d5b2df14906a40139131b866662.Shared.dll
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: B1daa6d5b2df14906a40139131b866662.TestAppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/B1daa6d5b2df14906a40139131b866662/tests/B1daa6d5b2df14906a40139131b866662.TestAppHost/B1daa6d5b2df14906a40139131b866662.TestAppHost.csproj]
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: B1daa6d5b2df14906a40139131b866662.AppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/B1daa6d5b2df14906a40139131b866662/src/B1daa6d5b2df14906a40139131b866662.AppHost/B1daa6d5b2df14906a40139131b866662.AppHost.csproj]
+  B1daa6d5b2df14906a40139131b866662.IntegrationTests -> /B1daa6d5b2df14906a40139131b866662/artifacts/bin/B1daa6d5b2df14906a40139131b866662.IntegrationTests/debug/B1daa6d5b2df14906a40139131b866662.IntegrationTests.dll
+  B1daa6d5b2df14906a40139131b866662.ServiceDefaults -> /B1daa6d5b2df14906a40139131b866662/artifacts/bin/B1daa6d5b2df14906a40139131b866662.ServiceDefaults/debug/B1daa6d5b2df14906a40139131b866662.ServiceDefaults.dll
+  B1daa6d5b2df14906a40139131b866662 -> /B1daa6d5b2df14906a40139131b866662/artifacts/bin/B1daa6d5b2df14906a40139131b866662/debug/B1daa6d5b2df14906a40139131b866662.dll
+  
+  GenerateOpenApiDocuments:
+    dotnet "/root/.nuget/packages/microsoft.extensions.apidescription.server/10.0.12/build/../tools/dotnet-getdocument.dll" --assembly "/B1daa6d5b2df14906a40139131b866662/artifacts/bin/B1daa6d5b2df14906a40139131b866662/debug/B1daa6d5b2df14906a40139131b866662.dll" --file-list "/B1daa6d5b2df14906a40139131b866662/artifacts/obj/B1daa6d5b2df14906a40139131b866662/B1daa6d5b2df14906a40139131b866662.OpenApiFiles.cache" --framework ".NETCoreApp,Version=v10.0" --output "/B1daa6d5b2df14906a40139131b866662/src/B1daa6d5b2df14906a40139131b866662/wwwroot/openapi/" --project "B1daa6d5b2df14906a40139131b866662" --assets-file "/B1daa6d5b2df14906a40139131b866662/artifacts/obj/B1daa6d5b2df14906a40139131b866662/project.assets.json" --platform "x64" --file-name v1
+  warn: Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository[60]
+        Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+  Generating document named 'v1'.
+  Using discovered `GenerateAsync` overload with version parameter.
+  Writing document named 'v1' to '/B1daa6d5b2df14906a40139131b866662/src/B1daa6d5b2df14906a40139131b866662/wwwroot/openapi/v1.json'.
+  B1daa6d5b2df14906a40139131b866662.TestAppHost -> /B1daa6d5b2df14906a40139131b866662/artifacts/bin/B1daa6d5b2df14906a40139131b866662.TestAppHost/debug/B1daa6d5b2df14906a40139131b866662.TestAppHost.dll
+  B1daa6d5b2df14906a40139131b866662.AppHost -> /B1daa6d5b2df14906a40139131b866662/artifacts/bin/B1daa6d5b2df14906a40139131b866662.AppHost/debug/B1daa6d5b2df14906a40139131b866662.AppHost.dll
+  B1daa6d5b2df14906a40139131b866662.UnitTests -> /B1daa6d5b2df14906a40139131b866662/artifacts/bin/B1daa6d5b2df14906a40139131b866662.UnitTests/debug/B1daa6d5b2df14906a40139131b866662.UnitTests.dll
+  B1daa6d5b2df14906a40139131b866662.WebTests -> /B1daa6d5b2df14906a40139131b866662/artifacts/bin/B1daa6d5b2df14906a40139131b866662.WebTests/debug/B1daa6d5b2df14906a40139131b866662.WebTests.dll
+
+Build succeeded.
+
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: B1daa6d5b2df14906a40139131b866662.TestAppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/B1daa6d5b2df14906a40139131b866662/tests/B1daa6d5b2df14906a40139131b866662.TestAppHost/B1daa6d5b2df14906a40139131b866662.TestAppHost.csproj]
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: B1daa6d5b2df14906a40139131b866662.AppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/B1daa6d5b2df14906a40139131b866662/src/B1daa6d5b2df14906a40139131b866662.AppHost/B1daa6d5b2df14906a40139131b866662.AppHost.csproj]
+    2 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:10.84
+
+        - Stderr:  
+   Command: dotnet build B167232b1bd1b4d3aa2813081a6aeb4e1/B167232b1bd1b4d3aa2813081a6aeb4e1.slnx --no-restore
+        - ExitCode: 0
+        - Stdout:   B167232b1bd1b4d3aa2813081a6aeb4e1.Shared -> /B167232b1bd1b4d3aa2813081a6aeb4e1/artifacts/bin/B167232b1bd1b4d3aa2813081a6aeb4e1.Shared/debug/B167232b1bd1b4d3aa2813081a6aeb4e1.Shared.dll
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: B167232b1bd1b4d3aa2813081a6aeb4e1.TestAppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/B167232b1bd1b4d3aa2813081a6aeb4e1/tests/B167232b1bd1b4d3aa2813081a6aeb4e1.TestAppHost/B167232b1bd1b4d3aa2813081a6aeb4e1.TestAppHost.csproj]
+  B167232b1bd1b4d3aa2813081a6aeb4e1.ServiceDefaults -> /B167232b1bd1b4d3aa2813081a6aeb4e1/artifacts/bin/B167232b1bd1b4d3aa2813081a6aeb4e1.ServiceDefaults/debug/B167232b1bd1b4d3aa2813081a6aeb4e1.ServiceDefaults.dll
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: B167232b1bd1b4d3aa2813081a6aeb4e1.AppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/B167232b1bd1b4d3aa2813081a6aeb4e1/src/B167232b1bd1b4d3aa2813081a6aeb4e1.AppHost/B167232b1bd1b4d3aa2813081a6aeb4e1.AppHost.csproj]
+  B167232b1bd1b4d3aa2813081a6aeb4e1.IntegrationTests -> /B167232b1bd1b4d3aa2813081a6aeb4e1/artifacts/bin/B167232b1bd1b4d3aa2813081a6aeb4e1.IntegrationTests/debug/B167232b1bd1b4d3aa2813081a6aeb4e1.IntegrationTests.dll
+  B167232b1bd1b4d3aa2813081a6aeb4e1 -> /B167232b1bd1b4d3aa2813081a6aeb4e1/artifacts/bin/B167232b1bd1b4d3aa2813081a6aeb4e1/debug/B167232b1bd1b4d3aa2813081a6aeb4e1.dll
+  
+  GenerateOpenApiDocuments:
+    dotnet "/root/.nuget/packages/microsoft.extensions.apidescription.server/10.0.12/build/../tools/dotnet-getdocument.dll" --assembly "/B167232b1bd1b4d3aa2813081a6aeb4e1/artifacts/bin/B167232b1bd1b4d3aa2813081a6aeb4e1/debug/B167232b1bd1b4d3aa2813081a6aeb4e1.dll" --file-list "/B167232b1bd1b4d3aa2813081a6aeb4e1/artifacts/obj/B167232b1bd1b4d3aa2813081a6aeb4e1/B167232b1bd1b4d3aa2813081a6aeb4e1.OpenApiFiles.cache" --framework ".NETCoreApp,Version=v10.0" --output "/B167232b1bd1b4d3aa2813081a6aeb4e1/src/B167232b1bd1b4d3aa2813081a6aeb4e1/wwwroot/openapi/" --project "B167232b1bd1b4d3aa2813081a6aeb4e1" --assets-file "/B167232b1bd1b4d3aa2813081a6aeb4e1/artifacts/obj/B167232b1bd1b4d3aa2813081a6aeb4e1/project.assets.json" --platform "x64" --file-name v1
+  warn: Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository[60]
+        Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+  Generating document named 'v1'.
+  Using discovered `GenerateAsync` overload with version parameter.
+  Writing document named 'v1' to '/B167232b1bd1b4d3aa2813081a6aeb4e1/src/B167232b1bd1b4d3aa2813081a6aeb4e1/wwwroot/openapi/v1.json'.
+  B167232b1bd1b4d3aa2813081a6aeb4e1.TestAppHost -> /B167232b1bd1b4d3aa2813081a6aeb4e1/artifacts/bin/B167232b1bd1b4d3aa2813081a6aeb4e1.TestAppHost/debug/B167232b1bd1b4d3aa2813081a6aeb4e1.TestAppHost.dll
+  B167232b1bd1b4d3aa2813081a6aeb4e1.AppHost -> /B167232b1bd1b4d3aa2813081a6aeb4e1/artifacts/bin/B167232b1bd1b4d3aa2813081a6aeb4e1.AppHost/debug/B167232b1bd1b4d3aa2813081a6aeb4e1.AppHost.dll
+  B167232b1bd1b4d3aa2813081a6aeb4e1.UnitTests -> /B167232b1bd1b4d3aa2813081a6aeb4e1/artifacts/bin/B167232b1bd1b4d3aa2813081a6aeb4e1.UnitTests/debug/B167232b1bd1b4d3aa2813081a6aeb4e1.UnitTests.dll
+  B167232b1bd1b4d3aa2813081a6aeb4e1.WebTests -> /B167232b1bd1b4d3aa2813081a6aeb4e1/artifacts/bin/B167232b1bd1b4d3aa2813081a6aeb4e1.WebTests/debug/B167232b1bd1b4d3aa2813081a6aeb4e1.WebTests.dll
+
+Build succeeded.
+
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: B167232b1bd1b4d3aa2813081a6aeb4e1.TestAppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/B167232b1bd1b4d3aa2813081a6aeb4e1/tests/B167232b1bd1b4d3aa2813081a6aeb4e1.TestAppHost/B167232b1bd1b4d3aa2813081a6aeb4e1.TestAppHost.csproj]
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: B167232b1bd1b4d3aa2813081a6aeb4e1.AppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/B167232b1bd1b4d3aa2813081a6aeb4e1/src/B167232b1bd1b4d3aa2813081a6aeb4e1.AppHost/B167232b1bd1b4d3aa2813081a6aeb4e1.AppHost.csproj]
+    2 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:11.18
+
+        - Stderr:  
+   Command: dotnet build Bd468ef1641974e1bb92daa034dc4ac57/Bd468ef1641974e1bb92daa034dc4ac57.slnx --no-restore
+        - ExitCode: 0
+        - Stdout:   Bd468ef1641974e1bb92daa034dc4ac57.Shared -> /Bd468ef1641974e1bb92daa034dc4ac57/artifacts/bin/Bd468ef1641974e1bb92daa034dc4ac57.Shared/debug/Bd468ef1641974e1bb92daa034dc4ac57.Shared.dll
+  Bd468ef1641974e1bb92daa034dc4ac57.ServiceDefaults -> /Bd468ef1641974e1bb92daa034dc4ac57/artifacts/bin/Bd468ef1641974e1bb92daa034dc4ac57.ServiceDefaults/debug/Bd468ef1641974e1bb92daa034dc4ac57.ServiceDefaults.dll
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: Bd468ef1641974e1bb92daa034dc4ac57.TestAppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/Bd468ef1641974e1bb92daa034dc4ac57/tests/Bd468ef1641974e1bb92daa034dc4ac57.TestAppHost/Bd468ef1641974e1bb92daa034dc4ac57.TestAppHost.csproj]
+  Bd468ef1641974e1bb92daa034dc4ac57.IntegrationTests -> /Bd468ef1641974e1bb92daa034dc4ac57/artifacts/bin/Bd468ef1641974e1bb92daa034dc4ac57.IntegrationTests/debug/Bd468ef1641974e1bb92daa034dc4ac57.IntegrationTests.dll
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: Bd468ef1641974e1bb92daa034dc4ac57.AppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/Bd468ef1641974e1bb92daa034dc4ac57/src/Bd468ef1641974e1bb92daa034dc4ac57.AppHost/Bd468ef1641974e1bb92daa034dc4ac57.AppHost.csproj]
+  Bd468ef1641974e1bb92daa034dc4ac57 -> /Bd468ef1641974e1bb92daa034dc4ac57/artifacts/bin/Bd468ef1641974e1bb92daa034dc4ac57/debug/Bd468ef1641974e1bb92daa034dc4ac57.dll
+  
+  GenerateOpenApiDocuments:
+    dotnet "/root/.nuget/packages/microsoft.extensions.apidescription.server/10.0.12/build/../tools/dotnet-getdocument.dll" --assembly "/Bd468ef1641974e1bb92daa034dc4ac57/artifacts/bin/Bd468ef1641974e1bb92daa034dc4ac57/debug/Bd468ef1641974e1bb92daa034dc4ac57.dll" --file-list "/Bd468ef1641974e1bb92daa034dc4ac57/artifacts/obj/Bd468ef1641974e1bb92daa034dc4ac57/Bd468ef1641974e1bb92daa034dc4ac57.OpenApiFiles.cache" --framework ".NETCoreApp,Version=v10.0" --output "/Bd468ef1641974e1bb92daa034dc4ac57/src/Bd468ef1641974e1bb92daa034dc4ac57/wwwroot/openapi/" --project "Bd468ef1641974e1bb92daa034dc4ac57" --assets-file "/Bd468ef1641974e1bb92daa034dc4ac57/artifacts/obj/Bd468ef1641974e1bb92daa034dc4ac57/project.assets.json" --platform "x64" --file-name v1
+  warn: Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository[60]
+        Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+  Generating document named 'v1'.
+  Using discovered `GenerateAsync` overload with version parameter.
+  Writing document named 'v1' to '/Bd468ef1641974e1bb92daa034dc4ac57/src/Bd468ef1641974e1bb92daa034dc4ac57/wwwroot/openapi/v1.json'.
+  Bd468ef1641974e1bb92daa034dc4ac57.TestAppHost -> /Bd468ef1641974e1bb92daa034dc4ac57/artifacts/bin/Bd468ef1641974e1bb92daa034dc4ac57.TestAppHost/debug/Bd468ef1641974e1bb92daa034dc4ac57.TestAppHost.dll
+  Bd468ef1641974e1bb92daa034dc4ac57.AppHost -> /Bd468ef1641974e1bb92daa034dc4ac57/artifacts/bin/Bd468ef1641974e1bb92daa034dc4ac57.AppHost/debug/Bd468ef1641974e1bb92daa034dc4ac57.AppHost.dll
+  Bd468ef1641974e1bb92daa034dc4ac57.UnitTests -> /Bd468ef1641974e1bb92daa034dc4ac57/artifacts/bin/Bd468ef1641974e1bb92daa034dc4ac57.UnitTests/debug/Bd468ef1641974e1bb92daa034dc4ac57.UnitTests.dll
+  Bd468ef1641974e1bb92daa034dc4ac57.WebTests -> /Bd468ef1641974e1bb92daa034dc4ac57/artifacts/bin/Bd468ef1641974e1bb92daa034dc4ac57.WebTests/debug/Bd468ef1641974e1bb92daa034dc4ac57.WebTests.dll
+
+Build succeeded.
+
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: Bd468ef1641974e1bb92daa034dc4ac57.TestAppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/Bd468ef1641974e1bb92daa034dc4ac57/tests/Bd468ef1641974e1bb92daa034dc4ac57.TestAppHost/Bd468ef1641974e1bb92daa034dc4ac57.TestAppHost.csproj]
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: Bd468ef1641974e1bb92daa034dc4ac57.AppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/Bd468ef1641974e1bb92daa034dc4ac57/src/Bd468ef1641974e1bb92daa034dc4ac57.AppHost/Bd468ef1641974e1bb92daa034dc4ac57.AppHost.csproj]
+    2 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:11.49
+
+        - Stderr:  
+   Command: dotnet build B291e221c806240cbb4bfd89e4a58f53b/B291e221c806240cbb4bfd89e4a58f53b.slnx --no-restore
+        - ExitCode: 0
+        - Stdout:   B291e221c806240cbb4bfd89e4a58f53b.Shared -> /B291e221c806240cbb4bfd89e4a58f53b/artifacts/bin/B291e221c806240cbb4bfd89e4a58f53b.Shared/debug/B291e221c806240cbb4bfd89e4a58f53b.Shared.dll
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: B291e221c806240cbb4bfd89e4a58f53b.TestAppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/B291e221c806240cbb4bfd89e4a58f53b/tests/B291e221c806240cbb4bfd89e4a58f53b.TestAppHost/B291e221c806240cbb4bfd89e4a58f53b.TestAppHost.csproj]
+  B291e221c806240cbb4bfd89e4a58f53b.ServiceDefaults -> /B291e221c806240cbb4bfd89e4a58f53b/artifacts/bin/B291e221c806240cbb4bfd89e4a58f53b.ServiceDefaults/debug/B291e221c806240cbb4bfd89e4a58f53b.ServiceDefaults.dll
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: B291e221c806240cbb4bfd89e4a58f53b.AppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/B291e221c806240cbb4bfd89e4a58f53b/src/B291e221c806240cbb4bfd89e4a58f53b.AppHost/B291e221c806240cbb4bfd89e4a58f53b.AppHost.csproj]
+  B291e221c806240cbb4bfd89e4a58f53b.IntegrationTests -> /B291e221c806240cbb4bfd89e4a58f53b/artifacts/bin/B291e221c806240cbb4bfd89e4a58f53b.IntegrationTests/debug/B291e221c806240cbb4bfd89e4a58f53b.IntegrationTests.dll
+  B291e221c806240cbb4bfd89e4a58f53b -> /B291e221c806240cbb4bfd89e4a58f53b/artifacts/bin/B291e221c806240cbb4bfd89e4a58f53b/debug/B291e221c806240cbb4bfd89e4a58f53b.dll
+  
+  GenerateOpenApiDocuments:
+    dotnet "/root/.nuget/packages/microsoft.extensions.apidescription.server/10.0.12/build/../tools/dotnet-getdocument.dll" --assembly "/B291e221c806240cbb4bfd89e4a58f53b/artifacts/bin/B291e221c806240cbb4bfd89e4a58f53b/debug/B291e221c806240cbb4bfd89e4a58f53b.dll" --file-list "/B291e221c806240cbb4bfd89e4a58f53b/artifacts/obj/B291e221c806240cbb4bfd89e4a58f53b/B291e221c806240cbb4bfd89e4a58f53b.OpenApiFiles.cache" --framework ".NETCoreApp,Version=v10.0" --output "/B291e221c806240cbb4bfd89e4a58f53b/src/B291e221c806240cbb4bfd89e4a58f53b/wwwroot/openapi/" --project "B291e221c806240cbb4bfd89e4a58f53b" --assets-file "/B291e221c806240cbb4bfd89e4a58f53b/artifacts/obj/B291e221c806240cbb4bfd89e4a58f53b/project.assets.json" --platform "x64" --file-name v1
+  warn: Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository[60]
+        Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+  Generating document named 'v1'.
+  Using discovered `GenerateAsync` overload with version parameter.
+  Writing document named 'v1' to '/B291e221c806240cbb4bfd89e4a58f53b/src/B291e221c806240cbb4bfd89e4a58f53b/wwwroot/openapi/v1.json'.
+  B291e221c806240cbb4bfd89e4a58f53b.TestAppHost -> /B291e221c806240cbb4bfd89e4a58f53b/artifacts/bin/B291e221c806240cbb4bfd89e4a58f53b.TestAppHost/debug/B291e221c806240cbb4bfd89e4a58f53b.TestAppHost.dll
+  B291e221c806240cbb4bfd89e4a58f53b.AppHost -> /B291e221c806240cbb4bfd89e4a58f53b/artifacts/bin/B291e221c806240cbb4bfd89e4a58f53b.AppHost/debug/B291e221c806240cbb4bfd89e4a58f53b.AppHost.dll
+  B291e221c806240cbb4bfd89e4a58f53b.UnitTests -> /B291e221c806240cbb4bfd89e4a58f53b/artifacts/bin/B291e221c806240cbb4bfd89e4a58f53b.UnitTests/debug/B291e221c806240cbb4bfd89e4a58f53b.UnitTests.dll
+  B291e221c806240cbb4bfd89e4a58f53b.WebTests -> /B291e221c806240cbb4bfd89e4a58f53b/artifacts/bin/B291e221c806240cbb4bfd89e4a58f53b.WebTests/debug/B291e221c806240cbb4bfd89e4a58f53b.WebTests.dll
+
+Build succeeded.
+
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: B291e221c806240cbb4bfd89e4a58f53b.TestAppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/B291e221c806240cbb4bfd89e4a58f53b/tests/B291e221c806240cbb4bfd89e4a58f53b.TestAppHost/B291e221c806240cbb4bfd89e4a58f53b.TestAppHost.csproj]
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: B291e221c806240cbb4bfd89e4a58f53b.AppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/B291e221c806240cbb4bfd89e4a58f53b/src/B291e221c806240cbb4bfd89e4a58f53b.AppHost/B291e221c806240cbb4bfd89e4a58f53b.AppHost.csproj]
+    2 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:08.15
+
+        - Stderr:  
+   Command: dotnet build Bb8e76d4d365642e39622fd01fb8fcf8b/Bb8e76d4d365642e39622fd01fb8fcf8b.slnx --no-restore
+        - ExitCode: 0
+        - Stdout:   Bb8e76d4d365642e39622fd01fb8fcf8b.Shared -> /Bb8e76d4d365642e39622fd01fb8fcf8b/artifacts/bin/Bb8e76d4d365642e39622fd01fb8fcf8b.Shared/debug/Bb8e76d4d365642e39622fd01fb8fcf8b.Shared.dll
+  Bb8e76d4d365642e39622fd01fb8fcf8b.ServiceDefaults -> /Bb8e76d4d365642e39622fd01fb8fcf8b/artifacts/bin/Bb8e76d4d365642e39622fd01fb8fcf8b.ServiceDefaults/debug/Bb8e76d4d365642e39622fd01fb8fcf8b.ServiceDefaults.dll
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: Bb8e76d4d365642e39622fd01fb8fcf8b.TestAppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/Bb8e76d4d365642e39622fd01fb8fcf8b/tests/Bb8e76d4d365642e39622fd01fb8fcf8b.TestAppHost/Bb8e76d4d365642e39622fd01fb8fcf8b.TestAppHost.csproj]
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: Bb8e76d4d365642e39622fd01fb8fcf8b.AppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/Bb8e76d4d365642e39622fd01fb8fcf8b/src/Bb8e76d4d365642e39622fd01fb8fcf8b.AppHost/Bb8e76d4d365642e39622fd01fb8fcf8b.AppHost.csproj]
+  Bb8e76d4d365642e39622fd01fb8fcf8b.IntegrationTests -> /Bb8e76d4d365642e39622fd01fb8fcf8b/artifacts/bin/Bb8e76d4d365642e39622fd01fb8fcf8b.IntegrationTests/debug/Bb8e76d4d365642e39622fd01fb8fcf8b.IntegrationTests.dll
+  Bb8e76d4d365642e39622fd01fb8fcf8b -> /Bb8e76d4d365642e39622fd01fb8fcf8b/artifacts/bin/Bb8e76d4d365642e39622fd01fb8fcf8b/debug/Bb8e76d4d365642e39622fd01fb8fcf8b.dll
+  
+  GenerateOpenApiDocuments:
+    dotnet "/root/.nuget/packages/microsoft.extensions.apidescription.server/10.0.12/build/../tools/dotnet-getdocument.dll" --assembly "/Bb8e76d4d365642e39622fd01fb8fcf8b/artifacts/bin/Bb8e76d4d365642e39622fd01fb8fcf8b/debug/Bb8e76d4d365642e39622fd01fb8fcf8b.dll" --file-list "/Bb8e76d4d365642e39622fd01fb8fcf8b/artifacts/obj/Bb8e76d4d365642e39622fd01fb8fcf8b/Bb8e76d4d365642e39622fd01fb8fcf8b.OpenApiFiles.cache" --framework ".NETCoreApp,Version=v10.0" --output "/Bb8e76d4d365642e39622fd01fb8fcf8b/src/Bb8e76d4d365642e39622fd01fb8fcf8b/wwwroot/openapi/" --project "Bb8e76d4d365642e39622fd01fb8fcf8b" --assets-file "/Bb8e76d4d365642e39622fd01fb8fcf8b/artifacts/obj/Bb8e76d4d365642e39622fd01fb8fcf8b/project.assets.json" --platform "x64" --file-name v1
+  warn: Microsoft.AspNetCore.DataProtection.Repositories.FileSystemXmlRepository[60]
+        Storing keys in a directory '/root/.aspnet/DataProtection-Keys' that may not be persisted outside of the container. Protected data will be unavailable when container is destroyed. For more information go to https://aka.ms/aspnet/dataprotectionwarning
+  Generating document named 'v1'.
+  Using discovered `GenerateAsync` overload with version parameter.
+  Writing document named 'v1' to '/Bb8e76d4d365642e39622fd01fb8fcf8b/src/Bb8e76d4d365642e39622fd01fb8fcf8b/wwwroot/openapi/v1.json'.
+  Bb8e76d4d365642e39622fd01fb8fcf8b.TestAppHost -> /Bb8e76d4d365642e39622fd01fb8fcf8b/artifacts/bin/Bb8e76d4d365642e39622fd01fb8fcf8b.TestAppHost/debug/Bb8e76d4d365642e39622fd01fb8fcf8b.TestAppHost.dll
+  Bb8e76d4d365642e39622fd01fb8fcf8b.AppHost -> /Bb8e76d4d365642e39622fd01fb8fcf8b/artifacts/bin/Bb8e76d4d365642e39622fd01fb8fcf8b.AppHost/debug/Bb8e76d4d365642e39622fd01fb8fcf8b.AppHost.dll
+  Bb8e76d4d365642e39622fd01fb8fcf8b.UnitTests -> /Bb8e76d4d365642e39622fd01fb8fcf8b/artifacts/bin/Bb8e76d4d365642e39622fd01fb8fcf8b.UnitTests/debug/Bb8e76d4d365642e39622fd01fb8fcf8b.UnitTests.dll
+  Bb8e76d4d365642e39622fd01fb8fcf8b.WebTests -> /Bb8e76d4d365642e39622fd01fb8fcf8b/artifacts/bin/Bb8e76d4d365642e39622fd01fb8fcf8b.WebTests/debug/Bb8e76d4d365642e39622fd01fb8fcf8b.WebTests.dll
+
+Build succeeded.
+
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: Bb8e76d4d365642e39622fd01fb8fcf8b.TestAppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/Bb8e76d4d365642e39622fd01fb8fcf8b/tests/Bb8e76d4d365642e39622fd01fb8fcf8b.TestAppHost/Bb8e76d4d365642e39622fd01fb8fcf8b.TestAppHost.csproj]
+/root/.nuget/packages/aspire.hosting.apphost/13.6.1/build/Aspire.Hosting.AppHost.targets(157,5): warning ASPIRE010: Bb8e76d4d365642e39622fd01fb8fcf8b.AppHost is configured with AspireUseCliBundle=false. Some Aspire features require the Aspire CLI bundle. Set AspireUseCliBundle=true to enable those features, or suppress ASPIRE010 to continue without the bundle. See https://aka.ms/aspire/diagnostics/aspire010 for more information. [/Bb8e76d4d365642e39622fd01fb8fcf8b/src/Bb8e76d4d365642e39622fd01fb8fcf8b.AppHost/Bb8e76d4d365642e39622fd01fb8fcf8b.AppHost.csproj]
+    2 Warning(s)
+    0 Error(s)
+
+Time Elapsed 00:00:08.29
+
+        - Stderr:  
+    Name: Test_Tests.ConcurrentUncapped
+        - Execution Time: 1.44 min
+        - Peak Memory: 12.65 GB
+        - Disk Space: 6.24 GB
+        -    Command: sh -c cd Bc980c60cebb0429bb7dc8ac244436ae0 && dotnet test --solution Bc980c60cebb0429bb7dc8ac244436ae0.slnx --no-restore --no-build --ignore-exit-code 8
+        - ExitCode: 0
+        - Stdout: Running tests from /Bc980c60cebb0429bb7dc8ac244436ae0/artifacts/bin/Bc980c60cebb0429bb7dc8ac244436ae0.IntegrationTests/debug/Bc980c60cebb0429bb7dc8ac244436ae0.IntegrationTests.dll (net10.0|x64)
+Running tests from /Bc980c60cebb0429bb7dc8ac244436ae0/artifacts/bin/Bc980c60cebb0429bb7dc8ac244436ae0.UnitTests/debug/Bc980c60cebb0429bb7dc8ac244436ae0.UnitTests.dll (net10.0|x64)
+Running tests from /Bc980c60cebb0429bb7dc8ac244436ae0/artifacts/bin/Bc980c60cebb0429bb7dc8ac244436ae0.WebTests/debug/Bc980c60cebb0429bb7dc8ac244436ae0.WebTests.dll (net10.0|x64)
+/Bc980c60cebb0429bb7dc8ac244436ae0/artifacts/bin/Bc980c60cebb0429bb7dc8ac244436ae0.IntegrationTests/debug/Bc980c60cebb0429bb7dc8ac244436ae0.IntegrationTests.dll (net10.0|x64) passed (2s 441ms)
+/Bc980c60cebb0429bb7dc8ac244436ae0/artifacts/bin/Bc980c60cebb0429bb7dc8ac244436ae0.UnitTests/debug/Bc980c60cebb0429bb7dc8ac244436ae0.UnitTests.dll (net10.0|x64) passed (1m 03s 363ms)
+/Bc980c60cebb0429bb7dc8ac244436ae0/artifacts/bin/Bc980c60cebb0429bb7dc8ac244436ae0.WebTests/debug/Bc980c60cebb0429bb7dc8ac244436ae0.WebTests.dll (net10.0|x64) passed (1m 15s 587ms)
+
+  In process file artifacts produced:
+    - /Bc980c60cebb0429bb7dc8ac244436ae0/artifacts/test-results/Bc980c60cebb0429bb7dc8ac244436ae0.UnitTests-linux-net10.0-report.html
+    - /Bc980c60cebb0429bb7dc8ac244436ae0/artifacts/test-results/Bc980c60cebb0429bb7dc8ac244436ae0.WebTests-linux-net10.0-report.html
+
+Test run summary: Passed!
+  /Bc980c60cebb0429bb7dc8ac244436ae0/artifacts/bin/Bc980c60cebb0429bb7dc8ac244436ae0.IntegrationTests/debug/Bc980c60cebb0429bb7dc8ac244436ae0.IntegrationTests.dll (net10.0|x64) passed (2s 441ms)
+  /Bc980c60cebb0429bb7dc8ac244436ae0/artifacts/bin/Bc980c60cebb0429bb7dc8ac244436ae0.UnitTests/debug/Bc980c60cebb0429bb7dc8ac244436ae0.UnitTests.dll (net10.0|x64) passed (1m 03s 363ms)
+  /Bc980c60cebb0429bb7dc8ac244436ae0/artifacts/bin/Bc980c60cebb0429bb7dc8ac244436ae0.WebTests/debug/Bc980c60cebb0429bb7dc8ac244436ae0.WebTests.dll (net10.0|x64) passed (1m 15s 587ms)
+
+  total: 81
+  failed: 0
+  succeeded: 81
+  skipped: 0
+  duration: 1m 18s 189ms
+
+        - Stderr:  
+   Command: sh -c cd B8f9c8a4a10de44899d38262933ae1d27 && dotnet test --solution B8f9c8a4a10de44899d38262933ae1d27.slnx --no-restore --no-build --ignore-exit-code 8
+        - ExitCode: 0
+        - Stdout: Running tests from /B8f9c8a4a10de44899d38262933ae1d27/artifacts/bin/B8f9c8a4a10de44899d38262933ae1d27.IntegrationTests/debug/B8f9c8a4a10de44899d38262933ae1d27.IntegrationTests.dll (net10.0|x64)
+Running tests from /B8f9c8a4a10de44899d38262933ae1d27/artifacts/bin/B8f9c8a4a10de44899d38262933ae1d27.UnitTests/debug/B8f9c8a4a10de44899d38262933ae1d27.UnitTests.dll (net10.0|x64)
+Running tests from /B8f9c8a4a10de44899d38262933ae1d27/artifacts/bin/B8f9c8a4a10de44899d38262933ae1d27.WebTests/debug/B8f9c8a4a10de44899d38262933ae1d27.WebTests.dll (net10.0|x64)
+/B8f9c8a4a10de44899d38262933ae1d27/artifacts/bin/B8f9c8a4a10de44899d38262933ae1d27.IntegrationTests/debug/B8f9c8a4a10de44899d38262933ae1d27.IntegrationTests.dll (net10.0|x64) passed (2s 459ms)
+/B8f9c8a4a10de44899d38262933ae1d27/artifacts/bin/B8f9c8a4a10de44899d38262933ae1d27.UnitTests/debug/B8f9c8a4a10de44899d38262933ae1d27.UnitTests.dll (net10.0|x64) passed (1m 03s 694ms)
+/B8f9c8a4a10de44899d38262933ae1d27/artifacts/bin/B8f9c8a4a10de44899d38262933ae1d27.WebTests/debug/B8f9c8a4a10de44899d38262933ae1d27.WebTests.dll (net10.0|x64) passed (1m 14s 843ms)
+
+  In process file artifacts produced:
+    - /B8f9c8a4a10de44899d38262933ae1d27/artifacts/test-results/B8f9c8a4a10de44899d38262933ae1d27.UnitTests-linux-net10.0-report.html
+    - /B8f9c8a4a10de44899d38262933ae1d27/artifacts/test-results/B8f9c8a4a10de44899d38262933ae1d27.WebTests-linux-net10.0-report.html
+
+Test run summary: Passed!
+  /B8f9c8a4a10de44899d38262933ae1d27/artifacts/bin/B8f9c8a4a10de44899d38262933ae1d27.IntegrationTests/debug/B8f9c8a4a10de44899d38262933ae1d27.IntegrationTests.dll (net10.0|x64) passed (2s 459ms)
+  /B8f9c8a4a10de44899d38262933ae1d27/artifacts/bin/B8f9c8a4a10de44899d38262933ae1d27.WebTests/debug/B8f9c8a4a10de44899d38262933ae1d27.WebTests.dll (net10.0|x64) passed (1m 14s 843ms)
+  /B8f9c8a4a10de44899d38262933ae1d27/artifacts/bin/B8f9c8a4a10de44899d38262933ae1d27.UnitTests/debug/B8f9c8a4a10de44899d38262933ae1d27.UnitTests.dll (net10.0|x64) passed (1m 03s 694ms)
+
+  total: 81
+  failed: 0
+  succeeded: 81
+  skipped: 0
+  duration: 1m 18s 174ms
+
+        - Stderr:  
+   Command: sh -c cd Bc74168a665354f29be5d9ec571f3efb8 && dotnet test --solution Bc74168a665354f29be5d9ec571f3efb8.slnx --no-restore --no-build --ignore-exit-code 8
+        - ExitCode: 0
+        - Stdout: Running tests from /Bc74168a665354f29be5d9ec571f3efb8/artifacts/bin/Bc74168a665354f29be5d9ec571f3efb8.IntegrationTests/debug/Bc74168a665354f29be5d9ec571f3efb8.IntegrationTests.dll (net10.0|x64)
+Running tests from /Bc74168a665354f29be5d9ec571f3efb8/artifacts/bin/Bc74168a665354f29be5d9ec571f3efb8.WebTests/debug/Bc74168a665354f29be5d9ec571f3efb8.WebTests.dll (net10.0|x64)
+Running tests from /Bc74168a665354f29be5d9ec571f3efb8/artifacts/bin/Bc74168a665354f29be5d9ec571f3efb8.UnitTests/debug/Bc74168a665354f29be5d9ec571f3efb8.UnitTests.dll (net10.0|x64)
+/Bc74168a665354f29be5d9ec571f3efb8/artifacts/bin/Bc74168a665354f29be5d9ec571f3efb8.IntegrationTests/debug/Bc74168a665354f29be5d9ec571f3efb8.IntegrationTests.dll (net10.0|x64) passed (1s 843ms)
+/Bc74168a665354f29be5d9ec571f3efb8/artifacts/bin/Bc74168a665354f29be5d9ec571f3efb8.UnitTests/debug/Bc74168a665354f29be5d9ec571f3efb8.UnitTests.dll (net10.0|x64) passed (1m 00s 620ms)
+/Bc74168a665354f29be5d9ec571f3efb8/artifacts/bin/Bc74168a665354f29be5d9ec571f3efb8.WebTests/debug/Bc74168a665354f29be5d9ec571f3efb8.WebTests.dll (net10.0|x64) passed (1m 17s 488ms)
+
+  In process file artifacts produced:
+    - /Bc74168a665354f29be5d9ec571f3efb8/artifacts/test-results/Bc74168a665354f29be5d9ec571f3efb8.UnitTests-linux-net10.0-report.html
+    - /Bc74168a665354f29be5d9ec571f3efb8/artifacts/test-results/Bc74168a665354f29be5d9ec571f3efb8.WebTests-linux-net10.0-report.html
+
+Test run summary: Passed!
+  /Bc74168a665354f29be5d9ec571f3efb8/artifacts/bin/Bc74168a665354f29be5d9ec571f3efb8.IntegrationTests/debug/Bc74168a665354f29be5d9ec571f3efb8.IntegrationTests.dll (net10.0|x64) passed (1s 843ms)
+  /Bc74168a665354f29be5d9ec571f3efb8/artifacts/bin/Bc74168a665354f29be5d9ec571f3efb8.WebTests/debug/Bc74168a665354f29be5d9ec571f3efb8.WebTests.dll (net10.0|x64) passed (1m 17s 488ms)
+  /Bc74168a665354f29be5d9ec571f3efb8/artifacts/bin/Bc74168a665354f29be5d9ec571f3efb8.UnitTests/debug/Bc74168a665354f29be5d9ec571f3efb8.UnitTests.dll (net10.0|x64) passed (1m 00s 620ms)
+
+  total: 81
+  failed: 0
+  succeeded: 81
+  skipped: 0
+  duration: 1m 21s 812ms
+
+        - Stderr:  
+   Command: sh -c cd Bff2cc4970eee47c491a1247cd26bf10c && dotnet test --solution Bff2cc4970eee47c491a1247cd26bf10c.slnx --no-restore --no-build --ignore-exit-code 8
+        - ExitCode: 0
+        - Stdout: Running tests from /Bff2cc4970eee47c491a1247cd26bf10c/artifacts/bin/Bff2cc4970eee47c491a1247cd26bf10c.IntegrationTests/debug/Bff2cc4970eee47c491a1247cd26bf10c.IntegrationTests.dll (net10.0|x64)
+Running tests from /Bff2cc4970eee47c491a1247cd26bf10c/artifacts/bin/Bff2cc4970eee47c491a1247cd26bf10c.WebTests/debug/Bff2cc4970eee47c491a1247cd26bf10c.WebTests.dll (net10.0|x64)
+Running tests from /Bff2cc4970eee47c491a1247cd26bf10c/artifacts/bin/Bff2cc4970eee47c491a1247cd26bf10c.UnitTests/debug/Bff2cc4970eee47c491a1247cd26bf10c.UnitTests.dll (net10.0|x64)
+/Bff2cc4970eee47c491a1247cd26bf10c/artifacts/bin/Bff2cc4970eee47c491a1247cd26bf10c.IntegrationTests/debug/Bff2cc4970eee47c491a1247cd26bf10c.IntegrationTests.dll (net10.0|x64) passed (2s 595ms)
+/Bff2cc4970eee47c491a1247cd26bf10c/artifacts/bin/Bff2cc4970eee47c491a1247cd26bf10c.UnitTests/debug/Bff2cc4970eee47c491a1247cd26bf10c.UnitTests.dll (net10.0|x64) passed (1m 02s 040ms)
+/Bff2cc4970eee47c491a1247cd26bf10c/artifacts/bin/Bff2cc4970eee47c491a1247cd26bf10c.WebTests/debug/Bff2cc4970eee47c491a1247cd26bf10c.WebTests.dll (net10.0|x64) passed (1m 15s 689ms)
+
+  In process file artifacts produced:
+    - /Bff2cc4970eee47c491a1247cd26bf10c/artifacts/test-results/Bff2cc4970eee47c491a1247cd26bf10c.UnitTests-linux-net10.0-report.html
+    - /Bff2cc4970eee47c491a1247cd26bf10c/artifacts/test-results/Bff2cc4970eee47c491a1247cd26bf10c.WebTests-linux-net10.0-report.html
+
+Test run summary: Passed!
+  /Bff2cc4970eee47c491a1247cd26bf10c/artifacts/bin/Bff2cc4970eee47c491a1247cd26bf10c.WebTests/debug/Bff2cc4970eee47c491a1247cd26bf10c.WebTests.dll (net10.0|x64) passed (1m 15s 689ms)
+  /Bff2cc4970eee47c491a1247cd26bf10c/artifacts/bin/Bff2cc4970eee47c491a1247cd26bf10c.UnitTests/debug/Bff2cc4970eee47c491a1247cd26bf10c.UnitTests.dll (net10.0|x64) passed (1m 02s 040ms)
+  /Bff2cc4970eee47c491a1247cd26bf10c/artifacts/bin/Bff2cc4970eee47c491a1247cd26bf10c.IntegrationTests/debug/Bff2cc4970eee47c491a1247cd26bf10c.IntegrationTests.dll (net10.0|x64) passed (2s 595ms)
+
+  total: 81
+  failed: 0
+  succeeded: 81
+  skipped: 0
+  duration: 1m 19s 538ms
+
+        - Stderr:  
+   Command: sh -c cd Be1133d65d40f4f669de3e367f6879e6e && dotnet test --solution Be1133d65d40f4f669de3e367f6879e6e.slnx --no-restore --no-build --ignore-exit-code 8
+        - ExitCode: 0
+        - Stdout: Running tests from /Be1133d65d40f4f669de3e367f6879e6e/artifacts/bin/Be1133d65d40f4f669de3e367f6879e6e.UnitTests/debug/Be1133d65d40f4f669de3e367f6879e6e.UnitTests.dll (net10.0|x64)
+Running tests from /Be1133d65d40f4f669de3e367f6879e6e/artifacts/bin/Be1133d65d40f4f669de3e367f6879e6e.IntegrationTests/debug/Be1133d65d40f4f669de3e367f6879e6e.IntegrationTests.dll (net10.0|x64)
+Running tests from /Be1133d65d40f4f669de3e367f6879e6e/artifacts/bin/Be1133d65d40f4f669de3e367f6879e6e.WebTests/debug/Be1133d65d40f4f669de3e367f6879e6e.WebTests.dll (net10.0|x64)
+/Be1133d65d40f4f669de3e367f6879e6e/artifacts/bin/Be1133d65d40f4f669de3e367f6879e6e.IntegrationTests/debug/Be1133d65d40f4f669de3e367f6879e6e.IntegrationTests.dll (net10.0|x64) passed (2s 725ms)
+/Be1133d65d40f4f669de3e367f6879e6e/artifacts/bin/Be1133d65d40f4f669de3e367f6879e6e.UnitTests/debug/Be1133d65d40f4f669de3e367f6879e6e.UnitTests.dll (net10.0|x64) passed (1m 03s 094ms)
+/Be1133d65d40f4f669de3e367f6879e6e/artifacts/bin/Be1133d65d40f4f669de3e367f6879e6e.WebTests/debug/Be1133d65d40f4f669de3e367f6879e6e.WebTests.dll (net10.0|x64) passed (1m 13s 570ms)
+
+  In process file artifacts produced:
+    - /Be1133d65d40f4f669de3e367f6879e6e/artifacts/test-results/Be1133d65d40f4f669de3e367f6879e6e.UnitTests-linux-net10.0-report.html
+    - /Be1133d65d40f4f669de3e367f6879e6e/artifacts/test-results/Be1133d65d40f4f669de3e367f6879e6e.WebTests-linux-net10.0-report.html
+
+Test run summary: Passed!
+  /Be1133d65d40f4f669de3e367f6879e6e/artifacts/bin/Be1133d65d40f4f669de3e367f6879e6e.IntegrationTests/debug/Be1133d65d40f4f669de3e367f6879e6e.IntegrationTests.dll (net10.0|x64) passed (2s 725ms)
+  /Be1133d65d40f4f669de3e367f6879e6e/artifacts/bin/Be1133d65d40f4f669de3e367f6879e6e.UnitTests/debug/Be1133d65d40f4f669de3e367f6879e6e.UnitTests.dll (net10.0|x64) passed (1m 03s 094ms)
+  /Be1133d65d40f4f669de3e367f6879e6e/artifacts/bin/Be1133d65d40f4f669de3e367f6879e6e.WebTests/debug/Be1133d65d40f4f669de3e367f6879e6e.WebTests.dll (net10.0|x64) passed (1m 13s 570ms)
+
+  total: 81
+  failed: 0
+  succeeded: 81
+  skipped: 0
+  duration: 1m 17s 493ms
+
+        - Stderr:  
+   Command: sh -c cd B1daa6d5b2df14906a40139131b866662 && dotnet test --solution B1daa6d5b2df14906a40139131b866662.slnx --no-restore --no-build --ignore-exit-code 8
+        - ExitCode: 0
+        - Stdout: Running tests from /B1daa6d5b2df14906a40139131b866662/artifacts/bin/B1daa6d5b2df14906a40139131b866662.WebTests/debug/B1daa6d5b2df14906a40139131b866662.WebTests.dll (net10.0|x64)
+Running tests from /B1daa6d5b2df14906a40139131b866662/artifacts/bin/B1daa6d5b2df14906a40139131b866662.IntegrationTests/debug/B1daa6d5b2df14906a40139131b866662.IntegrationTests.dll (net10.0|x64)
+Running tests from /B1daa6d5b2df14906a40139131b866662/artifacts/bin/B1daa6d5b2df14906a40139131b866662.UnitTests/debug/B1daa6d5b2df14906a40139131b866662.UnitTests.dll (net10.0|x64)
+/B1daa6d5b2df14906a40139131b866662/artifacts/bin/B1daa6d5b2df14906a40139131b866662.IntegrationTests/debug/B1daa6d5b2df14906a40139131b866662.IntegrationTests.dll (net10.0|x64) passed (2s 358ms)
+/B1daa6d5b2df14906a40139131b866662/artifacts/bin/B1daa6d5b2df14906a40139131b866662.UnitTests/debug/B1daa6d5b2df14906a40139131b866662.UnitTests.dll (net10.0|x64) passed (1m 04s 185ms)
+/B1daa6d5b2df14906a40139131b866662/artifacts/bin/B1daa6d5b2df14906a40139131b866662.WebTests/debug/B1daa6d5b2df14906a40139131b866662.WebTests.dll (net10.0|x64) passed (1m 16s 693ms)
+
+  In process file artifacts produced:
+    - /B1daa6d5b2df14906a40139131b866662/artifacts/test-results/B1daa6d5b2df14906a40139131b866662.UnitTests-linux-net10.0-report.html
+    - /B1daa6d5b2df14906a40139131b866662/artifacts/test-results/B1daa6d5b2df14906a40139131b866662.WebTests-linux-net10.0-report.html
+
+Test run summary: Passed!
+  /B1daa6d5b2df14906a40139131b866662/artifacts/bin/B1daa6d5b2df14906a40139131b866662.UnitTests/debug/B1daa6d5b2df14906a40139131b866662.UnitTests.dll (net10.0|x64) passed (1m 04s 185ms)
+  /B1daa6d5b2df14906a40139131b866662/artifacts/bin/B1daa6d5b2df14906a40139131b866662.IntegrationTests/debug/B1daa6d5b2df14906a40139131b866662.IntegrationTests.dll (net10.0|x64) passed (2s 358ms)
+  /B1daa6d5b2df14906a40139131b866662/artifacts/bin/B1daa6d5b2df14906a40139131b866662.WebTests/debug/B1daa6d5b2df14906a40139131b866662.WebTests.dll (net10.0|x64) passed (1m 16s 693ms)
+
+  total: 81
+  failed: 0
+  succeeded: 81
+  skipped: 0
+  duration: 1m 19s 602ms
+
+        - Stderr:  
+   Command: sh -c cd B167232b1bd1b4d3aa2813081a6aeb4e1 && dotnet test --solution B167232b1bd1b4d3aa2813081a6aeb4e1.slnx --no-restore --no-build --ignore-exit-code 8
+        - ExitCode: 0
+        - Stdout: Running tests from /B167232b1bd1b4d3aa2813081a6aeb4e1/artifacts/bin/B167232b1bd1b4d3aa2813081a6aeb4e1.WebTests/debug/B167232b1bd1b4d3aa2813081a6aeb4e1.WebTests.dll (net10.0|x64)
+Running tests from /B167232b1bd1b4d3aa2813081a6aeb4e1/artifacts/bin/B167232b1bd1b4d3aa2813081a6aeb4e1.IntegrationTests/debug/B167232b1bd1b4d3aa2813081a6aeb4e1.IntegrationTests.dll (net10.0|x64)
+Running tests from /B167232b1bd1b4d3aa2813081a6aeb4e1/artifacts/bin/B167232b1bd1b4d3aa2813081a6aeb4e1.UnitTests/debug/B167232b1bd1b4d3aa2813081a6aeb4e1.UnitTests.dll (net10.0|x64)
+/B167232b1bd1b4d3aa2813081a6aeb4e1/artifacts/bin/B167232b1bd1b4d3aa2813081a6aeb4e1.IntegrationTests/debug/B167232b1bd1b4d3aa2813081a6aeb4e1.IntegrationTests.dll (net10.0|x64) passed (2s 618ms)
+/B167232b1bd1b4d3aa2813081a6aeb4e1/artifacts/bin/B167232b1bd1b4d3aa2813081a6aeb4e1.UnitTests/debug/B167232b1bd1b4d3aa2813081a6aeb4e1.UnitTests.dll (net10.0|x64) passed (1m 05s 019ms)
+/B167232b1bd1b4d3aa2813081a6aeb4e1/artifacts/bin/B167232b1bd1b4d3aa2813081a6aeb4e1.WebTests/debug/B167232b1bd1b4d3aa2813081a6aeb4e1.WebTests.dll (net10.0|x64) passed (1m 17s 686ms)
+
+  In process file artifacts produced:
+    - /B167232b1bd1b4d3aa2813081a6aeb4e1/artifacts/test-results/B167232b1bd1b4d3aa2813081a6aeb4e1.UnitTests-linux-net10.0-report.html
+    - /B167232b1bd1b4d3aa2813081a6aeb4e1/artifacts/test-results/B167232b1bd1b4d3aa2813081a6aeb4e1.WebTests-linux-net10.0-report.html
+
+Test run summary: Passed!
+  /B167232b1bd1b4d3aa2813081a6aeb4e1/artifacts/bin/B167232b1bd1b4d3aa2813081a6aeb4e1.UnitTests/debug/B167232b1bd1b4d3aa2813081a6aeb4e1.UnitTests.dll (net10.0|x64) passed (1m 05s 019ms)
+  /B167232b1bd1b4d3aa2813081a6aeb4e1/artifacts/bin/B167232b1bd1b4d3aa2813081a6aeb4e1.WebTests/debug/B167232b1bd1b4d3aa2813081a6aeb4e1.WebTests.dll (net10.0|x64) passed (1m 17s 686ms)
+  /B167232b1bd1b4d3aa2813081a6aeb4e1/artifacts/bin/B167232b1bd1b4d3aa2813081a6aeb4e1.IntegrationTests/debug/B167232b1bd1b4d3aa2813081a6aeb4e1.IntegrationTests.dll (net10.0|x64) passed (2s 618ms)
+
+  total: 81
+  failed: 0
+  succeeded: 81
+  skipped: 0
+  duration: 1m 20s 444ms
+
+        - Stderr:  
+   Command: sh -c cd Bd468ef1641974e1bb92daa034dc4ac57 && dotnet test --solution Bd468ef1641974e1bb92daa034dc4ac57.slnx --no-restore --no-build --ignore-exit-code 8
+        - ExitCode: 0
+        - Stdout: Running tests from /Bd468ef1641974e1bb92daa034dc4ac57/artifacts/bin/Bd468ef1641974e1bb92daa034dc4ac57.IntegrationTests/debug/Bd468ef1641974e1bb92daa034dc4ac57.IntegrationTests.dll (net10.0|x64)
+Running tests from /Bd468ef1641974e1bb92daa034dc4ac57/artifacts/bin/Bd468ef1641974e1bb92daa034dc4ac57.WebTests/debug/Bd468ef1641974e1bb92daa034dc4ac57.WebTests.dll (net10.0|x64)
+Running tests from /Bd468ef1641974e1bb92daa034dc4ac57/artifacts/bin/Bd468ef1641974e1bb92daa034dc4ac57.UnitTests/debug/Bd468ef1641974e1bb92daa034dc4ac57.UnitTests.dll (net10.0|x64)
+/Bd468ef1641974e1bb92daa034dc4ac57/artifacts/bin/Bd468ef1641974e1bb92daa034dc4ac57.IntegrationTests/debug/Bd468ef1641974e1bb92daa034dc4ac57.IntegrationTests.dll (net10.0|x64) passed (2s 479ms)
+/Bd468ef1641974e1bb92daa034dc4ac57/artifacts/bin/Bd468ef1641974e1bb92daa034dc4ac57.UnitTests/debug/Bd468ef1641974e1bb92daa034dc4ac57.UnitTests.dll (net10.0|x64) passed (1m 02s 810ms)
+/Bd468ef1641974e1bb92daa034dc4ac57/artifacts/bin/Bd468ef1641974e1bb92daa034dc4ac57.WebTests/debug/Bd468ef1641974e1bb92daa034dc4ac57.WebTests.dll (net10.0|x64) passed (1m 15s 670ms)
+
+  In process file artifacts produced:
+    - /Bd468ef1641974e1bb92daa034dc4ac57/artifacts/test-results/Bd468ef1641974e1bb92daa034dc4ac57.UnitTests-linux-net10.0-report.html
+    - /Bd468ef1641974e1bb92daa034dc4ac57/artifacts/test-results/Bd468ef1641974e1bb92daa034dc4ac57.WebTests-linux-net10.0-report.html
+
+Test run summary: Passed!
+  /Bd468ef1641974e1bb92daa034dc4ac57/artifacts/bin/Bd468ef1641974e1bb92daa034dc4ac57.UnitTests/debug/Bd468ef1641974e1bb92daa034dc4ac57.UnitTests.dll (net10.0|x64) passed (1m 02s 810ms)
+  /Bd468ef1641974e1bb92daa034dc4ac57/artifacts/bin/Bd468ef1641974e1bb92daa034dc4ac57.IntegrationTests/debug/Bd468ef1641974e1bb92daa034dc4ac57.IntegrationTests.dll (net10.0|x64) passed (2s 479ms)
+  /Bd468ef1641974e1bb92daa034dc4ac57/artifacts/bin/Bd468ef1641974e1bb92daa034dc4ac57.WebTests/debug/Bd468ef1641974e1bb92daa034dc4ac57.WebTests.dll (net10.0|x64) passed (1m 15s 670ms)
+
+  total: 81
+  failed: 0
+  succeeded: 81
+  skipped: 0
+  duration: 1m 19s 289ms
+
+        - Stderr:  
+   Command: sh -c cd B291e221c806240cbb4bfd89e4a58f53b && dotnet test --solution B291e221c806240cbb4bfd89e4a58f53b.slnx --no-restore --no-build --ignore-exit-code 8
+        - ExitCode: 0
+        - Stdout: Running tests from /B291e221c806240cbb4bfd89e4a58f53b/artifacts/bin/B291e221c806240cbb4bfd89e4a58f53b.WebTests/debug/B291e221c806240cbb4bfd89e4a58f53b.WebTests.dll (net10.0|x64)
+Running tests from /B291e221c806240cbb4bfd89e4a58f53b/artifacts/bin/B291e221c806240cbb4bfd89e4a58f53b.IntegrationTests/debug/B291e221c806240cbb4bfd89e4a58f53b.IntegrationTests.dll (net10.0|x64)
+Running tests from /B291e221c806240cbb4bfd89e4a58f53b/artifacts/bin/B291e221c806240cbb4bfd89e4a58f53b.UnitTests/debug/B291e221c806240cbb4bfd89e4a58f53b.UnitTests.dll (net10.0|x64)
+/B291e221c806240cbb4bfd89e4a58f53b/artifacts/bin/B291e221c806240cbb4bfd89e4a58f53b.IntegrationTests/debug/B291e221c806240cbb4bfd89e4a58f53b.IntegrationTests.dll (net10.0|x64) passed (2s 777ms)
+/B291e221c806240cbb4bfd89e4a58f53b/artifacts/bin/B291e221c806240cbb4bfd89e4a58f53b.UnitTests/debug/B291e221c806240cbb4bfd89e4a58f53b.UnitTests.dll (net10.0|x64) passed (1m 02s 059ms)
+/B291e221c806240cbb4bfd89e4a58f53b/artifacts/bin/B291e221c806240cbb4bfd89e4a58f53b.WebTests/debug/B291e221c806240cbb4bfd89e4a58f53b.WebTests.dll (net10.0|x64) passed (1m 16s 342ms)
+
+  In process file artifacts produced:
+    - /B291e221c806240cbb4bfd89e4a58f53b/artifacts/test-results/B291e221c806240cbb4bfd89e4a58f53b.UnitTests-linux-net10.0-report.html
+    - /B291e221c806240cbb4bfd89e4a58f53b/artifacts/test-results/B291e221c806240cbb4bfd89e4a58f53b.WebTests-linux-net10.0-report.html
+
+Test run summary: Passed!
+  /B291e221c806240cbb4bfd89e4a58f53b/artifacts/bin/B291e221c806240cbb4bfd89e4a58f53b.WebTests/debug/B291e221c806240cbb4bfd89e4a58f53b.WebTests.dll (net10.0|x64) passed (1m 16s 342ms)
+  /B291e221c806240cbb4bfd89e4a58f53b/artifacts/bin/B291e221c806240cbb4bfd89e4a58f53b.IntegrationTests/debug/B291e221c806240cbb4bfd89e4a58f53b.IntegrationTests.dll (net10.0|x64) passed (2s 777ms)
+  /B291e221c806240cbb4bfd89e4a58f53b/artifacts/bin/B291e221c806240cbb4bfd89e4a58f53b.UnitTests/debug/B291e221c806240cbb4bfd89e4a58f53b.UnitTests.dll (net10.0|x64) passed (1m 02s 059ms)
+
+  total: 81
+  failed: 0
+  succeeded: 81
+  skipped: 0
+  duration: 1m 19s 557ms
+
+        - Stderr:  
+   Command: sh -c cd Bb8e76d4d365642e39622fd01fb8fcf8b && dotnet test --solution Bb8e76d4d365642e39622fd01fb8fcf8b.slnx --no-restore --no-build --ignore-exit-code 8
+        - ExitCode: 0
+        - Stdout: Running tests from /Bb8e76d4d365642e39622fd01fb8fcf8b/artifacts/bin/Bb8e76d4d365642e39622fd01fb8fcf8b.IntegrationTests/debug/Bb8e76d4d365642e39622fd01fb8fcf8b.IntegrationTests.dll (net10.0|x64)
+Running tests from /Bb8e76d4d365642e39622fd01fb8fcf8b/artifacts/bin/Bb8e76d4d365642e39622fd01fb8fcf8b.UnitTests/debug/Bb8e76d4d365642e39622fd01fb8fcf8b.UnitTests.dll (net10.0|x64)
+Running tests from /Bb8e76d4d365642e39622fd01fb8fcf8b/artifacts/bin/Bb8e76d4d365642e39622fd01fb8fcf8b.WebTests/debug/Bb8e76d4d365642e39622fd01fb8fcf8b.WebTests.dll (net10.0|x64)
+/Bb8e76d4d365642e39622fd01fb8fcf8b/artifacts/bin/Bb8e76d4d365642e39622fd01fb8fcf8b.IntegrationTests/debug/Bb8e76d4d365642e39622fd01fb8fcf8b.IntegrationTests.dll (net10.0|x64) passed (2s 140ms)
+/Bb8e76d4d365642e39622fd01fb8fcf8b/artifacts/bin/Bb8e76d4d365642e39622fd01fb8fcf8b.UnitTests/debug/Bb8e76d4d365642e39622fd01fb8fcf8b.UnitTests.dll (net10.0|x64) passed (1m 02s 768ms)
+/Bb8e76d4d365642e39622fd01fb8fcf8b/artifacts/bin/Bb8e76d4d365642e39622fd01fb8fcf8b.WebTests/debug/Bb8e76d4d365642e39622fd01fb8fcf8b.WebTests.dll (net10.0|x64) passed (1m 15s 785ms)
+
+  In process file artifacts produced:
+    - /Bb8e76d4d365642e39622fd01fb8fcf8b/artifacts/test-results/Bb8e76d4d365642e39622fd01fb8fcf8b.UnitTests-linux-net10.0-report.html
+    - /Bb8e76d4d365642e39622fd01fb8fcf8b/artifacts/test-results/Bb8e76d4d365642e39622fd01fb8fcf8b.WebTests-linux-net10.0-report.html
+
+Test run summary: Passed!
+  /Bb8e76d4d365642e39622fd01fb8fcf8b/artifacts/bin/Bb8e76d4d365642e39622fd01fb8fcf8b.UnitTests/debug/Bb8e76d4d365642e39622fd01fb8fcf8b.UnitTests.dll (net10.0|x64) passed (1m 02s 768ms)
+  /Bb8e76d4d365642e39622fd01fb8fcf8b/artifacts/bin/Bb8e76d4d365642e39622fd01fb8fcf8b.WebTests/debug/Bb8e76d4d365642e39622fd01fb8fcf8b.WebTests.dll (net10.0|x64) passed (1m 15s 785ms)
+  /Bb8e76d4d365642e39622fd01fb8fcf8b/artifacts/bin/Bb8e76d4d365642e39622fd01fb8fcf8b.IntegrationTests/debug/Bb8e76d4d365642e39622fd01fb8fcf8b.IntegrationTests.dll (net10.0|x64) passed (2s 140ms)
+
+  total: 81
+  failed: 0
+  succeeded: 81
+  skipped: 0
+  duration: 1m 17s 948ms
+
+        - Stderr:   
+[testcontainers.org 00:03:06.87] Delete Docker container 2c69a129d8fb
