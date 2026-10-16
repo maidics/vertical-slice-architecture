@@ -12,6 +12,11 @@ public sealed class TemplateBenchmarkCaseBuilder
 
     public TemplateBenchmarkCaseBuilder(string name, int instantiationCount)
     {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentNullException(nameof(name));
+
+        ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(instantiationCount, 0);
+
         Name = name;
         InstantiationCount = instantiationCount;
 
@@ -32,6 +37,11 @@ public sealed class TemplateBenchmarkCaseBuilder
 
     public TemplateBenchmarkCase Build()
     {
+        if (_steps.Count == 0)
+            throw new InvalidOperationException(
+                $"At least one {nameof(TemplateBenchmarkStep)} is required."
+            );
+
         return new TemplateBenchmarkCase(Name, _steps);
     }
 }
