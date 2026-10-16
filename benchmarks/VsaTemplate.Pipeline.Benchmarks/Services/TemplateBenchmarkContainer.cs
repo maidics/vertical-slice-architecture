@@ -9,10 +9,12 @@ namespace VsaTemplate.Pipeline.Benchmarks.Services;
 
 public sealed class TemplateBenchmarkContainer : IAsyncDisposable
 {
-    private readonly TemplateBenchmarkCase _benchmarkCase;
-    private readonly IContainer _container;
+    private TemplateBenchmarkCase _benchmarkCase = null!;
+    private IContainer _container = null!;
+    private ContainerMemoryPeak _memoryPeak = null!;
+    private ContainerStorageUsage _storageUsage = null!;
 
-    public TemplateBenchmarkContainer(TemplateBenchmarkCase benchmarkCase)
+    public async Task InitializeAsync(TemplateBenchmarkCase benchmarkCase)
     {
         _benchmarkCase = benchmarkCase;
 
@@ -33,12 +35,15 @@ public sealed class TemplateBenchmarkContainer : IAsyncDisposable
             .WithEnvironment("DOTNET_NOLOGO", "1")
             .WithWaitStrategy(Wait.ForUnixContainer())
             .Build();
+
+        await _container.StartAsync();
+
+        _memoryPeak = new ContainerMemoryPeak(_container.Id);
+        _storageUsage = new ContainerStorageUsage(_container.Id);
     }
 
     public async Task<TemplateBenchmarkResult> EvaluateAsync()
     {
-        await _container.StartAsync();
-
         var stepResults = new List<TemplateBenchmarkStepResult>();
 
         foreach (var step in _benchmarkCase.Steps)
@@ -52,6 +57,8 @@ public sealed class TemplateBenchmarkContainer : IAsyncDisposable
 
     private async Task<TemplateBenchmarkStepResult> EvaluateStepAsync(TemplateBenchmarkStep step)
     {
+        _memoryPeak.Reset();
+
         var timer = new Stopwatch();
         timer.Start();
 
@@ -76,12 +83,20 @@ public sealed class TemplateBenchmarkContainer : IAsyncDisposable
             Console.WriteLine($"Stderr: {result.Stderr}");
         }
 
-        throw new NotImplementedException();
+        var writableBytes = await _storageUsage.GetWritableLayerBytesAsync();
+
+        return new TemplateBenchmarkStepResult(
+            step.Name,
+            elapsed,
+            _memoryPeak.ReadPeakBytes(),
+            writableBytes ?? -1
+        );
     }
 
     public async ValueTask DisposeAsync()
     {
         await _container.DisposeAsync();
+        await _storageUsage.DisposeAsync();
     }
 
     private static class HostContainer
