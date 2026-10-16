@@ -1,0 +1,253 @@
+[testcontainers.org 00:00:00.24] Connected to Docker:
+  Host: unix:///var/run/docker.sock
+  Server Version: 29.8.2
+  Kernel Version: 6.18.44-fc-v139
+  API Version: 1.56
+  Operating System: Ubuntu 24.04.5 LTS (containerized)
+  Total Memory: 15.72 GB
+[testcontainers.org 00:00:00.56] Docker container b6acf2a9a115 created
+[testcontainers.org 00:00:00.62] Start Docker container b6acf2a9a115
+[testcontainers.org 00:00:00.81] Wait for Docker container b6acf2a9a115 to complete readiness checks
+[testcontainers.org 00:00:01.83] Docker container b6acf2a9a115 ready
+[testcontainers.org 00:00:01.94] Docker container dd404d8c0a83 created
+[testcontainers.org 00:00:01.94] Start Docker container dd404d8c0a83
+[testcontainers.org 00:00:02.07] Wait for Docker container dd404d8c0a83 to complete readiness checks
+[testcontainers.org 00:00:02.07] Docker container dd404d8c0a83 ready
+Installing Vertical.Slice.Architecture...
+[testcontainers.org 00:00:02.09] Add file to tar archive: Content length: 90435 byte(s), Target file: "/tmp/Vertical.Slice.Architecture.4.0.0.nupkg", UID: 0, GID: 0, Mode: 0644
+[testcontainers.org 00:00:02.10] Copy tar archive to container: Content length: 90435 byte(s), Docker container: dd404d8c0a83
+[testcontainers.org 00:00:02.12] Execute "dotnet new install /tmp/Vertical.Slice.Architecture.4.0.0.nupkg" at Docker container dd404d8c0a83
+Template installation finished with exit code: 0
+	- Stdout: 
+		The following template packages will be installed:
+   /tmp/Vertical.Slice.Architecture.4.0.0.nupkg
+
+Success: Vertical.Slice.Architecture@4.0.0 installed the following templates:
+Template Name                         Short Name  Language  Tags                   
+------------------------------------  ----------  --------  -----------------------
+Vertical Slice Architecture Template  vsa-sln     [C#]      Web/WebAPI/Architecture
+
+
+	- Stderr: 
+		
+[testcontainers.org 00:00:02.87] Execute "dotnet new vsa-sln -n B495bf8e821f545139f5ddf6a36c1d519 -o B495bf8e821f545139f5ddf6a36c1d519 --no-update-check" at Docker container dd404d8c0a83
+[testcontainers.org 00:00:02.87] Execute "dotnet new vsa-sln -n Be8438d080636419d9efb445edfab4221 -o Be8438d080636419d9efb445edfab4221 --no-update-check" at Docker container dd404d8c0a83
+[testcontainers.org 00:00:02.87] Execute "dotnet new vsa-sln -n Bb367cc3cf04044838d184478a5fd20b5 -o Bb367cc3cf04044838d184478a5fd20b5 --no-update-check" at Docker container dd404d8c0a83
+[testcontainers.org 00:00:02.87] Execute "dotnet new vsa-sln -n B1d43cbd36ef94dd59ed1a3bee431304c -o B1d43cbd36ef94dd59ed1a3bee431304c --no-update-check" at Docker container dd404d8c0a83
+[testcontainers.org 00:00:03.76] Execute "dotnet new vsa-sln -n B9745e9d4f8ec49f285130717c87f99b6 -o B9745e9d4f8ec49f285130717c87f99b6 --no-update-check" at Docker container dd404d8c0a83
+[testcontainers.org 00:00:03.78] Execute "dotnet new vsa-sln -n B2664173f0e834a1fbd51ae1b5adff3f8 -o B2664173f0e834a1fbd51ae1b5adff3f8 --no-update-check" at Docker container dd404d8c0a83
+[testcontainers.org 00:00:03.86] Execute "dotnet new vsa-sln -n B3801679ccc4147cb98a8fb5f375fa1f8 -o B3801679ccc4147cb98a8fb5f375fa1f8 --no-update-check" at Docker container dd404d8c0a83
+[testcontainers.org 00:00:03.96] Execute "dotnet new vsa-sln -n Baa993199d8784207b64df71ce13aaf93 -o Baa993199d8784207b64df71ce13aaf93 --no-update-check" at Docker container dd404d8c0a83
+[testcontainers.org 00:00:04.79] Execute "dotnet new vsa-sln -n B9cab38dbf2754b67a168dfc254b35fde -o B9cab38dbf2754b67a168dfc254b35fde --no-update-check" at Docker container dd404d8c0a83
+[testcontainers.org 00:00:04.79] Execute "dotnet new vsa-sln -n Bd6afbadf1dcc4c91b90c6c7cf6ed1271 -o Bd6afbadf1dcc4c91b90c6c7cf6ed1271 --no-update-check" at Docker container dd404d8c0a83
+[testcontainers.org 00:00:05.74] Execute "dotnet restore B1d43cbd36ef94dd59ed1a3bee431304c/B1d43cbd36ef94dd59ed1a3bee431304c.slnx" at Docker container dd404d8c0a83
+[testcontainers.org 00:00:16.06] Execute "dotnet restore B495bf8e821f545139f5ddf6a36c1d519/B495bf8e821f545139f5ddf6a36c1d519.slnx" at Docker container dd404d8c0a83
+[testcontainers.org 00:00:18.51] Execute "dotnet restore Bb367cc3cf04044838d184478a5fd20b5/Bb367cc3cf04044838d184478a5fd20b5.slnx" at Docker container dd404d8c0a83
+[testcontainers.org 00:00:20.53] Execute "dotnet restore Be8438d080636419d9efb445edfab4221/Be8438d080636419d9efb445edfab4221.slnx" at Docker container dd404d8c0a83
+[testcontainers.org 00:00:22.78] Execute "dotnet restore B9745e9d4f8ec49f285130717c87f99b6/B9745e9d4f8ec49f285130717c87f99b6.slnx" at Docker container dd404d8c0a83
+[testcontainers.org 00:00:24.83] Execute "dotnet restore B2664173f0e834a1fbd51ae1b5adff3f8/B2664173f0e834a1fbd51ae1b5adff3f8.slnx" at Docker container dd404d8c0a83
+[testcontainers.org 00:00:26.80] Execute "dotnet restore B3801679ccc4147cb98a8fb5f375fa1f8/B3801679ccc4147cb98a8fb5f375fa1f8.slnx" at Docker container dd404d8c0a83
+[testcontainers.org 00:00:28.76] Execute "dotnet restore Baa993199d8784207b64df71ce13aaf93/Baa993199d8784207b64df71ce13aaf93.slnx" at Docker container dd404d8c0a83
+[testcontainers.org 00:00:30.85] Execute "dotnet restore B9cab38dbf2754b67a168dfc254b35fde/B9cab38dbf2754b67a168dfc254b35fde.slnx" at Docker container dd404d8c0a83
+[testcontainers.org 00:00:32.79] Execute "dotnet restore Bd6afbadf1dcc4c91b90c6c7cf6ed1271/Bd6afbadf1dcc4c91b90c6c7cf6ed1271.slnx" at Docker container dd404d8c0a83
+   Name: Restorations.Sequential
+        - Results: 
+                Name: Instantiate_Restorations.Sequential
+        - Execution Time: 2.82 s
+        - Peak Memory: 370.63 MB
+        - Disk Space: 6.21 MB
+        -    Command: dotnet new vsa-sln -n B1d43cbd36ef94dd59ed1a3bee431304c -o B1d43cbd36ef94dd59ed1a3bee431304c --no-update-check
+        - ExitCode: 0
+        - Stdout: The template "Vertical Slice Architecture Template" was created successfully.
+
+
+        - Stderr:  
+   Command: dotnet new vsa-sln -n B495bf8e821f545139f5ddf6a36c1d519 -o B495bf8e821f545139f5ddf6a36c1d519 --no-update-check
+        - ExitCode: 0
+        - Stdout: The template "Vertical Slice Architecture Template" was created successfully.
+
+
+        - Stderr:  
+   Command: dotnet new vsa-sln -n Bb367cc3cf04044838d184478a5fd20b5 -o Bb367cc3cf04044838d184478a5fd20b5 --no-update-check
+        - ExitCode: 0
+        - Stdout: The template "Vertical Slice Architecture Template" was created successfully.
+
+
+        - Stderr:  
+   Command: dotnet new vsa-sln -n Be8438d080636419d9efb445edfab4221 -o Be8438d080636419d9efb445edfab4221 --no-update-check
+        - ExitCode: 0
+        - Stdout: The template "Vertical Slice Architecture Template" was created successfully.
+
+
+        - Stderr:  
+   Command: dotnet new vsa-sln -n B9745e9d4f8ec49f285130717c87f99b6 -o B9745e9d4f8ec49f285130717c87f99b6 --no-update-check
+        - ExitCode: 0
+        - Stdout: The template "Vertical Slice Architecture Template" was created successfully.
+
+
+        - Stderr:  
+   Command: dotnet new vsa-sln -n B2664173f0e834a1fbd51ae1b5adff3f8 -o B2664173f0e834a1fbd51ae1b5adff3f8 --no-update-check
+        - ExitCode: 0
+        - Stdout: The template "Vertical Slice Architecture Template" was created successfully.
+
+
+        - Stderr:  
+   Command: dotnet new vsa-sln -n B3801679ccc4147cb98a8fb5f375fa1f8 -o B3801679ccc4147cb98a8fb5f375fa1f8 --no-update-check
+        - ExitCode: 0
+        - Stdout: The template "Vertical Slice Architecture Template" was created successfully.
+
+
+        - Stderr:  
+   Command: dotnet new vsa-sln -n Baa993199d8784207b64df71ce13aaf93 -o Baa993199d8784207b64df71ce13aaf93 --no-update-check
+        - ExitCode: 0
+        - Stdout: The template "Vertical Slice Architecture Template" was created successfully.
+
+
+        - Stderr:  
+   Command: dotnet new vsa-sln -n B9cab38dbf2754b67a168dfc254b35fde -o B9cab38dbf2754b67a168dfc254b35fde --no-update-check
+        - ExitCode: 0
+        - Stdout: The template "Vertical Slice Architecture Template" was created successfully.
+
+
+        - Stderr:  
+   Command: dotnet new vsa-sln -n Bd6afbadf1dcc4c91b90c6c7cf6ed1271 -o Bd6afbadf1dcc4c91b90c6c7cf6ed1271 --no-update-check
+        - ExitCode: 0
+        - Stdout: The template "Vertical Slice Architecture Template" was created successfully.
+
+
+        - Stderr:  
+    Name: Restore_Restorations.Sequential
+        - Execution Time: 28.88 s
+        - Peak Memory: 1.88 GB
+        - Disk Space: 1.19 GB
+        -    Command: dotnet restore B1d43cbd36ef94dd59ed1a3bee431304c/B1d43cbd36ef94dd59ed1a3bee431304c.slnx
+        - ExitCode: 0
+        - Stdout:   Determining projects to restore...
+  Restored /B1d43cbd36ef94dd59ed1a3bee431304c/src/B1d43cbd36ef94dd59ed1a3bee431304c.Shared/B1d43cbd36ef94dd59ed1a3bee431304c.Shared.csproj (in 253 ms).
+  Restored /B1d43cbd36ef94dd59ed1a3bee431304c/src/B1d43cbd36ef94dd59ed1a3bee431304c/B1d43cbd36ef94dd59ed1a3bee431304c.csproj (in 3.29 sec).
+  Restored /B1d43cbd36ef94dd59ed1a3bee431304c/src/B1d43cbd36ef94dd59ed1a3bee431304c.ServiceDefaults/B1d43cbd36ef94dd59ed1a3bee431304c.ServiceDefaults.csproj (in 2.99 sec).
+  Restored /B1d43cbd36ef94dd59ed1a3bee431304c/tests/B1d43cbd36ef94dd59ed1a3bee431304c.TestAppHost/B1d43cbd36ef94dd59ed1a3bee431304c.TestAppHost.csproj (in 2.89 sec).
+  Restored /B1d43cbd36ef94dd59ed1a3bee431304c/src/B1d43cbd36ef94dd59ed1a3bee431304c.AppHost/B1d43cbd36ef94dd59ed1a3bee431304c.AppHost.csproj (in 6.19 sec).
+  Restored /B1d43cbd36ef94dd59ed1a3bee431304c/tests/B1d43cbd36ef94dd59ed1a3bee431304c.IntegrationTests/B1d43cbd36ef94dd59ed1a3bee431304c.IntegrationTests.csproj (in 237 ms).
+  Restored /B1d43cbd36ef94dd59ed1a3bee431304c/tests/B1d43cbd36ef94dd59ed1a3bee431304c.UnitTests/B1d43cbd36ef94dd59ed1a3bee431304c.UnitTests.csproj (in 6.45 sec).
+  Restored /B1d43cbd36ef94dd59ed1a3bee431304c/tests/B1d43cbd36ef94dd59ed1a3bee431304c.WebTests/B1d43cbd36ef94dd59ed1a3bee431304c.WebTests.csproj (in 3.15 sec).
+
+        - Stderr:  
+   Command: dotnet restore B495bf8e821f545139f5ddf6a36c1d519/B495bf8e821f545139f5ddf6a36c1d519.slnx
+        - ExitCode: 0
+        - Stdout:   Determining projects to restore...
+  Restored /B495bf8e821f545139f5ddf6a36c1d519/src/B495bf8e821f545139f5ddf6a36c1d519.Shared/B495bf8e821f545139f5ddf6a36c1d519.Shared.csproj (in 299 ms).
+  Restored /B495bf8e821f545139f5ddf6a36c1d519/tests/B495bf8e821f545139f5ddf6a36c1d519.IntegrationTests/B495bf8e821f545139f5ddf6a36c1d519.IntegrationTests.csproj (in 646 ms).
+  Restored /B495bf8e821f545139f5ddf6a36c1d519/tests/B495bf8e821f545139f5ddf6a36c1d519.TestAppHost/B495bf8e821f545139f5ddf6a36c1d519.TestAppHost.csproj (in 303 ms).
+  Restored /B495bf8e821f545139f5ddf6a36c1d519/src/B495bf8e821f545139f5ddf6a36c1d519/B495bf8e821f545139f5ddf6a36c1d519.csproj (in 31 ms).
+  Restored /B495bf8e821f545139f5ddf6a36c1d519/tests/B495bf8e821f545139f5ddf6a36c1d519.WebTests/B495bf8e821f545139f5ddf6a36c1d519.WebTests.csproj (in 697 ms).
+  Restored /B495bf8e821f545139f5ddf6a36c1d519/tests/B495bf8e821f545139f5ddf6a36c1d519.UnitTests/B495bf8e821f545139f5ddf6a36c1d519.UnitTests.csproj (in 697 ms).
+  Restored /B495bf8e821f545139f5ddf6a36c1d519/src/B495bf8e821f545139f5ddf6a36c1d519.ServiceDefaults/B495bf8e821f545139f5ddf6a36c1d519.ServiceDefaults.csproj (in 9 ms).
+  Restored /B495bf8e821f545139f5ddf6a36c1d519/src/B495bf8e821f545139f5ddf6a36c1d519.AppHost/B495bf8e821f545139f5ddf6a36c1d519.AppHost.csproj (in 13 ms).
+
+        - Stderr:  
+   Command: dotnet restore Bb367cc3cf04044838d184478a5fd20b5/Bb367cc3cf04044838d184478a5fd20b5.slnx
+        - ExitCode: 0
+        - Stdout:   Determining projects to restore...
+  Restored /Bb367cc3cf04044838d184478a5fd20b5/src/Bb367cc3cf04044838d184478a5fd20b5.Shared/Bb367cc3cf04044838d184478a5fd20b5.Shared.csproj (in 273 ms).
+  Restored /Bb367cc3cf04044838d184478a5fd20b5/tests/Bb367cc3cf04044838d184478a5fd20b5.IntegrationTests/Bb367cc3cf04044838d184478a5fd20b5.IntegrationTests.csproj (in 551 ms).
+  Restored /Bb367cc3cf04044838d184478a5fd20b5/tests/Bb367cc3cf04044838d184478a5fd20b5.TestAppHost/Bb367cc3cf04044838d184478a5fd20b5.TestAppHost.csproj (in 236 ms).
+  Restored /Bb367cc3cf04044838d184478a5fd20b5/src/Bb367cc3cf04044838d184478a5fd20b5/Bb367cc3cf04044838d184478a5fd20b5.csproj (in 39 ms).
+  Restored /Bb367cc3cf04044838d184478a5fd20b5/tests/Bb367cc3cf04044838d184478a5fd20b5.WebTests/Bb367cc3cf04044838d184478a5fd20b5.WebTests.csproj (in 613 ms).
+  Restored /Bb367cc3cf04044838d184478a5fd20b5/src/Bb367cc3cf04044838d184478a5fd20b5.ServiceDefaults/Bb367cc3cf04044838d184478a5fd20b5.ServiceDefaults.csproj (in 13 ms).
+  Restored /Bb367cc3cf04044838d184478a5fd20b5/tests/Bb367cc3cf04044838d184478a5fd20b5.UnitTests/Bb367cc3cf04044838d184478a5fd20b5.UnitTests.csproj (in 612 ms).
+  Restored /Bb367cc3cf04044838d184478a5fd20b5/src/Bb367cc3cf04044838d184478a5fd20b5.AppHost/Bb367cc3cf04044838d184478a5fd20b5.AppHost.csproj (in 14 ms).
+
+        - Stderr:  
+   Command: dotnet restore Be8438d080636419d9efb445edfab4221/Be8438d080636419d9efb445edfab4221.slnx
+        - ExitCode: 0
+        - Stdout:   Determining projects to restore...
+  Restored /Be8438d080636419d9efb445edfab4221/src/Be8438d080636419d9efb445edfab4221.Shared/Be8438d080636419d9efb445edfab4221.Shared.csproj (in 279 ms).
+  Restored /Be8438d080636419d9efb445edfab4221/src/Be8438d080636419d9efb445edfab4221.ServiceDefaults/Be8438d080636419d9efb445edfab4221.ServiceDefaults.csproj (in 186 ms).
+  Restored /Be8438d080636419d9efb445edfab4221/src/Be8438d080636419d9efb445edfab4221/Be8438d080636419d9efb445edfab4221.csproj (in 558 ms).
+  Restored /Be8438d080636419d9efb445edfab4221/tests/Be8438d080636419d9efb445edfab4221.TestAppHost/Be8438d080636419d9efb445edfab4221.TestAppHost.csproj (in 28 ms).
+  Restored /Be8438d080636419d9efb445edfab4221/src/Be8438d080636419d9efb445edfab4221.AppHost/Be8438d080636419d9efb445edfab4221.AppHost.csproj (in 640 ms).
+  Restored /Be8438d080636419d9efb445edfab4221/tests/Be8438d080636419d9efb445edfab4221.WebTests/Be8438d080636419d9efb445edfab4221.WebTests.csproj (in 53 ms).
+  Restored /Be8438d080636419d9efb445edfab4221/tests/Be8438d080636419d9efb445edfab4221.UnitTests/Be8438d080636419d9efb445edfab4221.UnitTests.csproj (in 639 ms).
+  Restored /Be8438d080636419d9efb445edfab4221/tests/Be8438d080636419d9efb445edfab4221.IntegrationTests/Be8438d080636419d9efb445edfab4221.IntegrationTests.csproj (in 4 ms).
+
+        - Stderr:  
+   Command: dotnet restore B9745e9d4f8ec49f285130717c87f99b6/B9745e9d4f8ec49f285130717c87f99b6.slnx
+        - ExitCode: 0
+        - Stdout:   Determining projects to restore...
+  Restored /B9745e9d4f8ec49f285130717c87f99b6/src/B9745e9d4f8ec49f285130717c87f99b6.Shared/B9745e9d4f8ec49f285130717c87f99b6.Shared.csproj (in 240 ms).
+  Restored /B9745e9d4f8ec49f285130717c87f99b6/tests/B9745e9d4f8ec49f285130717c87f99b6.IntegrationTests/B9745e9d4f8ec49f285130717c87f99b6.IntegrationTests.csproj (in 484 ms).
+  Restored /B9745e9d4f8ec49f285130717c87f99b6/src/B9745e9d4f8ec49f285130717c87f99b6.ServiceDefaults/B9745e9d4f8ec49f285130717c87f99b6.ServiceDefaults.csproj (in 5 ms).
+  Restored /B9745e9d4f8ec49f285130717c87f99b6/src/B9745e9d4f8ec49f285130717c87f99b6/B9745e9d4f8ec49f285130717c87f99b6.csproj (in 179 ms).
+  Restored /B9745e9d4f8ec49f285130717c87f99b6/src/B9745e9d4f8ec49f285130717c87f99b6.AppHost/B9745e9d4f8ec49f285130717c87f99b6.AppHost.csproj (in 522 ms).
+  Restored /B9745e9d4f8ec49f285130717c87f99b6/tests/B9745e9d4f8ec49f285130717c87f99b6.TestAppHost/B9745e9d4f8ec49f285130717c87f99b6.TestAppHost.csproj (in 522 ms).
+  Restored /B9745e9d4f8ec49f285130717c87f99b6/tests/B9745e9d4f8ec49f285130717c87f99b6.WebTests/B9745e9d4f8ec49f285130717c87f99b6.WebTests.csproj (in 48 ms).
+  Restored /B9745e9d4f8ec49f285130717c87f99b6/tests/B9745e9d4f8ec49f285130717c87f99b6.UnitTests/B9745e9d4f8ec49f285130717c87f99b6.UnitTests.csproj (in 47 ms).
+
+        - Stderr:  
+   Command: dotnet restore B2664173f0e834a1fbd51ae1b5adff3f8/B2664173f0e834a1fbd51ae1b5adff3f8.slnx
+        - ExitCode: 0
+        - Stdout:   Determining projects to restore...
+  Restored /B2664173f0e834a1fbd51ae1b5adff3f8/src/B2664173f0e834a1fbd51ae1b5adff3f8.Shared/B2664173f0e834a1fbd51ae1b5adff3f8.Shared.csproj (in 246 ms).
+  Restored /B2664173f0e834a1fbd51ae1b5adff3f8/tests/B2664173f0e834a1fbd51ae1b5adff3f8.IntegrationTests/B2664173f0e834a1fbd51ae1b5adff3f8.IntegrationTests.csproj (in 436 ms).
+  Restored /B2664173f0e834a1fbd51ae1b5adff3f8/src/B2664173f0e834a1fbd51ae1b5adff3f8/B2664173f0e834a1fbd51ae1b5adff3f8.csproj (in 154 ms).
+  Restored /B2664173f0e834a1fbd51ae1b5adff3f8/src/B2664173f0e834a1fbd51ae1b5adff3f8.ServiceDefaults/B2664173f0e834a1fbd51ae1b5adff3f8.ServiceDefaults.csproj (in 7 ms).
+  Restored /B2664173f0e834a1fbd51ae1b5adff3f8/src/B2664173f0e834a1fbd51ae1b5adff3f8.AppHost/B2664173f0e834a1fbd51ae1b5adff3f8.AppHost.csproj (in 463 ms).
+  Restored /B2664173f0e834a1fbd51ae1b5adff3f8/tests/B2664173f0e834a1fbd51ae1b5adff3f8.TestAppHost/B2664173f0e834a1fbd51ae1b5adff3f8.TestAppHost.csproj (in 459 ms).
+  Restored /B2664173f0e834a1fbd51ae1b5adff3f8/tests/B2664173f0e834a1fbd51ae1b5adff3f8.WebTests/B2664173f0e834a1fbd51ae1b5adff3f8.WebTests.csproj (in 47 ms).
+  Restored /B2664173f0e834a1fbd51ae1b5adff3f8/tests/B2664173f0e834a1fbd51ae1b5adff3f8.UnitTests/B2664173f0e834a1fbd51ae1b5adff3f8.UnitTests.csproj (in 32 ms).
+
+        - Stderr:  
+   Command: dotnet restore B3801679ccc4147cb98a8fb5f375fa1f8/B3801679ccc4147cb98a8fb5f375fa1f8.slnx
+        - ExitCode: 0
+        - Stdout:   Determining projects to restore...
+  Restored /B3801679ccc4147cb98a8fb5f375fa1f8/src/B3801679ccc4147cb98a8fb5f375fa1f8.Shared/B3801679ccc4147cb98a8fb5f375fa1f8.Shared.csproj (in 154 ms).
+  Restored /B3801679ccc4147cb98a8fb5f375fa1f8/src/B3801679ccc4147cb98a8fb5f375fa1f8.ServiceDefaults/B3801679ccc4147cb98a8fb5f375fa1f8.ServiceDefaults.csproj (in 200 ms).
+  Restored /B3801679ccc4147cb98a8fb5f375fa1f8/src/B3801679ccc4147cb98a8fb5f375fa1f8/B3801679ccc4147cb98a8fb5f375fa1f8.csproj (in 485 ms).
+  Restored /B3801679ccc4147cb98a8fb5f375fa1f8/src/B3801679ccc4147cb98a8fb5f375fa1f8.AppHost/B3801679ccc4147cb98a8fb5f375fa1f8.AppHost.csproj (in 39 ms).
+  Restored /B3801679ccc4147cb98a8fb5f375fa1f8/tests/B3801679ccc4147cb98a8fb5f375fa1f8.TestAppHost/B3801679ccc4147cb98a8fb5f375fa1f8.TestAppHost.csproj (in 38 ms).
+  Restored /B3801679ccc4147cb98a8fb5f375fa1f8/tests/B3801679ccc4147cb98a8fb5f375fa1f8.IntegrationTests/B3801679ccc4147cb98a8fb5f375fa1f8.IntegrationTests.csproj (in 3 ms).
+  Restored /B3801679ccc4147cb98a8fb5f375fa1f8/tests/B3801679ccc4147cb98a8fb5f375fa1f8.UnitTests/B3801679ccc4147cb98a8fb5f375fa1f8.UnitTests.csproj (in 537 ms).
+  Restored /B3801679ccc4147cb98a8fb5f375fa1f8/tests/B3801679ccc4147cb98a8fb5f375fa1f8.WebTests/B3801679ccc4147cb98a8fb5f375fa1f8.WebTests.csproj (in 535 ms).
+
+        - Stderr:  
+   Command: dotnet restore Baa993199d8784207b64df71ce13aaf93/Baa993199d8784207b64df71ce13aaf93.slnx
+        - ExitCode: 0
+        - Stdout:   Determining projects to restore...
+  Restored /Baa993199d8784207b64df71ce13aaf93/src/Baa993199d8784207b64df71ce13aaf93.Shared/Baa993199d8784207b64df71ce13aaf93.Shared.csproj (in 256 ms).
+  Restored /Baa993199d8784207b64df71ce13aaf93/src/Baa993199d8784207b64df71ce13aaf93.ServiceDefaults/Baa993199d8784207b64df71ce13aaf93.ServiceDefaults.csproj (in 180 ms).
+  Restored /Baa993199d8784207b64df71ce13aaf93/src/Baa993199d8784207b64df71ce13aaf93/Baa993199d8784207b64df71ce13aaf93.csproj (in 492 ms).
+  Restored /Baa993199d8784207b64df71ce13aaf93/tests/Baa993199d8784207b64df71ce13aaf93.TestAppHost/Baa993199d8784207b64df71ce13aaf93.TestAppHost.csproj (in 31 ms).
+  Restored /Baa993199d8784207b64df71ce13aaf93/src/Baa993199d8784207b64df71ce13aaf93.AppHost/Baa993199d8784207b64df71ce13aaf93.AppHost.csproj (in 537 ms).
+  Restored /Baa993199d8784207b64df71ce13aaf93/tests/Baa993199d8784207b64df71ce13aaf93.IntegrationTests/Baa993199d8784207b64df71ce13aaf93.IntegrationTests.csproj (in 4 ms).
+  Restored /Baa993199d8784207b64df71ce13aaf93/tests/Baa993199d8784207b64df71ce13aaf93.WebTests/Baa993199d8784207b64df71ce13aaf93.WebTests.csproj (in 35 ms).
+  Restored /Baa993199d8784207b64df71ce13aaf93/tests/Baa993199d8784207b64df71ce13aaf93.UnitTests/Baa993199d8784207b64df71ce13aaf93.UnitTests.csproj (in 537 ms).
+
+        - Stderr:  
+   Command: dotnet restore B9cab38dbf2754b67a168dfc254b35fde/B9cab38dbf2754b67a168dfc254b35fde.slnx
+        - ExitCode: 0
+        - Stdout:   Determining projects to restore...
+  Restored /B9cab38dbf2754b67a168dfc254b35fde/tests/B9cab38dbf2754b67a168dfc254b35fde.IntegrationTests/B9cab38dbf2754b67a168dfc254b35fde.IntegrationTests.csproj (in 481 ms).
+  Restored /B9cab38dbf2754b67a168dfc254b35fde/tests/B9cab38dbf2754b67a168dfc254b35fde.UnitTests/B9cab38dbf2754b67a168dfc254b35fde.UnitTests.csproj (in 488 ms).
+  Restored /B9cab38dbf2754b67a168dfc254b35fde/tests/B9cab38dbf2754b67a168dfc254b35fde.WebTests/B9cab38dbf2754b67a168dfc254b35fde.WebTests.csproj (in 488 ms).
+  Restored /B9cab38dbf2754b67a168dfc254b35fde/tests/B9cab38dbf2754b67a168dfc254b35fde.TestAppHost/B9cab38dbf2754b67a168dfc254b35fde.TestAppHost.csproj (in 488 ms).
+  Restored /B9cab38dbf2754b67a168dfc254b35fde/src/B9cab38dbf2754b67a168dfc254b35fde.Shared/B9cab38dbf2754b67a168dfc254b35fde.Shared.csproj (in 3 ms).
+  Restored /B9cab38dbf2754b67a168dfc254b35fde/src/B9cab38dbf2754b67a168dfc254b35fde.ServiceDefaults/B9cab38dbf2754b67a168dfc254b35fde.ServiceDefaults.csproj (in 13 ms).
+  Restored /B9cab38dbf2754b67a168dfc254b35fde/src/B9cab38dbf2754b67a168dfc254b35fde.AppHost/B9cab38dbf2754b67a168dfc254b35fde.AppHost.csproj (in 10 ms).
+  Restored /B9cab38dbf2754b67a168dfc254b35fde/src/B9cab38dbf2754b67a168dfc254b35fde/B9cab38dbf2754b67a168dfc254b35fde.csproj (in 15 ms).
+
+        - Stderr:  
+   Command: dotnet restore Bd6afbadf1dcc4c91b90c6c7cf6ed1271/Bd6afbadf1dcc4c91b90c6c7cf6ed1271.slnx
+        - ExitCode: 0
+        - Stdout:   Determining projects to restore...
+  Restored /Bd6afbadf1dcc4c91b90c6c7cf6ed1271/src/Bd6afbadf1dcc4c91b90c6c7cf6ed1271.Shared/Bd6afbadf1dcc4c91b90c6c7cf6ed1271.Shared.csproj (in 133 ms).
+  Restored /Bd6afbadf1dcc4c91b90c6c7cf6ed1271/tests/Bd6afbadf1dcc4c91b90c6c7cf6ed1271.IntegrationTests/Bd6afbadf1dcc4c91b90c6c7cf6ed1271.IntegrationTests.csproj (in 423 ms).
+  Restored /Bd6afbadf1dcc4c91b90c6c7cf6ed1271/src/Bd6afbadf1dcc4c91b90c6c7cf6ed1271/Bd6afbadf1dcc4c91b90c6c7cf6ed1271.csproj (in 422 ms).
+  Restored /Bd6afbadf1dcc4c91b90c6c7cf6ed1271/tests/Bd6afbadf1dcc4c91b90c6c7cf6ed1271.TestAppHost/Bd6afbadf1dcc4c91b90c6c7cf6ed1271.TestAppHost.csproj (in 442 ms).
+  Restored /Bd6afbadf1dcc4c91b90c6c7cf6ed1271/src/Bd6afbadf1dcc4c91b90c6c7cf6ed1271.ServiceDefaults/Bd6afbadf1dcc4c91b90c6c7cf6ed1271.ServiceDefaults.csproj (in 6 ms).
+  Restored /Bd6afbadf1dcc4c91b90c6c7cf6ed1271/tests/Bd6afbadf1dcc4c91b90c6c7cf6ed1271.WebTests/Bd6afbadf1dcc4c91b90c6c7cf6ed1271.WebTests.csproj (in 192 ms).
+  Restored /Bd6afbadf1dcc4c91b90c6c7cf6ed1271/src/Bd6afbadf1dcc4c91b90c6c7cf6ed1271.AppHost/Bd6afbadf1dcc4c91b90c6c7cf6ed1271.AppHost.csproj (in 7 ms).
+  Restored /Bd6afbadf1dcc4c91b90c6c7cf6ed1271/tests/Bd6afbadf1dcc4c91b90c6c7cf6ed1271.UnitTests/Bd6afbadf1dcc4c91b90c6c7cf6ed1271.UnitTests.csproj (in 17 ms).
+
+        - Stderr:   
+[testcontainers.org 00:00:34.71] Delete Docker container dd404d8c0a83

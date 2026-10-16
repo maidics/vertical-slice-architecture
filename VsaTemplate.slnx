@@ -1,4 +1,9 @@
 <Solution>
+  <!--#if(false) -->
+  <Folder Name="/benchmarks/">
+    <Project Path="benchmarks/VsaTemplate.Pipeline.Benchmarks/VsaTemplate.Pipeline.Benchmarks.csproj" />
+  </Folder>
+  <!--#endif -->
   <Folder Name="/SolutionItems/">
     <File Path=".editorconfig" />
     <File Path=".gitignore" />
