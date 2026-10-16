@@ -1,10 +1,13 @@
-﻿using ModularPipelines.Context;
+﻿using Microsoft.Extensions.Options;
+using ModularPipelines.Context;
 using ModularPipelines.DotNet.Services;
 using Shouldly;
 using VsaTemplate.Pipeline.Constants;
 using VsaTemplate.Pipeline.Models;
 using VsaTemplate.Pipeline.Modules;
+using VsaTemplate.Pipeline.Settings;
 using VsaTemplate.Pipeline.Tests.TestInfrastructure.BaseClasses;
+using VsaTemplate.Pipeline.Tests.TestInfrastructure.Extensions;
 
 namespace VsaTemplate.Pipeline.Tests.Modules;
 
@@ -12,6 +15,33 @@ namespace VsaTemplate.Pipeline.Tests.Modules;
 public sealed class InstantiateTemplateVariantsModuleTests()
     : ModuleTestBase<InstantiateTemplateVariantsModule>(typeof(InstallTemplateModule))
 {
+    [Test]
+    [Arguments("pull_request", "branch", "42/merge")]
+    [Arguments("push", "branch", "main")]
+    [Arguments("push", "branch", "feat/pgsql-db-option")]
+    [Arguments("push", "tag", "v1.0.0")]
+    public async Task ShouldSkipOnNonPrAndNonMainPush(
+        string eventName,
+        string refType,
+        string refName
+    )
+    {
+        var options = Options.Create(
+            new GitHubSettings
+            {
+                RefType = refType,
+                RefName = refName,
+                EventName = eventName,
+            }
+        );
+
+        var module = new InstantiateTemplateVariantsModule(options);
+        var config = module.GetConfiguration();
+        await config.ShouldSkipOnNonPrAndNonMainPushAsync(
+            options.Value.IsPullRequest || options.Value.IsMainPush
+        );
+    }
+
     [Test]
     public async Task BuildAsyncProcessorShouldBuildProcessor()
     {
