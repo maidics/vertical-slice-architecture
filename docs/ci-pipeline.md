@@ -6,7 +6,8 @@ Majority of CI logic is written in C# using the [`ModularPipelines`](https://tho
 
 | Requirement | Run Condition | Description |
 | - | - | - |
-| VersionTagRequirement | Tag push | Asserts tag semantics: vMAJOR.MINOR.PATCH |
+| `LinuxRequirement` | - | Require Linux environment, because of shell commands at template variant verifications.| 
+| `VersionTagRequirement` | Tag push | Asserts tag semantics: vMAJOR.MINOR.PATCH |
 
 Requirements have no skip logic: handled with a log and early return.
 
