@@ -8,7 +8,7 @@ public static class Builds
 {
     private static TemplateBenchmarkCaseBuilder CreateBuilder(string name) =>
         new TemplateBenchmarkCaseBuilder(10)
-            .WithName($"{nameof(Restorations)}.{name}")
+            .WithName($"{nameof(Builds)}.{name}")
             .WithStep(TemplateBenchmarkStepType.Instantiate, TemplateBenchmarkContainer.Host.MaxCpu)
             .WithStep(TemplateBenchmarkStepType.CloneAndRestoreRepo, 1)
             .WithStep(
@@ -20,17 +20,17 @@ public static class Builds
         CreateBuilder(nameof(Sequential)).WithStep(TemplateBenchmarkStepType.Build, 1).Build();
 
     public static TemplateBenchmarkCase ConcurrentUncapped =>
-        CreateBuilder(nameof(Sequential))
+        CreateBuilder(nameof(ConcurrentUncapped))
             .WithStep(TemplateBenchmarkStepType.Build, int.MaxValue)
             .Build();
 
     public static TemplateBenchmarkCase ConcurrentCappedToCpuCount =>
-        CreateBuilder(nameof(Sequential))
+        CreateBuilder(nameof(ConcurrentCappedToCpuCount))
             .WithStep(TemplateBenchmarkStepType.Build, TemplateBenchmarkContainer.Host.MaxCpu)
             .Build();
 
     public static TemplateBenchmarkCase ConcurrentCappedToHalfCpuCount =>
-        CreateBuilder(nameof(Sequential))
+        CreateBuilder(nameof(ConcurrentCappedToHalfCpuCount))
             .WithStep(TemplateBenchmarkStepType.Build, TemplateBenchmarkContainer.Host.MaxCpu / 2)
             .Build();
 }
