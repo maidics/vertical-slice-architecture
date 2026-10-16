@@ -24,10 +24,10 @@ public static class Builds
             .WithStep(TemplateBenchmarkStepType.Build, int.MaxValue)
             .Build();
 
-    public static TemplateBenchmarkCase ConcurrentCappedToCpuCount =>
-        CreateBuilder(nameof(ConcurrentCappedToCpuCount))
-            .WithStep(TemplateBenchmarkStepType.Build, TemplateBenchmarkContainer.Host.MaxCpu)
-            .Build();
+    public static TemplateBenchmarkCase ConcurrentCappedToCpuCount => // Winner: dotnet build uses the whole machine
+        CreateBuilder(nameof(ConcurrentCappedToCpuCount)) // While one awaits something to finish the other can fill those gaps - reducing time
+            .WithStep(TemplateBenchmarkStepType.Build, TemplateBenchmarkContainer.Host.MaxCpu) // this is a well-supported guess not something that is test
+            .Build(); // using 2 instead of MaxCpu / 2 as maxConcurrency wins
 
     public static TemplateBenchmarkCase ConcurrentCappedToHalfCpuCount =>
         CreateBuilder(nameof(ConcurrentCappedToHalfCpuCount))
