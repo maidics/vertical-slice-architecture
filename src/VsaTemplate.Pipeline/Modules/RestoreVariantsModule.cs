@@ -53,7 +53,8 @@ public sealed class RestoreVariantsModule : Module
                     {
                         ProjectSolution = Path.Combine(
                             Template.ArtifactsDirectory.TemplateVariantsDirectory,
-                            v.Name + "slnx"
+                            v.Name,
+                            v.Name + ".slnx"
                         ),
                     }
                 )
