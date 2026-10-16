@@ -42,8 +42,7 @@ public sealed class InstantiateTemplateVariantsModuleTests()
 
             dotnetNew
                 .Execute(
-                    o =>
-                        o.Arguments is not null && Equals(o.Arguments, expectedArgs.AsReadOnly()),
+                    o => o.Arguments is not null && o.Arguments.SequenceEqual(expectedArgs),
                     Any(),
                     Any()
                 )
