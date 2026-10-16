@@ -55,6 +55,7 @@ public sealed class InstantiateTemplateVariantsModuleTests()
 
         var tasks = processor.GetEnumerableTasks().ToList();
         tasks.Count.ShouldBe(variants.Count);
+        processor.GetMaxConcurrency().ShouldBe(Environment.ProcessorCount);
 
         await processor.GetResultsAsync();
 
