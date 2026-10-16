@@ -50,6 +50,7 @@ public sealed record TemplateBenchmarkStep
                     name,
                     "-o",
                     name,
+                    "--no-update-check",
                 })
                 .ToList(),
             TemplateBenchmarkStepType.CloneAndRestoreRepo =>
