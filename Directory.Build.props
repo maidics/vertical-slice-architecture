@@ -9,6 +9,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <NuGetAuditSuppress Include="https://github.com/advisories/GHSA-qhrr-8q5h-9q3h" />
+  </ItemGroup>
+
   <!--#if (TemplateDev) -->
   <PropertyGroup>
     <DefineConstants>$(DefineConstants);TemplateDev</DefineConstants>
