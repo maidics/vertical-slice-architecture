@@ -63,7 +63,10 @@
     
         **\VsaTemplate.Pipeline\**;
         **\VsaTemplate.Pipeline.Tests\**;
-    "/>
+        
+        **\benchmarks\**
+    "
+    />
 
     <!--Exclude everything from VsaTemplate.Pipeline/ & VsaTemplate.Pipeline.Tests/ but then include what is required for the AddModularPipeline option -->
     <Content Include="**\VsaTemplate.Pipeline\Program.cs;**\VsaTemplate.Pipeline\VsaTemplate.Pipeline.csproj;**\VsaTemplate.Pipeline.Tests.csproj" />
