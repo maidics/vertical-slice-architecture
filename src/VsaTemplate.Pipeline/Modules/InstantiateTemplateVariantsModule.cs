@@ -36,7 +36,7 @@ public sealed class InstantiateTemplateVariantsModule : Module
         CancellationToken cancellationToken
     )
     {
-        var processor = BuildAsyncProcessor(TemplateVariant.All, context.DotNet());
+        await using var processor = BuildAsyncProcessor(TemplateVariant.All, context.DotNet());
 
         await processor.GetResultsAsync();
     }
