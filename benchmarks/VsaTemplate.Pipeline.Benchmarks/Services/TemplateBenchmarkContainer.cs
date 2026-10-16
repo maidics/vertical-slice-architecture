@@ -114,8 +114,11 @@ public sealed class TemplateBenchmarkContainer : IAsyncDisposable
 
     public async ValueTask DisposeAsync()
     {
-        await _container.DisposeAsync();
-        await _storageUsage.DisposeAsync();
+        if (_container is not null)
+            await _container.DisposeAsync();
+
+        if (_storageUsage is not null)
+            await _storageUsage.DisposeAsync();
     }
 
     private static class HostContainer
