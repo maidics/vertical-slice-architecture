@@ -18,7 +18,8 @@ public sealed class TemplateBenchmarkCaseBuilder
 
         _names = Enumerable
             .Range(0, instantiationCount)
-            .Select(_ => Guid.NewGuid().ToString())
+            // identifier-safe: dotnet new writes a C#-safe form of -n into the .slnx, which must match the folder names
+            .Select(_ => $"B{Guid.NewGuid():N}")
             .ToList();
     }
 
