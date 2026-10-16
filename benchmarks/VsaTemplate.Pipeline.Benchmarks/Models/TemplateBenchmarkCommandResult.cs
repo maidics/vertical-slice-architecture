@@ -5,4 +5,15 @@ public sealed record TemplateBenchmarkCommandResult(
     long? ExitCode,
     string Stdout,
     string Stderr
-);
+)
+{
+    public override string ToString()
+    {
+        return $"""
+               Command: {Command}
+                    - ExitCode: {ExitCode}
+                    - Stdout: {Stdout}
+                    - Stderr: {Stderr} 
+            """;
+    }
+}
