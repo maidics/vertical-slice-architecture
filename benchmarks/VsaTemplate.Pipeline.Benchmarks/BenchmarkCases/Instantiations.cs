@@ -16,12 +16,20 @@ public static class Instantiations
             $"{nameof(Instantiations)}.{nameof(ConcurrentUncapped)}",
             10
         )
-            .WithStep(TemplateBenchmarkStepType.Instantiate, Environment.ProcessorCount)
+            .WithStep(TemplateBenchmarkStepType.Instantiate, int.MaxValue) // dispatches all tasks at once
             .Build();
 
-    public static TemplateBenchmarkCase ConcurrentHalfCapped =>
+    public static TemplateBenchmarkCase ConcurrentCappedToCpuCount =>
         new TemplateBenchmarkCaseBuilder(
-            $"{nameof(Instantiations)}.{nameof(ConcurrentHalfCapped)}",
+            $"{nameof(Instantiations)}.{nameof(ConcurrentCappedToCpuCount)}",
+            10
+        )
+            .WithStep(TemplateBenchmarkStepType.Instantiate, Environment.ProcessorCount) // dispatches CPU count amount
+            .Build();
+
+    public static TemplateBenchmarkCase ConcurrentCappedToHalfCpuCount =>
+        new TemplateBenchmarkCaseBuilder(
+            $"{nameof(Instantiations)}.{nameof(ConcurrentCappedToHalfCpuCount)}",
             10
         )
             .WithStep(TemplateBenchmarkStepType.Instantiate, Environment.ProcessorCount / 2)
