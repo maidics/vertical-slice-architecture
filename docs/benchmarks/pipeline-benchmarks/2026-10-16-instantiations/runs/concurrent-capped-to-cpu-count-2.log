@@ -1,0 +1,109 @@
+[testcontainers.org 00:00:00.23] Connected to Docker:
+  Host: unix:///var/run/docker.sock
+  Server Version: 29.8.2
+  Kernel Version: 6.18.44-fc-v139
+  API Version: 1.56
+  Operating System: Ubuntu 24.04.5 LTS (containerized)
+  Total Memory: 15.72 GB
+[testcontainers.org 00:00:00.48] Docker container cdbe9ba9eef4 created
+[testcontainers.org 00:00:00.53] Start Docker container cdbe9ba9eef4
+[testcontainers.org 00:00:00.68] Wait for Docker container cdbe9ba9eef4 to complete readiness checks
+[testcontainers.org 00:00:01.71] Docker container cdbe9ba9eef4 ready
+[testcontainers.org 00:00:01.81] Docker container e982a99129bd created
+[testcontainers.org 00:00:01.81] Start Docker container e982a99129bd
+[testcontainers.org 00:00:01.96] Wait for Docker container e982a99129bd to complete readiness checks
+[testcontainers.org 00:00:01.96] Docker container e982a99129bd ready
+Installing Vertical.Slice.Architecture...
+[testcontainers.org 00:00:01.97] Add file to tar archive: Content length: 100159 byte(s), Target file: "/tmp/Vertical.Slice.Architecture.4.0.0.nupkg", UID: 0, GID: 0, Mode: 0644
+[testcontainers.org 00:00:01.99] Copy tar archive to container: Content length: 100159 byte(s), Docker container: e982a99129bd
+[testcontainers.org 00:00:02.00] Execute "dotnet new install /tmp/Vertical.Slice.Architecture.4.0.0.nupkg" at Docker container e982a99129bd
+Template installation finished with exit code: 0
+	- Stdout: 
+		The following template packages will be installed:
+   /tmp/Vertical.Slice.Architecture.4.0.0.nupkg
+
+Success: Vertical.Slice.Architecture@4.0.0 installed the following templates:
+Template Name                         Short Name  Language  Tags                   
+------------------------------------  ----------  --------  -----------------------
+Vertical Slice Architecture Template  vsa-sln     [C#]      Web/WebAPI/Architecture
+
+
+	- Stderr: 
+		
+[testcontainers.org 00:00:02.74] Execute "dotnet new vsa-sln -n 32bd5887-4d5b-4602-be69-045bea4fd835 -o 32bd5887-4d5b-4602-be69-045bea4fd835 --no-update-check" at Docker container e982a99129bd
+[testcontainers.org 00:00:02.74] Execute "dotnet new vsa-sln -n a0abf7c1-8d36-4e08-84e6-a69227df3cdc -o a0abf7c1-8d36-4e08-84e6-a69227df3cdc --no-update-check" at Docker container e982a99129bd
+[testcontainers.org 00:00:02.74] Execute "dotnet new vsa-sln -n d2935259-1c45-4b43-b426-e7ee83c10264 -o d2935259-1c45-4b43-b426-e7ee83c10264 --no-update-check" at Docker container e982a99129bd
+[testcontainers.org 00:00:02.74] Execute "dotnet new vsa-sln -n 2af19f81-2cd7-417e-99fc-b4bb51792764 -o 2af19f81-2cd7-417e-99fc-b4bb51792764 --no-update-check" at Docker container e982a99129bd
+[testcontainers.org 00:00:03.92] Execute "dotnet new vsa-sln -n 18bbf90e-d16b-4435-96cf-6d79e0b366aa -o 18bbf90e-d16b-4435-96cf-6d79e0b366aa --no-update-check" at Docker container e982a99129bd
+[testcontainers.org 00:00:03.95] Execute "dotnet new vsa-sln -n fa5dec99-1557-43ec-989b-70ac8a3a9e57 -o fa5dec99-1557-43ec-989b-70ac8a3a9e57 --no-update-check" at Docker container e982a99129bd
+[testcontainers.org 00:00:03.96] Execute "dotnet new vsa-sln -n 6c900aad-c6c1-4d03-aac8-06d7f82419ae -o 6c900aad-c6c1-4d03-aac8-06d7f82419ae --no-update-check" at Docker container e982a99129bd
+[testcontainers.org 00:00:04.03] Execute "dotnet new vsa-sln -n f6eb12ba-b325-4fd2-8b3c-71df243c2cfa -o f6eb12ba-b325-4fd2-8b3c-71df243c2cfa --no-update-check" at Docker container e982a99129bd
+[testcontainers.org 00:00:04.90] Execute "dotnet new vsa-sln -n 23b037ca-3a4f-403a-8926-df9c61b9897e -o 23b037ca-3a4f-403a-8926-df9c61b9897e --no-update-check" at Docker container e982a99129bd
+[testcontainers.org 00:00:05.00] Execute "dotnet new vsa-sln -n a1f8a2aa-6937-4958-a262-aa365971b726 -o a1f8a2aa-6937-4958-a262-aa365971b726 --no-update-check" at Docker container e982a99129bd
+   Name: Instantiations.ConcurrentCappedToCpuCount
+        - Results: 
+                Name: Instantiate_Instantiations.ConcurrentCappedToCpuCount
+        - Execution Time: 3.23 s
+        - Peak Memory: 424.75 MB
+        - Disk Space: 7.14 MB
+        -    Command: dotnet new vsa-sln -n d2935259-1c45-4b43-b426-e7ee83c10264 -o d2935259-1c45-4b43-b426-e7ee83c10264 --no-update-check
+        - ExitCode: 0
+        - Stdout: The template "Vertical Slice Architecture Template" was created successfully.
+
+
+        - Stderr:  
+   Command: dotnet new vsa-sln -n 32bd5887-4d5b-4602-be69-045bea4fd835 -o 32bd5887-4d5b-4602-be69-045bea4fd835 --no-update-check
+        - ExitCode: 0
+        - Stdout: The template "Vertical Slice Architecture Template" was created successfully.
+
+
+        - Stderr:  
+   Command: dotnet new vsa-sln -n 2af19f81-2cd7-417e-99fc-b4bb51792764 -o 2af19f81-2cd7-417e-99fc-b4bb51792764 --no-update-check
+        - ExitCode: 0
+        - Stdout: The template "Vertical Slice Architecture Template" was created successfully.
+
+
+        - Stderr:  
+   Command: dotnet new vsa-sln -n a0abf7c1-8d36-4e08-84e6-a69227df3cdc -o a0abf7c1-8d36-4e08-84e6-a69227df3cdc --no-update-check
+        - ExitCode: 0
+        - Stdout: The template "Vertical Slice Architecture Template" was created successfully.
+
+
+        - Stderr:  
+   Command: dotnet new vsa-sln -n 18bbf90e-d16b-4435-96cf-6d79e0b366aa -o 18bbf90e-d16b-4435-96cf-6d79e0b366aa --no-update-check
+        - ExitCode: 0
+        - Stdout: The template "Vertical Slice Architecture Template" was created successfully.
+
+
+        - Stderr:  
+   Command: dotnet new vsa-sln -n fa5dec99-1557-43ec-989b-70ac8a3a9e57 -o fa5dec99-1557-43ec-989b-70ac8a3a9e57 --no-update-check
+        - ExitCode: 0
+        - Stdout: The template "Vertical Slice Architecture Template" was created successfully.
+
+
+        - Stderr:  
+   Command: dotnet new vsa-sln -n 6c900aad-c6c1-4d03-aac8-06d7f82419ae -o 6c900aad-c6c1-4d03-aac8-06d7f82419ae --no-update-check
+        - ExitCode: 0
+        - Stdout: The template "Vertical Slice Architecture Template" was created successfully.
+
+
+        - Stderr:  
+   Command: dotnet new vsa-sln -n f6eb12ba-b325-4fd2-8b3c-71df243c2cfa -o f6eb12ba-b325-4fd2-8b3c-71df243c2cfa --no-update-check
+        - ExitCode: 0
+        - Stdout: The template "Vertical Slice Architecture Template" was created successfully.
+
+
+        - Stderr:  
+   Command: dotnet new vsa-sln -n 23b037ca-3a4f-403a-8926-df9c61b9897e -o 23b037ca-3a4f-403a-8926-df9c61b9897e --no-update-check
+        - ExitCode: 0
+        - Stdout: The template "Vertical Slice Architecture Template" was created successfully.
+
+
+        - Stderr:  
+   Command: dotnet new vsa-sln -n a1f8a2aa-6937-4958-a262-aa365971b726 -o a1f8a2aa-6937-4958-a262-aa365971b726 --no-update-check
+        - ExitCode: 0
+        - Stdout: The template "Vertical Slice Architecture Template" was created successfully.
+
+
+        - Stderr:   
+[testcontainers.org 00:00:06.02] Delete Docker container e982a99129bd
