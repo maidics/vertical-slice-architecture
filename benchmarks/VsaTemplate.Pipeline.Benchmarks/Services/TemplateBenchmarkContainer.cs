@@ -18,16 +18,16 @@ public sealed class TemplateBenchmarkContainer : IAsyncDisposable
     {
         _benchmarkCase = benchmarkCase;
 
-        _container = new ContainerBuilder(HostContainer.Image)
+        _container = new ContainerBuilder(Host.Image)
             .WithHostname(benchmarkCase.Name)
             .WithCreateParameterModifier(p =>
             {
                 p.HostConfig ??= new HostConfig();
-                p.HostConfig.NanoCPUs = HostContainer.MaxCpu;
-                p.HostConfig.Memory = HostContainer.MaxMemory;
+                p.HostConfig.NanoCPUs = Host.MaxCpu * 1_000_000_000L;
+                p.HostConfig.Memory = Host.MaxMemory;
                 p.HostConfig.StorageOpt = new Dictionary<string, string>
                 {
-                    ["size"] = HostContainer.Storage,
+                    ["size"] = Host.Storage,
                 };
             })
             .WithCommand("sleep", "infinity")
@@ -121,13 +121,13 @@ public sealed class TemplateBenchmarkContainer : IAsyncDisposable
             await _storageUsage.DisposeAsync();
     }
 
-    private static class HostContainer
+    public static class Host
     {
         // this includes git
         public const string Image = "mcr.microsoft.com/dotnet/sdk:10.0.401";
 
         // GitHub Actions free tier, public repo
-        public const long MaxCpu = 4_000_000_000;
+        public const int MaxCpu = 4;
         public const long MaxMemory = 16L * 1024 * 1024 * 1024;
         public const string Storage = "14G";
     }

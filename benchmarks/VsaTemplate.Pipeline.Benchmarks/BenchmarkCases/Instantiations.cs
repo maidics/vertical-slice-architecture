@@ -24,7 +24,7 @@ public static class Instantiations
             $"{nameof(Instantiations)}.{nameof(ConcurrentCappedToCpuCount)}",
             10
         )
-            .WithStep(TemplateBenchmarkStepType.Instantiate, Environment.ProcessorCount) // dispatches CPU count amount
+            .WithStep(TemplateBenchmarkStepType.Instantiate, TemplateBenchmarkContainer.Host.MaxCpu) // dispatches CPU count amount
             .Build();
 
     public static TemplateBenchmarkCase ConcurrentCappedToHalfCpuCount =>
@@ -32,6 +32,9 @@ public static class Instantiations
             $"{nameof(Instantiations)}.{nameof(ConcurrentCappedToHalfCpuCount)}",
             10
         )
-            .WithStep(TemplateBenchmarkStepType.Instantiate, Environment.ProcessorCount / 2)
+            .WithStep(
+                TemplateBenchmarkStepType.Instantiate,
+                TemplateBenchmarkContainer.Host.MaxCpu / 2
+            )
             .Build();
 }
