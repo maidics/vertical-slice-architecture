@@ -6,29 +6,26 @@ namespace VsaTemplate.Pipeline.Benchmarks.BenchmarkCases;
 
 public static class Instantiations
 {
-    private static readonly TemplateBenchmarkCaseBuilder _builder = new(10);
+    private static TemplateBenchmarkCaseBuilder CreateBuilder(string name) =>
+        new TemplateBenchmarkCaseBuilder(10).WithName($"{nameof(Instantiations)}.{name}");
 
     public static TemplateBenchmarkCase Sequential =>
-        _builder
-            .WithName($"{nameof(Instantiations)}.{nameof(Sequential)}")
+        CreateBuilder(nameof(Sequential))
             .WithStep(TemplateBenchmarkStepType.Instantiate, 1)
             .Build();
 
     public static TemplateBenchmarkCase ConcurrentUncapped =>
-        _builder
-            .WithName($"{nameof(Instantiations)}.{nameof(ConcurrentUncapped)}")
+        CreateBuilder(nameof(ConcurrentUncapped))
             .WithStep(TemplateBenchmarkStepType.Instantiate, int.MaxValue) // dispatches all tasks at once
             .Build();
 
     public static TemplateBenchmarkCase ConcurrentCappedToCpuCount =>
-        _builder
-            .WithName($"{nameof(Instantiations)}.{nameof(ConcurrentCappedToCpuCount)}")
+        CreateBuilder(nameof(ConcurrentCappedToCpuCount))
             .WithStep(TemplateBenchmarkStepType.Instantiate, TemplateBenchmarkContainer.Host.MaxCpu) // dispatches CPU count amount
             .Build();
 
     public static TemplateBenchmarkCase ConcurrentCappedToHalfCpuCount =>
-        _builder
-            .WithName($"{nameof(Instantiations)}.{nameof(ConcurrentCappedToHalfCpuCount)}")
+        CreateBuilder(nameof(ConcurrentCappedToHalfCpuCount))
             .WithStep(
                 TemplateBenchmarkStepType.Instantiate,
                 TemplateBenchmarkContainer.Host.MaxCpu / 2
