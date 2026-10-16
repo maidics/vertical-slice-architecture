@@ -67,10 +67,10 @@ public sealed class TemplateBenchmarkContainer : IAsyncDisposable
             .SelectAsync(arguments => _container.ExecAsync([.. arguments]))
             .ProcessInParallel(step.MaxConcurrency);
 
+        ExecResult[] results = await processor.GetResultsAsync();
+
         var elapsed = timer.Elapsed;
         timer.Stop();
-
-        ExecResult[] results = await processor.GetResultsAsync();
 
         var commandResults = results
             .Select(
