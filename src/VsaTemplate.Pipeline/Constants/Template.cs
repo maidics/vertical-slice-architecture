@@ -36,5 +36,10 @@ public static class Template
             "package",
             "release"
         );
+
+        public static readonly string TemplateVariantsDirectory = Path.Combine(
+            "artifacts",
+            "template-variants"
+        );
     }
 }
