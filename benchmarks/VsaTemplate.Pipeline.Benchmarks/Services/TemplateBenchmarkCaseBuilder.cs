@@ -5,19 +5,15 @@ namespace VsaTemplate.Pipeline.Benchmarks.Services;
 
 public sealed class TemplateBenchmarkCaseBuilder
 {
-    public readonly string Name;
+    public string Name = string.Empty;
     public readonly int InstantiationCount;
 
     private readonly IReadOnlyList<string> _names;
 
-    public TemplateBenchmarkCaseBuilder(string name, int instantiationCount)
+    public TemplateBenchmarkCaseBuilder(int instantiationCount)
     {
-        if (string.IsNullOrWhiteSpace(name))
-            throw new ArgumentNullException(nameof(name));
-
         ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(instantiationCount, 0);
 
-        Name = name;
         InstantiationCount = instantiationCount;
 
         _names = Enumerable
@@ -28,6 +24,16 @@ public sealed class TemplateBenchmarkCaseBuilder
 
     private readonly List<TemplateBenchmarkStep> _steps = [];
 
+    public TemplateBenchmarkCaseBuilder WithName(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+            throw new ArgumentNullException(nameof(name));
+
+        Name = name;
+
+        return this;
+    }
+
     public TemplateBenchmarkCaseBuilder WithStep(TemplateBenchmarkStepType type, int maxConcurrency)
     {
         _steps.Add(new TemplateBenchmarkStep(Name, type, _names, maxConcurrency));
@@ -37,6 +43,11 @@ public sealed class TemplateBenchmarkCaseBuilder
 
     public TemplateBenchmarkCase Build()
     {
+        if (string.IsNullOrWhiteSpace(Name))
+            throw new InvalidOperationException(
+                $"Name of {nameof(TemplateBenchmarkCaseBuilder)} is required."
+            );
+
         if (_steps.Count == 0)
             throw new InvalidOperationException(
                 $"At least one {nameof(TemplateBenchmarkStep)} is required."
