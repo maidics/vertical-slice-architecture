@@ -2,6 +2,7 @@
 using ModularPipelines;
 using ModularPipelines.Extensions;
 using ModularPipelines.Options;
+using ModularPipelines.Requirements;
 using VsaTemplate.Pipeline.Interfaces;
 using VsaTemplate.Pipeline.Modules;
 using VsaTemplate.Pipeline.Services;
@@ -34,6 +35,11 @@ public static class PipelineBuilderExtensions
             builder.Services.AddSingleton<ISolutionFilterBuilder, SolutionFilterBuilder>();
 
             return builder;
+        }
+
+        public PipelineBuilder AddRequirements()
+        {
+            return builder.AddRequirement<LinuxRequirement>();
         }
 
         public PipelineBuilder AddModules()
