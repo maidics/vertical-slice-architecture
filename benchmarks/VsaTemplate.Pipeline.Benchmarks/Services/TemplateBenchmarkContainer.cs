@@ -37,9 +37,26 @@ public sealed class TemplateBenchmarkContainer : IAsyncDisposable
             .Build();
 
         await _container.StartAsync();
+        await InstallTemplateAsync();
 
         _memoryPeak = new ContainerMemoryPeak(_container.Id);
         _storageUsage = new ContainerStorageUsage(_container.Id);
+    }
+
+    private async Task InstallTemplateAsync()
+    {
+        const string template = "Vertical.Slice.Architecture";
+
+        Console.WriteLine($"Installing {template}...");
+
+        var result = await _container.ExecAsync(["dotnet", "new", "install", template]);
+
+        Console.WriteLine($"Template installation finished with exit code: {result.ExitCode}");
+        Console.WriteLine($"\t- Stdout: \n\t\t{result.Stdout}");
+        Console.WriteLine($"\t- Stderr: \n\t\t{result.Stderr}");
+
+        if (result.ExitCode is not null && result.ExitCode != 0)
+            throw new InvalidOperationException();
     }
 
     public async Task<TemplateBenchmarkResult> EvaluateAsync()
