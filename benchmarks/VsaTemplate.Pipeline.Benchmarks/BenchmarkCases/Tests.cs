@@ -5,8 +5,7 @@ using VsaTemplate.Pipeline.Benchmarks.Services;
 namespace VsaTemplate.Pipeline.Benchmarks.BenchmarkCases;
 
 // Note: running dotnet test picks up global.json where it is being run - must cd into tested solution's folder
-// Note: a large chunk of tests will be spent to await Aspire to provision the DB => use in-memory DB for all tests except DB specific variants?
-public static class Tests // add special case: build sln filter with all tests?
+public static class Tests
 {
     private static TemplateBenchmarkCaseBuilder CreateBuilder(string name) =>
         new TemplateBenchmarkCaseBuilder(10)
