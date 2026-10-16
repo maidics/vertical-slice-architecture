@@ -8,7 +8,7 @@ public static class Instantiations
 {
     public static TemplateBenchmarkCase Sequential =>
         new TemplateBenchmarkCaseBuilder($"{nameof(Instantiations)}.{nameof(Sequential)}", 10)
-            .WithStep(TemplateBenchmarkStepType.Instantiate, 0)
+            .WithStep(TemplateBenchmarkStepType.Instantiate, 1)
             .Build();
 
     public static TemplateBenchmarkCase Concurrent =>
