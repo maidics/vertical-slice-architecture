@@ -68,6 +68,6 @@ public sealed class BuildVariantsModule : Module
                     cancellationToken: cancellationToken
                 )
             )
-            .ProcessInParallel(2);
+            .ProcessInParallel(maxConcurrency: 2);
     }
 }
