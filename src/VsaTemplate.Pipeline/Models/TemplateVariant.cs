@@ -1,21 +1,29 @@
-﻿namespace VsaTemplate.Pipeline.Models;
+﻿using VsaTemplate.Pipeline.Constants;
+
+namespace VsaTemplate.Pipeline.Models;
 
 public sealed record TemplateVariant
 {
     public readonly string Name;
     public readonly IReadOnlyList<string> Arguments;
+    public readonly IReadOnlyList<string> TestProjects;
 
-    private TemplateVariant(string name, string[] arguments)
+    private TemplateVariant(string name, string[] arguments, string[] testProjects)
     {
         Name = name;
         Arguments = arguments;
+        TestProjects = testProjects;
     }
 
     public static IReadOnlyList<TemplateVariant> All =>
         new List<TemplateVariant>
         {
-            new("Default", []),
-            new("ModularPipelines", [Options.ModularPipelines]),
+            new("Default", [], [Template.ProjectPaths.UnitTests, Template.ProjectPaths.WebTests]),
+            new(
+                "ModularPipelines",
+                [Options.ModularPipelines],
+                [Template.ProjectPaths.UnitTests, Template.ProjectPaths.WebTests]
+            ),
         }
             .SelectMany(variant =>
                 new[]
@@ -23,7 +31,8 @@ public sealed record TemplateVariant
                     variant,
                     new TemplateVariant(
                         variant.Name + "WithExamples",
-                        [.. variant.Arguments, Options.Examples]
+                        [.. variant.Arguments, Options.Examples],
+                        [.. variant.TestProjects]
                     ),
                 }
             )
