@@ -16,7 +16,7 @@ using VsaTemplate.Pipeline.Settings;
 
 namespace VsaTemplate.Pipeline.Modules;
 
-[DependsOn<RestoreTemplateModule>]
+[DependsOn<RestoreVariantsModule>]
 public sealed class BuildVariantsModule : Module
 {
     private readonly GitHubSettings _settings;
