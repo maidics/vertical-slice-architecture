@@ -36,14 +36,19 @@ public sealed class RestoreVariantsModule : Module
         CancellationToken cancellationToken
     )
     {
-        await using var processor = BuildAsyncProcessor(TemplateVariant.All, context.DotNet());
+        await using var processor = BuildAsyncProcessor(
+            TemplateVariant.All,
+            context.DotNet(),
+            cancellationToken
+        );
 
         await processor.GetResultsAsync();
     }
 
     public static IAsyncProcessor<CommandResult> BuildAsyncProcessor(
         IReadOnlyList<TemplateVariant> variants,
-        IDotNet dotnet
+        IDotNet dotnet,
+        CancellationToken cancellationToken
     ) =>
         variants
             .ToAsyncProcessorBuilder()
@@ -56,7 +61,8 @@ public sealed class RestoreVariantsModule : Module
                             v.Name,
                             v.Name + ".slnx"
                         ),
-                    }
+                    },
+                    cancellationToken: cancellationToken
                 )
             )
             .ProcessInParallel(maxConcurrency: 2);

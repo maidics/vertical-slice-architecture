@@ -36,14 +36,19 @@ public sealed class InstantiateTemplateVariantsModule : Module
         CancellationToken cancellationToken
     )
     {
-        await using var processor = BuildAsyncProcessor(TemplateVariant.All, context.DotNet());
+        await using var processor = BuildAsyncProcessor(
+            TemplateVariant.All,
+            context.DotNet(),
+            cancellationToken
+        );
 
         await processor.GetResultsAsync();
     }
 
     public static IAsyncProcessor<CommandResult> BuildAsyncProcessor(
         IReadOnlyList<TemplateVariant> variants,
-        IDotNet dotnet
+        IDotNet dotnet,
+        CancellationToken cancellationToken
     )
     {
         return variants
@@ -64,7 +69,8 @@ public sealed class InstantiateTemplateVariantsModule : Module
                             ),
                             .. v.Arguments,
                         ],
-                    }
+                    },
+                    cancellationToken: cancellationToken
                 )
             )
             .ProcessInParallel(maxConcurrency: Environment.ProcessorCount); // maxConcurrency reference: Pipeline.Benchmarks
