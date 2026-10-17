@@ -53,7 +53,8 @@ public static class PipelineBuilderExtensions
                 .AddModule<InstallTemplateModule>()
                 .AddModule<InstantiateTemplateVariantsModule>()
                 .AddModule<RestoreVariantsModule>()
-                .AddModule<BuildVariantsModule>();
+                .AddModule<BuildVariantsModule>()
+                .AddModule<TestVariantsModule>();
         }
     }
 }
