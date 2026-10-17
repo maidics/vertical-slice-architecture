@@ -51,7 +51,11 @@ public sealed class InstantiateTemplateVariantsModuleTests()
 
         var variants = TemplateVariant.All;
 
-        var processor = InstantiateTemplateVariantsModule.BuildAsyncProcessor(variants, dotnet);
+        var processor = InstantiateTemplateVariantsModule.BuildAsyncProcessor(
+            variants,
+            dotnet,
+            CancellationToken.None
+        );
 
         var tasks = processor.GetEnumerableTasks().ToList();
         tasks.Count.ShouldBe(variants.Count);

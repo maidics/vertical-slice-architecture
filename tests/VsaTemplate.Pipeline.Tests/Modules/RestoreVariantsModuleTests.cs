@@ -48,7 +48,11 @@ public sealed class RestoreVariantsModuleTests()
 
         var variants = TemplateVariant.All;
 
-        await using var processor = RestoreVariantsModule.BuildAsyncProcessor(variants, dotnet);
+        await using var processor = RestoreVariantsModule.BuildAsyncProcessor(
+            variants,
+            dotnet,
+            CancellationToken.None
+        );
 
         var tasks = processor.GetEnumerableTasks().ToList();
         tasks.Count.ShouldBe(variants.Count);
