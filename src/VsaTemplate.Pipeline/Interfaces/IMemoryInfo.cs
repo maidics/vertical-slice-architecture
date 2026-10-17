@@ -1,6 +1,8 @@
+using Microsoft.Extensions.Logging;
+
 namespace VsaTemplate.Pipeline.Interfaces;
 
 public interface IMemoryInfo
 {
-    void LogWarningIfUsageIsGreater(double percent = 80);
+    void LogWarningIfUsageIsGreater(ILogger logger, double percent = 80);
 }

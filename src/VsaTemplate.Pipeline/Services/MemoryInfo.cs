@@ -1,6 +1,5 @@
 using System.Globalization;
 using Microsoft.Extensions.Logging;
-using ModularPipelines.Logging;
 using VsaTemplate.Pipeline.Extensions;
 using VsaTemplate.Pipeline.Interfaces;
 
@@ -10,27 +9,22 @@ public sealed class MemoryInfo : IMemoryInfo
 {
     private const long BytesPerKilobyte = 1024;
 
-    private readonly IModuleLoggerProvider _provider;
     private readonly string _memInfoPath;
     private bool _hasLogged;
 
     // memInfoPath is not registered in DI, so the container falls back to the default value
-    public MemoryInfo(IModuleLoggerProvider provider, string memInfoPath = "/proc/meminfo")
+    public MemoryInfo(string memInfoPath = "/proc/meminfo")
     {
-        _provider = provider;
         _memInfoPath = memInfoPath;
     }
 
-    public void LogWarningIfUsageIsGreater(double percent = 80)
+    public void LogWarningIfUsageIsGreater(ILogger logger, double percent = 80)
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(percent);
         ArgumentOutOfRangeException.ThrowIfGreaterThan(percent, 100);
 
         if (_hasLogged)
             return;
-
-        // not disposed: the provider returns the module's own logger (context.Logger)
-        var logger = _provider.GetLogger();
 
         if (!File.Exists(_memInfoPath))
         {

@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Logging;
-using ModularPipelines.Logging;
 using Shouldly;
 using VsaTemplate.Pipeline.Services;
+using Microsoft.Extensions.Logging.Testing;
 using VsaTemplate.Pipeline.Tests.TestInfrastructure.Services;
 
 namespace VsaTemplate.Pipeline.Tests.Services;
@@ -16,16 +16,7 @@ public sealed class MemoryInfoTests
         Buffers:           35188 kB
         """;
 
-    private readonly FakeModuleLogger _logger = new();
-    private readonly IModuleLoggerProvider _provider;
-
-    public MemoryInfoTests()
-    {
-        var provider = IModuleLoggerProvider.Mock();
-        provider.GetLogger().Returns(_logger);
-
-        _provider = provider.Object;
-    }
+    private readonly FakeLogger _logger = new();
 
     [Test]
     [Arguments(0d)]
@@ -33,10 +24,10 @@ public sealed class MemoryInfoTests
     [Arguments(100.1d)]
     public void LogWarningIfUsageIsGreaterShouldThrowIfPercentIsOutOfRange(double percent)
     {
-        var memoryInfo = new MemoryInfo(_provider);
+        var memoryInfo = new MemoryInfo();
 
         Should.Throw<ArgumentOutOfRangeException>(() =>
-            memoryInfo.LogWarningIfUsageIsGreater(percent)
+            memoryInfo.LogWarningIfUsageIsGreater(_logger, percent)
         );
     }
 
@@ -44,9 +35,9 @@ public sealed class MemoryInfoTests
     public async Task LogWarningIfUsageIsGreaterShouldLogWarningIfUsageIsAbovePercent()
     {
         await using var fileSystem = new TestFileSystem();
-        var memoryInfo = new MemoryInfo(_provider, CreateMemInfo(fileSystem));
+        var memoryInfo = new MemoryInfo(CreateMemInfo(fileSystem));
 
-        memoryInfo.LogWarningIfUsageIsGreater(70);
+        memoryInfo.LogWarningIfUsageIsGreater(_logger, 70);
 
         _logger.Collector.Count.ShouldBe(1);
         _logger.Collector.LatestRecord.Level.ShouldBe(LogLevel.Warning);
@@ -60,10 +51,10 @@ public sealed class MemoryInfoTests
     public async Task LogWarningIfUsageIsGreaterShouldLogOnlyOnce()
     {
         await using var fileSystem = new TestFileSystem();
-        var memoryInfo = new MemoryInfo(_provider, CreateMemInfo(fileSystem));
+        var memoryInfo = new MemoryInfo(CreateMemInfo(fileSystem));
 
-        memoryInfo.LogWarningIfUsageIsGreater(70);
-        memoryInfo.LogWarningIfUsageIsGreater(70);
+        memoryInfo.LogWarningIfUsageIsGreater(_logger, 70);
+        memoryInfo.LogWarningIfUsageIsGreater(_logger, 70);
 
         _logger.Collector.Count.ShouldBe(1);
     }
@@ -76,9 +67,9 @@ public sealed class MemoryInfoTests
     )
     {
         await using var fileSystem = new TestFileSystem();
-        var memoryInfo = new MemoryInfo(_provider, CreateMemInfo(fileSystem));
+        var memoryInfo = new MemoryInfo(CreateMemInfo(fileSystem));
 
-        memoryInfo.LogWarningIfUsageIsGreater(percent);
+        memoryInfo.LogWarningIfUsageIsGreater(_logger, percent);
 
         _logger.Collector.Count.ShouldBe(0);
     }
@@ -101,10 +92,10 @@ public sealed class MemoryInfoTests
         await using var fileSystem = new TestFileSystem();
         var path = fileSystem.CreateTestFile("meminfo");
         await File.WriteAllTextAsync(path, content);
-        var memoryInfo = new MemoryInfo(_provider, path);
+        var memoryInfo = new MemoryInfo(path);
 
-        memoryInfo.LogWarningIfUsageIsGreater(1);
-        memoryInfo.LogWarningIfUsageIsGreater(1);
+        memoryInfo.LogWarningIfUsageIsGreater(_logger, 1);
+        memoryInfo.LogWarningIfUsageIsGreater(_logger, 1);
 
         _logger.Collector.Count.ShouldBe(1);
         _logger.Collector.LatestRecord.Level.ShouldBe(LogLevel.Error);
@@ -118,27 +109,16 @@ public sealed class MemoryInfoTests
     {
         await using var fileSystem = new TestFileSystem();
         var path = Path.Combine(fileSystem.TempDir, "meminfo");
-        var memoryInfo = new MemoryInfo(_provider, path);
+        var memoryInfo = new MemoryInfo(path);
 
-        memoryInfo.LogWarningIfUsageIsGreater();
-        memoryInfo.LogWarningIfUsageIsGreater();
+        memoryInfo.LogWarningIfUsageIsGreater(_logger);
+        memoryInfo.LogWarningIfUsageIsGreater(_logger);
 
         _logger.Collector.Count.ShouldBe(1);
         _logger.Collector.LatestRecord.Level.ShouldBe(LogLevel.Error);
         _logger.Collector.LatestRecord.Message.ShouldBe(
             $"Memory info file not found at {path}, memory usage cannot be checked."
         );
-    }
-
-    [Test]
-    public async Task LogWarningIfUsageIsGreaterShouldNotDisposeModuleLogger()
-    {
-        await using var fileSystem = new TestFileSystem();
-        var memoryInfo = new MemoryInfo(_provider, CreateMemInfo(fileSystem));
-
-        memoryInfo.LogWarningIfUsageIsGreater(70);
-
-        _logger.IsDisposed.ShouldBeFalse();
     }
 
     private static string CreateMemInfo(TestFileSystem fileSystem)

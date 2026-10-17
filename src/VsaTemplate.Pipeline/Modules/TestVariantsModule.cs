@@ -1,5 +1,6 @@
 using EnumerableAsyncProcessor.Extensions;
 using EnumerableAsyncProcessor.Interfaces;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ModularPipelines.Attributes;
 using ModularPipelines.Configuration;
@@ -43,6 +44,7 @@ public sealed class TestVariantsModule : Module
             TemplateVariant.All,
             context.DotNet(),
             _memoryInfo,
+            context.Logger,
             cancellationToken
         );
 
@@ -53,12 +55,13 @@ public sealed class TestVariantsModule : Module
         IReadOnlyList<TemplateVariant> variants,
         IDotNet dotnet,
         IMemoryInfo memoryInfo,
+        ILogger logger,
         CancellationToken cancellationToken
     )
     {
         return variants
             .ToAsyncProcessorBuilder()
-            .SelectAsync<CommandResult>(async v =>
+            .SelectAsync<CommandResult>(async v => // TODO: build solution filter here through the variant: add test projects to include
             {
                 var result = await dotnet.Test(
                     new DotNetTestOptions
@@ -75,7 +78,7 @@ public sealed class TestVariantsModule : Module
                     cancellationToken: cancellationToken
                 );
 
-                memoryInfo.LogWarningIfUsageIsGreater();
+                memoryInfo.LogWarningIfUsageIsGreater(logger);
 
                 return result;
             })
