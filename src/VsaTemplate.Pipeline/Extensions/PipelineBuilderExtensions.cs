@@ -33,6 +33,7 @@ public static class PipelineBuilderExtensions
         public PipelineBuilder AddServices()
         {
             builder.Services.AddSingleton<ISolutionFilterBuilder, SolutionFilterBuilder>();
+            builder.Services.AddTransient<IMemoryInfo, MemoryInfo>();
 
             return builder;
         }
