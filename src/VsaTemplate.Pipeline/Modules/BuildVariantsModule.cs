@@ -58,7 +58,11 @@ public sealed class BuildVariantsModule : Module
                     new DotNetBuildOptions
                     {
                         NoRestore = true,
-                        ProjectSolution = $"{v.Name}/{v.Name}.slnx",
+                        ProjectSolution = Path.Combine(
+                            Template.ArtifactsDirectory.TemplateVariantsDirectory,
+                            v.Name,
+                            v.Name + ".slnx"
+                        ),
                         Configuration = Template.Configuration,
                     },
                     cancellationToken: cancellationToken
