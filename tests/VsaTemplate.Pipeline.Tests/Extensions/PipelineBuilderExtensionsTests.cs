@@ -7,6 +7,7 @@ using Shouldly;
 using VsaTemplate.Pipeline.Extensions;
 using VsaTemplate.Pipeline.Interfaces;
 using VsaTemplate.Pipeline.Modules;
+using VsaTemplate.Pipeline.Services;
 
 namespace VsaTemplate.Pipeline.Tests.Extensions;
 
@@ -47,6 +48,11 @@ public sealed class PipelineBuilderExtensionsTests
         pipeline.Services.GetServices<IModule>().Select(m => m.GetType()).ShouldBe(expected);
 
         pipeline.Services.GetService<ISolutionFilterBuilder>().ShouldNotBeNull();
+        pipeline.Services.GetService<IMemoryInfo>().ShouldNotBeNull();
+
+        ContainsService<ISolutionFilterBuilder, SolutionFilterBuilder>(ServiceLifetime.Singleton)
+            .ShouldBeTrue();
+        ContainsService<IMemoryInfo, MemoryInfo>(ServiceLifetime.Transient).ShouldBeTrue();
     }
 
     [Test]
@@ -59,10 +65,12 @@ public sealed class PipelineBuilderExtensionsTests
         ContainsService<IPipelineRequirement, LinuxRequirement>().ShouldBeTrue();
     }
 
-    private bool ContainsService<TService, TImplementation>()
+    private bool ContainsService<TService, TImplementation>(ServiceLifetime? lifetime = null)
         where TService : notnull
         where TImplementation : TService =>
         _builder.Services.Any(d =>
-            d.ServiceType == typeof(TService) && d.ImplementationType == typeof(TImplementation)
+            d.ServiceType == typeof(TService)
+            && d.ImplementationType == typeof(TImplementation)
+            && (lifetime is null || d.Lifetime == lifetime)
         );
 }
