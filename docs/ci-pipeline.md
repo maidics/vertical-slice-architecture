@@ -24,7 +24,8 @@ Requirements have no skip logic: handled with a log and early return.
 | `RestoreVariantsModule` | `InstantiateVariantsModule` | PR or main push | Restores all nuget packages for the variants **in parrallel**. |
 | `BuildVariantsModule` | `RestoreVariantsModule` | PR or main push | Builds all variant **sequencially** - `dotnet build` uses all cores, collect Exceptions, rethrow as aggregate exception. |
 | `TestVariantsModule` | `BuildVariantsModule` | PR or main push | Runs unit and web tests for all variants **in parrallel**. |
-| `PublishModule` | `VerifyTemplateVariantsModule` | Tag push | Logs into NuGet and posts the packed template. |
+| `NuGetLogInModule` | `TestVariantsModule` | Tag push | Retrieves a short lived API key to NuGet (Trusted Publishing). |
+|`NuGetPublishModule` | `NuGetLogInModule` | Tag push | Publishes the template to NuGet. |
 
 For parrallelized modules:
 ```csharp
