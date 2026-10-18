@@ -8,6 +8,7 @@ public sealed record GitHubSettings
     private const string _pushEvent = "push";
 
     private const string _branchRefType = "branch";
+    private const string _tagRefType = "tag";
 
     private const string _mainRefName = "main";
 
@@ -24,4 +25,6 @@ public sealed record GitHubSettings
 
     public bool IsMainPush =>
         EventName == _pushEvent && RefType == _branchRefType && RefName == _mainRefName;
+
+    public bool IsTagPush => RefType == _tagRefType;
 }
