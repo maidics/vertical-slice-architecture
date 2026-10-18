@@ -10,6 +10,7 @@ using VsaTemplate.Pipeline.Modules;
 using VsaTemplate.Pipeline.Settings;
 using VsaTemplate.Pipeline.Tests.TestInfrastructure.BaseClasses;
 using VsaTemplate.Pipeline.Tests.TestInfrastructure.Extensions;
+using VsaTemplate.Pipeline.Tests.TestInfrastructure.Services;
 
 namespace VsaTemplate.Pipeline.Tests.Modules;
 
@@ -67,12 +68,15 @@ public sealed class TestVariantsModuleTests()
         foreach (var variant in variants)
         {
             builder.WithName($"Variant.{variant.Name}").WasCalled(Times.Once);
+            var expectedProjects = variant.TestProjects.Select(p =>
+                Path.Combine(Template.ArtifactsDirectory.TemplateVariantsDirectory, variant.Name, p)
+            );
+
             builder
-                .WithProjects(p => p.SequenceEqual(variant.TestProjects))
-                .WasCalled(Times.AtLeastOnce);
+                .WithProjects(p => p.SequenceEqual(expectedProjects))
+                .WasCalled(Times.Once);
         }
 
-        builder.WithProjects(Any()).WasCalled(Times.Exactly(variants.Count));
         builder.BuildAsync().WasCalled(Times.Exactly(variants.Count));
     }
 
@@ -83,7 +87,12 @@ public sealed class TestVariantsModuleTests()
         var memoryInfo = IMemoryInfo.Mock();
         ILogger logger = new FakeLogger();
 
-        string[] filters = ["Variant.A.slnf", "Variant.B.slnf"];
+        await using var fileSystem = new TestFileSystem();
+        string[] filters =
+        [
+            fileSystem.CreateTestFile("Variant.A.slnf"),
+            fileSystem.CreateTestFile("Variant.B.slnf"),
+        ];
 
         await using var processor = TestVariantsModule.BuildAsyncProcessor(
             filters,
@@ -117,5 +126,24 @@ public sealed class TestVariantsModuleTests()
         memoryInfo
             .LogWarningIfUsageIsGreaterThan(l => ReferenceEquals(l, logger), 80)
             .WasCalled(Times.Exactly(filters.Length));
+    }
+
+    [Test]
+    public async Task BuildAsyncProcessorShouldThrowIfSolutionFilterNotFound()
+    {
+        await using var fileSystem = new TestFileSystem();
+        var existing = fileSystem.CreateTestFile("Variant.A.slnf");
+        var missing = Path.Combine(fileSystem.TempDir, "Variant.B.slnf");
+
+        var ex = Should.Throw<FileNotFoundException>(() =>
+            TestVariantsModule.BuildAsyncProcessor(
+                [existing, missing],
+                IDotNet.Mock().Object,
+                IMemoryInfo.Mock().Object,
+                new FakeLogger(),
+                CancellationToken.None
+            )
+        );
+        ex.Message.ShouldBe($"Solution filter(s) not found: {missing}.");
     }
 }
