@@ -37,7 +37,11 @@ public sealed class TestVariantsModuleTests()
             }
         );
 
-        var module = new TestVariantsModule(options, IMemoryInfo.Mock().Object);
+        var module = new TestVariantsModule(
+            options,
+            ISolutionFilterBuilder.Mock().Object,
+            IMemoryInfo.Mock().Object
+        );
         var config = module.GetConfiguration();
         await config.ShouldSkipOnNonPrAndNonMainPushAsync(
             options.Value.IsPullRequest || options.Value.IsMainPush
@@ -45,16 +49,44 @@ public sealed class TestVariantsModuleTests()
     }
 
     [Test]
-    public async Task BuildProcessorShouldBuildProcessor()
+    public async Task CreateSolutionFiltersShouldCreateFilterPerVariant()
+    {
+        const string filter = nameof(filter);
+        var builder = ISolutionFilterBuilder.Mock();
+        builder.WithName(Any()).Returns(builder.Object);
+        builder.WithProjects(Any()).Returns(builder.Object);
+        builder.BuildAsync().Returns(filter);
+
+        var variants = TemplateVariant.All;
+
+        var filters = await TestVariantsModule.CreateSolutionFilters(builder, variants);
+
+        filters.Count.ShouldBe(variants.Count);
+        filters.ShouldAllBe(f => f == filter);
+
+        foreach (var variant in variants)
+        {
+            builder.WithName($"Variant.{variant.Name}").WasCalled(Times.Once);
+            builder
+                .WithProjects(p => p.SequenceEqual(variant.TestProjects))
+                .WasCalled(Times.AtLeastOnce);
+        }
+
+        builder.WithProjects(Any()).WasCalled(Times.Exactly(variants.Count));
+        builder.BuildAsync().WasCalled(Times.Exactly(variants.Count));
+    }
+
+    [Test]
+    public async Task BuildAsyncProcessorShouldBuildProcessor()
     {
         var dotnet = IDotNet.Mock();
         var memoryInfo = IMemoryInfo.Mock();
         ILogger logger = new FakeLogger();
 
-        var variants = TemplateVariant.All;
+        string[] filters = ["Variant.A.slnf", "Variant.B.slnf"];
 
-        await using var processor = TestVariantsModule.BuildProcessor(
-            variants,
+        await using var processor = TestVariantsModule.BuildAsyncProcessor(
+            filters,
             dotnet,
             memoryInfo.Object,
             logger,
@@ -62,23 +94,17 @@ public sealed class TestVariantsModuleTests()
         );
 
         var tasks = processor.GetEnumerableTasks().ToList();
-        tasks.Count.ShouldBe(variants.Count);
-        processor.GetMaxConcurrency().ShouldBe(Environment.ProcessorCount);
+        tasks.Count.ShouldBe(filters.Length);
+        processor.GetMaxConcurrency().ShouldBe(int.MaxValue);
 
         await processor.GetResultsAsync();
 
-        foreach (var variant in variants)
+        foreach (var filter in filters)
         {
-            var expectedSolution = Path.Combine(
-                Template.ArtifactsDirectory.TemplateVariantsDirectory,
-                variant.Name,
-                variant.Name + ".slnx"
-            );
-
             dotnet
                 .Test(
                     o =>
-                        o.Solution == expectedSolution
+                        o.Solution == filter
                         && o.NoRestore == true
                         && o.NoBuild == true
                         && o.Configuration == Template.Configuration,
@@ -89,7 +115,7 @@ public sealed class TestVariantsModuleTests()
         }
 
         memoryInfo
-            .LogWarningIfUsageIsGreater(l => ReferenceEquals(l, logger), 80)
-            .WasCalled(Times.Exactly(variants.Count));
+            .LogWarningIfUsageIsGreaterThan(l => ReferenceEquals(l, logger), 80)
+            .WasCalled(Times.Exactly(filters.Length));
     }
 }
