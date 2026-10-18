@@ -14,5 +14,12 @@ public static class ModuleConfigurationBuilderExtensions
                     ? SkipDecision.DoNotSkip
                     : SkipDecision.Skip("Only runs on PR or main push.")
             );
+
+        public ModuleConfigurationBuilder WithNonTagPushSkip(GitHubSettings settings) =>
+            builder.WithSkipWhen(_ =>
+                settings.IsTagPush
+                    ? SkipDecision.DoNotSkip
+                    : SkipDecision.Skip("Only runs on tag pushes")
+            );
     }
 }
