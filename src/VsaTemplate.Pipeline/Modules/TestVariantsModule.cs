@@ -71,7 +71,15 @@ public sealed class TestVariantsModule : Module
         {
             var filter = await builder
                 .WithName($"Variant.{variant.Name}")
-                .WithProjects([.. variant.TestProjects])
+                .WithProjects([
+                    .. variant.TestProjects.Select(p =>
+                        Path.Combine(
+                            Template.ArtifactsDirectory.TemplateVariantsDirectory,
+                            variant.Name,
+                            p
+                        )
+                    ),
+                ])
                 .BuildAsync();
 
             filters.Add(filter);
