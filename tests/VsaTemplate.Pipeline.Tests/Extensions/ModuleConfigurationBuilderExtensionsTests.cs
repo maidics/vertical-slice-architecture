@@ -42,4 +42,33 @@ public sealed class ModuleConfigurationBuilderExtensionsTests
 
         await config.ShouldSkipOnNonPrAndNonMainPushAsync(isPrOrMainPush);
     }
+
+    [Test]
+    [Arguments("push", "tag", "v1.0.0", true)]
+    [Arguments("push", "tag", "main", true)] // tag named main
+    [Arguments("push", "branch", "main", false)]
+    [Arguments("push", "branch", "v1.0.0", false)] // branch named like a tag
+    [Arguments("pull_request", "branch", "42/merge", false)]
+    // Non-push events on branches
+    [Arguments("workflow_dispatch", "branch", "main", false)]
+    [Arguments("schedule", "branch", "main", false)]
+    [Arguments("merge_group", "branch", "gh-readonly-queue/main/pr-42-abc123", false)]
+    public async Task WithNonTagPushSkipShouldOnlyRunOnTagPush(
+        string eventName,
+        string refType,
+        string refName,
+        bool isTagPush
+    )
+    {
+        var settings = new GitHubSettings
+        {
+            RefType = refType,
+            RefName = refName,
+            EventName = eventName,
+        };
+
+        var config = ModuleConfiguration.Create().WithNonTagPushSkip(settings).Build();
+
+        await config.ShouldSkipOnNonTagPushAsync(isTagPush);
+    }
 }

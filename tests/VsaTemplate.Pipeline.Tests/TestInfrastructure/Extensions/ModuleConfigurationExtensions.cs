@@ -18,5 +18,16 @@ public static class ModuleConfigurationExtensions
             result.Reason.ShouldBe(isPrOrMainPush ? null : "Only runs on PR or main push.");
             result.ShouldSkip.ShouldBe(!isPrOrMainPush);
         }
+
+        public async Task ShouldSkipOnNonTagPushAsync(
+            bool isTagPush,
+            IModuleContext? moduleContext = null
+        )
+        {
+            config.SkipCondition.ShouldNotBeNull();
+            var result = await config.SkipCondition.Invoke(moduleContext!);
+            result.Reason.ShouldBe(isTagPush ? null : "Only runs on tag pushes");
+            result.ShouldSkip.ShouldBe(!isTagPush);
+        }
     }
 }
