@@ -61,4 +61,32 @@ public sealed class GitHubSettingsTests
 
         settings.IsMainPush.ShouldBe(isMainPush);
     }
+
+    [Test]
+    [Arguments("push", "tag", "v1.0.0", true)]
+    [Arguments("push", "tag", "main", true)] // tag named main
+    [Arguments("push", "branch", "main", false)]
+    [Arguments("push", "branch", "v1.0.0", false)] // branch named like a tag
+    // Pull requests: ref name is "<n>/merge"
+    [Arguments("pull_request", "branch", "42/merge", false)]
+    // Non-push events on branches
+    [Arguments("workflow_dispatch", "branch", "main", false)]
+    [Arguments("schedule", "branch", "main", false)]
+    [Arguments("merge_group", "branch", "gh-readonly-queue/main/pr-42-abc123", false)]
+    public void IsTagPushShouldOnlyReturnTrueForTagPushEvent(
+        string eventName,
+        string refType,
+        string refName,
+        bool isTagPush
+    )
+    {
+        var settings = new GitHubSettings
+        {
+            RefType = refType,
+            RefName = refName,
+            EventName = eventName,
+        };
+
+        settings.IsTagPush.ShouldBe(isTagPush);
+    }
 }
