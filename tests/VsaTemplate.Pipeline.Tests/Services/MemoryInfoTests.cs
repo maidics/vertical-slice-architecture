@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Testing;
 using Shouldly;
 using VsaTemplate.Pipeline.Services;
-using Microsoft.Extensions.Logging.Testing;
 using VsaTemplate.Pipeline.Tests.TestInfrastructure.Services;
 
 namespace VsaTemplate.Pipeline.Tests.Services;
@@ -27,7 +27,7 @@ public sealed class MemoryInfoTests
         var memoryInfo = new MemoryInfo();
 
         Should.Throw<ArgumentOutOfRangeException>(() =>
-            memoryInfo.LogWarningIfUsageIsGreater(_logger, percent)
+            memoryInfo.LogWarningIfUsageIsGreaterThan(_logger, percent)
         );
     }
 
@@ -37,7 +37,7 @@ public sealed class MemoryInfoTests
         await using var fileSystem = new TestFileSystem();
         var memoryInfo = new MemoryInfo(CreateMemInfo(fileSystem));
 
-        memoryInfo.LogWarningIfUsageIsGreater(_logger, 70);
+        memoryInfo.LogWarningIfUsageIsGreaterThan(_logger, 70);
 
         _logger.Collector.Count.ShouldBe(1);
         _logger.Collector.LatestRecord.Level.ShouldBe(LogLevel.Warning);
@@ -53,8 +53,8 @@ public sealed class MemoryInfoTests
         await using var fileSystem = new TestFileSystem();
         var memoryInfo = new MemoryInfo(CreateMemInfo(fileSystem));
 
-        memoryInfo.LogWarningIfUsageIsGreater(_logger, 70);
-        memoryInfo.LogWarningIfUsageIsGreater(_logger, 70);
+        memoryInfo.LogWarningIfUsageIsGreaterThan(_logger, 70);
+        memoryInfo.LogWarningIfUsageIsGreaterThan(_logger, 70);
 
         _logger.Collector.Count.ShouldBe(1);
     }
@@ -62,14 +62,12 @@ public sealed class MemoryInfoTests
     [Test]
     [Arguments(75d)]
     [Arguments(80d)]
-    public async Task LogWarningIfUsageIsGreaterShouldNotLogIfUsageIsNotAbovePercent(
-        double percent
-    )
+    public async Task LogWarningIfUsageIsGreaterShouldNotLogIfUsageIsNotAbovePercent(double percent)
     {
         await using var fileSystem = new TestFileSystem();
         var memoryInfo = new MemoryInfo(CreateMemInfo(fileSystem));
 
-        memoryInfo.LogWarningIfUsageIsGreater(_logger, percent);
+        memoryInfo.LogWarningIfUsageIsGreaterThan(_logger, percent);
 
         _logger.Collector.Count.ShouldBe(0);
     }
@@ -85,17 +83,15 @@ public sealed class MemoryInfoTests
     [Arguments("MemTotal:        -8388608 kB\nMemAvailable:    2097152 kB")]
     [Arguments("MemTotal:        8388608 kB\nMemAvailable:    -2097152 kB")]
     [Arguments("MemTotal:        0 kB\nMemAvailable:    2097152 kB")]
-    public async Task LogWarningIfUsageIsGreaterShouldLogErrorOnceIfMemInfoIsInvalid(
-        string content
-    )
+    public async Task LogWarningIfUsageIsGreaterShouldLogErrorOnceIfMemInfoIsInvalid(string content)
     {
         await using var fileSystem = new TestFileSystem();
         var path = fileSystem.CreateTestFile("meminfo");
         await File.WriteAllTextAsync(path, content);
         var memoryInfo = new MemoryInfo(path);
 
-        memoryInfo.LogWarningIfUsageIsGreater(_logger, 1);
-        memoryInfo.LogWarningIfUsageIsGreater(_logger, 1);
+        memoryInfo.LogWarningIfUsageIsGreaterThan(_logger, 1);
+        memoryInfo.LogWarningIfUsageIsGreaterThan(_logger, 1);
 
         _logger.Collector.Count.ShouldBe(1);
         _logger.Collector.LatestRecord.Level.ShouldBe(LogLevel.Error);
@@ -111,8 +107,8 @@ public sealed class MemoryInfoTests
         var path = Path.Combine(fileSystem.TempDir, "meminfo");
         var memoryInfo = new MemoryInfo(path);
 
-        memoryInfo.LogWarningIfUsageIsGreater(_logger);
-        memoryInfo.LogWarningIfUsageIsGreater(_logger);
+        memoryInfo.LogWarningIfUsageIsGreaterThan(_logger);
+        memoryInfo.LogWarningIfUsageIsGreaterThan(_logger);
 
         _logger.Collector.Count.ShouldBe(1);
         _logger.Collector.LatestRecord.Level.ShouldBe(LogLevel.Error);

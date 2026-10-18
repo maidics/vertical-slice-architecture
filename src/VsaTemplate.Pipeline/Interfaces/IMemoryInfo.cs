@@ -4,5 +4,5 @@ namespace VsaTemplate.Pipeline.Interfaces;
 
 public interface IMemoryInfo
 {
-    void LogWarningIfUsageIsGreater(ILogger logger, double percent = 80);
+    void LogWarningIfUsageIsGreaterThan(ILogger logger, double percent = 80);
 }

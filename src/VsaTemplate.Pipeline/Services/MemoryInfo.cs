@@ -18,7 +18,7 @@ public sealed class MemoryInfo : IMemoryInfo
         _memInfoPath = memInfoPath;
     }
 
-    public void LogWarningIfUsageIsGreater(ILogger logger, double percent = 80)
+    public void LogWarningIfUsageIsGreaterThan(ILogger logger, double percent = 80)
     {
         ArgumentOutOfRangeException.ThrowIfNegativeOrZero(percent);
         ArgumentOutOfRangeException.ThrowIfGreaterThan(percent, 100);
