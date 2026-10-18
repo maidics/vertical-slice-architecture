@@ -25,7 +25,9 @@ public static class PipelineBuilderExtensions
 
         public PipelineBuilder AddSettings()
         {
-            builder.Services.AddGitHubSettings(builder.Configuration);
+            builder
+                .Services.AddGitHubSettings(builder.Configuration)
+                .AddNuGetSettings(builder.Configuration);
 
             return builder;
         }

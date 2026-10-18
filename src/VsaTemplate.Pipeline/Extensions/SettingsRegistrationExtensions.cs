@@ -23,5 +23,15 @@ public static class SettingsRegistrationExtensions
 
             return services;
         }
+
+        public IServiceCollection AddNuGetSettings(IConfiguration configuration)
+        {
+            services
+                .AddOptions<NuGetSettings>()
+                .Configure(settings => settings.User = configuration["NUGET_USER"] ?? string.Empty)
+                .ValidateDataAnnotations(); // this will throw only when accessing Options<NuGetSettings>.Value (value only required for tag pushes)
+
+            return services;
+        }
     }
 }
