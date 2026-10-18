@@ -88,6 +88,11 @@ public sealed class TestVariantsModule : Module
         CancellationToken cancellationToken
     )
     {
+        if (solutionFilters.Any(f => !File.Exists(f)))
+            throw new FileNotFoundException(
+                $"Solution filter(s) not found: {string.Join(", ", solutionFilters.Where(f => !File.Exists(f)))}."
+            );
+
         return solutionFilters
             .ToAsyncProcessorBuilder()
             .SelectAsync(async f =>
