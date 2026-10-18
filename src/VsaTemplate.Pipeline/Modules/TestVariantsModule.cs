@@ -8,6 +8,7 @@ using ModularPipelines.Context;
 using ModularPipelines.DotNet.Extensions;
 using ModularPipelines.DotNet.Options;
 using ModularPipelines.DotNet.Services;
+using ModularPipelines.Logging;
 using ModularPipelines.Models;
 using ModularPipelines.Modules;
 using VsaTemplate.Pipeline.Constants;
@@ -22,11 +23,17 @@ namespace VsaTemplate.Pipeline.Modules;
 public sealed class TestVariantsModule : Module
 {
     private readonly GitHubSettings _settings;
+    private readonly ISolutionFilterBuilder _solutionFilterBuilder;
     private readonly IMemoryInfo _memoryInfo;
 
-    public TestVariantsModule(IOptions<GitHubSettings> options, IMemoryInfo memoryInfo)
+    public TestVariantsModule(
+        IOptions<GitHubSettings> options,
+        ISolutionFilterBuilder solutionFilterBuilder,
+        IMemoryInfo memoryInfo
+    )
     {
         _memoryInfo = memoryInfo;
+        _solutionFilterBuilder = solutionFilterBuilder;
         _settings = options.Value;
     }
 
@@ -40,8 +47,10 @@ public sealed class TestVariantsModule : Module
         CancellationToken cancellationToken
     )
     {
-        await using var processor = BuildProcessor(
-            TemplateVariant.All,
+        var filters = await CreateSolutionFilters(_solutionFilterBuilder, TemplateVariant.All);
+
+        await using var processor = BuildAsyncProcessor(
+            filters,
             context.DotNet(),
             _memoryInfo,
             context.Logger,
@@ -51,17 +60,37 @@ public sealed class TestVariantsModule : Module
         await processor.GetResultsAsync();
     }
 
-    public static IAsyncProcessor<CommandResult> BuildProcessor(
-        IReadOnlyList<TemplateVariant> variants,
+    public static async Task<IReadOnlyList<string>> CreateSolutionFilters(
+        ISolutionFilterBuilder builder,
+        IReadOnlyList<TemplateVariant> variants
+    )
+    {
+        var filters = new List<string>();
+
+        foreach (var variant in variants)
+        {
+            var filter = await builder
+                .WithName($"Variant.{variant.Name}")
+                .WithProjects([.. variant.TestProjects])
+                .BuildAsync();
+
+            filters.Add(filter);
+        }
+
+        return filters;
+    }
+
+    public static IAsyncProcessor<CommandResult> BuildAsyncProcessor(
+        IReadOnlyList<string> solutionFilters,
         IDotNet dotnet,
         IMemoryInfo memoryInfo,
         ILogger logger,
         CancellationToken cancellationToken
     )
     {
-        return variants
+        return solutionFilters
             .ToAsyncProcessorBuilder()
-            .SelectAsync<CommandResult>(async v => // TODO: build solution filter here through the variant: add test projects to include
+            .SelectAsync(async f =>
             {
                 var result = await dotnet.Test(
                     new DotNetTestOptions
@@ -69,19 +98,15 @@ public sealed class TestVariantsModule : Module
                         NoRestore = true,
                         NoBuild = true,
                         Configuration = Template.Configuration,
-                        Solution = Path.Combine(
-                            Template.ArtifactsDirectory.TemplateVariantsDirectory,
-                            v.Name,
-                            v.Name + ".slnx"
-                        ),
+                        Solution = f,
                     },
                     cancellationToken: cancellationToken
                 );
 
-                memoryInfo.LogWarningIfUsageIsGreater(logger);
+                memoryInfo.LogWarningIfUsageIsGreaterThan(logger);
 
                 return result;
             })
-            .ProcessInParallel(maxConcurrency: Environment.ProcessorCount);
+            .ProcessInParallel(maxConcurrency: int.MaxValue);
     }
 }
