@@ -1,4 +1,6 @@
-﻿using Shouldly;
+﻿using System.Reflection;
+using ModularPipelines.Attributes;
+using Shouldly;
 using VsaTemplate.Pipeline.Settings;
 
 namespace VsaTemplate.Pipeline.Tests.Settings;
@@ -22,6 +24,8 @@ public sealed class GitHubSettingsTests
             RefType = "test",
             RefName = "test",
             EventName = eventName,
+            OidcRequestUrl = "test",
+            OidcRequestToken = "test",
         };
 
         settings.IsPullRequest.ShouldBe(isPullRequest);
@@ -57,6 +61,8 @@ public sealed class GitHubSettingsTests
             RefType = refType,
             RefName = refName,
             EventName = eventName,
+            OidcRequestUrl = "test",
+            OidcRequestToken = "test",
         };
 
         settings.IsMainPush.ShouldBe(isMainPush);
@@ -85,8 +91,20 @@ public sealed class GitHubSettingsTests
             RefType = refType,
             RefName = refName,
             EventName = eventName,
+            OidcRequestUrl = "test",
+            OidcRequestToken = "test",
         };
 
         settings.IsTagPush.ShouldBe(isTagPush);
+    }
+
+    [Test]
+    public void OidcRequestTokenShouldBeMarkedWithSecretsAttribute()
+    {
+        typeof(GitHubSettings)
+            .GetProperty(nameof(GitHubSettings.OidcRequestToken))
+            .ShouldNotBeNull()
+            .GetCustomAttribute<SecretValueAttribute>()
+            .ShouldNotBeNull();
     }
 }

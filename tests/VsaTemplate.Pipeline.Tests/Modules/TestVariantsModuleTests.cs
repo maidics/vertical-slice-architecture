@@ -35,6 +35,8 @@ public sealed class TestVariantsModuleTests()
                 RefType = refType,
                 RefName = refName,
                 EventName = eventName,
+                OidcRequestUrl = "test",
+                OidcRequestToken = "test",
             }
         );
 
@@ -72,9 +74,7 @@ public sealed class TestVariantsModuleTests()
                 Path.Combine(Template.ArtifactsDirectory.TemplateVariantsDirectory, variant.Name, p)
             );
 
-            builder
-                .WithProjects(p => p.SequenceEqual(expectedProjects))
-                .WasCalled(Times.Once);
+            builder.WithProjects(p => p.SequenceEqual(expectedProjects)).WasCalled(Times.Once);
         }
 
         builder.BuildAsync().WasCalled(Times.Exactly(variants.Count));

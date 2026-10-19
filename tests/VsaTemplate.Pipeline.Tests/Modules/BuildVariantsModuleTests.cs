@@ -31,6 +31,8 @@ public sealed class BuildVariantsModuleTests()
                 RefType = refType,
                 RefName = refName,
                 EventName = eventName,
+                OidcRequestUrl = "test",
+                OidcRequestToken = "test",
             }
         );
 

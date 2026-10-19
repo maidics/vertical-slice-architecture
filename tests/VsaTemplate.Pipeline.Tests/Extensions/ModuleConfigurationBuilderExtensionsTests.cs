@@ -36,6 +36,8 @@ public sealed class ModuleConfigurationBuilderExtensionsTests
             RefType = refType,
             RefName = refName,
             EventName = eventName,
+            OidcRequestUrl = "test",
+            OidcRequestToken = "test",
         };
 
         var config = ModuleConfiguration.Create().WithNonPrAndNonMainPushSkip(settings).Build();
@@ -65,6 +67,8 @@ public sealed class ModuleConfigurationBuilderExtensionsTests
             RefType = refType,
             RefName = refName,
             EventName = eventName,
+            OidcRequestUrl = "test",
+            OidcRequestToken = "test",
         };
 
         var config = ModuleConfiguration.Create().WithNonTagPushSkip(settings).Build();

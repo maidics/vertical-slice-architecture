@@ -32,6 +32,8 @@ public sealed class InstantiateTemplateVariantsModuleTests()
                 RefType = refType,
                 RefName = refName,
                 EventName = eventName,
+                OidcRequestUrl = "test",
+                OidcRequestToken = "test",
             }
         );
 

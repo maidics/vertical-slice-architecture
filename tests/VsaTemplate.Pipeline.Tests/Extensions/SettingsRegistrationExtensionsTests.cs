@@ -10,8 +10,8 @@ namespace VsaTemplate.Pipeline.Tests.Extensions;
 public sealed class SettingsRegistrationExtensionsTests
 {
     [Test]
-    [MethodDataSource(nameof(AddGitHubSettingsShouldThrowOnStartIfAnyConfigurationIsEmptySource))]
-    public async Task AddGitHubSettingsShouldThrowOnStartIfAnyConfigurationIsEmpty(
+    [MethodDataSource(nameof(AddGitHubSettingsShouldThrowOnStartIfAnyConfigurationIsEmptySource))] // tag push always false
+    public async Task AddGitHubSettingsShouldThrowOnStartIfAnyConfigurationIsEmpty( // so will not validate OIDC properties
         Dictionary<string, string?> configValues
     )
     {
@@ -52,6 +52,74 @@ public sealed class SettingsRegistrationExtensionsTests
                 ["GITHUB_REF_NAME"] = "test",
                 ["GITHUB_EVENT_NAME"] = null,
             };
+    }
+
+    [Test]
+    [Arguments("", "token")]
+    [Arguments(null, "token")]
+    [Arguments("url", "")]
+    [Arguments("url", null)]
+    public async Task AddGitHubSettingsShouldThrowOnTagPushIfAnyOidcPropertyIsMissing(
+        string? oidcRequestUrl,
+        string? oidcRequestToken
+    )
+    {
+        var config = new ConfigurationBuilder()
+            .AddInMemoryCollection(
+                new Dictionary<string, string?>
+                {
+                    ["GITHUB_REF_TYPE"] = "tag",
+                    ["GITHUB_REF_NAME"] = "test",
+                    ["GITHUB_EVENT_NAME"] = "test",
+                    ["ACTIONS_ID_TOKEN_REQUEST_URL"] = oidcRequestUrl,
+                    ["ACTIONS_ID_TOKEN_REQUEST_TOKEN"] = oidcRequestToken,
+                }
+            )
+            .Build();
+
+        var services = new ServiceCollection();
+        services.AddGitHubSettings(config);
+
+        await using var provider = services.BuildServiceProvider();
+
+        var ex = Should.Throw<OptionsValidationException>(() =>
+            provider.GetRequiredService<IStartupValidator>().Validate()
+        );
+
+        if (string.IsNullOrEmpty(oidcRequestUrl))
+            ex.Message.ShouldBe("ACTIONS_ID_TOKEN_REQUEST_URL is required on tag pushes.");
+        else
+            ex.Message.ShouldBe("ACTIONS_ID_TOKEN_REQUEST_TOKEN is required on tag pushes.");
+    }
+
+    [Test]
+    [Arguments("", "token")]
+    [Arguments("", "")]
+    [Arguments("url", "")]
+    public async Task AddGitHubSettingsShouldNotThrowIfAnyOidcPropertyIsMissingOnNonTagPush(
+        string? oidcRequestUrl,
+        string? oidcRequestToken
+    )
+    {
+        var config = new ConfigurationBuilder()
+            .AddInMemoryCollection(
+                new Dictionary<string, string?>
+                {
+                    ["GITHUB_REF_TYPE"] = "non-tag",
+                    ["GITHUB_REF_NAME"] = "test",
+                    ["GITHUB_EVENT_NAME"] = "test",
+                    ["ACTIONS_ID_TOKEN_REQUEST_URL"] = oidcRequestUrl,
+                    ["ACTIONS_ID_TOKEN_REQUEST_TOKEN"] = oidcRequestToken,
+                }
+            )
+            .Build();
+
+        var services = new ServiceCollection();
+        services.AddGitHubSettings(config);
+
+        await using var provider = services.BuildServiceProvider();
+
+        Should.NotThrow(() => provider.GetRequiredService<IStartupValidator>().Validate());
     }
 
     [Test]
