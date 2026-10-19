@@ -9,6 +9,7 @@ using ModularPipelines.Http;
 using ModularPipelines.Modules;
 using ModularPipelines.Options;
 using VsaTemplate.Pipeline.Extensions;
+using VsaTemplate.Pipeline.Interfaces;
 using VsaTemplate.Pipeline.Settings;
 
 namespace VsaTemplate.Pipeline.Modules;
@@ -18,12 +19,15 @@ public sealed class NuGetLoginModule : Module<string>
 {
     private readonly GitHubSettings _gitHubSettings;
     private readonly NuGetSettings _nuGetSettings;
+    private readonly IGithubSecretMasker _secretMasker;
 
     public NuGetLoginModule(
         IOptions<GitHubSettings> githubOptions,
-        IOptions<NuGetSettings> nugetOptions
+        IOptions<NuGetSettings> nugetOptions,
+        IGithubSecretMasker secretMasker
     )
     {
+        _secretMasker = secretMasker;
         _gitHubSettings = githubOptions.Value;
         _nuGetSettings = nugetOptions.Value;
     }
@@ -48,7 +52,7 @@ public sealed class NuGetLoginModule : Module<string>
             cancellationToken
         );
 
-        return await EnsureApiKeyExistAsync(response, cancellationToken);
+        return await EnsureApiKeyExistAsync(response, _secretMasker, cancellationToken);
     }
 
     public static async Task<HttpResponseMessage> GetApiKeyAsync(
@@ -75,6 +79,7 @@ public sealed class NuGetLoginModule : Module<string>
 
     public static async Task<string> EnsureApiKeyExistAsync(
         HttpResponseMessage response,
+        IGithubSecretMasker secretMasker,
         CancellationToken cancellationToken
     )
     {
@@ -85,6 +90,8 @@ public sealed class NuGetLoginModule : Module<string>
             throw new InvalidOperationException(
                 "Short-lived API key is null or empty in response under: \"apiKey\" key."
             );
+
+        secretMasker.Mask(key);
 
         return key;
     }

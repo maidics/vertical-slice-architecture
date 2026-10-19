@@ -3,6 +3,7 @@ using System.Text.Json;
 using Microsoft.Extensions.Options;
 using ModularPipelines.Http;
 using Shouldly;
+using VsaTemplate.Pipeline.Interfaces;
 using VsaTemplate.Pipeline.Modules;
 using VsaTemplate.Pipeline.Settings;
 using VsaTemplate.Pipeline.Tests.TestInfrastructure.BaseClasses;
@@ -30,9 +31,11 @@ public sealed class NuGetLoginModuleTests()
             }
         );
 
-        var nugetOptions = IOptions<NuGetSettings>.Mock();
-
-        var module = new NuGetLoginModule(githubOptions, nugetOptions.Object);
+        var module = new NuGetLoginModule(
+            githubOptions,
+            IOptions<NuGetSettings>.Mock().Object,
+            IGithubSecretMasker.Mock().Object
+        );
 
         var config = module.GetConfiguration();
         await config.ShouldSkipOnNonTagPushAsync(githubOptions.Value.IsTagPush);
@@ -92,7 +95,11 @@ public sealed class NuGetLoginModuleTests()
         response.Content = new StringContent(serialized);
 
         var ex = await Should.ThrowAsync<InvalidOperationException>(() =>
-            NuGetLoginModule.EnsureApiKeyExistAsync(response, CancellationToken.None)
+            NuGetLoginModule.EnsureApiKeyExistAsync(
+                response,
+                IGithubSecretMasker.Mock().Object,
+                CancellationToken.None
+            )
         );
 
         ex.Message.ShouldBe(
@@ -101,7 +108,7 @@ public sealed class NuGetLoginModuleTests()
     }
 
     [Test]
-    public async Task EnsureApiKeyExistAsyncShouldReturnApiKeyIfExists()
+    public async Task EnsureApiKeyExistAsyncShouldReturnApiKeyIfExistsAndMaskApiKey()
     {
         string apiKey = Guid.NewGuid().ToString();
         var body = new { apiKey };
@@ -111,7 +118,15 @@ public sealed class NuGetLoginModuleTests()
         using var response = new HttpResponseMessage();
         response.Content = new StringContent(serialized);
 
-        var key = await NuGetLoginModule.EnsureApiKeyExistAsync(response, CancellationToken.None);
+        var secretMasker = IGithubSecretMasker.Mock();
+
+        var key = await NuGetLoginModule.EnsureApiKeyExistAsync(
+            response,
+            secretMasker.Object,
+            CancellationToken.None
+        );
         key.ShouldBe(apiKey);
+
+        secretMasker.Mask(apiKey).WasCalled(Times.Once);
     }
 }

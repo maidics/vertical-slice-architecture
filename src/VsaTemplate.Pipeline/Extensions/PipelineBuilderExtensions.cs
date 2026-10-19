@@ -36,7 +36,7 @@ public static class PipelineBuilderExtensions
         {
             builder.Services.AddSingleton<ISolutionFilterBuilder, SolutionFilterBuilder>();
             builder.Services.AddTransient<IMemoryInfo, MemoryInfo>();
-            builder.Services.AddSingleton<IGithubSecretMasker, GithubSecretMasker>(); // TODO: do testing
+            builder.Services.AddSingleton<IGithubSecretMasker, GithubSecretMasker>();
 
             return builder;
         }
