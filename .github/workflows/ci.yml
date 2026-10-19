@@ -40,3 +40,5 @@ jobs:
 
       - name: Run pipeline
         run: dotnet run --project src/VsaTemplate.Pipeline/VsaTemplate.Pipeline.csproj -c Release
+        env:
+          NUGET_USER: ${{ secrets.NUGET_USER }}
