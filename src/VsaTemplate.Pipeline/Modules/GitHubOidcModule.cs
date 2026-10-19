@@ -24,12 +24,14 @@ public sealed class GitHubOidcModule : Module<string>
         _settings = options.Value;
     }
 
+    // TODO: add skip logic
+
     protected override async Task<string?> ExecuteAsync(
         IModuleContext context,
         CancellationToken cancellationToken
     )
     {
-        using var response = await GetTokenAsync(
+        using var response = await GetResponseAsync(
             _settings,
             context.Network.Http,
             cancellationToken
@@ -38,14 +40,14 @@ public sealed class GitHubOidcModule : Module<string>
         return await EnsureTokenExistAsync(response, _secretRegistry, cancellationToken);
     }
 
-    public static async Task<HttpResponseMessage> GetTokenAsync(
+    public static async Task<HttpResponseMessage> GetResponseAsync(
         GitHubSettings settings,
         IHttp http,
         CancellationToken cancellationToken
     )
     {
         var target = new Uri(
-            $"{settings.OidcRequestUrl}&audience={Uri.EscapeDataString("https://nuget.org")}"
+            $"{settings.OidcRequestUrl}&audience={Uri.EscapeDataString("https://www.nuget.org")}"
         );
 
         using var request = new HttpRequestMessage(HttpMethod.Get, target);
@@ -76,11 +78,11 @@ public sealed class GitHubOidcModule : Module<string>
     )
     {
         var json = await response.Content.ReadFromJsonAsync<JsonElement>(cancellationToken);
-        var token = json.GetProperty("token").GetString();
+        var token = json.GetProperty("value").GetString();
 
         if (string.IsNullOrEmpty(token))
             throw new InvalidOperationException(
-                "No OIDC token found in response under: \"token\" key."
+                "OIDC token is null or empty in response under: \"value\" key."
             );
 
         secretRegistry.AddSecret(token);
