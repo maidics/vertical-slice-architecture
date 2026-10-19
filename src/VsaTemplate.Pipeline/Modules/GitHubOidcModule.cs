@@ -4,7 +4,6 @@ using System.Text.Json;
 using Microsoft.Extensions.Options;
 using ModularPipelines.Attributes;
 using ModularPipelines.Context;
-using ModularPipelines.Engine;
 using ModularPipelines.Http;
 using ModularPipelines.Modules;
 using ModularPipelines.Options;
@@ -16,11 +15,9 @@ namespace VsaTemplate.Pipeline.Modules;
 public sealed class GitHubOidcModule : Module<string>
 {
     private readonly GitHubSettings _settings;
-    private readonly ISecretRegistry _secretRegistry;
 
-    public GitHubOidcModule(IOptions<GitHubSettings> options, ISecretRegistry secretRegistry)
+    public GitHubOidcModule(IOptions<GitHubSettings> options)
     {
-        _secretRegistry = secretRegistry;
         _settings = options.Value;
     }
 
@@ -37,7 +34,7 @@ public sealed class GitHubOidcModule : Module<string>
             cancellationToken
         );
 
-        return await EnsureTokenExistAsync(response, _secretRegistry, cancellationToken);
+        return await EnsureTokenExistAsync(response, cancellationToken);
     }
 
     public static async Task<HttpResponseMessage> GetResponseAsync(
@@ -59,7 +56,7 @@ public sealed class GitHubOidcModule : Module<string>
         var options = new HttpOptions(request)
         {
             ThrowOnNonSuccessStatusCode = true, // request failed: no token in response, safe to throw
-            LoggingType = HttpLoggingType.StatusCode,
+            LoggingType = HttpLoggingType.StatusCode, // LogSettings only works with custom HttpClient => potential JWT leak
         };
 
         return await http.SendAsync(options, cancellationToken);
@@ -67,7 +64,6 @@ public sealed class GitHubOidcModule : Module<string>
 
     public static async Task<string> EnsureTokenExistAsync(
         HttpResponseMessage response,
-        ISecretRegistry secretRegistry,
         CancellationToken cancellationToken
     )
     {
@@ -78,8 +74,6 @@ public sealed class GitHubOidcModule : Module<string>
             throw new InvalidOperationException(
                 "OIDC token is null or empty in response under: \"value\" key."
             );
-
-        //secretRegistry.AddSecret(token);
 
         return token;
     }
