@@ -56,6 +56,8 @@ public sealed class PipelineBuilderExtensionsTests
         ContainsService<ISolutionFilterBuilder, SolutionFilterBuilder>(ServiceLifetime.Singleton)
             .ShouldBeTrue();
         ContainsService<IMemoryInfo, MemoryInfo>(ServiceLifetime.Transient).ShouldBeTrue();
+        ContainsService<IGithubSecretMasker, GithubSecretMasker>(ServiceLifetime.Singleton)
+            .ShouldBeTrue();
     }
 
     [Test]
