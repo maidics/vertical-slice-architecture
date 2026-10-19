@@ -41,7 +41,7 @@ public sealed class NuGetLoginModule : Module<string>
         var result = await context.GetModule<GitHubOidcModule>();
         ArgumentNullException.ThrowIfNull(result.ValueOrDefault);
 
-        var response = await GetApiKeyAsync(
+        using var response = await GetApiKeyAsync(
             _nuGetSettings,
             context.Network.Http,
             result.ValueOrDefault,
