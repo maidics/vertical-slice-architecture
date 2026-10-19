@@ -7,6 +7,7 @@ using Shouldly;
 using VsaTemplate.Pipeline.Extensions;
 using VsaTemplate.Pipeline.Interfaces;
 using VsaTemplate.Pipeline.Modules;
+using VsaTemplate.Pipeline.Requirements;
 using VsaTemplate.Pipeline.Services;
 
 namespace VsaTemplate.Pipeline.Tests.Extensions;
@@ -66,9 +67,10 @@ public sealed class PipelineBuilderExtensionsTests
     {
         _builder.AddRequirements();
 
-        _builder.Services.Count(d => d.ServiceType == typeof(IPipelineRequirement)).ShouldBe(1);
+        _builder.Services.Count(d => d.ServiceType == typeof(IPipelineRequirement)).ShouldBe(2);
 
         ContainsService<IPipelineRequirement, LinuxRequirement>().ShouldBeTrue();
+        ContainsService<IPipelineRequirement, VersionTagRequirement>().ShouldBeTrue();
     }
 
     private bool ContainsService<TService, TImplementation>(ServiceLifetime? lifetime = null)
