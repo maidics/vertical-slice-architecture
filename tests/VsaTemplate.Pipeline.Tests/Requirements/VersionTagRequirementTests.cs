@@ -28,7 +28,7 @@ public sealed class VersionTagRequirementTests
         logger.Collector.Count.ShouldBe(1);
         logger.Collector.LatestRecord.Level.ShouldBe(LogLevel.Information);
         logger.Collector.LatestRecord.Message.ShouldBe(
-            $"[{typeof(VersionTagRequirement)}] returning early on non tag push."
+            $"{typeof(VersionTagRequirement)} - returning early on non tag push."
         );
     }
 
