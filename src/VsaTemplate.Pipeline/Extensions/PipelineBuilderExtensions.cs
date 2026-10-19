@@ -57,7 +57,8 @@ public static class PipelineBuilderExtensions
                 .AddModule<RestoreVariantsModule>()
                 .AddModule<BuildVariantsModule>()
                 .AddModule<TestVariantsModule>()
-                .AddModule<GitHubOidcModule>();
+                .AddModule<GitHubOidcModule>()
+                .AddModule<NuGetLoginModule>();
         }
     }
 }
