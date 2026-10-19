@@ -85,7 +85,7 @@ public sealed class GitHubOidcModule : Module<string>
                 "OIDC token is null or empty in response under: \"value\" key."
             );
 
-        secretRegistry.AddSecret(token);
+        //secretRegistry.AddSecret(token);
 
         return token;
     }
