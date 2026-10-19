@@ -20,7 +20,7 @@ public sealed partial class VersionTagRequirement(IOptions<GitHubSettings> optio
         if (!options.Value.IsTagPush)
         {
             context.Logger.LogInformation(
-                "[{Requirement}] returning early on non tag push.",
+                "{Requirement} - returning early on non tag push.",
                 typeof(VersionTagRequirement)
             );
             return RequirementDecision.Passed;
