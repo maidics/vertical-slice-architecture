@@ -1,7 +1,8 @@
 ﻿using Microsoft.Extensions.Options;
 using ModularPipelines.Context;
+using ModularPipelines.DotNet.Options;
 using ModularPipelines.DotNet.Services;
-using VsaTemplate.Pipeline.Interfaces;
+using VsaTemplate.Pipeline.Constants;
 using VsaTemplate.Pipeline.Modules;
 using VsaTemplate.Pipeline.Settings;
 using VsaTemplate.Pipeline.Tests.TestInfrastructure.BaseClasses;
@@ -29,13 +30,42 @@ public sealed class NuGetPushModuleTests()
             }
         );
 
-        var module = new NuGetLoginModule(
-            options,
-            IOptions<NuGetSettings>.Mock().Object,
-            IGithubSecretMasker.Mock().Object
-        );
+        var module = new NuGetPushModule(options);
 
         var config = module.GetConfiguration();
         await config.ShouldSkipOnNonTagPushAsync(options.Value.IsTagPush);
+    }
+
+    [Test]
+    public async Task PushPackageAsyncShouldPushPackageWithoutLoggingCommandArguments()
+    {
+        // DotNetNuget is a concrete class, so verify what it passes to the underlying command
+        var command = ICommand.Mock();
+
+        var dotnet = IDotNet.Mock();
+        dotnet.Nuget.Returns(new DotNetNuget(command.Object));
+
+        string apiKey = Guid.NewGuid().ToString();
+
+        await NuGetPushModule.PushPackageAsync(apiKey, dotnet.Object, CancellationToken.None);
+
+        command
+            .ExecuteCommandLineTool(
+                o =>
+                    o is DotNetNugetPushOptions push
+                    && push.ApiKey == apiKey
+                    && push.Source == NuGetSettings.PushSource
+                    && push.Path
+                        == Path.Combine(
+                            Template.ArtifactsDirectory.PackageReleaseDirectory,
+                            "*.nupkg"
+                        ),
+                e =>
+                    e != null
+                    && e.LogSettings != null
+                    && !e.LogSettings.ShowCommandArguments,
+                Any()
+            )
+            .WasCalled(Times.Once);
     }
 }
