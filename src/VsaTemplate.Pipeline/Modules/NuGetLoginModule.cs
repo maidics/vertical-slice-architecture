@@ -32,10 +32,10 @@ public sealed class NuGetLoginModule : Module<string>
         _nuGetSettings = nugetOptions.Value;
     }
 
-    protected override ModuleConfiguration Configure()
-    {
-        return ModuleConfiguration.Create().WithNonTagPushSkip(_gitHubSettings).Build();
-    }
+    // protected override ModuleConfiguration Configure()
+    // {
+    //     return ModuleConfiguration.Create().WithNonTagPushSkip(_gitHubSettings).Build();
+    // }
 
     protected override async Task<string?> ExecuteAsync(
         IModuleContext context,
