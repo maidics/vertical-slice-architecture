@@ -14,7 +14,7 @@ using VsaTemplate.Pipeline.Settings;
 namespace VsaTemplate.Pipeline.Modules;
 
 [DependsOn<NuGetLoginModule>]
-public sealed class NuGetPushModule : Module // TODO: add tests, register via extension and test registration
+public sealed class NuGetPushModule : Module
 {
     private readonly GitHubSettings _settings;
 
