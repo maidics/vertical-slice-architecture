@@ -5,6 +5,7 @@ using ModularPipelines.Options;
 using ModularPipelines.Requirements;
 using VsaTemplate.Pipeline.Interfaces;
 using VsaTemplate.Pipeline.Modules;
+using VsaTemplate.Pipeline.Requirements;
 using VsaTemplate.Pipeline.Services;
 
 namespace VsaTemplate.Pipeline.Extensions;
@@ -43,7 +44,9 @@ public static class PipelineBuilderExtensions
 
         public PipelineBuilder AddRequirements()
         {
-            return builder.AddRequirement<LinuxRequirement>();
+            return builder
+                .AddRequirement<LinuxRequirement>()
+                .AddRequirement<VersionTagRequirement>();
         }
 
         public PipelineBuilder AddModules()
