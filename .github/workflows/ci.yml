@@ -1,16 +1,41 @@
 name: CI
 
+permissions:
+  id-token: write
+  contents: read
+
 on:
   push:
-    branches: ['**'] # runs on all branches, but pack & publish only ran on master branch
+    branches: [main]
     tags: ['v*']
+    paths-ignore:
+      - '.claude/**'
+      - 'docs/**'
+      - '**.md'
+      - 'scripts/**'
+      - 'LICENSE'
+      - '.gitignore'
+      - '.gitattributes'
+      - '.editorconfig'
+      - 'renovate.json'
+  pull_request:
+    paths-ignore:
+      - '.claude/**'
+      - 'docs/**'
+      - '**.md'
+      - 'scripts/**'
+      - 'LICENSE'
+      - '.gitignore'
+      - '.gitattributes'
+      - '.editorconfig'
+      - 'renovate.json'
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true # cancels in progress run if pushing again
 
-jobs: # only runs pack -> test if there changes to something that is not inside .github/
-  ci: # only runs publish if a new tag is pushed
+jobs:
+  pipeline:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -18,67 +43,18 @@ jobs: # only runs pack -> test if there changes to something that is not inside 
       id-token: write # enable GitHub OIDC token issuance for this job
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: dorny/paths-filter@v4
-        if: github.ref_type != 'tag'
-        id: filter
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v5
         with:
-          base: ${{ github.ref }}
-          predicate-quantifier: 'every'
-          filters: |
-            relevant:
-              - '**'
-              - '!.github/**'
-              - '!docs/**'
-              - '!scripts/**'
+          global-json-file: global.json
 
-      - name: Announce skip
-        if: steps.filter.outputs.relevant == 'false'
-        run: echo "::notice::Skipping CI/publish — only .github files changed"
-
-      - name: Run CI?
-        id: gate
-        run: echo "run=${{ github.ref_type == 'tag' || steps.filter.outputs.relevant == 'true' }}" >> "$GITHUB_OUTPUT"
-
-      - uses: actions/setup-dotnet@v4
-        if: steps.gate.outputs.run == 'true'
-        with:
-          global-json-file: ./global.json
-
-      - name: Pack Template
-        if: steps.gate.outputs.run == 'true'
-        run: dotnet pack nuspec.csproj
-
-      - name: Install Template
-        if: steps.gate.outputs.run == 'true'
+      - name: Run pipeline
+        shell: bash # bash -eo pipefail: pipeline failures are not swallowed by sed
         run: |
-          count=$(ls ./artifacts/package/release/*.nupkg 2>/dev/null | wc -l)
-          if [ "$count" -ne 1 ]; then
-            echo "::error::Expected exactly 1 .nupkg, found $count"
-            exit 1
-          fi
-          dotnet new install ./artifacts/package/release/*.nupkg
-
-      - name: Instantiate Template
-        if: steps.gate.outputs.run == 'true'
-        run: dotnet new vsa-sln -n Scratch -o ./scratch -e
-
-      - name: Build Instantiated
-        if: steps.gate.outputs.run == 'true'
-        run: dotnet build ./scratch/Scratch.slnx
-
-      - name: Test Instantiated
-        if: steps.gate.outputs.run == 'true'
-        run: dotnet test ./scratch/Scratch.slnx --disable-logo
-
-      - name: NuGet Login # retrieves the short-lived API key from NuGet
-        if: github.ref_type == 'tag'
-        uses: NuGet/login@v1
-        id: login
-        with:
-          user: ${{ secrets.NUGET_USER }}
-
-      - name: Push to NuGet
-        if: github.ref_type == 'tag'
-        run: dotnet nuget push "./artifacts/package/release/*.nupkg" -k "${{ steps.login.outputs.NUGET_API_KEY }}" -s https://api.nuget.org/v3/index.json
+          dotnet run --project src/VsaTemplate.Pipeline/VsaTemplate.Pipeline.csproj -c Release 2>&1 \
+            | sed -u -E '/^::add-mask::/!{ s/eyJ[A-Za-z0-9_-]+(\.[A-Za-z0-9_-]+){0,2}/***/g; s/[A-Za-z0-9_-]{100,}/***/g; }'
+        env:
+          NUGET_USER: ${{ secrets.NUGET_USER }}

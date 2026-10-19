@@ -33,6 +33,10 @@ dotnet new vsa-sln -n [SolutionName]
 - [Scalar](https://scalar.com/)
 - [TUnit](https://tunit.dev/), [TUnit.Mocks](https://tunit.dev/docs/writing-tests/mocking/), [Shouldly](https://docs.shouldly.org/), & [Respawn](https://github.com/jbogard/Respawn)
 - [ModularPipelines](https://thomhurst.github.io/ModularPipelines/) (`-mp` option only)
+  - **SECURITY ISSUE**:
+    - **Version 3.2.8 has an issue with console width and secret masking which results in long tokens and line wrapping to leak secrets (via logging) when using `SecretValueAttribute` & `ISecretRegistry`.**
+    - My suggestion is to **not log** anything regarding those operations (e.g. IModuleContext command calls will automatically log the command itself - you must prevent this if the command contains an API key, see: [`NuGetPushModule`](src/VsaTemplate.Pipeline/Modules/NuGetPushModule.cs)).
+    - Or you may increase console width and use the provided `SecretValueAttribute` and `ISecretRegistry`.
 
 ---
 

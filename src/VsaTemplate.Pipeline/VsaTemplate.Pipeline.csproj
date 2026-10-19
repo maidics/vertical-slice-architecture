@@ -5,5 +5,9 @@
 
   <ItemGroup>
     <PackageReference Include="ModularPipelines" />
+    <!--#if (TemplateDev) -->
+    <PackageReference Include="Microsoft.Extensions.Options.DataAnnotations" />
+    <PackageReference Include="ModularPipelines.DotNet" />
+    <!--#endif -->
   </ItemGroup>
 </Project>
