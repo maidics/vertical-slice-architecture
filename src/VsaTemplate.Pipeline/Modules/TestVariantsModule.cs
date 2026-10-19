@@ -1,4 +1,4 @@
-using EnumerableAsyncProcessor.Extensions;
+﻿using EnumerableAsyncProcessor.Extensions;
 using EnumerableAsyncProcessor.Interfaces;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -71,15 +71,8 @@ public sealed class TestVariantsModule : Module
         {
             var filter = await builder
                 .WithName($"Variant.{variant.Name}")
-                .WithProjects([
-                    .. variant.TestProjects.Select(p =>
-                        Path.Combine(
-                            Template.ArtifactsDirectory.TemplateVariantsDirectory,
-                            variant.Name,
-                            p
-                        )
-                    ),
-                ])
+                .WithSolution(variant.Solution)
+                .WithProjects([.. variant.TestProjects])
                 .BuildAsync();
 
             filters.Add(filter);

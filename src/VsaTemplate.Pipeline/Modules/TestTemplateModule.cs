@@ -26,6 +26,7 @@ public sealed class TestTemplateModule(ISolutionFilterBuilder builder) : Module
     {
         return await builder
             .WithName(nameof(TestTemplateModule))
+            .WithSolution(Template.Solution)
             .WithProjects(
                 Template.ProjectPaths.UnitTests,
                 Template.ProjectPaths.WebTests,
