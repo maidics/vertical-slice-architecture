@@ -13,7 +13,7 @@ using VsaTemplate.Pipeline.Settings;
 
 namespace VsaTemplate.Pipeline.Modules;
 
-[DependsOn<TestVariantsModule>]
+[DependsOn<GitHubOidcModule>]
 public sealed class NuGetLoginModule : Module<string>
 {
     private readonly GitHubSettings _gitHubSettings;
