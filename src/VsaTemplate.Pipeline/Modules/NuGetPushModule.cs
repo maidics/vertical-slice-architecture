@@ -1,4 +1,6 @@
-﻿using ModularPipelines.Attributes;
+﻿using Microsoft.Extensions.Options;
+using ModularPipelines.Attributes;
+using ModularPipelines.Configuration;
 using ModularPipelines.Context;
 using ModularPipelines.DotNet.Extensions;
 using ModularPipelines.DotNet.Options;
@@ -6,6 +8,7 @@ using ModularPipelines.DotNet.Services;
 using ModularPipelines.Modules;
 using ModularPipelines.Options;
 using VsaTemplate.Pipeline.Constants;
+using VsaTemplate.Pipeline.Extensions;
 using VsaTemplate.Pipeline.Settings;
 
 namespace VsaTemplate.Pipeline.Modules;
@@ -13,6 +16,18 @@ namespace VsaTemplate.Pipeline.Modules;
 [DependsOn<NuGetLoginModule>]
 public sealed class NuGetPushModule : Module // TODO: add tests, register via extension and test registration
 {
+    private readonly GitHubSettings _settings;
+
+    public NuGetPushModule(IOptions<GitHubSettings> options)
+    {
+        _settings = options.Value;
+    }
+
+    protected override ModuleConfiguration Configure()
+    {
+        return ModuleConfiguration.Create().WithNonTagPushSkip(_settings).Build();
+    }
+
     protected override async Task ExecuteModuleAsync(
         IModuleContext context,
         CancellationToken cancellationToken
