@@ -6,6 +6,19 @@ permissions:
 
 on:
   push:
+    branches: [main]
+    tags: ['v*']
+    paths-ignore:
+      - '.claude/**'
+      - 'docs/**'
+      - '**.md'
+      - 'scripts/**'
+      - 'LICENSE'
+      - '.gitignore'
+      - '.gitattributes'
+      - '.editorconfig'
+      - 'renovate.json'
+  pull_request:
     paths-ignore:
       - '.claude/**'
       - 'docs/**'
