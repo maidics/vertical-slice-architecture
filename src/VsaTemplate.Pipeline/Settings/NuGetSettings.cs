@@ -14,4 +14,6 @@ public sealed record NuGetSettings
     public static Uri TokenEndpointUri => new(_tokenEndpoint);
 
     public const string ApiKeyTokenType = "ApiKey";
+
+    public const string PushSource = "https://api.nuget.org/v3/index.json";
 }
