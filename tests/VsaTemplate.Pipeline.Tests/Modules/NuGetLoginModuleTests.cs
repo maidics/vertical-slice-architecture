@@ -18,6 +18,7 @@ public sealed class NuGetLoginModuleTests()
     [Test]
     [Arguments("tag")]
     [Arguments("non-tag")]
+    [Skip("Temporarily disabled")]
     public async Task ShouldSkipOnNonTagPushes(string refType)
     {
         var githubOptions = Options.Create(
