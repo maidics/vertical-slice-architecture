@@ -3,10 +3,12 @@ using System.Net.Http.Json;
 using System.Text.Json;
 using Microsoft.Extensions.Options;
 using ModularPipelines.Attributes;
+using ModularPipelines.Configuration;
 using ModularPipelines.Context;
 using ModularPipelines.Http;
 using ModularPipelines.Modules;
 using ModularPipelines.Options;
+using VsaTemplate.Pipeline.Extensions;
 using VsaTemplate.Pipeline.Settings;
 
 namespace VsaTemplate.Pipeline.Modules;
@@ -21,7 +23,10 @@ public sealed class GitHubOidcModule : Module<string>
         _settings = options.Value;
     }
 
-    // TODO: add skip logic
+    protected override ModuleConfiguration Configure()
+    {
+        return ModuleConfiguration.Create().WithNonTagPushSkip(_settings).Build();
+    }
 
     protected override async Task<string?> ExecuteAsync(
         IModuleContext context,
