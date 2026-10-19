@@ -15,11 +15,13 @@ public sealed class TestTemplateModuleTests()
     {
         var builder = ISolutionFilterBuilder.Mock();
         builder.WithName(Any()).Returns(builder.Object);
+        builder.WithSolution(Any()).Returns(builder.Object);
         builder.WithProjects(Any()).Returns(builder.Object);
 
         await TestTemplateModule.CreateSolutionFilterAsync(builder);
 
         builder.WithName(nameof(TestTemplateModule)).WasCalled(Times.Once);
+        builder.WithSolution(Template.Solution).WasCalled(Times.Once);
         builder
             .WithProjects(
                 Template.ProjectPaths.UnitTests,

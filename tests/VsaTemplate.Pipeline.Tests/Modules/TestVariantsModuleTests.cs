@@ -1,4 +1,4 @@
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Testing;
 using Microsoft.Extensions.Options;
 using ModularPipelines.DotNet.Services;
@@ -57,6 +57,7 @@ public sealed class TestVariantsModuleTests()
         const string filter = nameof(filter);
         var builder = ISolutionFilterBuilder.Mock();
         builder.WithName(Any()).Returns(builder.Object);
+        builder.WithSolution(Any()).Returns(builder.Object);
         builder.WithProjects(Any()).Returns(builder.Object);
         builder.BuildAsync().Returns(filter);
 
@@ -70,11 +71,10 @@ public sealed class TestVariantsModuleTests()
         foreach (var variant in variants)
         {
             builder.WithName($"Variant.{variant.Name}").WasCalled(Times.Once);
-            var expectedProjects = variant.TestProjects.Select(p =>
-                Path.Combine(Template.ArtifactsDirectory.TemplateVariantsDirectory, variant.Name, p)
-            );
-
-            builder.WithProjects(p => p.SequenceEqual(expectedProjects)).WasCalled(Times.Once);
+            builder.WithSolution(variant.Solution).WasCalled(Times.Once);
+            builder
+                .WithProjects(p => p.SequenceEqual(variant.TestProjects))
+                .WasCalled(Times.Once);
         }
 
         builder.BuildAsync().WasCalled(Times.Exactly(variants.Count));
