@@ -109,7 +109,9 @@ public sealed class SolutionFilterBuilderTests
     [Test]
     public async Task BuildAsyncShouldCreateSolutionFilterFile()
     {
-        await using var fileSystem = new TestFileSystem("artifacts");
+        await using var fileSystem = new TestFileSystem(
+            Template.ArtifactsDirectory.SolutionFilterDirectory
+        );
 
         const string name = "SolutionFilterBuilderTesting";
         var solutionPath = TemplateTesting.ResolvePathFromSolutionRoot(Template.Solution);
