@@ -64,6 +64,9 @@ public sealed class NuGetLoginModule : Module<string>
     {
         using var request = new HttpRequestMessage(HttpMethod.Post, NuGetSettings.TokenEndpointUri);
         request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", oidcToken);
+        request.Headers.UserAgent.Add(
+            new ProductInfoHeaderValue(nameof(VsaTemplate) + "." + nameof(Pipeline), "1.0.0")
+        );
         request.Content = JsonContent.Create(
             new { username = settings.User, tokenType = NuGetSettings.ApiKeyTokenType }
         );
