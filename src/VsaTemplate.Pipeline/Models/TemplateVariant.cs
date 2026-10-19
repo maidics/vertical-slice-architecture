@@ -29,7 +29,8 @@ public sealed record TemplateVariant
         new (string Name, string[] Arguments, string[] TestProjects)[]
         {
             ("Default", [], [Projects.UnitTests, Projects.WebTests]),
-            ("ModularPipelines", [Options.ModularPipelines], [Projects.UnitTests, Projects.WebTests]),
+            // not "ModularPipelines": "-n ModularPipelines" yields namespace ModularPipelines.Pipeline, which collides with the package
+            ("Pipelines", [Options.ModularPipelines], [Projects.UnitTests, Projects.WebTests]),
         }
             .SelectMany(variant =>
                 new[]
