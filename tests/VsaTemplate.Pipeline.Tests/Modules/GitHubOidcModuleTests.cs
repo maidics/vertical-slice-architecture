@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using ModularPipelines.Http;
 using Shouldly;
+using VsaTemplate.Pipeline.Interfaces;
 using VsaTemplate.Pipeline.Modules;
 using VsaTemplate.Pipeline.Settings;
 using VsaTemplate.Pipeline.Tests.TestInfrastructure.BaseClasses;
@@ -29,7 +30,9 @@ public sealed class GitHubOidcModuleTests()
             }
         );
 
-        var module = new GitHubOidcModule(options);
+        var secretMasker = IGithubSecretMasker.Mock();
+
+        var module = new GitHubOidcModule(options, secretMasker.Object);
 
         var config = module.GetConfiguration();
         await config.ShouldSkipOnNonTagPushAsync(options.Value.IsTagPush);
@@ -86,14 +89,18 @@ public sealed class GitHubOidcModuleTests()
         response.Content = new StringContent(serialized);
 
         var ex = await Should.ThrowAsync<InvalidOperationException>(() =>
-            GitHubOidcModule.EnsureTokenExistAsync(response, CancellationToken.None)
+            GitHubOidcModule.EnsureTokenExistAsync(
+                response,
+                IGithubSecretMasker.Mock().Object,
+                CancellationToken.None
+            )
         );
 
         ex.Message.ShouldBe("OIDC token is null or empty in response under: \"value\" key.");
     }
 
     [Test]
-    public async Task EnsureTokenExistAsyncShouldReturnTokenIfExists()
+    public async Task EnsureTokenExistAsyncShouldReturnTokenIfExistsAndMaskToken()
     {
         string jwt = Guid.NewGuid().ToString();
         var body = new { value = jwt };
@@ -103,7 +110,15 @@ public sealed class GitHubOidcModuleTests()
         using var response = new HttpResponseMessage();
         response.Content = new StringContent(serialized);
 
-        var token = await GitHubOidcModule.EnsureTokenExistAsync(response, CancellationToken.None);
+        var secretMasker = IGithubSecretMasker.Mock();
+
+        var token = await GitHubOidcModule.EnsureTokenExistAsync(
+            response,
+            secretMasker,
+            CancellationToken.None
+        );
         token.ShouldBe(jwt);
+
+        secretMasker.Mask(jwt).WasCalled(Times.Once);
     }
 }

@@ -9,6 +9,7 @@ using ModularPipelines.Http;
 using ModularPipelines.Modules;
 using ModularPipelines.Options;
 using VsaTemplate.Pipeline.Extensions;
+using VsaTemplate.Pipeline.Interfaces;
 using VsaTemplate.Pipeline.Settings;
 
 namespace VsaTemplate.Pipeline.Modules;
@@ -17,9 +18,11 @@ namespace VsaTemplate.Pipeline.Modules;
 public sealed class GitHubOidcModule : Module<string>
 {
     private readonly GitHubSettings _settings;
+    private readonly IGithubSecretMasker _secretMasker;
 
-    public GitHubOidcModule(IOptions<GitHubSettings> options)
+    public GitHubOidcModule(IOptions<GitHubSettings> options, IGithubSecretMasker secretMasker)
     {
+        _secretMasker = secretMasker;
         _settings = options.Value;
     }
 
@@ -39,7 +42,7 @@ public sealed class GitHubOidcModule : Module<string>
             cancellationToken
         );
 
-        return await EnsureTokenExistAsync(response, cancellationToken);
+        return await EnsureTokenExistAsync(response, _secretMasker, cancellationToken);
     }
 
     public static async Task<HttpResponseMessage> GetResponseAsync(
@@ -65,6 +68,7 @@ public sealed class GitHubOidcModule : Module<string>
 
     public static async Task<string> EnsureTokenExistAsync(
         HttpResponseMessage response,
+        IGithubSecretMasker secretMasker,
         CancellationToken cancellationToken
     )
     {
@@ -75,6 +79,8 @@ public sealed class GitHubOidcModule : Module<string>
             throw new InvalidOperationException(
                 "OIDC token is null or empty in response under: \"value\" key."
             );
+
+        secretMasker.Mask(token);
 
         return token;
     }
