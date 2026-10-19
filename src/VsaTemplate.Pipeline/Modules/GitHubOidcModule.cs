@@ -48,11 +48,7 @@ public sealed class GitHubOidcModule : Module<string>
         CancellationToken cancellationToken
     )
     {
-        var target = new Uri(
-            $"{settings.OidcRequestUrl}&audience={Uri.EscapeDataString("https://www.nuget.org")}"
-        );
-
-        using var request = new HttpRequestMessage(HttpMethod.Get, target);
+        using var request = new HttpRequestMessage(HttpMethod.Get, settings.GetOidcRequestUri());
         request.Headers.Authorization = new AuthenticationHeaderValue(
             "Bearer",
             settings.OidcRequestToken

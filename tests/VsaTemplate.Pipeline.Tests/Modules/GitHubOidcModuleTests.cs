@@ -67,11 +67,7 @@ public sealed class GitHubOidcModuleTests()
                     && o.LoggingType == HttpLoggingType.StatusCode
                     && o.HttpRequestMessage.Method == HttpMethod.Get
                     && o.HttpRequestMessage.RequestUri is not null
-                    && o.HttpRequestMessage.RequestUri.Equals(
-                        new Uri(
-                            $"{settings.OidcRequestUrl}&audience={Uri.EscapeDataString("https://www.nuget.org")}"
-                        )
-                    ),
+                    && o.HttpRequestMessage.RequestUri.Equals(settings.GetOidcRequestUri()),
                 Any()
             )
             .WasCalled(Times.Once);

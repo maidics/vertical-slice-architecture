@@ -33,4 +33,9 @@ public sealed record GitHubSettings
         EventName == _pushEvent && RefType == _branchRefType && RefName == _mainRefName;
 
     public bool IsTagPush => RefType == _tagRefType;
+
+    public Uri GetOidcRequestUri(string audience = "https://www.nuget.org/")
+    {
+        return new Uri($"{OidcRequestUrl}&audience={Uri.EscapeDataString(audience)}");
+    }
 }
