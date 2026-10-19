@@ -53,19 +53,13 @@ public sealed class GitHubOidcModule : Module<string>
         using var request = new HttpRequestMessage(HttpMethod.Get, target);
         request.Headers.Authorization = new AuthenticationHeaderValue(
             "Bearer",
-            settings.OidcRequestToken // this is masked by SecretValue
+            settings.OidcRequestToken
         );
 
         var options = new HttpOptions(request)
         {
-            ThrowOnNonSuccessStatusCode = true, // no token in response; safe to throw
-            LogSettings = HttpLoggingOptions.None with
-            {
-                LogResponse = false, // successful responses are not logged
-                LogResponseBody = false,
-                LogStatusCode = true,
-                SensitiveHeaderNames = ["Authorization"], // SecretValue masked additionally
-            },
+            ThrowOnNonSuccessStatusCode = true, // request failed: no token in response, safe to throw
+            LoggingType = HttpLoggingType.StatusCode,
         };
 
         return await http.SendAsync(options, cancellationToken);
