@@ -1,5 +1,7 @@
 ﻿using ModularPipelines;
+#if (TemplateDev)
 using VsaTemplate.Pipeline.Extensions;
+#endif
 
 var builder = Pipeline.CreateBuilder(args);
 
