@@ -26,10 +26,10 @@ public sealed class GitHubOidcModule : Module<string>
         _settings = options.Value;
     }
 
-    // protected override ModuleConfiguration Configure()
-    // {
-    //     return ModuleConfiguration.Create().WithNonTagPushSkip(_settings).Build();
-    // }
+    protected override ModuleConfiguration Configure()
+    {
+        return ModuleConfiguration.Create().WithNonTagPushSkip(_settings).Build();
+    }
 
     protected override async Task<string?> ExecuteAsync(
         IModuleContext context,

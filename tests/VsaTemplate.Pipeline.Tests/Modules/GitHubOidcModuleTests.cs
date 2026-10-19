@@ -17,7 +17,6 @@ public sealed class GitHubOidcModuleTests()
     [Test]
     [Arguments("tag")]
     [Arguments("not-tag")]
-    [Skip("Temporarily disabled")]
     public async Task ShouldSkipOnNonTagPushes(string refType)
     {
         var options = Options.Create(
