@@ -16,6 +16,12 @@ public sealed class TemplateVariantTests
     }
 
     [Test]
+    public void VariantNamesShouldNotCollideWithModularPipelinesNamespace()
+    {
+        TemplateVariant.All.ShouldAllBe(v => !v.Name.StartsWith("ModularPipelines"));
+    }
+
+    [Test]
     public void SolutionAndTestProjectsShouldPointIntoVariantDirectory()
     {
         foreach (var variant in TemplateVariant.All)
