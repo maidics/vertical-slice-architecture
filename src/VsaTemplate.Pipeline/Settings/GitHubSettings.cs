@@ -22,10 +22,10 @@ public sealed record GitHubSettings
     [Required]
     public required string EventName { get; set; }
 
-    public required string OidcRequestUrl { get; set; } // TODO: validate with custom validator on startup only, test the validator
+    public required string OidcRequestUrl { get; set; }
 
-    [SecretValue] // TODO: validate with custom validator on tag push only, test the validator
-    public required string OidcRequestToken { get; set; } // TODO: add test via reflection that this has the secrets attribute
+    // [SecretValue] // this leaks long JWT in v3.2.8
+    public required string OidcRequestToken { get; set; }
 
     public bool IsPullRequest => EventName == _prEvent;
 
