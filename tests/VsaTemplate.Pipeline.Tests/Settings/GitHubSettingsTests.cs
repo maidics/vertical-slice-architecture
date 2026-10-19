@@ -99,6 +99,7 @@ public sealed class GitHubSettingsTests
     }
 
     [Test]
+    [Skip("SecretValueAttribute is broken in ModularPipelines v3.2.8 and leaks long JWT.")]
     public void OidcRequestTokenShouldBeMarkedWithSecretsAttribute()
     {
         typeof(GitHubSettings)
