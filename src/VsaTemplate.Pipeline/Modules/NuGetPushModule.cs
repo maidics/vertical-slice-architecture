@@ -1,16 +1,17 @@
-﻿using ModularPipelines.Context;
+﻿using ModularPipelines.Attributes;
+using ModularPipelines.Context;
 using ModularPipelines.DotNet.Extensions;
 using ModularPipelines.DotNet.Options;
 using ModularPipelines.DotNet.Services;
 using ModularPipelines.Modules;
+using ModularPipelines.Options;
 using VsaTemplate.Pipeline.Constants;
-using VsaTemplate.Pipeline.Modules;
 using VsaTemplate.Pipeline.Settings;
 
-namespace VsaTemplate.Pipeline.Tests.Modules;
+namespace VsaTemplate.Pipeline.Modules;
 
 [DependsOn<NuGetLoginModule>]
-public sealed class NuGetPushModule : Module
+public sealed class NuGetPushModule : Module // TODO: add tests, register via extension and test registration
 {
     protected override async Task ExecuteModuleAsync(
         IModuleContext context,
@@ -37,6 +38,13 @@ public sealed class NuGetPushModule : Module
             Source = NuGetSettings.PushSource,
         };
 
-        await dotnet.Nuget.Push(options, cancellationToken: cancellationToken);
+        await dotnet.Nuget.Push(
+            options,
+            new CommandExecutionOptions
+            {
+                LogSettings = new CommandLoggingOptions { ShowCommandArguments = false }, // api key is passed as -k so logging is disabled on this
+            },
+            cancellationToken: cancellationToken
+        );
     }
 }
