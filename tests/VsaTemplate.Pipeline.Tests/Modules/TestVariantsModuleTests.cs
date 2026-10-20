@@ -45,9 +45,11 @@ public sealed class TestVariantsModuleTests()
             ISolutionFilterBuilder.Mock().Object,
             IMemoryInfo.Mock().Object
         );
+
         var config = module.GetConfiguration();
-        await config.ShouldSkipOnNonPrAndNonMainPushAsync(
-            options.Value.IsPullRequest || options.Value.IsMainPush
+        var decision = await config.SkipCondition.ShouldNotBeNull().Invoke(null!);
+        decision.ShouldSkip.ShouldBe(
+            SkipDecisions.PullRequestOrMainPushOrTagPush(options.Value).Invoke(null!).ShouldSkip
         );
     }
 
@@ -72,9 +74,7 @@ public sealed class TestVariantsModuleTests()
         {
             builder.WithName($"Variant.{variant.Name}").WasCalled(Times.Once);
             builder.WithSolution(variant.Solution).WasCalled(Times.Once);
-            builder
-                .WithProjects(p => p.SequenceEqual(variant.TestProjects))
-                .WasCalled(Times.Once);
+            builder.WithProjects(p => p.SequenceEqual(variant.TestProjects)).WasCalled(Times.Once);
         }
 
         builder.BuildAsync().WasCalled(Times.Exactly(variants.Count));

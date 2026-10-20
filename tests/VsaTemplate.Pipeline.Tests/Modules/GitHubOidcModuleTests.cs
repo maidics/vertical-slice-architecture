@@ -1,7 +1,10 @@
 ﻿using System.Text.Json;
 using Microsoft.Extensions.Options;
+using ModularPipelines.Context;
 using ModularPipelines.Http;
+using ModularPipelines.Models;
 using Shouldly;
+using VsaTemplate.Pipeline.Constants;
 using VsaTemplate.Pipeline.Interfaces;
 using VsaTemplate.Pipeline.Modules;
 using VsaTemplate.Pipeline.Settings;
@@ -35,7 +38,8 @@ public sealed class GitHubOidcModuleTests()
         var module = new GitHubOidcModule(options, secretMasker.Object);
 
         var config = module.GetConfiguration();
-        await config.ShouldSkipOnNonTagPushAsync(options.Value.IsTagPush);
+        var decision = await config.SkipCondition.ShouldNotBeNull().Invoke(null!);
+        decision.ShouldSkip.ShouldBe(SkipDecisions.TagPush(options.Value).Invoke(null!).ShouldSkip);
     }
 
     [Test]
