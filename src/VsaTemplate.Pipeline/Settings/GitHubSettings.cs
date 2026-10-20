@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using ModularPipelines.Attributes;
 
 namespace VsaTemplate.Pipeline.Settings;
 

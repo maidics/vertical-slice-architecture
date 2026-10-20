@@ -9,7 +9,6 @@ using ModularPipelines.Http;
 using ModularPipelines.Modules;
 using ModularPipelines.Options;
 using VsaTemplate.Pipeline.Constants;
-using VsaTemplate.Pipeline.Extensions;
 using VsaTemplate.Pipeline.Interfaces;
 using VsaTemplate.Pipeline.Settings;
 

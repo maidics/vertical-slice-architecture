@@ -1,7 +1,5 @@
 ﻿using ModularPipelines.Configuration;
-using VsaTemplate.Pipeline.Extensions;
 using VsaTemplate.Pipeline.Settings;
-using VsaTemplate.Pipeline.Tests.TestInfrastructure.Extensions;
 
 namespace VsaTemplate.Pipeline.Tests.Extensions;
 

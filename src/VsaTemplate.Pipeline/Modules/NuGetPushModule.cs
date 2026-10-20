@@ -8,7 +8,6 @@ using ModularPipelines.DotNet.Services;
 using ModularPipelines.Modules;
 using ModularPipelines.Options;
 using VsaTemplate.Pipeline.Constants;
-using VsaTemplate.Pipeline.Extensions;
 using VsaTemplate.Pipeline.Settings;
 
 namespace VsaTemplate.Pipeline.Modules;
