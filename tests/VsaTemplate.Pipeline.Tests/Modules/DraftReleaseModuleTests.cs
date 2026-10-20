@@ -1,9 +1,11 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Testing;
+using Microsoft.Extensions.Options;
 using Octokit;
 using Shouldly;
 using VsaTemplate.Pipeline.Constants;
 using VsaTemplate.Pipeline.Modules;
+using VsaTemplate.Pipeline.Settings;
 using VsaTemplate.Pipeline.Tests.TestInfrastructure.BaseClasses;
 using VsaTemplate.Pipeline.Tests.TestInfrastructure.Extensions;
 
@@ -18,6 +20,29 @@ public sealed class DraftReleaseModuleTests()
     private const string _repo = Template.Repository.Name;
     private readonly FakeLogger _logger = new();
     private readonly IReleasesClientMock _client = IReleasesClient.Mock();
+
+    [Test]
+    [Arguments("tag", false)]
+    [Arguments("non-tag", true)]
+    public async Task ShouldHaveCorrectSkipCondition(string refType, bool shouldSkip)
+    {
+        var options = Options.Create(
+            new GitHubSettings
+            {
+                RefType = refType,
+                RefName = "test",
+                EventName = "test",
+                OidcRequestUrl = "test",
+                OidcRequestToken = "test",
+            }
+        );
+
+        var module = new DraftReleaseModule(options);
+
+        var config = module.GetConfiguration();
+        var decision = await config.SkipCondition.ShouldNotBeNull().Invoke(null!);
+        decision.ShouldSkip.ShouldBe(SkipDecisions.TagPush(options.Value).Invoke(null!).ShouldSkip);
+    }
 
     [Test]
     public async Task CreateReleaseIfNotExistsShouldThrowIfMoreThanOneReleaseExistsForTag()
