@@ -46,6 +46,7 @@ public sealed class PipelineBuilderExtensionsTests
             typeof(GitHubOidcModule),
             typeof(NuGetLoginModule),
             typeof(NuGetPushModule),
+            typeof(DraftReleaseModule),
         ];
 
         await using var pipeline = await _builder.BuildAsync();
