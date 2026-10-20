@@ -25,7 +25,7 @@ public sealed class NuGetPushModule : Module
 
     protected override ModuleConfiguration Configure()
     {
-        return ModuleConfiguration.Create().WithNonTagPushSkip(_settings).Build();
+        return ModuleConfiguration.Create().WithSkipWhen(SkipDecisions.TagPush(_settings)).Build();
     }
 
     protected override async Task ExecuteModuleAsync(

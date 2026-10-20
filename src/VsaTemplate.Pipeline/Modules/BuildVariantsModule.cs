@@ -28,7 +28,10 @@ public sealed class BuildVariantsModule : Module
 
     protected override ModuleConfiguration Configure()
     {
-        return ModuleConfiguration.Create().WithNonPrAndNonMainPushSkip(_settings).Build();
+        return ModuleConfiguration
+            .Create()
+            .WithSkipWhen(SkipDecisions.PullRequestOrMainPushOrTagPush(_settings))
+            .Build();
     }
 
     protected override async Task ExecuteModuleAsync(
