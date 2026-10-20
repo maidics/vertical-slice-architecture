@@ -19,6 +19,9 @@ public static class SkipDecisions
 
     public static class Messages // this exists just so requirements can reuse it for logs since requirements have no skip logic
     {
+        public static string ToRequirementSkip<TRequirement>(string message) =>
+            $"{nameof(TRequirement)} - {message}";
+
         // ReSharper disable once MemberHidesStaticFromOuterClass
         public const string PullRequestOrMainPushOrTagPush =
             "Only runs on pull request, main push or tag push.";

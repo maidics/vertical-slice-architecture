@@ -21,8 +21,9 @@ public sealed partial class VersionTagRequirement(IOptions<GitHubSettings> optio
         if (!options.Value.IsTagPush)
         {
             context.Logger.LogInformation(
-                "{Requirement} - " + SkipDecisions.Messages.TagPush,
-                typeof(VersionTagRequirement)
+                SkipDecisions.Messages.ToRequirementSkip<VersionTagRequirement>(
+                    SkipDecisions.Messages.TagPush
+                )
             );
             return RequirementDecision.Passed;
         }
