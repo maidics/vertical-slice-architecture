@@ -12,11 +12,18 @@ public static class SkipDecisions
         _ =>
             settings.IsPullRequest || settings.IsMainPush || settings.IsTagPush
                 ? SkipDecision.DoNotSkip
-                : SkipDecision.Skip("Only runs on pull request, main push or tag push.");
+                : SkipDecision.Skip(Messages.PullRequestOrMainPushOrTagPush);
 
     public static Func<IModuleContext, SkipDecision> TagPush(GitHubSettings settings) =>
-        _ =>
-            settings.IsTagPush
-                ? SkipDecision.DoNotSkip
-                : SkipDecision.Skip("Only runs on tag push.");
+        _ => settings.IsTagPush ? SkipDecision.DoNotSkip : SkipDecision.Skip(Messages.TagPush);
+
+    public static class Messages // this exists just so requirements can reuse it for logs since requirements have no skip logic
+    {
+        // ReSharper disable once MemberHidesStaticFromOuterClass
+        public const string PullRequestOrMainPushOrTagPush =
+            "Only runs on pull request, main push or tag push.";
+
+        // ReSharper disable once MemberHidesStaticFromOuterClass
+        public const string TagPush = "Only runs on tag push.";
+    }
 }
