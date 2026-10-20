@@ -22,9 +22,9 @@ public sealed class DraftReleaseModuleTests()
     private readonly IReleasesClientMock _client = IReleasesClient.Mock();
 
     [Test]
-    [Arguments("tag", false)]
-    [Arguments("non-tag", true)]
-    public async Task ShouldHaveCorrectSkipCondition(string refType, bool shouldSkip)
+    [Arguments("tag")]
+    [Arguments("non-tag")]
+    public async Task ShouldHaveCorrectSkipCondition(string refType)
     {
         var options = Options.Create(
             new GitHubSettings
