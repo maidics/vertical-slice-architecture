@@ -75,8 +75,8 @@ public sealed class InstantiateTemplateVariantsModuleTests()
                 "-n",
                 variant.Name,
                 "-o",
-                "--no-update-check",
                 Path.Combine(Template.ArtifactsDirectory.TemplateVariantsDirectory, variant.Name),
+                "--no-update-check",
                 .. variant.Arguments,
             ];
 
