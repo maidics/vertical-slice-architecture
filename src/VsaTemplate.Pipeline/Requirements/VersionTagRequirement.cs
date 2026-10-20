@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using ModularPipelines.Context;
 using ModularPipelines.Models;
 using ModularPipelines.Requirements;
+using VsaTemplate.Pipeline.Constants;
 using VsaTemplate.Pipeline.Settings;
 
 namespace VsaTemplate.Pipeline.Requirements;
@@ -20,8 +21,9 @@ public sealed partial class VersionTagRequirement(IOptions<GitHubSettings> optio
         if (!options.Value.IsTagPush)
         {
             context.Logger.LogInformation(
-                "{Requirement} - returning early on non tag push.",
-                typeof(VersionTagRequirement)
+                SkipDecisions.Messages.ToRequirementSkip<VersionTagRequirement>(
+                    SkipDecisions.Messages.TagPush
+                )
             );
             return RequirementDecision.Passed;
         }

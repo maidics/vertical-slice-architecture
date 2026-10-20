@@ -3,6 +3,7 @@ using System.Text.Json;
 using Microsoft.Extensions.Options;
 using ModularPipelines.Http;
 using Shouldly;
+using VsaTemplate.Pipeline.Constants;
 using VsaTemplate.Pipeline.Interfaces;
 using VsaTemplate.Pipeline.Modules;
 using VsaTemplate.Pipeline.Settings;
@@ -20,7 +21,7 @@ public sealed class NuGetLoginModuleTests()
     [Arguments("non-tag")]
     public async Task ShouldSkipOnNonTagPushes(string refType)
     {
-        var githubOptions = Options.Create(
+        var options = Options.Create(
             new GitHubSettings
             {
                 RefType = refType,
@@ -32,13 +33,14 @@ public sealed class NuGetLoginModuleTests()
         );
 
         var module = new NuGetLoginModule(
-            githubOptions,
+            options,
             IOptions<NuGetSettings>.Mock().Object,
             IGithubSecretMasker.Mock().Object
         );
 
         var config = module.GetConfiguration();
-        await config.ShouldSkipOnNonTagPushAsync(githubOptions.Value.IsTagPush);
+        var decision = await config.SkipCondition.ShouldNotBeNull().Invoke(null!);
+        decision.ShouldSkip.ShouldBe(SkipDecisions.TagPush(options.Value).Invoke(null!).ShouldSkip);
     }
 
     [Test]

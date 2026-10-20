@@ -10,7 +10,6 @@ using ModularPipelines.DotNet.Services;
 using ModularPipelines.Models;
 using ModularPipelines.Modules;
 using VsaTemplate.Pipeline.Constants;
-using VsaTemplate.Pipeline.Extensions;
 using VsaTemplate.Pipeline.Models;
 using VsaTemplate.Pipeline.Settings;
 
@@ -28,7 +27,10 @@ public sealed class RestoreVariantsModule : Module
 
     protected override ModuleConfiguration Configure()
     {
-        return ModuleConfiguration.Create().WithNonPrAndNonMainPushSkip(_settings).Build();
+        return ModuleConfiguration
+            .Create()
+            .WithSkipWhen(SkipDecisions.PullRequestOrMainPushOrTagPush(_settings))
+            .Build();
     }
 
     protected override async Task ExecuteModuleAsync(

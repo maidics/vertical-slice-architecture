@@ -1,7 +1,9 @@
 ﻿using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using ModularPipelines.Context;
+using ModularPipelines.Models;
 using Shouldly;
+using VsaTemplate.Pipeline.Constants;
 using VsaTemplate.Pipeline.Requirements;
 using VsaTemplate.Pipeline.Settings;
 using VsaTemplate.Pipeline.Tests.TestInfrastructure.Services;
@@ -28,7 +30,9 @@ public sealed class VersionTagRequirementTests
         logger.Collector.Count.ShouldBe(1);
         logger.Collector.LatestRecord.Level.ShouldBe(LogLevel.Information);
         logger.Collector.LatestRecord.Message.ShouldBe(
-            $"{typeof(VersionTagRequirement)} - returning early on non tag push."
+            SkipDecisions.Messages.ToRequirementSkip<VersionTagRequirement>(
+                SkipDecisions.Messages.TagPush
+            )
         );
     }
 

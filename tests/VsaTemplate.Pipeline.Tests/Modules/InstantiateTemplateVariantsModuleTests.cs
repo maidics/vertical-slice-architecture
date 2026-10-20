@@ -38,9 +38,11 @@ public sealed class InstantiateTemplateVariantsModuleTests()
         );
 
         var module = new InstantiateTemplateVariantsModule(options);
+
         var config = module.GetConfiguration();
-        await config.ShouldSkipOnNonPrAndNonMainPushAsync(
-            options.Value.IsPullRequest || options.Value.IsMainPush
+        var decision = await config.SkipCondition.ShouldNotBeNull().Invoke(null!);
+        decision.ShouldSkip.ShouldBe(
+            SkipDecisions.PullRequestOrMainPushOrTagPush(options.Value).Invoke(null!).ShouldSkip
         );
     }
 

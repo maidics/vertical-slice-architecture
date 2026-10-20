@@ -8,7 +8,6 @@ using ModularPipelines.DotNet.Services;
 using ModularPipelines.Modules;
 using ModularPipelines.Options;
 using VsaTemplate.Pipeline.Constants;
-using VsaTemplate.Pipeline.Extensions;
 using VsaTemplate.Pipeline.Settings;
 
 namespace VsaTemplate.Pipeline.Modules;
@@ -25,7 +24,7 @@ public sealed class NuGetPushModule : Module
 
     protected override ModuleConfiguration Configure()
     {
-        return ModuleConfiguration.Create().WithNonTagPushSkip(_settings).Build();
+        return ModuleConfiguration.Create().WithSkipWhen(SkipDecisions.TagPush(_settings)).Build();
     }
 
     protected override async Task ExecuteModuleAsync(

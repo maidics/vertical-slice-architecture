@@ -8,7 +8,7 @@ using ModularPipelines.Context;
 using ModularPipelines.Http;
 using ModularPipelines.Modules;
 using ModularPipelines.Options;
-using VsaTemplate.Pipeline.Extensions;
+using VsaTemplate.Pipeline.Constants;
 using VsaTemplate.Pipeline.Interfaces;
 using VsaTemplate.Pipeline.Settings;
 
@@ -28,7 +28,7 @@ public sealed class GitHubOidcModule : Module<string>
 
     protected override ModuleConfiguration Configure()
     {
-        return ModuleConfiguration.Create().WithNonTagPushSkip(_settings).Build();
+        return ModuleConfiguration.Create().WithSkipWhen(SkipDecisions.TagPush(_settings)).Build();
     }
 
     protected override async Task<string?> ExecuteAsync(

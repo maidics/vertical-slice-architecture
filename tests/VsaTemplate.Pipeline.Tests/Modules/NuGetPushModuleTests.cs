@@ -2,6 +2,7 @@
 using ModularPipelines.Context;
 using ModularPipelines.DotNet.Options;
 using ModularPipelines.DotNet.Services;
+using Shouldly;
 using VsaTemplate.Pipeline.Constants;
 using VsaTemplate.Pipeline.Modules;
 using VsaTemplate.Pipeline.Settings;
@@ -33,7 +34,8 @@ public sealed class NuGetPushModuleTests()
         var module = new NuGetPushModule(options);
 
         var config = module.GetConfiguration();
-        await config.ShouldSkipOnNonTagPushAsync(options.Value.IsTagPush);
+        var decision = await config.SkipCondition.ShouldNotBeNull().Invoke(null!);
+        decision.ShouldSkip.ShouldBe(SkipDecisions.TagPush(options.Value).Invoke(null!).ShouldSkip);
     }
 
     [Test]
@@ -60,10 +62,7 @@ public sealed class NuGetPushModuleTests()
                             Template.ArtifactsDirectory.PackageReleaseDirectory,
                             "*.nupkg"
                         ),
-                e =>
-                    e != null
-                    && e.LogSettings != null
-                    && !e.LogSettings.ShowCommandArguments,
+                e => e != null && e.LogSettings != null && !e.LogSettings.ShowCommandArguments,
                 Any()
             )
             .WasCalled(Times.Once);
