@@ -26,7 +26,8 @@ Requirements have no skip logic: handled with a log and early return.
 | `TestVariantsModule` | `BuildVariantsModule` | PR, main push or tag push | Runs unit and web tests for all variants **in parallel**. |
 | `GitHubOidcModule` | `TestVariantsModule` | Tag push | Retrieves an OIDC token from GitHub to issue the short lived NuGet API token. |
 | `NuGetLoginModule` | `GitHubOidcModule` | Tag push | Retrieves a short lived API key to NuGet (Trusted Publishing) using the GitHub issued OIDC token. |
-|`NuGetPushModule` | `NuGetLoginModule` | Tag push | Publishes the template to NuGet. |
+| `NuGetPushModule` | `NuGetLoginModule` | Tag push | Publishes the template to NuGet. |
+| `DraftReleaseModule` | `NuGetPushModule` | Tag push | Drafts a new GitHub release for the tag. |
 
 For parallelized modules:
 ```csharp

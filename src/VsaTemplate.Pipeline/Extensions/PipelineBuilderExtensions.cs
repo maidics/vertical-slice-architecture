@@ -63,7 +63,8 @@ public static class PipelineBuilderExtensions
                 .AddModule<TestVariantsModule>()
                 .AddModule<GitHubOidcModule>()
                 .AddModule<NuGetLoginModule>()
-                .AddModule<NuGetPushModule>();
+                .AddModule<NuGetPushModule>()
+                .AddModule<DraftReleaseModule>();
         }
     }
 }
