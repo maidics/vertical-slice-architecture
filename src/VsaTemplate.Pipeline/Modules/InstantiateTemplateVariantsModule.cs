@@ -65,6 +65,7 @@ public sealed class InstantiateTemplateVariantsModule : Module
                             "-n",
                             v.Name,
                             "-o",
+                            "--no-update-check",
                             Path.Combine(
                                 Template.ArtifactsDirectory.TemplateVariantsDirectory,
                                 v.Name
