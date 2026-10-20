@@ -69,6 +69,7 @@ public sealed class InstantiateTemplateVariantsModule : Module
                                 Template.ArtifactsDirectory.TemplateVariantsDirectory,
                                 v.Name
                             ),
+                            "--no-update-check",
                             .. v.Arguments,
                         ],
                     },
