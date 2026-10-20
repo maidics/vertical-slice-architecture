@@ -42,4 +42,10 @@ public static class Template
             "template-variants"
         );
     }
+
+    public static class Repository
+    {
+        public const string Owner = "maidics";
+        public const string Name = "vertical-slice-architecture";
+    }
 }

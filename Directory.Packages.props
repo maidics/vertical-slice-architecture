@@ -41,6 +41,7 @@
     <PackageVersion Include="TUnit" Version="1.75.0" />
     <PackageVersion Include="TUnit.Mocks" Version="1.75.0" />
     <!--#if (false) -->
+    <PackageVersion Include="ModularPipelines.GitHub" Version="3.2.8" />
     <PackageVersion Include="Testcontainers" Version="4.16.0" />
     <PackageVersion Include="TomLonghurst.EnumerableAsyncProcessor" Version="1.1.0" />
     <!--#endif -->
